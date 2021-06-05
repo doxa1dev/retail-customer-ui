@@ -7,6 +7,7 @@
         "start": "ng serve --open",
         "start-hmr": "ng serve --configuration hmr --source-map=false --hmr-warning=false",
         "start-hmr-sourcemaps": "ng serve --configuration hmr --source-map=true --hmr-warning=false",
+        "ng-high-memory": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --configuration=prod",
         "build": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --dev",
         "build-stats": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --dev --stats-json",
         "build-prod": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --prod",
