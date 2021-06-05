@@ -1,23 +1,23 @@
-// // Import Fuse core library
-// @import "@fuse/scss/core";
+// Import Fuse core library
+@import "@fuse/scss/core";
 
-// // Import app.theme.scss
-// @import "app/app.theme";
+// Import app.theme.scss
+@import "app/app.theme";
 
-// @import 'variables';
-// @import '../node_modules/font-awesome/scss/font-awesome.scss';
+@import 'variables';
+@import '../node_modules/font-awesome/scss/font-awesome.scss';
 
-// @import '~primeicons/primeicons.css';
-// @import '~primeng/resources/themes/nova-light/theme.css';
-// @import '~primeng/resources/primeng.min.css';
-// @import '~pretty-checkbox/src/pretty-checkbox.scss';
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/nova-light/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
 
-// // Import ag-grid scss
-// @import "~ag-grid-community/dist/styles/ag-grid.css";
-// @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+// Import ag-grid scss
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
-// // Import swiper
-// @import '~swiper/swiper-bundle';
+// Import swiper
+@import '~swiper/swiper-bundle';
 
 
 body{
