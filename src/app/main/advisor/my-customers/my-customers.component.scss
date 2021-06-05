@@ -1,0 +1,105 @@
+@import "src/@fuse/scss/fuse";
+@import "src/@fuse/scss/partials/background";
+::ng-deep .mat-paginator {
+    .mat-paginator-range-label {
+        margin: 0 10px 0 10px !important;
+    }
+}
+.my-customers {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: solid 20px var(--fuse-background) !important;
+    color: var(--text-color) !important;
+    font-size: var(--mobi-primary-text) !important;
+  
+    @include media-breakpoint("xs") {
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        // border-bottom: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 70px var(--fuse-background) !important;
+    }
+
+    .header-my-customers {
+        width: 100%;
+        @include media-breakpoint("xs") {
+        //   padding-right: 10px;
+        }
+        @include media-breakpoint("sm") {
+          padding-right: 42px;
+        }
+    }
+
+    .body-my-customers {
+        padding: 0 25px;
+
+        mat-card {
+            color: var(--text-color) !important;
+            font-size: var(--mobi-primary-text) !important;
+            box-shadow: 0px 2px 5px #00000029 !important;
+            margin-bottom: 15px;
+
+            .name-customer {
+                font-weight: 600;
+                margin: 0px;
+                color: var(--primary-color);
+            }
+            .customer-detail{
+                color: #0A73EB;
+                //font-weight: 600;
+                margin: 0px;
+                margin-left: auto;
+                margin-right: 0px;
+
+                @include media-breakpoint("xs") {
+                    font-size: 12px;
+                    margin-left: auto;
+                     margin-right: 0px;
+                }
+            }
+            .content-my-customers {
+                padding-top: 5px;
+                display: flex;
+                width: 100%;
+
+                p {
+                    word-break: break-all;;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 1;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    margin: 0px;
+                }
+
+                .left {
+                    width: 30%;
+                }
+
+                .right {
+                    width: 70%;
+                }
+            }
+        }
+    }
+
+    .footer-customer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

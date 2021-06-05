@@ -1,0 +1,40 @@
+<div class="qr-code">
+    <div class="order-qr" fxLayout="column" fxLayoutAlign="">
+
+        <div class="qr-header">
+            <!-- <button mat-icon-button routerLink="/order-history" routerLinkActive="/order-history"
+                style="text-decoration: none;">
+                <mat-icon (click)="back()">chevron_left</mat-icon>
+            </button>
+            <a (click)="back()" class="back-button" routerLink="/order-history" routerLinkActive="/order-history">{{ 'ADVISOR_MARK.REASONS_NOT_TO_HOST' | translate }}</a> -->
+            <app-title [type]="title" [message]="'ADVISOR_MARK.REASONS_NOT_TO_HOST'">
+            </app-title>
+        </div>
+
+        <div>
+            <mat-card id="nounbox-text">
+                <p>{{ 'ADVISOR_MARK.NO_HOSTED_REASONS' | translate }}</p>
+                <form>
+                    <mat-radio-group aria-label="Select an option"  [(ngModel)] = "reason" [ngModelOptions]="{standalone: true}">
+                        <mat-radio-button *ngFor="let option of reasonList" [value]="option.value">
+                            <span class="wrap-mat-radio-label">{{option.label}}</span>
+                        </mat-radio-button>
+                        <mat-radio-button value="100">{{ 'ADVISOR_MARK.OTHER_REASONS' | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                    <input matInput *ngIf="reason == '100'" [(ngModel)]="reasonInput" [ngModelOptions]="{standalone: true}" placeholder="Fill reasons" (keyup)="onKey($event)">
+                        <mat-error class="error-message" *ngIf="reason == '100' && isError">
+                            {{ 'ORDER.NO_UNBOX_ERROR_REQUIRE' | translate }}
+                        </mat-error>
+                    <!-- <mat-form-field appearance="none">
+                        <input matInput placeholder="{{ 'ADVISOR_MARK.FILL_REASONS' | translate }}" [(ngModel)]="reasonInput" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field> -->
+                    <button mat-raised-button class="submit-button" aria-label="LOG IN"  (click)="backHistory()">
+                        {{ 'ADVISOR_MARK.CONFIRM' | translate }}
+                    </button>
+                </form>
+            </mat-card>
+        </div>
+
+    </div>
+
+</div>

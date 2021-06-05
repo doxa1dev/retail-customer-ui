@@ -1,0 +1,198 @@
+
+@import "../../../../@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+#view-invoice {
+    color: var(--text-color) !important;
+    @include background();
+    font-size: 12px !important;
+
+    @include media-breakpoint('xs') {
+        padding-bottom: 60px;
+    }
+
+    @media only screen and (max-width : 350px) {
+        font-size: 11px !important;
+    }
+
+    #invoice-summary-wrapper {
+        padding: 2px !important;
+        flex: 1 0 auto;
+        @include backgroundPage();
+
+        #link {
+            display: inline-block;
+            // margin-top: 15px !important;
+            margin-left: 0px;
+            height: 35px;
+            margin-top: -4px;
+            opacity: 1;
+
+            @media only screen and (min-width : 750px) {
+                font-size: 18px;
+                color: var(--text-color) !important;
+            }
+
+
+            a {
+                color: var(--text-color) !important;
+                font-size: 18px;
+                position: absolute;
+                padding: auto;
+                margin-left: 0;
+                color: black;
+                text-decoration: underline !important;
+
+                @media only screen and (max-width : 350px) {
+                    margin-top: 3px !important;
+                }
+                @include media-breakpoint("xs") {
+                    font-size: 12px;
+                }
+            }
+        }
+        .invoice-detail{
+            width: 90%;
+            height: 100%;
+            border: 1px solid black;
+            margin: 0 auto;
+            margin-top: 15px;
+            margin-bottom: 15px;
+
+            .header-title{
+                display: flex;
+                height: auto;
+                .img{
+                    width: 35%;
+                    align-items: center;
+                    position: relative;
+                    .logo{
+                        width: 80%;
+                        top: 50%;
+                        left: 10%;
+                        transform: translate(0%, -50%);
+                        position: absolute;
+                    }
+                }
+                .company-detail{
+                    width: 62%;
+                    text-align: right;
+                    padding-top: 15px;
+                    .name{
+                        font-weight: 600;
+                    }
+                    .detail{
+                        // font-size: 14px;
+                        @include media-breakpoint("xs") {
+                            font-size: 9px;
+                        }
+                    }
+                    span{
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .name-page{
+                font-weight: 600;
+                width: 100%;
+                text-align: center;
+                margin: 3%;
+                font-size: 22px;
+            }
+            table{
+                @include media-breakpoint("xs") {
+                    font-size: 9px;
+                }
+                width: 97%;
+                margin: 0 auto;
+            }
+            .tb3-invoice{
+                @include media-breakpoint("xs") {
+                    font-size: 9px;
+                }
+                width: 97%;
+                margin: 0 auto;
+                border-collapse: collapse;
+                .bold{
+                  font-weight: 600;
+                }
+            }
+            .tb5-invoice{
+                width: 97%;
+                margin: 0 auto;
+                @include media-breakpoint("xs") {
+                    font-size: 9px;
+                }
+                border-collapse: collapse;
+                .bold{
+                  font-weight: 600;
+                }
+            }
+            .tb6-invoice{
+                width: 97%;
+                margin: 0 auto;
+                @include media-breakpoint("xs") {
+                    font-size: 9px;
+                }
+                border-collapse: collapse;
+                .bold{
+                  font-weight: 600;
+                }
+                .detailColor{
+                  text-align: right;
+                }
+            }
+
+            .tb7-invoice{
+                width: 97%;
+                margin: 0 auto;
+                @include media-breakpoint("xs") {
+                    font-size: 9px;
+                }
+                border-collapse: collapse;
+                .bold{
+                  font-weight: 600;
+                }
+            }
+
+            .divFooter{
+                font-size: 11px;
+                display: flex;
+                width: 97%;
+                margin: 0 auto;
+                margin-top: 20%;
+                margin-bottom: 10px;
+                @include media-breakpoint("xs") {
+                    font-size: 7px;
+                }
+                .left{
+                  width: 65%;
+                }
+                .right{
+                  width: 35%;
+                  .vorwerk{
+                    width: 60px;
+                    height: 60px;
+                    float: right;
+                  }
+                }
+              }
+        
+        }
+    }
+    .footer{
+        position: sticky !important;
+        bottom: 0;
+        width: 100%;
+        // background-color: red !important;
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

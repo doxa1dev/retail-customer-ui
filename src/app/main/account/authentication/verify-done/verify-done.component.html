@@ -1,0 +1,47 @@
+<div  id="verify" fxLayout="column">
+
+    <div id="verify-form-wrapper"  fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="verify-form"  [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div id="FormTitle">
+                <div class="formLogo">
+                    <img src="assets/images_doxa/thermomix-logo.png">
+                </div>
+                <div class="fromLanguage">
+                    <button mat-icon-button [matMenuTriggerFor]="languagues">
+                        <mat-icon>language</mat-icon>
+                        <p style="margin: 0px; font-size: var(--mobi-label);">{{showLanguage}}</p>
+                    </button>
+                </div>
+                <mat-menu  #languagues="matMenu" [overlapTrigger]="false">
+                    <button mat-menu-item (click)="getLanguge('en')">English</button>
+                    <button mat-menu-item (click)="getLanguge('en')">Chinese</button>
+                </mat-menu>
+            </div>
+            <div id="notConfirmVerify">
+                <div id="VerifyTitle">
+                    <p class="verifyText">{{ 'VERIFY_CODE.CONGRATULATION' | translate }}</p>
+                </div>
+                <p class="verify-text">{{ 'VERIFY_CODE.PHONE_HAS_BEEN' | translate }}</p>
+            </div>
+
+
+            <div id="confirmVerify"   fxLayout="column" >
+                
+                <div  fxLayout="column" fxLayoutAlign="center center">
+            
+                    <div  [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                        <img src="../../../../assets/images/payment/undraw_celebration_0jvk.png" alt="">
+                        <button id="btnConfirmVerify" mat-button (click)="backToLogin()">{{ 'VERIFY_CODE.BACK' | translate }}</button>
+                    </div>
+            
+                </div>
+            
+            </div>
+        </div>
+        
+        <h2 class="FormFooter">{{ 'VERIFY_CODE.POWERED_BY_DOXA' | translate }}</h2>
+    </div>
+
+</div>

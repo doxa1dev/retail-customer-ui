@@ -1,0 +1,77 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+
+@import 'variables';
+@import '../node_modules/font-awesome/scss/font-awesome.scss';
+
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/nova-light/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
+
+// Import ag-grid scss
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+// Import swiper
+@import '~swiper/swiper-bundle';
+
+
+body{
+    video{
+        height: 200px !important;
+        border: 1px dashed black;
+    }
+
+    .swal2-popup {
+        width: auto !important;
+        max-width: 100%;
+    }
+
+    .image-popup-payment-method {
+        margin-top: 30px;
+    }
+
+    .btn-close-popup-image-payment-method {
+        font-size: 35px !important;
+    }
+}
+
+:root {
+    --primary-color:#269a3e;
+    --form-background: #eeeeee;
+    --fuse-background:#eeeeee;
+    --text-color: #5a616f;
+    --placeholder-color: #d4d4d4;
+    --input-color: #3a3a3a;
+    --link-color: #0a73eb;
+    --red-color: #DE3535;
+    --border-color: #707070;
+    --yellow-background: #f8f6b2;
+    --descrp-background: #f3f3f3;
+    --button-disable-background:gray; 
+    --disabled-form : #f0f0f0;
+    // Text-size
+    --mobi-title-text : 16px;
+    --mobi-box-text : 11px;
+    --mobi-primary-text: 12px;
+    --mobi-small-text: 11px;
+    --mobi-large-button-text: 14px;
+    --mobi-medium-button-text: 14px;
+    --mobi-small-button-text: 12px;
+    --mobi-label : 10px;
+
+    --web-title-text : 24px;
+    --web-box-text: 16px;
+    --web-primary-text: 18px;
+    --web-small-text: 16px;
+    --web-button-text : 14px;
+    --web-label: 16px;
+
+}
+.ui-widget {
+    font-family: Arial, sans-serif !important;
+}

@@ -1,0 +1,223 @@
+<div class="customer-order-history">
+    <div>
+        <app-title [type]="title" [message]="'CUSTOMER_ORDER.CUSTOMER_ORDER'">
+        </app-title>
+    </div>
+    <mat-tab-group mat-stretch-tabs class="tabs" [(selectedIndex)]="selectedIndex" (selectedTabChange)="onTabChanged($event);">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span *ngIf="toPayLength > 0" class="number-item ng-star-inserted">{{ordersLength}}</span>
+                {{ 'CUSTOMER_ORDER.ALL_ORDERS' | translate }}
+            </ng-template>
+            <ng-template matTabContent>
+                <div class="order-tab-body" 
+                    infiniteScroll 
+                    infiniteScrollDistance=2
+                    infiniteScrollThrottle=50
+                    [scrollWindow]="false" 
+                    (scrolled)="onScroll()">
+
+                    <p class="all-orders-message">{{ 'CUSTOMER_ORDER.ALL_ORDER_MESSAGE' |  translate }}</p>
+                    <div class="search-box">
+                        <input type="text" placeholder="{{ 'CUSTOMER_ORDER.SEARCH_ORDER' | translate }}"
+                            [(ngModel)]="keySearch"
+                            (keyup)="search($event)"
+                        />
+                        <mat-icon matSuffix *ngIf="!isSearch">search</mat-icon>
+                        <mat-spinner *ngIf="isSearch"></mat-spinner>
+                    </div>
+                    
+                    <app-order-list-product 
+                        [listOrder]="listOrders" 
+                        [showIsBuying]=true 
+                        [showIsCustomerPay]=true [showStatus]=true
+                        [showCustomer]=true [showAdvisor]=false
+                        >
+                    </app-order-list-product>
+                </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="To Pay">
+            <ng-template mat-tab-label>
+                <span *ngIf ="toPayLength > 0" class="number-item ng-star-inserted">{{toPayLength}}</span>
+                {{ 'CUSTOMER_ORDER.TO_PAY' | translate }}
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product
+                    [listOrder] = "listOrders"
+                    [showIsBuying] =true
+                    [showIsCustomerPay]=true
+                    [showCustomer]=true [showAdvisor]=false
+                    message = "{{ 'CUSTOMER_ORDER.WAITING_PAYMENT' | translate }}">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="To Verify">
+            <ng-template mat-tab-label>
+                <span *ngIf ="toVerifyLength > 0" class="number-item ng-star-inserted">{{toVerifyLength}}</span>
+                {{ 'CUSTOMER_ORDER.TO_VERIFY' | translate }} 
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product 
+                    [listOrder] = "listOrders"
+                    [showIsBuying] =true
+                    [showIsCustomerPay]=true
+                    [showCustomer]=true [showAdvisor]=false
+                    message = "{{ 'CUSTOMER_ORDER.WAITING_OFFICE_VERIFY' | translate }}">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="To Ship"> 
+            <ng-template mat-tab-label>
+                <span *ngIf ="toShipLength > 0" class="number-item ng-star-inserted">{{toShipLength}}</span>
+                {{ 'CUSTOMER_ORDER.TO_SHIP' | translate }}  
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product 
+                    [listOrder] = "listOrders"
+                    [showIsBuying] =true
+                    [showIsCustomerPay]=true
+                    [showCustomer]=true [showAdvisor]=false
+                    message = "{{ 'CUSTOMER_ORDER.WAITING_OFFICE_SHIP' | translate }} ">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="To Receive"> 
+            <ng-template mat-tab-label>
+                <span *ngIf ="toReceiveLength > 0" class="number-item ng-star-inserted">{{toReceiveLength}}</span>
+                {{ 'CUSTOMER_ORDER.TO_RECEIVE' | translate }}  
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product 
+                    [listOrder] = "listOrders"
+                    [showIsBuying] =true
+                    [showIsCustomerPay]=true
+                    [showCustomer]=true [showAdvisor]=false
+                    message = "{{ 'CUSTOMER_ORDER.WAITING_CUSTOMER_RECEIVE' | translate }}  ">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span *ngIf ="toUnboxLength > 0" class="number-item ng-star-inserted">{{toUnboxLength}}</span>
+                {{ 'CUSTOMER_ORDER.TO_UNBOX' | translate }} 
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product 
+                    [listOrder] = "listOrders"
+                    [showIsBuying] =true
+                    [showIsCustomerPay]=true
+                    [showCustomer]=true [showAdvisor]=false
+                    message = "{{ 'CUSTOMER_ORDER.WAITING_CUSTOMER_UNBOX' | translate }}">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span *ngIf ="toHostLength > 0" class="number-item ng-star-inserted">{{toHostLength}}</span>
+                {{ 'CUSTOMER_ORDER.TO_HOST' | translate }} 
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product 
+                    [listOrder] = "listOrders"
+                    [showIsBuying] =true
+                    [showIsCustomerPay]=true
+                    [showCustomer]=true [showAdvisor]=false
+                    message = "{{ 'CUSTOMER_ORDER.WAITING_CUSTOMER_HOST_PARTY' | translate }}">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <span *ngIf ="completedLength > 0" class="number-item ng-star-inserted">{{completedLength}}</span>
+                {{ 'CUSTOMER_ORDER.COMPLETED' | translate }}
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product 
+                    [listOrder] = "listOrders"
+                    [showIsBuying] =true
+                    [showIsCustomerPay]=true
+                    [showCustomer]=true [showAdvisor]=false
+                    message = "{{ 'CUSTOMER_ORDER.ORDER_COMPLETED' | translate }}">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab>
+        <!-- <mat-tab>
+            <ng-template mat-tab-label>
+                <span *ngIf ="cancelLength > 0" class="number-item ng-star-inserted">{{cancelLength}}</span>
+                {{ 'CUSTOMER_ORDER.CANCELLED' | translate }}
+            </ng-template>
+            <ng-template matTabContent>
+            <div class = "order-tab-body"
+                infiniteScroll
+                infiniteScrollDistance=2
+                infiniteScrollThrottle=50
+                [scrollWindow]="false"
+                (scrolled)="onScroll()"
+            >
+                <app-order-list-product 
+                    [listOrder] = "listOrders"
+                    message = "{{ 'CUSTOMER_ORDER.ORDER_CANCELLED' | translate }}">
+                </app-order-list-product>
+            </div>
+            </ng-template>
+        </mat-tab> -->
+        
+    </mat-tab-group>
+</div>

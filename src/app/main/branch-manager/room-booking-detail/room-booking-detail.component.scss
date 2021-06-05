@@ -1,0 +1,116 @@
+@import "src/@fuse/scss/fuse";
+
+.container {
+    width: 100% !important;
+    background-color: #DFDFDF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    @include media-breakpoint('xs') {
+        padding-bottom: 60px;
+        margin-bottom: 10px;
+    }
+
+    .branch-manager-top {
+        font-size: 12px;
+        color: var(--text-color);
+        width: 90%;
+        margin: 0 auto;
+        background-color: white;
+        padding-bottom: 10px;  
+        padding-top: 5px;    
+        margin-bottom: 0px;  
+    }   
+    .img-cover{
+        width: 100%;
+        img{
+            width: 100%;
+            object-fit: contain;
+        }
+    }
+    .branch-manager-bottom {
+        font-size: 12px;
+        color: var(--text-color);
+        width: 90%;
+        margin: 0 auto;
+        background-color: white;
+        padding-bottom: 50px;
+        .contentBranch{
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 5px 20px;
+            .titleText{
+                font-weight: bolder;
+                color: var(--primary-color) !important;
+            }
+            table{
+                .righcolumn{
+                    padding-left: 20px;
+                }
+            }
+            #check-room-text{
+                font-size: 18px;
+                color: var(--link-color);
+                text-decoration: none;
+                font-weight: bolder;
+                @include media-breakpoint("xs") {
+                    font-size: 12px;
+                }
+                cursor: pointer;
+            }
+            .check-room{
+                p{
+                    margin-bottom: 5px;
+                    font-size: 18px;
+                    @include media-breakpoint("xs") {
+                        font-size: 12px;
+                    }
+                }
+                input{
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid var(--border-color);
+                    border-radius: 8px;
+                }
+                .error-input{
+                    padding: 5px 0px;
+                    color: var(--red-color);
+                }
+            }
+            .btn-branch{
+                margin: 20px 0px ;
+                width: 100%;
+                display: block;
+                #btn-reject, #btn-approve{
+                    color: white;
+                    font-size: 16PX;
+                    @include media-breakpoint("xs") {
+                        width: 47%;
+                        display: inline-block;
+                        font-size: 14PX;
+                        
+                    }
+                    height: 40px;
+                    border-radius: 8px;
+                }
+                #btn-reject{
+                    background-color: var(--red-color);
+                    float: left;
+                }
+                #btn-approve{
+                    background-color: var(--primary-color);
+                    float: right;
+                }
+            }
+        }
+    } 
+
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

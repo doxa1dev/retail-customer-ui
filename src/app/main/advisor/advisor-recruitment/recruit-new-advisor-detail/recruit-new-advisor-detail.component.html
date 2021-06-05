@@ -1,0 +1,124 @@
+<div style="width: 100%;">
+    <div class="recruit-new-advisor-detail" *ngIf="customerInformation != null || customerInformation != undefined">
+        <div class="form-new-advisor-detail">
+            <button class="icon-back" (click)="back()" mat-icon-button style="text-decoration: none; cursor: pointer;">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <span class="text-new-advisor-detail">{{ 'RECRUIT_NEW_ADVISOR.RECRUIT_NEW_ADVISOR' | translate }}</span>
+        </div>
+    
+        <div class="advisor-detail-data" [formGroup]="bankCustomer">
+            <mat-card>
+    
+                <div class="customer-information">
+                    <p class="title">{{ 'CUSTOMER_INFORMATION.CUSTOMER_INFORMATION' | translate }}</p>
+    
+                    <div class="body" fxLayout="column">
+    
+                        <div fxLayout="row" class="body-name">
+    
+                            <div class="name-info" fxFlex="35">
+                                <p>{{ 'CUSTOMER_INFORMATION.NAME' | translate }}:</p>
+                                <p>{{ 'CUSTOMER_INFORMATION.EMAIL' | translate }}:</p>
+                                <p>{{ 'CUSTOMER_INFORMATION.PHONE_NUMBER' | translate }}:</p>
+                            </div>
+    
+                            <div class="name-data" fxFlex="65">
+                                <p class="name">{{customerInformation.customerName}}</p>
+                                <p>{{customerInformation.customerEmail}}</p>
+                                <p>{{customerInformation.customerPhoneNumber}}</p>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                    <img class="img-customer" src="{{customerInformation.customerImage}}">
+    
+                </div>
+    
+                <mat-divider></mat-divider>
+    
+                <div class="bank-info">
+                    <!-- <p>{{ 'CUSTOMER_INFORMATION.NATIONALITY' | translate }}</p>
+                    <p-dropdown id="nationality" [options]="nationalities" [(ngModel)]="selectedNationality"
+                        [ngModelOptions]="{standalone: true}" [style]="{'width':'100%','height':'48px'}">
+                        <ng-template let-item pTemplate="selectedItem">
+                            <span style="vertical-align:middle">{{item.label}}</span>
+                        </ng-template>
+                        <ng-template let-dis pTemplate="item">
+                            <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                                <div style="font-size:14px;float:left;margin-top:4px">{{dis.label}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown> -->
+    
+                    <p>{{ 'CUSTOMER_INFORMATION.NATIONALITY' | translate }}</p>
+                    <p-dropdown class="selectBank" formControlName="nationalityCode"
+                        placeholder="{{ 'CUSTOMER_INFORMATION.SELECT_NATIONALITY' | translate }}" [options]="nationalities"
+                        optionLabel="label">
+                    </p-dropdown>
+                    <mat-error class="error-message"
+                        *ngIf="bankCustomer.get('nationalityCode').hasError('required') && isShow">
+                        {{ 'CUSTOMER_INFORMATION.NATIONALITY_IS_REQUIRED' | translate }}
+                    </mat-error>
+    
+                    <p>{{ 'CUSTOMER_INFORMATION.NATIONAL_ID' | translate }}</p>
+                    <input formControlName="nationalID"
+                        placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_NATIONAL_ID' | translate }}">
+                    <mat-error class="error-message" *ngIf="isNationalIdRequired">
+                        {{ 'CUSTOMER_INFORMATION.NATIONAL_ID_REQUIRED' | translate }}
+                    </mat-error>
+    
+                    <p>{{ 'CUSTOMER_INFORMATION.BANK_CODE' | translate }}</p>
+                    <p-dropdown class="selectBank" formControlName="bankCode"
+                        placeholder="{{ 'CUSTOMER_INFORMATION.SELECT_BANK_CODE' | translate }}" [options]="banks"
+                        optionLabel="bank_name"></p-dropdown>
+                    <mat-error class="error-message" *ngIf="bankCustomer.get('bankCode').hasError('required') && isShow">
+                        {{ 'CUSTOMER_INFORMATION.BANK_CODE_IS_REQUIRED' | translate }}
+                    </mat-error>
+    
+                    <p>{{ 'CUSTOMER_INFORMATION.BANK_ACCOUNT_NUMBER' | translate }}</p>
+                    <input type="text" formControlName="bankAccount"
+                        placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_BANK_ACCOUNT_NUMBER' | translate }}">
+                    <!-- check required bankAccount -->
+                    <mat-error class="error-message" *ngIf="bankCustomer.get('bankAccount').hasError('required') && isShow">
+                        {{ 'CUSTOMER_INFORMATION.BANK_ACCOUNT_NUMBER_IS_REQUIRED' | translate }}
+                    </mat-error>
+                    <!-- check number -->
+                    
+                    <!-- <mat-error class="error-message" *ngIf="!bankCustomer.get('bankAccount').hasError('required') 
+                    && bankCustomer.get('bankAccount').hasError('bankAccount')
+                    && (bankCustomer.get('bankAccount').dirty || bankCustomer.get('bankAccount').touched)
+                    && isShow">
+                        {{ 'CUSTOMER_INFORMATION.BANK_ACCOUNT_NUMBER_FAILED' | translate }}
+                    </mat-error> -->
+    
+                    <p>{{ 'CUSTOMER_INFORMATION.BANK_HOLDER_NAME' | translate }}</p>
+                    <input formControlName="bankHolder"
+                        placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_BANK_HOLDER_NAME' | translate }}">
+                    <!-- check required bankAccount -->
+                    <mat-error class="error-message" *ngIf="bankCustomer.get('bankHolder').hasError('required') && isShow">
+                        {{ 'CUSTOMER_INFORMATION.BANK_HOLDER_NAME_IS_REQUIRED' | translate }}
+                    </mat-error>
+    
+                    <p>{{ 'CUSTOMER_INFORMATION.BANK_HOLDER_IC' | translate }}</p>
+                    <input formControlName="bankHolderIC"
+                        placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_BANK_HOLDER_IC' | translate }}">
+                    <!-- check required bankAccount -->
+                    <mat-error class="error-message"
+                        *ngIf="bankCustomer.get('bankHolderIC').hasError('required') && isShow">
+                        {{ 'CUSTOMER_INFORMATION.BANK_HOLDER_IC_IS_REQUIRED' | translate }}
+                    </mat-error>
+                </div>
+            </mat-card>
+    
+            <div class="footer-btn">
+                <button class="btn-back" (click)="back()">{{ 'CUSTOMER_INFORMATION.BACK' | translate }}</button>
+                <!-- <button class="btn-submit" (click)="nextToDone()">{{ 'CUSTOMER_INFORMATION.SUBMIT' | translate }}</button> -->
+                <app-button-loading (click)="nextToDone()" [buttonName]='buttonName' [active]='active'></app-button-loading>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

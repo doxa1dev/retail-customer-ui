@@ -1,0 +1,221 @@
+<div id="payment-options-full"  fxLayout="column" *ngIf="!loading">
+  <!-- style="padding: 10px 20px;height: auto" -->
+  <div id="paymentoptions-wrapper" style="height : auto"  fxLayout="column">
+    <div id="link" style="margin-bottom: 20px;">
+      <app-title  [type]="title" [message]="'PAYMENT.PAYMENT'"></app-title>
+    </div>
+
+    <div class="order-summary" >
+      <mat-accordion   class="example-headers-align">
+          <mat-expansion-panel (opened)="panelOpenStateSummary = true"
+                              (closed)="panelOpenStateSummary = false" hideToggle="true" [expanded]="panelOpenStateSummary">
+              <mat-expansion-panel-header  [ngClass]="panelOpenStateSummary ? 'active' : 'inactive' ">
+                  <mat-panel-title [ngClass]="panelOpenStateSummary ? 'titleactive' : 'titleinactive' ">
+                      Summary
+                  </mat-panel-title>
+                  <mat-panel-description style="flex-grow: 0; margin-right: 0px;">
+                  <mat-icon *ngIf="!panelOpenStateSummary">add</mat-icon>
+                  <mat-icon *ngIf="panelOpenStateSummary">remove</mat-icon>
+                  </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="mat-expansion-panel-body">
+                  <div class="list-products" >
+                      <app-order-summary-detail [data]="dataOrderSummary"></app-order-summary-detail>
+                  </div>
+              </div>
+          </mat-expansion-panel>
+          
+      </mat-accordion>
+    </div>
+
+    <!-- show options -->
+    <div id="FormField" style="margin-top: 10px; display: block;">
+      <div id="text">
+        <p>{{ "PAYMENT_OPTION_FULL.SELECT_PAYMENT_OPTION" | translate }}</p>
+      </div>
+      <div id="checkbox">
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button
+            *ngIf="checkDisplayFullPayment()"
+            [checked]="true"
+            value="1"
+            id="payfull"
+            (change)="radioPayFully($event.value)"
+          >
+            <p>
+              {{ "PAYMENT_OPTION_FULL.FULL_PAYMENT" | translate }}
+            </p> </mat-radio-button
+          ><br />
+          <p
+            class="promotion-text"
+            *ngIf="hasSinglePaymentGift && paymentOption === '1' && !is_naep_order"
+          >
+            {{
+              "PAYMENT_OPTION_FULL.PROMOTION_GIFTS_WHILE_STOCK_LASTS"
+                | translate
+            }}
+          </p>
+
+          <!-- EPP (Equal Payment Plan) -->
+          <!-- <mat-radio-button
+            *ngIf="checkDisplayOffLineEPP()"
+            [disabled]="isEppDisabled"
+            value="2"
+            id="payOfflineEpp"
+            (change)="radioPayOffLineEPP($event.value)"
+          >
+            <p *ngIf="env == 'MY'">
+
+              {{
+                "PAYMENT_OPTION_FULL.EPP_MY"
+                  | translate
+              }}
+            </p>
+            <p *ngIf="env != 'MY'">
+
+              {{
+                "PAYMENT_OPTION_FULL.EPP"
+                  | translate
+              }}
+            </p>
+          </mat-radio-button> -->
+
+          <!-- EPP (Equal Payment Plan) -->
+          <mat-radio-button
+            *ngIf="checkDisplayOnlineIPPMY()"
+            [disabled]="isEppDisabled"
+            value="5"
+            id="payOfflineEpp"
+            (change)="radioPayOnlineEPPMY($event.value)"
+          >
+            <p>
+              {{
+                "PAYMENT_OPTION_FULL.EPP_MY"
+                  | translate
+              }}
+            </p>
+          </mat-radio-button>
+
+          <mat-radio-button
+            *ngIf="checkDisplayRecurring()"
+            [disabled]="isRecurringDisabled"
+            value="3"
+            id="payFixed"
+            (change)="radioPayRecurring($event.value)"
+          >
+            <p>
+              {{
+                "PAYMENT_OPTION_FULL.FIXED_DEPOSSIT_WITH_BALANCE_IN_INSTALLMENT"
+                  | translate
+              }}
+            </p>
+          </mat-radio-button>
+
+          <!-- <mat-radio-button
+            *ngIf="checkDisplayOnlineIPP() && total >= 500"
+            [disabled]="isEppDisabled"
+            value="4"
+            id="payOnlineEpp"
+            (change)="radioPayOnlineEPP($event.value)"
+          >
+            <p>{{ "PAYMENT_OPTION_FULL.IPP" | translate }}</p>
+          </mat-radio-button>
+          <p class="ipp-text" *ngIf="checkDisplayOnlineIPP() && total >= 500">
+            {{ "PAYMENT_OPTION_FULL.DBS_CC_ONLY" | translate }}
+          </p> -->
+        </mat-radio-group>
+
+        <app-button-loading
+          [buttonName]="buttonName"
+          disabledBtn="true"
+          [active]="active"
+          (click)="nextToPaymentOption()"
+        ></app-button-loading>
+        <!-- <button (click)='nextToPaymentOption()' mat-raised-button color="primary" class="next-button"
+                    aria-label="Next">
+                    NEXT
+                </button> -->
+      </div>
+    </div>
+  <!-- </div> -->
+  <p-toast  position="top-right"  [showTransformOptions]="'translateX(-100%)'">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <div style="padding:0.5em 0em">{{message.summary}}</div>
+        </div>
+    </ng-template>
+  </p-toast>  
+
+  <!-- Footer -->
+  <!-- <div class="FormFooter">
+    <div class="inForm"> -->
+      <!-- <div class="payment-info">
+        <p>{{ "PAYMENT_OPTION_FULL.PAYMENT_INFO" | translate }}:</p>
+        <div class="grid1" fxLayout="row">
+          <div class="verified" fxLayout="column">
+            <div class="table">
+
+              <div class="col-left">
+                <div>{{ "PAYMENT_OPTION_FULL.PENDING_VERIFIED" | translate }}:</div>
+                <div>{{ "PAYMENT_OPTION_FULL.VERIFIED" | translate }}:</div>
+                <div style="color: var(--red-color)">{{ "PAYMENT_OPTION_FULL.REMAINING" | translate }}:</div>
+              </div>
+
+              <div class="col-right">
+                <div>{{ pendingVerified | currency: " " }}</div>
+                <div>{{ verified | currency: " " }}</div>
+                <div style="color: var(--red-color)">
+                  {{ remaining | currency: currency + " " }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr /> -->
+      <!-- <div class="order-amount">
+        <p class="order">
+          {{ "PAYMENT_OPTION_FULL.ORDER_AMOUNT" | translate }}:
+        </p>
+        <div class="grid2" fxLayout="row">
+          <div class="amount" fxLayout="column">
+            <div class="table2">
+
+              <div class="col-left">
+                <div>{{ "PAYMENT_OPTION_FULL.SHIPPING" | translate }}:</div>
+                <div>{{ "PAYMENT_OPTION_FULL.SUBTOTAL" | translate }}:</div>
+                <div style="color: var(--red-color)">{{ "PAYMENT_OPTION_FULL.TOTAL" | translate }}:</div>
+              </div>
+
+              <div class="col-right">
+                <div>{{ shipping | currency: " " }}</div>
+                <div>{{ subtotal | currency: " " }}</div>
+                <div style="color: var(--red-color)">{{ total | currency: currency + " " }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</div>
+
+
+<app-footer-payment [verified]='verified' 
+[pending_verified]='pendingVerified'  
+[remaining]='remaining' 
+[uuid]="orderUuid"
+[shipping]='shipping' 
+[subtotal]='subtotal' 
+[total]='total' [currency]='currency' 
+[linkShare] = "checkLinkShare"
+[selectPayment]='true' (addMessage)="add()"
+[is_buy_for_customer] = "is_buying_for_customer"
+>
+</app-footer-payment>
+<app-placeholder-loading
+  *ngIf="loading"
+  component="paymentOptionsFull"
+></app-placeholder-loading>

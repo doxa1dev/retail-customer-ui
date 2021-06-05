@@ -1,0 +1,43 @@
+<div class="select-package-naep">
+    <div class="content-naep">
+        <app-title [type]="title" [message]="'BUY_NAEP_DISCOUNT.TITLE'"></app-title>
+
+        <div class="body-naep" >
+            <p>{{'BUY_NAEP_DISCOUNT.SPECIFY_THERMOMIX'| translate}}</p>
+
+            <div *ngFor="let product of listProduct, let i = index">
+                <p style="font-weight: 600;">{{i + 1}}. {{product.name}}</p>
+                
+                <div class="language" *ngFor="let P of product.properties, let x = index">
+                    <div class="languageText">
+                        <p>{{P.name}}</p>
+                    </div>
+                    <div id="selectLanguage">
+                        <p-dropdown  id="languages" [options]="P.value" [(ngModel)]="modelGroups1[i+x+i]" [ngModelOptions]="{standalone: true}"
+                            placeholder="--  Select {{P.name}}  --">
+                            <ng-template let-item pTemplate="selectedItem" > 
+                                <span style="vertical-align:middle">{{item.label}}</span>
+                            </ng-template>
+                            <ng-template let-language pTemplate="item">
+                                <div class="ui-helper-clearfix">
+                                    <div>{{language.label}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                        <mat-error class="error-message" *ngIf="submitted && modelGroups1[i+x+i] == undefined ">
+                            Please choose this property
+                        </mat-error>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+
+            <div class="footer-submit body-naep">
+                <!-- <button class="btn-next" (click)="addToCartNaep()" style="cursor: pointer;" >{{'BUY_NAEP_DISCOUNT.SUBMIT'| translate}}</button> -->
+                <app-button-loading [buttonName] = 'buttonName'  disabledBtn="true" [active] = "active" (click)="addToCartNaep()"></app-button-loading>
+            </div>
+        </div>
+    </div>
+</div>

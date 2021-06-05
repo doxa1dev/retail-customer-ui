@@ -1,0 +1,109 @@
+@import "src/@fuse/scss/fuse";
+.content {
+    width:100%;
+    height:100%;
+    background-color: white;
+    border: solid 20px #F5F5F5F5 !important;
+    
+    @include media-breakpoint("xs") {
+        border-left: solid 15px #F5F5F5F5 !important;
+        border-right: solid 15px #F5F5F5F5 !important;
+        border-top: solid 8px #F5F5F5F5 !important;
+        border-bottom: solid 25px #F5F5F5F5 !important;
+    }
+    #link {
+        display: inline-block;
+        opacity: 1;
+        padding-top: 15px;
+        padding-left: 0px;
+        padding-bottom: 15px;
+        float: left;
+        @media screen and (min-width : 750px){
+            font-size: 14pt;
+        }
+        mat-icon{
+            margin-left: 10px;
+        }
+        a {
+            position: absolute;
+            padding: auto;
+            margin-left: 0;
+            color: var(--text-color);
+            text-decoration: underline !important;
+        }
+    }
+    .delivery-form .form-group{
+       width: 90% !important;
+    input{
+        width: 100%;
+        height: 48px;
+        outline: none;
+        color: var(--text-color);
+    }
+        width: 100%;
+        border-radius: 8pt;
+        height: 430px;
+        outline: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: auto;
+
+        
+        -webkit-box-shadow: 0px 4px 16px #455b6314;
+        -moz-box-shadow: 0px 4px 16px #455b6314;
+        box-shadow: 0px 4px 16px #455b6314;
+        opacity: 1;
+        .form-control {
+            border: var(--border-color) solid 0.5pt;
+            border-radius: 8pt;
+            padding-left: 16pt;
+            margin-top: 10px;
+        }
+
+        .search-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8pt;
+            cursor: pointer;
+            width: 144px;
+            height: 48px;
+            display: block;
+            margin-left: auto;
+            margin-top: 20px;
+        }
+        .customer-info {
+            background-color: var(--descrp-background);
+            border: var(--border-color) solid 0.5px;
+            border-radius: 8pt;
+            display: block;
+            margin-top: 20px;
+            .use-and-edit {
+                float: right;
+                padding-top: 10px;
+                padding-right: 10px;
+                color: var(--link-color);
+            }
+            p {
+                padding-left: 16pt;
+                color: var(--text-color);
+            }
+        }
+    }
+
+    .secondary-text {
+        font-size: 18px;
+        color: var(--text-color);
+        padding-right: 5px;
+        @include media-breakpoint("xs") {
+            font-size: 15px;
+        }
+        @include media-breakpoint("sm") {
+            margin-left: 12px;
+        }
+        float: left;
+    }
+}
+
+    
+

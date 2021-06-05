@@ -1,0 +1,204 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+    p-calendar {
+        ::ng-deep .ui-calendar {
+            display: flex !important;
+            
+            input {
+                border: 0.5px solid var(--border-color) !important;
+                border-right: none !important;
+                flex-grow: 1 !important;
+                transition: none;
+                box-shadow: none;
+                border-radius: 6px 0px 0px 6px;
+                &:enabled:focus:not(.ui-state-error) {
+                    box-shadow:none;
+                    border-color: var(--border-color);
+                };
+                height: 40px;
+                padding-left: 2%;
+                @include media-breakpoint("xs") {
+                    padding-left: 4%;
+                }
+            }
+            button {
+                border: 0.5px solid var(--border-color);
+                background: #fff;
+                border-left: none;
+                border-radius: 0px 6px 6px 0px;
+                height: 40px;
+                .ui-button-icon-left {
+                    color: #269A3E;
+                }
+                .ui-button-text {
+                    background-color: #fff;
+                    margin-right: 2.5px;
+                    margin-bottom: 0.5px;
+                    &:enabled:active,&:enabled:hover {
+                        background-color: #fff;
+                        color: #ffffff; 
+                        border-color: var(--border-color);
+                    }
+                }
+                &:enabled:focus:not(.ui-state-error) {
+                    box-shadow:none;
+                    border-color: var(--border-color);
+                }
+            }
+            .ui-datepicker {
+                .ui-state-active {
+                    background-color: #269A3E;
+                    border: 0.5px solid var(--border-color);
+                    border-radius: 12px;
+                }
+            }
+        }
+    }
+}
+
+.container {
+  width:100%;
+  height:100%;
+  background-color: white;
+  border: solid 20px var(--fuse-background) !important;
+  
+  @include media-breakpoint("xs") {
+    padding-bottom: 20px;
+
+    border-left: solid 15px var(--fuse-background) !important;
+    border-right: solid 15px var(--fuse-background) !important;
+    border-top: solid 8px var(--fuse-background) !important;
+    // border-bottom: solid 8px var(--fuse-background) !important;
+    border-bottom: solid 70px var(--fuse-background) !important;
+  }
+
+  .title{
+      width: 100%;
+      text-align: center;
+      color: var(--primary-color) ;
+      font-weight: 600;
+  }
+
+  .form-infor{
+      width: 90%;
+      margin: 0 auto;
+      -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+      -moz-box-shadow: 0px 3px 16px #00000029 !important;
+      box-shadow: 0px 3px 16px #00000029 !important;
+      opacity: 0.8;
+      border-radius: 6px;
+      padding: 10px 0px;
+      .fill-input{
+        margin: 0 auto;
+        width: 95%;
+        input{
+            width: 100%;
+            border: 1px solid gray;
+            border-radius: 6px;
+            height: 40px;
+        }
+        .error-message{
+            margin: 5px 2%;
+        }
+      }
+
+      .fill-guest{
+        margin: 0 auto;
+        width: 95%;
+        .guest_detail{
+            width: 100%;
+            position: relative;
+            input{
+                width: 43%;
+                border: 1px solid gray;
+                border-radius: 6px;
+                height: 40px;
+                margin-bottom: 15px;
+            }
+            mat-icon{
+                position: absolute;
+                margin-top: 6px;
+                cursor: pointer;
+            }
+            .error-message{
+                margin-left: 2%;
+                margin-top: -10px;
+                margin-bottom: 5px;
+                display: block;
+            }
+        }
+
+        .btn-add-guest{
+            height: 40px;
+            width: 100%;
+            text-align: center;
+            color: var(--primary-color) ;
+            background-color: white;
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+      }
+
+    }
+    .photo{
+        margin: 0 auto;
+        width: 90%;
+        padding: 15px 0px;
+    }
+    .upload-photo{
+      margin: 0 auto;
+      width: 90%;
+      -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+      -moz-box-shadow: 0px 3px 16px #00000029 !important;
+      box-shadow: 0px 3px 16px #00000029 !important;
+      opacity: 0.8;
+      border-radius: 15px;
+      text-align: center;
+      padding: 30px 0px;
+      cursor: pointer;
+    }
+
+    .photo-need{
+        margin: 0 auto;
+        width: 90%;
+        color: var(--primary-color) ;
+        text-align: center;
+        font-style: italic;
+        margin-top: 10px;
+    }
+    .error-message{
+        margin-left: 7%;
+        margin-top: 5px;
+    }
+
+    .create-button{
+        padding: 35px 5px;
+        .btn-color-custom {
+            height: 48px;
+            border: 1px solid #269a3e;
+            width: 45%;
+            border-radius: 5px;
+        }
+        .btn-cancel-event{
+            color: #269a3e;
+            background: #fff;
+            margin-left: 10px;
+        }
+        .btn-create-event{
+            height: 48px;
+            border: 1px solid #269a3e;
+            width: 45%;
+            border-radius: 5px;
+            float: right;
+            background: #269a3e;
+            color: #fff;
+            margin-right: 10px;
+        }
+        .btn-create-disabled{
+            background: grey !important;
+            pointer-events: none;
+        }
+    }
+}

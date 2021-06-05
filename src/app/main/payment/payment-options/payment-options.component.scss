@@ -1,0 +1,486 @@
+@import "src/@fuse/scss/fuse";
+:host {
+    mat-radio-button {
+        ::ng-deep .mat-radio-container {
+            .mat-radio-inner-circle {
+                background-color: var(--text-color);
+            }
+        }
+    }
+    mat-radio-button.mat-radio-checked {
+        ::ng-deep .mat-radio-outer-circle {
+            border-color: var(--border-color) !important;
+        }
+    }
+}
+#paymentoptions {
+    font-size: 12px !important;
+    color: var(--text-color) !important;
+    width: 100% !important;
+    height: 100%;
+    background-color: #F1F1F1;
+
+    // @media only screen and (max-width : 350px) {
+    //     font-size: 9pt !important;
+    // }
+
+    @media only screen and (min-width : 750px) {
+        font-size: 18px !important;
+    }
+
+    #paymentoptions-wrapper {
+        flex: 1 0 auto;
+        // padding: 32px;
+        margin: 8px 16px;
+        height: 65vh;
+        background-color: white;
+
+        #link {
+            display: inline-block;
+            opacity: 1;
+            margin-top: -2px;
+            margin-left: 0px;
+            margin-bottom: 10px;
+
+            @media only screen and (min-width : 750px) {
+                font-size: 18px;
+                
+            }
+        }
+
+        #FormField {
+            // background-color: blueviolet;
+            margin-left: 35px;
+            margin-top: -32px;
+
+            @media only screen and (min-width : 750px) {
+                display: block;
+                width: 32%;
+                margin: 0 auto;
+                font-size: 18px ;
+                // color: #5a616f !important;
+                padding: auto;
+            }
+
+            #checkbox {
+                // background-color: green;
+                position: absolute;
+                margin-top: -10px;
+
+                #payfull {
+                    p {
+                        font-size: 12px;
+                    
+                        // @include media-breakpoint('xs') {
+                        //     font-size: 10.5pt !important;
+                        // }
+
+                        @media only screen and (max-width : 350px) {
+                            font-size: 12px !important;
+                        }
+
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px;
+                            color: var(--text-color) !important;
+                        }
+                    }
+                }
+
+                .promotion-text{
+                    padding-left: 28px;
+                    margin-top: 0!important;
+                    font-style: italic;
+                    color: var(--primary-color);
+                    font-size: var(--mobi-small-text);
+                    @media only screen and (min-width : 750px) {
+                        font-size: 12px;
+                    }
+                }
+
+                #payPartially {
+                    margin-top: -10px;
+
+                    p {
+                        font-size: 12px;
+                                            color: var(--text-color) !important;
+                        // @include media-breakpoint('xs') {
+                        //     font-size: 10.5pt !important;
+                        // }
+
+                        // @media only screen and (max-width : 350px) {
+                        //     font-size: 12px !important;
+                        // }
+
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px;
+                        }
+                    }
+                }
+
+                #block {
+                    width: 280px;
+                    height: 100px;
+
+                    @media only screen and (max-width : 350px) {
+                        width: 240px !important;
+                    }
+
+                    @media only screen and (min-width : 750px) {
+                        width: 350px !important;
+                    }
+
+                    .form-gr {
+                        width: 100%;
+
+                        #abc {
+                            border: var(--border-color) solid 0.5px !important;
+                            width: 100%;
+                            height: 32px;
+                            outline: none;
+                            padding: 0px 10px;
+                            // -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                            // -moz-box-shadow: 0px 3px 16px #00000029 !important;
+                            // box-shadow: 0px 3px 16px #00000029 !important;
+                            opacity: 0.8;
+                            border-radius: 8px;
+                            position: relative;
+
+                            @media only screen and (min-width : 750px) {
+                                height: 50px !important;
+                                font-size: 18px;
+                                color: var(--text-color) !important;
+                            }
+
+                        }
+
+                    .next-button {
+                        width: 100px;
+                        margin: 16px auto;
+                        display: block;
+                        float: right;
+                        background-color: var(--primary-color);
+                        color: white;
+                        height: 40px;
+
+                        @media only screen and (min-width : 750px) {
+                            height: 50px !important;
+                            font-size: 18px !important;
+                            
+                        }
+                    }
+                }
+            }
+
+            }
+
+        }
+
+        //payment-method
+
+        .payment-method {
+            margin-left: 32px;
+            display: inline-block;
+            margin-top: -12px;
+
+            // background-color: chartreuse;
+            @media only screen and (min-width : 750px) {
+                display: block;
+                margin-left: 15%;
+                // padding: auto;   
+                font-size: 18px;
+                color: var(--text-color) !important;
+            }
+            #selectbox {
+                // background-color: brown !important;
+                position: absolute;
+                margin: 0 auto;
+                margin-top: -10px;
+                width: 75%;
+
+                @media only screen and (min-width : 750px) {
+
+                    width: 65%;
+                    // margin-left: 60px;
+                    // padding: auto;
+                    font-size: 18px;
+                }
+
+                .card {
+                    display: flex;
+                    margin-top: 5px;
+                    height: 40px;
+                    width: 100% !important;
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    -moz-box-shadow: 0px 3px 16px #00000029 !important;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                    opacity: 0.8;
+
+                    @media only screen and (min-width : 750px) {
+                        margin-top: 10px !important;
+                        height: 50px;
+                    }
+
+                    p {
+                        // background-color: red;
+                        margin-top: -5px;
+                        margin-left: 10px;
+                        font-size: 12px !important;
+
+                        // @media only screen and (max-width : 350px) {
+                        //     font-size: 10pt !important;
+                        // }
+
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                        }
+                    }
+
+                    .left {
+                        margin-top: -6px;
+                    }
+
+                    .right {
+                        margin-left: auto;
+                        margin-top: -5px;
+                        display: flex;
+
+                        .img {
+                            margin-top: 5px;
+                            // background-color: red;
+                        }
+                    }
+                }
+
+                .fixcard {
+                    display: flex;
+                    margin-top: 5px;
+                    height: 65px !important;
+                    width: 100% !important;
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    -moz-box-shadow: 0px 3px 16px #00000029 !important;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                    opacity: 0.8;
+
+                    @media only screen and (min-width : 750px) {
+                        margin-top: 10px !important;
+                        height: 50px !important;
+                    }
+
+                    // background-color: cornflowerblue;
+                    p {
+                        // background-color: red;
+                        margin-top: -5px;
+                        margin-left: 10px;
+                        // font-size: 11pt !important;
+
+                        // @media only screen and (max-width : 350px) {
+                        //     font-size: 10pt !important;
+                        // }
+
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                        }
+
+                      
+                    }
+
+                    // .left {
+                    //     // margin-top: -6px;
+                    // }
+
+                    .right {
+                        margin-left: auto;
+                        // margin-top: -5px;
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    //------------------End Payment-------------------------------------
+    .FormFooter {
+        background-color: var(--yellow-background);
+        width: 100%;
+        height: auto;
+        margin-top: 0px;
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+        position: sticky;
+        bottom: 0;
+        font-weight: 600;
+        padding-bottom: 10px;
+    
+        .inForm {
+            width: 80%;
+            display: block;
+            margin: 0px auto;
+            padding: auto;
+    
+            @media only screen and (min-width : 750px) {
+                font-size: 18px !important;
+                width: 35% !important;
+            }
+    
+            .payment-info {
+                display: block;
+    
+                p {
+                    // font-size: 11pt;
+    
+                    // @media only screen and (max-width : 350px) {
+                    //     font-size: 10pt !important;
+                    // }
+    
+                    @media only screen and (min-width : 750px) {
+                        font-size: 18px !important;
+                    }
+                }
+    
+                .verified {
+                    // background-color: red;
+                    width: 100%;
+                    display: block;
+                    margin-top: -10px;
+    
+                    .table {
+                        width: 70%;
+                        display: flex;
+                        float: right;
+                        // background-color: darkred;
+                        margin-left: auto;
+    
+                        @media only screen and (min-width : 750px) {
+                            width: 100% !important;
+                        }
+    
+                        .col-left{
+                            width: 50%;
+                            text-align: right;
+                            // background-color: red;
+                            margin-left: auto;
+                            b{float: right;}
+                        }
+                        .col-right{
+                            width: 50%;
+                            text-align: right;
+                            margin-left: auto;
+                            
+                            b{
+                                height: auto;
+                                word-wrap: break-word !important;
+                                word-break: keep-all !important;
+                                float: right;
+                            }
+                        }
+                    }
+    
+                    .remaining {
+                        // background-color: blue;
+                        // font-size: 12pt;
+                        color: var(--red-color);
+                        width: 100%;
+                        margin-left: auto;
+                        margin-top: -1px;
+                        text-align: right;
+                        #remaining-in{
+                            margin-right: 20px !important;
+                        }
+                        @media only screen and (max-width : 350px) {
+                            width: 80% !important;
+                            // font-size: 10pt !important;
+                        }
+    
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                            #remaining-in{
+                                margin-right: 68px !important;
+                            }
+                        }
+                    }
+                }
+    
+            }
+    
+            hr {
+                margin-top: 5px;
+            }
+    
+            .order-amount {
+                display: block;
+                // background-color: darkorange;
+                margin-top: -12px;
+    
+                p {
+    
+                    @media only screen and (min-width : 750px) {
+                        font-size: 18px !important;
+                    }
+                }
+    
+                .grid2 {
+                    .amount {
+                        // background-color: red;
+                        width: 100%;
+                        display: block;
+                        margin-top: -10px;
+    
+                        .table2 {
+                            width: 70%;
+                            display: flex;
+                            float: right;
+                            // background-color: darkred;
+                            margin-left: auto;
+    
+                            @media only screen and (min-width : 750px) {
+                                width: 100% !important;
+                            }
+                            .col-left{
+                                width: 50%;
+                                text-align: right;
+                                // background-color: red;
+                                margin-left: auto;
+                                b{float: right;}
+                            }
+                            .col-right{
+                                width: 50%;
+                                text-align: right;
+                                margin-left: auto;
+                                
+                                b{
+                                    height: auto;
+                                    word-wrap: break-word !important;
+                                    word-break: keep-all !important;
+                                    float: right;
+                                }
+                            }
+                        }
+    
+                        .total {
+                            // background-color: blue;
+                            // font-size: 12pt;
+                            color: var(--red-color);
+                            width: 70%;
+                            margin-left: auto;
+                            margin-top: -1px;
+                            text-align: right;
+    
+                            @media only screen and (max-width : 350px) {
+                                width: 80% !important;
+                                // font-size: 10pt !important;
+                            }
+    
+                            @media only screen and (min-width : 750px) {
+                                font-size: 18px !important;
+                                #total-in{
+                                    margin-right: 68px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

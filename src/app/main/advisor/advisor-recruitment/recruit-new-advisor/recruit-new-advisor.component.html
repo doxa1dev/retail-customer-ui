@@ -1,0 +1,85 @@
+<div style="width: 100%;">
+    <div class="recruit-new-advisor">
+        <div class="form-recruit-new-advisor">
+            <!-- <button class="icon-back" (click)="back()" mat-icon-button style="text-decoration: none; cursor: pointer;">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <span class="text-recruit-new-advisor">{{ 'RECRUIT_NEW_ADVISOR.RECRUIT_NEW_ADVISOR' | translate }}</span> -->
+            <app-title [type]="title" [message]="'RECRUIT_NEW_ADVISOR.RECRUIT_NEW_ADVISOR'">
+            </app-title>
+        </div>
+    
+        <div class="body-recruit-new-advisor">
+            <span>{{ 'RECRUIT_NEW_ADVISOR.ENTER_YOUR_CUSTOMER' | translate }}</span>
+    
+            <div class="search-advisor">
+                <input class="input-search" (keyup.enter)="searchCustomer()" type="text" [(ngModel)]="advisorSearch" placeholder="{{ 'RECRUIT_NEW_ADVISOR.ENTER_CUSTOMER' | translate }}" >
+                <img class="icon-search" src="../../../../assets/icons/material-icons/Search.png"/>
+                <button class="btn-search" (click)='searchCustomer()'>{{ 'RECRUIT_NEW_ADVISOR.SEARCH' | translate }}</button>
+            </div>
+        </div>
+    
+        <div class="advisor-no" *ngIf="isShow">
+            <img src="../../../assets/images_doxa/undraw_stand_out_1oag@2x.png" alt="Avatar">
+        </div>
+    
+        <div class="search-no-data" *ngIf="searchNoData">
+            <p>{{ 'RECRUIT_NEW_ADVISOR.NO_CUSTOMER_FOUND' | translate }}</p>
+        </div>
+    
+        <div class="invite-new-contact">
+            <button class="btn-invite-new-contact" (click)="showFormInvite()">{{ 'RECRUIT_NEW_ADVISOR.INVITE_NEW_CONTACT' | translate }}</button>
+    
+            <div class="form-invite-new-contact" *ngIf="isShowInvite" [formGroup]="inviteForm">
+                <p class="title-invite">{{ 'RECRUIT_NEW_ADVISOR.INVITE_NEW_CONTACT' | translate }}</p>
+    
+                <div class="input-info-invite">
+                    <p>{{ 'RECRUIT_NEW_ADVISOR.PRE_NAME' | translate }}</p>
+                    <input formControlName="name" >
+                </div>
+    
+                <!-- error -->
+                <mat-error *ngIf="inviteForm.get('name').hasError('required') && isShowError" style="margin-left: 20%;">
+                    {{ 'RECRUIT_NEW_ADVISOR.NAME_REQUIRED' | translate }}
+                </mat-error>
+    
+                <div class="input-info-invite">
+                    <p>{{ 'RECRUIT_NEW_ADVISOR.EMAIL' | translate }}</p>
+                    <input formControlName="email" >
+                </div>
+    
+                <!-- error -->
+                <mat-error *ngIf="inviteForm.get('email').hasError('required') && isShowError" style="margin-left: 20%;">
+                    {{ 'RECRUIT_NEW_ADVISOR.EMAIL_REQUIRED' | translate }}
+                </mat-error>
+    
+                <mat-error *ngIf="!inviteForm.get('email').hasError('required') && isShowError && inviteForm.controls.email.errors?.pattern"
+                style="margin-left: 20%;">
+                    {{ 'RECRUIT_NEW_ADVISOR.EMAIL_FAILED' | translate }}
+                </mat-error>
+    
+                <app-button-loading [buttonName]="buttonName" disabledBtn="true" [active]="active" (click)="inviteEmail()" ></app-button-loading>
+            </div>
+        </div>
+    `
+        <div class="advisor-data" *ngIf="isShowListData">
+    
+            <mat-radio-group [(ngModel)]="selected" >
+    
+                <mat-card *ngFor="let customer of obs| async">
+                    <app-customer-information [customerInformation]='customer'></app-customer-information>
+                    <mat-radio-button [value]="customer.customerUuid" (change)='radioChange($event)' ></mat-radio-button>
+                </mat-card>
+                
+                <mat-paginator [showFirstLastButtons]="true" [length]="totalSize" [pageSizeOptions]="[5,10]" ></mat-paginator>
+            </mat-radio-group>
+        </div>
+    
+        <div class="footer" *ngIf="isShowListData">
+            <button class="btn-next" style="cursor: pointer;" (click)='createCustomerRecruitment()' [disabled]='disabled'
+            >{{ 'RECRUIT_NEW_ADVISOR.SUBMIT' | translate }}</button>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

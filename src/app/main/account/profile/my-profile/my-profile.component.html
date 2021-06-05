@@ -1,0 +1,448 @@
+<div style="width: 100%;">
+  <div class="my-profile" fxLayout="column">
+    <div class="header">
+      <div class="header-profile">
+        <!-- <span class="dot">●</span>
+        <span class="text-profile">{{ 'MY_PROFILE.MY_PROFILE' | translate }}</span> -->
+        <app-title [type]="title" [message]="'MY_PROFILE.MY_PROFILE'"></app-title>
+      </div>
+    </div>
+  
+    <div class="user-head-div">
+      <div class="user-name">
+        <b> {{name}}</b>
+      </div>
+  
+      <div id="circle">
+        <img class="user-img" [src]="myProfileImgUrl" alt="" />
+        <label for="fileInput">
+          <img class="add-icon" src="../../../assets/icons/ICON/Add.svg" alt="" />
+        </label>
+      </div>
+      <input id="fileInput" type="file" (change)="onSelectFile($event)" accept="image/bmp, image/jpeg, image/png" />
+    </div>
+  
+  
+    <div class="body" fxLayout="column">
+      <div class="body-sub">
+        <div class="personal-info" [hidden]="isPersonalInfoEditing">
+          <div class="personal-info-title">
+            <p><b>{{ 'MY_PROFILE.PERSONAL_INFORMATION' | translate }}</b></p>
+            <p class="right"><a (click)="editPersonalInfo()">{{ 'MY_PROFILE.EDIT' | translate }}</a></p>
+          </div>
+          <div class="personal-info-detail">
+            <div class="pi-detail-line2">
+              <p class="left"> {{'MY_PROFILE.NAME_IC' | translate}}:</p>
+              <p class="right">{{ firstName }}</p>
+            </div>
+            <div class="pi-detail-line3">
+              <p class="left">{{ 'MY_PROFILE.PREFERRED_NAME'| translate}}:</p>
+              <p class="right">{{ preferredName }}</p>
+            </div>
+            <div class="pi-detail-line2" *ngIf="myAdvisorId !== '-'">
+              <p class="left">{{ 'MY_PROFILE.ADVISOR_ID' | translate }}</p>
+              <p class="right">{{ myAdvisorId }}</p>
+            </div>
+            <div class="pi-detail-line4">
+              <p class="left">{{ 'MY_PROFILE.ADDRESS' | translate }}</p>
+              <div class="right">
+                <p class="text-address">{{ displayAddress }} </p>
+                <p class="text-country">{{ displayStateCountry }}</p>
+              </div>
+              <!-- <div class="right">
+                <p *ngIf="addressLine1 !== ''">{{ addressLine1 }} </p>
+                <p *ngIf="addressLine2 !== ''">{{ addressLine2 }} </p>
+                <p *ngIf="addressLine3 !== ''">{{ addressLine3 }} </p>
+                <p *ngIf="postalCode !== ''">{{ postalCode }}</p>
+                <p *ngIf="stateCode !== '' || countryCode !== ''">
+                  <span *ngIf="stateCode !== ''">{{ stateCodeToName[stateCode] }}, </span><span
+                    *ngIf="countryCode !== ''">{{ countryCodeToName[countryCode] }}</span>
+                </p>
+              </div> -->
+            </div>
+          </div>
+        </div>
+  
+        <div class="edit-personal-info" [hidden]="!isPersonalInfoEditing">
+          <div class="personal-info-title">
+            <p><b>{{ 'MY_PROFILE.PERSONAL_INFORMATION' | translate }}</b></p>
+            <p class="right"><a (click)="closeEditPersonalInfo()">Close</a></p>
+          </div>
+          <form [formGroup]="personalInfoForm" (ngSubmit)="saveNewPersonalInfo()" id="personal-info-form">
+            <div class="input-info">
+              <div class="input-detail-div" appearance="none">
+                <div class="detail-div"><span class="asterisk_input"></span> 
+                  <input type="text" class="input-detail" disabled = true
+                    placeholder="{{'MY_PROFILE.NAME_IC' | translate}}" formControlName="first-name" required /></div>
+                <div *ngIf="
+                    personalInfoForm.get('first-name').hasError('required') &&
+                    personalInfoForm.get('first-name').touched
+                  ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.NAME_IC_REQUIRED' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <!-- <div class="detail-div"><input type="text" class="input-detail" placeholder="{{ 'MY_PROFILE.LAST_NAME' | translate }}" formControlName="last-name" /></div> -->
+  
+                <div class="detail-div"><input type="text" class="input-detail"
+                    placeholder="{{ 'MY_PROFILE.PREFERRED_NAME' | translate }}" formControlName="preferred-name" /></div>
+  
+                <div class="detail-div"><input type="text" class="input-detail"
+                    placeholder="{{ 'MY_PROFILE.ADDRESS_LINE1' | translate }}" formControlName="address-line1" /> </div>
+                <div *ngIf="personalInfoForm.get('address-line1').hasError('maxlength')">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.ADDRESS_LENGTH_LIMIT' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div class="detail-div"><input type="text" class="input-detail"
+                    placeholder="{{ 'MY_PROFILE.CONDO_NAME/AREA' | translate }}" formControlName="address-line2" /></div>
+                <div *ngIf="personalInfoForm.get('address-line2').hasError('maxlength')">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.ADDRESS_LENGTH_LIMIT' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div class="detail-div"><input type="text" class="input-detail"
+                    placeholder="{{ 'MY_PROFILE.ADDRESS_LINE3' | translate }}" formControlName="address-line3" /></div>
+                <div *ngIf="personalInfoForm.get('address-line3').hasError('maxlength')">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.ADDRESS_LENGTH_LIMIT' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div class="detail-div"><input type="text" class="input-detail"
+                    placeholder="{{ 'MY_PROFILE.POSTAL_CODE' | translate }}" formControlName="postal-code" /> </div>
+  
+                <div class="detail-div">
+                  <div class="detail-div-inline">
+                    <mat-form-field appearance="none">
+                      <mat-select formControlName="country-code" placeholder="{{ 'MY_PROFILE.COUNTRY_CODE' | translate }}"
+                        (selectionChange)="setFormState($event)">
+                        <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                          <mat-option value="{{country.key}}">{{country.value}}
+                          </mat-option>
+                        </div>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="detail-div-inline">
+                    <mat-form-field appearance="none">
+                      <mat-select formControlName="state-code" placeholder="{{ 'MY_PROFILE.STATE_CODE' | translate }}">
+                        <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                          <mat-option value="{{state.key}}">{{state.value}}
+                          </mat-option>
+                        </div>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <button mat-raised-button id="btn-savePersonalInfo" class="btn btn-primary" type="submit"
+                  [disabled]="!personalInfoForm.valid">
+                  {{ 'MY_PROFILE.SAVE_CHANGE' | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+  
+        <div class="privacy-info" [hidden]="isPasswordChanging">
+          <div class="privacy-info-title">
+            <p><b>{{ 'MY_PROFILE.PRIVACY' | translate }}</b></p>
+          </div>
+          <div class="privacy-info-detail">
+            <!-- Phone Nunber -->
+            <div class="privacy-detail-line1">
+              <p class="left">{{ 'MY_PROFILE.PHONE_NUMBER' | translate }}</p>
+              <p class="right">{{ phoneNumberTemp }}</p>
+            </div>
+            <div class="privacy-detail-line3">
+              <p class="left"></p>
+              <div class="right password">
+                <div *ngIf = "!is_registered" class="icon-text-unverify">
+                  <mat-icon style="margin-right: 5px">error_outline</mat-icon>
+                  <span> {{ 'MY_PROFILE.UNVERIFIED' | translate }}</span>
+                </div>
+                <div *ngIf = "is_registered" class="icon-text-verify">
+                  <mat-icon style="margin-right: 5px">check_circle</mat-icon>
+                  <span> {{ 'MY_PROFILE.VERIFIED' | translate }}</span>
+                </div>
+                <p class="change-link">
+                  <button *ngIf = "!is_registered" class="button-verify" (click)="verifyPhone()">{{ 'MY_PROFILE.VERIFY_NOW' | translate }}</button>
+                </p>
+              </div>
+            </div>
+            <!-- Email -->
+            <div class="privacy-detail-line2">
+              <p class="left">{{ 'MY_PROFILE.EMAIL' | translate }}</p>
+              <p class="right">{{ email }}</p>
+            </div>
+            <div class="privacy-detail-line3">
+              <p class="left"></p>
+              <div class="right password">
+                <div *ngIf = "!is_active" class="icon-text-unverify">
+                  <mat-icon style="margin-right: 5px">error_outline</mat-icon>
+                  <span> {{ 'MY_PROFILE.UNVERIFIED' | translate }}</span>
+                </div>
+                <div *ngIf = "is_active" class="icon-text-verify">
+                  <mat-icon style="margin-right: 5px">check_circle</mat-icon>
+                  <span> {{ 'MY_PROFILE.VERIFIED' | translate }}</span>
+                </div>
+                <p class="change-link">
+                  <button *ngIf = "!is_active" class="button-verify" (click)="verifyEmail()">{{ 'MY_PROFILE.VERIFY_NOW' | translate }}</button>
+                </p>
+              </div>
+            </div>
+            <!-- Password -->
+            <div class="privacy-detail-line3">
+              <p class="left">{{ 'MY_PROFILE.PASSWORD' | translate }}</p>
+              <div class="right password">
+                <p>******</p>
+                <p class="change-link">
+                  <a (click)="changePassword()">{{ 'MY_PROFILE.CHANGE' | translate }}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="edit-privacy-info" [hidden]="!isPasswordChanging">
+          <div class="privacy-info-title">
+            <p><b>{{ 'MY_PROFILE.PRIVACY' | translate }}</b></p>
+          </div>
+          <div class="privacy-info-detail">
+            <div class="privacy-detail-line1">
+              <p class="left">{{ 'MY_PROFILE.PHONE_NUMBER' | translate }}</p>
+              <p class="right">{{ phoneNumber }}</p>
+            </div>
+            <div class="privacy-detail-line2">
+              <p class="left">{{ 'MY_PROFILE.EMAIL' | translate }}</p>
+              <p class="right">{{ email }}</p>
+            </div>
+            <div class="privacy-detail-line3">
+              <p class="left">{{ 'MY_PROFILE.PASSWORD' | translate }}</p>
+              <div class="right password">
+                <p>******</p>
+                <p class="close-link">
+                  <a (click)="closeChangePassword()">{{ 'MY_PROFILE.CLOSE' | translate }}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+  
+          <form [formGroup]="changePasswordForm" (ngSubmit)="saveNewPassword()">
+            <div class="input-info">
+              <div class="input-detail-div" appearance="none">
+                <div class="detail-div">
+                  <input type="password" PasswordOnly class="input-detail" placeholder="{{ 'MY_PROFILE.OLD_PASSWORD' | translate }}"
+                    formControlName="oldpassword" /> </div>
+  
+                <div *ngIf="
+                    changePasswordForm.get('oldpassword').hasError('required') &&
+                    changePasswordForm.get('oldpassword').touched
+                  ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.OLD_PASSWORD_REQUIRED' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div *ngIf="
+                !changePasswordForm.get('oldpassword').hasError('required') &&
+                changePasswordForm.get('oldpassword').touched &&
+                changePasswordForm.get('oldpassword').hasError('minlength')
+              ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.PASSWORD_LEAST' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div *ngIf="
+                    wrongOldPassword &&
+                    changePasswordForm.get('oldpassword').pristine
+                  ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.OLD_PASSWORD_IS_INCORRECT' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div class="detail-div">
+                  <input type="password" PasswordOnly class="input-detail" placeholder="{{ 'MY_PROFILE.NEW_PASSWORD' | translate }}"
+                    formControlName="newpassword" /> </div>
+  
+                <div *ngIf="
+                    changePasswordForm.get('newpassword').hasError('required') &&
+                    changePasswordForm.get('newpassword').touched
+                  ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.NEW_PASSWORD_REQUIRED' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div *ngIf="
+                    !changePasswordForm.get('newpassword').hasError('required') &&
+                    changePasswordForm.get('newpassword').touched &&
+                    changePasswordForm.get('newpassword').hasError('minlength')
+                  ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.PASSWORD_LEAST' | translate }}</p>
+                  </app-alert>
+                </div>
+                <div class="detail-div">
+                  <input type="password" class="input-detail"
+                    placeholder="{{ 'MY_PROFILE.CONFIRM_PASSWORD' | translate }}" PasswordOnly formControlName="confirmpassword" />
+                </div>
+  
+                <div *ngIf="
+                    changePasswordForm
+                      .get('confirmpassword')
+                      .hasError('required') &&
+                    changePasswordForm.get('confirmpassword').touched
+                  ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.CONFIRM_PASSWORD_REQUIRED' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <div *ngIf="
+                    !changePasswordForm
+                      .get('confirmpassword')
+                      .hasError('required') &&
+                    changePasswordForm
+                      .get('confirmpassword')
+                      .hasError('mustMatch') &&
+                    changePasswordForm.get('newpassword').touched
+                  ">
+                  <app-alert>
+                    <p>{{ 'MY_PROFILE.CONFIRM_PASSWORD_NOT_MATCH' | translate }}</p>
+                  </app-alert>
+                </div>
+  
+                <button mat-raised-button id="btn-savePassword" class="btn btn-primary" type="submit"
+                  [disabled]="!changePasswordForm.valid">
+                  {{ 'MY_PROFILE.SAVE_CHANGE' | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+  
+        <div class="query-form">
+          <div class="query-form-title">
+            <p><b>{{ 'MY_PROFILE.GUEST_QUESTION' | translate }}</b></p>
+          </div>
+          <div class="query-form-detail">
+            <div class="qf-detail-line1">
+              <p class="left">{{ 'MY_PROFILE.QUESTIONNAIRE_1' | translate }}</p>
+              <div class="right statusAndEdit">
+                <p [ngClass]="
+                    QF1CompleteStatus == 'Completed'
+                      ? 'completed'
+                      : 'not-completed'
+                  ">
+                  {{ QF1CompleteStatus }}
+                </p>
+                <p class="edit-link">
+                  <a (click)="goToQuestionnaire1()">Edit</a>
+                </p>
+              </div>
+            </div>
+            <div class="qf-detail-line2">
+              <p class="left">{{ 'MY_PROFILE.QUESTIONNAIRE_2' | translate }}</p>
+              <div class="right statusAndEdit">
+                <p [ngClass]="
+                    QF2CompleteStatus == 'Completed'
+                      ? 'completed'
+                      : 'not-completed'
+                  ">
+                  {{ QF2CompleteStatus }}
+                </p>
+                <p *ngIf="QF1CompleteStatus == 'Completed'" class="edit-link">
+                  <a (click)="goToQuestionnaire2()">{{ 'MY_PROFILE.EDIT' | translate }}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- <div class="advising-team">
+          <div class="advising-team-title">
+            <p><b>{{ 'MY_PROFILE.ADVISING_TEAM' | translate }}</b></p>
+          </div>
+          <div class="advising-team-detail-div">
+            <div class="my-advisorId">
+              <p class="left">{{ 'MY_PROFILE.ADVISOR_ID' | translate }}</p>
+              <p class="right">{{ myAdvisorId }}</p>
+            </div>
+  
+            <div class="advising-team-detail">
+              <div class="team-member-div1">
+                <p>{{ 'MY_PROFILE.ADVISOR' | translate }}</p>
+              </div>
+              <div class="team-member-div2">
+                <div class="team-member-name-Id">
+                  <p>{{ advisorName }}</p>
+                  <p *ngIf="advisor_id=='-'">{{ advisor_id }}</p>
+                  <p *ngIf="advisor_id!='-'">(ID: {{ advisor_id }})</p>
+                </div>
+                <div class="team-member-img" *ngIf="advisorImg != ''">
+                  <img src="{{ advisorImg }}" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="advising-team-detail">
+              <div class="team-member-div1">
+                <p>{{ 'MY_PROFILE.RECRUITER' | translate }}</p>
+              </div>
+              <div class="team-member-div2">
+                <div class="team-member-name-Id">
+                  <p>{{ recruiterName }}</p>
+                  <p *ngIf="recruiter_id=='-'">{{ recruiter_id }}</p>
+                  <p *ngIf="recruiter_id!='-'">(ID: {{ recruiter_id }})</p>
+                </div>
+                <div class="team-member-img" *ngIf="recruiterImg != ''">
+                  <img src="{{ recruiterImg }}" alt="" />
+                </div>
+              </div>
+            </div>
+  
+            <div class="advising-team-detail">
+              <div class="team-member-div1">
+                <p>{{ 'MY_PROFILE.TEAM_LEADER' | translate }}</p>
+              </div>
+              <div class="team-member-div2">
+                <div class="team-member-name-Id">
+                  <p>{{ teamLeaderName }}</p>
+                  <p *ngIf="teamLeader_id=='-'">{{ teamLeader_id }}</p>
+                  <p *ngIf="teamLeader_id!='-'">(ID: {{ teamLeader_id }})</p>
+                </div>
+                <div class="team-member-img" *ngIf="teamLeaderImg != ''">
+                  <img src="{{ teamLeaderImg }}" alt="" />
+                </div>
+              </div>
+            </div>
+  
+            <div class="advising-team-detail">
+              <div class="team-member-div1">
+                <p>{{ 'MY_PROFILE.BRANCH_MANAGER' | translate }}</p>
+              </div>
+              <div class="team-member-div2">
+                <div class="team-member-name-Id">
+                  <p>{{ branchManagerName }}</p>
+                  <p *ngIf="branchManager_id=='-'">{{ branchManager_id }}</p>
+                  <p *ngIf="branchManager_id!='-'">(ID: {{ branchManager_id }})</p>
+                </div>
+                <div class="team-member-img" *ngIf="branchManagerImg != ''">
+                  <img src="{{ branchManagerImg }}" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <app-bottom-navigation></app-bottom-navigation>
+</div>

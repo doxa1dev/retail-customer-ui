@@ -1,0 +1,263 @@
+<div style="width: 100%;">
+    <div class="customer-detail">
+        <div class="header-customer-detail">
+            <app-title [type]="title" [message]="'CUSTOMER_DETAIL.CUSTOMER'"></app-title>
+        </div>
+    
+        <div class="body-customer-detail">
+    
+            <!-- Personal Information -->
+            <mat-card class="personal-information">
+                <p class="title">{{'CUSTOMER_DETAIL.PERSONAL'| translate}}</p>
+    
+                <div class="content-customer-detail">
+                    <div class="personal-text">
+                        <div class="left">
+                            <p>{{'CUSTOMER_DETAIL.NAME_IC'| translate}}</p>
+                            <p>{{'CUSTOMER_DETAIL.PREFERRED_NAME'| translate}}</p>
+                        </div>
+    
+                        <div class="right">
+                            <p>{{customer.nameAsInIC}}</p>
+                            <p>{{customer.preferredName}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="address-text">
+                        <div class="left">
+                            <p>{{'CUSTOMER_DETAIL.ADDRESS'| translate}}</p>
+                        </div>
+    
+                        <div class="right">
+                            <p>{{customer.address}} {{customer.country}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="personal-text">
+                        <div class="left">
+                            <p>{{'CUSTOMER_DETAIL.EMAIL'| translate}}</p>
+                            <p>{{'CUSTOMER_DETAIL.PHONE_NUMBER'| translate}}</p>
+                        </div>
+    
+                        <div class="right">
+                            <p>{{customer.email}}</p>
+                            <p>{{customer.phoneNumber}}</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <!-- Guest Questionnaire -->
+            <mat-card class="questionnaire">
+                <p class="title">{{'CUSTOMER_DETAIL.GUEST_QUESTIONNAIRE'| translate}}</p>
+    
+                <div class="content-customer-detail">
+                    <div class="left">
+                        <p>{{'CUSTOMER_DETAIL.PRE_DEMO_QUESTIONNAIRE'| translate}}</p>
+                        <p>{{'CUSTOMER_DETAIL.POST_DEMO_QUESTIONNAIRE'| translate}}</p>
+                    </div>
+    
+                    <div class="mid">
+                        <p
+                            [ngStyle]="{color: customer.questionnaireOne != undefined ? 'var(--primary-color)' : 'var(--red-color)'}">
+                            {{customer.questionnaireOne != undefined ? 'Completed' : 'Not Completed'}}</p>
+                        <p
+                            [ngStyle]="{color: customer.questionnaireTwo != undefined ? 'var(--primary-color)' : 'var(--red-color)'}">
+                            {{customer.questionnaireTwo != undefined ? 'Completed' : 'Not Completed'}}</p>
+                    </div>
+    
+                    <div class="right">
+                        <p (click)="onViewQuestionOne()">{{customer.questionnaireOne != undefined ? 'View' : ''}}</p>
+                        <p (click)="onViewQuestionTwo()">{{customer.questionnaireTwo != undefined ? 'View' : ''}}</p>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <!-- Advising Team -->
+            <mat-card class="advising-team" *ngIf="existValue">
+                <p class="title">{{'CUSTOMER_DETAIL.ADVISING_TEAM'| translate}}</p>
+    
+                <div class="content-customer-detail">
+                    <div class="advisor">
+                        <p class="left">{{'CUSTOMER_DETAIL.ADVISOR'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.advisorName === undefined)">
+                            {{customer.advisorName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}: {{customer.advisorId}})</p>
+                        <p class="empty-image" *ngIf="customer.advisorName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageAdvisor}}" *ngIf="!(customer.advisorName === undefined)">
+                        </div>
+                    </div>
+    
+                    <div class="recruiter">
+                        <p class="left">{{'CUSTOMER_DETAIL.RECRUITER'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.recruiterName === undefined)">
+                            {{customer.recruiterName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}: {{customer.recruiterId}})
+                        </p>
+                        <p class="empty-image" *ngIf="customer.recruiterName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageRecruiter}}" *ngIf="!(customer.recruiterName === undefined)">
+                        </div>
+                    </div>
+    
+                    <div class="team-leader">
+                        <p class="left">{{'CUSTOMER_DETAIL.TEAM_LEADER'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.teamLeaderName === undefined)">
+                            {{customer.teamLeaderName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}: {{customer.teamLeaderId}})
+                        </p>
+                        <p class="empty-image" *ngIf="customer.teamLeaderName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageTeamLeader}}" *ngIf="!(customer.teamLeaderName === undefined)">
+                        </div>
+                    </div>
+    
+                    <div class="branch-manager" style="padding-bottom: 0px;">
+                        <p class="left">{{'CUSTOMER_DETAIL.BRANCH_MANAGER'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.branchManagerName === undefined)">
+                            {{customer.branchManagerName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}:
+                            {{customer.branchManagerId}})</p>
+                        <p class="empty-image" *ngIf="customer.branchManagerName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageBranchManager}}" *ngIf="!(customer.branchManagerName === undefined)">
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+    
+              <!-- Order History -->
+            <mat-card class="order-history">
+                <p class="title">{{'CUSTOMER_DETAIL.ORDER_HISTORY'| translate}}</p>
+                <div class="clear" *ngFor="let his of customer.orderHistory">
+                    <p class="status"> <u> {{'CUSTOMER_DETAIL.STATUS'| translate}}</u>: <span
+                            style="font-weight: bold; color:#269a3e"> {{his.status}}</span> </p>
+                    <div *ngFor="let item of his.listProduct" style="border-bottom: 1px solid #ccc;">
+    
+                        <table style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="7" width="40%">
+                                        <div id="img-product">
+                                            <img src="{{storageUrl}}{{item.productPhotoKey}} ">
+                                        </div>
+                                    </td>
+                                    <td width="60%"></td>
+                                </tr>
+                                <div id="another-detail">
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <p class="product-name"> {{item.productName}} </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div *ngIf="item.price != item.product.listed_price"  class="product-price" > 
+                                            <p>{{item.currencyCode}} {{item.product.listed_price | currency:' ':'symbol':''}}</p> 
+                                            </div>
+                                            <div *ngIf="item.price" id="newPrice">
+                                              <b> {{item.currencyCode}} {{item.price | currency:' ':'symbol':''}}</b></div>
+    
+    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div *ngIf="item.properties">
+                                                <p *ngFor="let property of item.properties"><span
+                                                        style="text-transform:capitalize;">{{property.name}}: </span>{{property.value}}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div *ngIf="!(his.advisorCustomer_id === undefined)">
+                                                <p>{{'CUSTOMER_DETAIL.ADVISOR_ID'| translate}}: {{his.advisorCustomer_id}}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div *ngIf="!(his.advisorCustomerName === undefined)">
+                                                <p>{{'CUSTOMER_DETAIL.ADVISOR_NAME'| translate}}:
+                                                    {{his.advisorCustomerName}}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div>
+                                                <p> <b>x {{item.quantity}} </b> </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </table>
+    
+                        <div id="detail-gift">
+                            <div *ngIf="item.orderLineSinglePaymentGifts.length != 0">
+                                <mat-card *ngFor="let gift of item.orderLineSinglePaymentGifts">
+                                    <mat-card-header>
+                                        <mat-card-title class="card-title">
+                                            {{FULL_PAYMENT_GIFT}}
+                                        </mat-card-title>
+                                        <mat-card-subtitle class="card-subtitle">
+                                            {{gift.name}}
+                                        </mat-card-subtitle>
+                                    </mat-card-header>
+                                    <mat-card-content class="card-content">
+                                        x {{gift.quantity}}
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+    
+                            <div *ngIf="item.orderLineOnlineBankingPaymentGifts != 0">
+                                <mat-card *ngFor="let gift of item.orderLineOnlineBankingPaymentGifts">
+                                    <mat-card-header>
+                                        <mat-card-title class="card-title">
+                                            {{ONLINE_BANK_TRANSFER_PAYMENT_GIFT}}
+                                        </mat-card-title>
+                                        <mat-card-subtitle class="card-subtitle">
+                                            {{gift.name}}
+                                        </mat-card-subtitle>
+                                    </mat-card-header>
+                                    <mat-card-content class="card-content">
+                                        x {{gift.quantity}}
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="total-price" style="background-color: #dfdfdf;">
+                        <p style="float: left; margin-left: 5px;">Order &#35;{{his.id}}</p>
+                        <p style="margin-right: 10px;"><b> {{totalItem(his)}} {{'CUSTOMER_DETAIL.ITEM'| translate}}, {{'CUSTOMER_DETAIL.TOTAL'| translate}}: 
+                            <span style="color: red;">{{his.listProduct[0].currencyCode}}
+                                {{his.totalAmount | currency:' ':'symbol':''}}</span></b></p>
+                    </div>
+                  
+                </div>
+                <div *ngIf="totalSize === 0" style="text-align: center;font-size: 12px;">
+                    <p>This customer has not made any order yet</p>
+    
+                    <div class="img-empty">
+                        <img src="assets/images_doxa/undraw_empty_xct9.svg" alt="">
+                    </div>
+                </div>
+    
+            </mat-card>
+    
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

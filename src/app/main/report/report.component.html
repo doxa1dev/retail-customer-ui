@@ -1,0 +1,161 @@
+<div style="width: 100%;">
+    <div class = "content">
+        <div class = "header-report">
+            <app-title [type]="title" [message]="'REPORTS.REPORTS'"></app-title>
+        </div>
+    
+        <div class="body-report" [formGroup]="reportsForm">
+            <!-- <p>{{ 'REPORTS.SELECT_TYPE' | translate }}</p> -->
+            <div class="report-type">
+                <p class="title">1. {{'REPORTS.REPORTS_TYPE'| translate}}</p>
+                <p-dropdown 
+                    filter="true" 
+                    formControlName="type"
+                    [options]="listMultiSelect" 
+                    placeholder=" {{'REPORTS.SELECT_TYPE' | translate}} "
+                    (onChange)="SelectedTypeReports($event)"
+                    optionLabel="name">
+            </p-dropdown>
+                <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="reportsForm.controls.type.hasError('required') && isShow">
+                    {{ 'REPORTS.REPORTS_TYPE_REQUIRED' | translate }}
+                </mat-error>
+            </div>
+    
+            <div class="date-range">
+                <p class="title">2. {{'REPORTS.DATE_RANGE'| translate}}</p> 
+    
+                <div class="from-day">
+                    <p class="text-from">{{'REPORTS.FROM'| translate}}</p>
+                    <p-calendar dateFormat="DD,dd/mm/yy" 
+                    placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}"
+                    [showIcon]="true" 
+                    formControlName="startDay"
+                    [maxDate]="maxDateFrom" 
+                    (onSelect)="onChangeFrom($event)"></p-calendar>
+                </div>
+    
+                <mat-error class="error-message" style="margin: -10px 0px 5px 15px; text-align: center; display: block;"
+                *ngIf="reportsForm.controls.startDay.hasError('required') && isShow">
+                {{ 'REPORTS.START_DAY_REQUIRED' | translate }}
+                </mat-error>
+    
+                <div class="to-day">
+                    <p class="text-to">{{'REPORTS.TO'| translate}}</p>
+                    <p-calendar dateFormat="DD,dd/mm/yy" 
+                    placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}"
+                    [showIcon]="true" 
+                    [minDate]="minDateEnd" 
+                    formControlName="endDay"
+                    [maxDate]="maxDateFrom" 
+                    (onSelect)="onChangeTo($event)"></p-calendar>
+                </div>
+    
+                <mat-error class="error-message" style="margin: 5px 0px 0px 15px; text-align: center; display: block;"
+                *ngIf="reportsForm.controls.endDay.hasError('required') && isShow">
+                {{ 'REPORTS.END_DAY_REQUIRED' | translate }}
+                </mat-error>
+            </div>
+    
+            <div class="filter">
+                <p class="title">3. {{'REPORTS.FILTER'| translate}}</p>
+    
+                <!-- <div class="select-filter">
+                    <p>{{'REPORTS.BRANCH'| translate}}</p> -->
+                    <!-- <p-dropdown formControlName="branch" 
+                        placeholder="{{ 'REPORTS.SELECT_BRANCH' | translate }}"
+                        [options]="listBranch" 
+                        optionLabel="customerName" 
+                        (onChange)="SelectedBranch($event)">
+                    </p-dropdown> -->
+                    <!-- <p-multiSelect
+                        [disabled]= true
+                        [showToggleAll] = true
+                        filter="true"
+                        [options]="listBranch"
+                        [defaultLabel]= branchNameLabel
+                        (onChange)="SelectedBranch($event)">
+                    </p-multiSelect> -->
+                    <!-- <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="reportsForm.controls.branch.hasError('required') && isShow">
+                        Branch is required
+                    </mat-error> -->
+                <!-- </div> -->
+    
+                <div class="select-filter" *ngIf="!isTeamLeader">
+                    <p>{{'REPORTS.TEAM'| translate}}</p>
+                    <!-- {{ 'REPORTS.SELECT_TEAM' | translate }} -->
+                    <!-- <p-dropdown formControlName="team" placeholder="Select team"
+                    [options]="listTeam" optionLabel="name"  (onChange)="SelectedTeam($event)"></p-dropdown> -->
+                    <p-multiSelect
+                        formControlName="team"
+                        [disabled]="isDisabled"
+                        [showToggleAll] = true
+                        filter="true"
+                        [options]="listTeam"
+                        [defaultLabel]=leaderNameLabel
+                        (onChange)="SelectedTeam($event)">
+                    </p-multiSelect>
+                    <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                        *ngIf="reportsForm.controls.team.hasError('required') && isShow">
+                        {{ 'REPORTS.TEAM_REQUIRED' | translate }}
+                    </mat-error>
+                </div>
+    
+                <div class="select-filter" *ngIf="!isShowNAEPRecruitment">
+                    <p>{{'REPORTS.PRODUCT'| translate}}</p>
+                    <!-- {{ 'REPORTS.SELECT_CATEGORY' | translate }} -->
+                    <!-- <p-dropdown formControlName="category" placeholder="Select category"
+                    [options]="listCategory" optionLabel="name" (onChange)="SelectedCategory($event)"></p-dropdown> -->
+                    <p-multiSelect
+                        formControlName="product"
+                        [showToggleAll] = true
+                        filter="true"
+                        [options]="listProduct"
+                        [defaultLabel]=" 'REPORTS.SELECT_PRODUCT' | translate "
+                        (onChange)="SelectedProduct($event)">
+                  </p-multiSelect>
+                  <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                    *ngIf="reportsForm.controls.product.hasError('required') && isShow">
+                    {{ 'REPORTS.PRODUCT_REQUIRED' | translate }}
+                  </mat-error>
+                </div>
+                
+                <div class="select-filter" *ngIf="isShowNAEPSuccess">
+                    <p>{{'REPORTS.PERIOD'| translate}}</p>
+                    <!-- {{ 'REPORTS.SELECT_PERIOD' | translate }} -->
+                        <p-dropdown
+                            formControlName="period"
+                            filter="true"
+                            [options]="listSalesPeriod"
+                            placeholder="{{'REPORTS.SELECT_PERIOD'| translate}}"
+                            optionLabel="name"
+                            (onChange)="SelectedSalesPeriod($event)">
+                        </p-dropdown>
+                        <mat-error class="error-message" style="margin-left: 5px; display: block;"
+                            *ngIf="reportsForm.controls.period.hasError('required') && isShow">
+                            {{ 'REPORTS.SALE_PERIOD_REQUIRED' | translate }}
+                        </mat-error>
+                    <!-- <p-dropdown formControlName="segment" 
+                        placeholder="Select segment"
+                        [options]="listSegment" optionLabel="name" 
+                        (onChange)="SelectedSegment($event)">
+                    </p-dropdown> -->
+                </div>
+            </div>
+            
+        </div>
+    
+        <div class="footer-btn">
+            <button class="btn-back" (click)="back()">{{ 'REPORTS.CANCEL' | translate }}</button>
+            <app-button-loading 
+                (click)="exports()" 
+                [buttonName]="buttonName"
+                [active]='active'>
+            </app-button-loading>
+        </div>
+    
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

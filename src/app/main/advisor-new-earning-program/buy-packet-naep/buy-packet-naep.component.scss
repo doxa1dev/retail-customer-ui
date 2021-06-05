@@ -1,0 +1,150 @@
+@import "src/@fuse/scss/fuse";
+
+
+#naep-background{
+    background-color: var(--form-background);
+    width: 100%;
+    height: auto;
+    padding: 10px 15px;
+    font-size: var(--mobi-primary-text) !important;
+
+    #naep-child{
+        color: var(--text-color);
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        display: block;
+        padding-top: 5px;
+
+        .naep-left-right{
+            margin: -10px 30px 0px 30px;
+        }
+
+        mat-card-header{
+            background: #12121212;
+            padding: 5px;
+            color: var(--primary-color);
+            border-radius: 10px 10px 0px 0px;
+
+            mat-card-title{
+                font-size: var(--mobi-primary-text) !important;
+                padding-top: 10px;
+            }
+          }
+          
+          mat-card-content{
+            padding: 20px;
+            height: auto;
+
+            .price-text {
+              font-weight: 600;
+              text-transform: uppercase;
+              color: var(--red-color) !important;
+              font-size: var(--mobi-primary-text);
+            }
+
+            .price-naep {
+              color: var(--text-color) !important;
+              font-size: var(--mobi-primary-text);
+            }
+
+            .des-text {
+              width: 100%;
+              height: 80px;
+              background-color: #EDEDED;
+              padding: 10px;
+              margin-top: 10px;  
+              resize: none;     
+              font-size: var(--mobi-primary-text);
+              color: var(--text-color);   
+            }
+
+            .product-kit {
+              display: flex;
+
+              img {
+                width: 35%;
+                object-fit: contain;
+              }
+
+              .deposit-name {
+                font-weight: 600;
+              }
+
+              p {
+                margin-top: 0px;
+                padding-left: 30px;
+                color: var(--primary-color);
+                font-size: var(--mobi-primary-text);
+              }
+            }
+
+            .product-deposit {
+              .list-deposit {
+                .deposit {
+                  display: flex;
+                  padding-bottom: 10px;
+
+                  img {
+                    width: 35%;
+                    object-fit: contain;
+                  }
+
+                  div {
+                    p {
+                      margin-top: 0px;
+                      padding-left: 30px;
+                      font-size: var(--mobi-primary-text);
+                      
+                    }
+
+                    .deposit-name {
+                      color: var(--primary-color);
+                      font-weight: 600;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          
+          mat-card{
+            margin-bottom: 20px;
+            padding: 0;
+            border-radius: 10px;
+            box-shadow: lightness($color: #000000);
+          }
+
+
+          mat-radio-button{
+              float: right;
+              margin-top: -40px;
+          }
+
+          .mat-card-line{
+            padding-top: 20px;
+          }
+
+          .footer {
+            position: sticky;
+            width: 100%;
+            height: 64px;
+            bottom: 0;
+            // padding-top: 20px;
+            margin: 30px auto 10px auto;
+            
+            .btn-next {
+              margin: 0px 24px 24px 0px;
+              width: 100%;
+              height: 40px;
+              color: #ffffff;
+              font-size: var(--mobi-large-button-text);
+              border: 0px solid;
+              background-color: var(--primary-color);
+              border-radius: 6px;
+            }
+          }
+    }
+
+    
+}

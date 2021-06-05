@@ -1,0 +1,227 @@
+<div style='width: 100%; height: 100%; background-color: var(--fuse-background);'>
+    <div id="productdetail"  *ngIf="productData">
+        <!-- Content -->
+        
+        <div id="productdetail-wrapper" fxLayout="column" fxLayoutAlign="">
+            
+            <div class="header-productdetail">
+                <!-- <app-title [type]="title" [message]="" (click)="back()"></app-title> -->
+                <div class="left_title">
+                    <button mat-icon-button (click)="back()">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
+                    <a (click)="back()">{{ 'PRODUCT.DETAIL' | translate }}</a>
+                </div>
+            </div>
+            <!-- Border Content -->
+            <div id="detail" fxLayout="row" fxLayout.xs="column">
+                <!-- image -->
+                <div id="imageProduct">
+                    <div id="imageContainer">
+                        <div class="gallery-wrapper">
+                            <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImagesShow" class="ngx-gallery"></ngx-gallery> -->
+                            <!-- show image cover -->
+                            <swiper class="swiper-cover" [config]='swiperOptions' [thumbs]='{swiper: thumbsSwiper}'>
+                                <ng-container *ngFor="let image of galleryImages" >
+                                    <ng-template class="swiper-image" swiperSlide>
+                                        <img  [src]='image' (mousemove)='mouseMoveImage()'>
+                                    </ng-template>
+                                </ng-container>
+                            </swiper>
+
+                            <!-- <div  id="img-container"  *ngFor="let image of galleryImages">
+                                <img (mousemove)='mouseMoveImage()' [src]="image" />
+                            <div> -->
+    
+                            <!-- show thumbs -->
+                            <swiper class="swiper-thumbs" [config]='swiperOptionsThumbs'
+                            (swiper)='setThumbsSwiper($event)'>
+                                <ng-container *ngFor="let image of galleryImages">
+                                    <ng-template swiperSlide>
+                                        <img [src]='image'>
+                                    </ng-template>
+                                </ng-container>
+                            </swiper>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- End of image -->
+                <!-- Product price -->
+                <div id="text-product">
+                    <div id="priceProduct">
+                        <div id="price-product-content">
+                            <!-- <p>{{productData.product_name}}</p> -->
+                            <p [innerHTML]="((getTranslation(productData.id, '', 1) | async) !== ('PRODUCT_DETAIL.' + productData.id + '.' + 'TITLE') ? (getTranslation(productData.id, '', 1) | async) : productData.product_name)  | titletranformPipe"></p>
+                            <!-- <p>{{ (getTranslation('DETAIL.TITLE', '') | async) !== ('DETAIL.TITLE') ? (getTranslation('DETAIL.TITLE', '') | async) : productData.product_name }}</p> -->
+                            <div *ngIf="checkiIsHaveInternalDiscount(productData) == true">
+                                <div id="oldPrice">{{productData.listed_price | currency: productData.currency_code + ' ':'symbol':''}}</div>
+                                <div id="newPrice">{{productData.internal_discount_price | currency: productData.currency_code + ' ':'symbol':''}}</div>
+                            </div>
+                            <div *ngIf="checkiIsHaveInternalDiscount(productData) == false && checkHasPromotionPrice(productData.promotional_price) === true">
+                                <div id="oldPrice">{{productData.listed_price | currency: productData.currency_code + ' ':'symbol':''}}</div>
+                                <div id="newPrice">{{productData.promotional_price | currency: productData.currency_code + ' ':'symbol':''}}</div>
+                            </div>
+                            
+                            <div *ngIf="checkiIsHaveInternalDiscount(productData) == false && checkHasPromotionPrice(productData.promotional_price) === false">
+                            
+                                <div id="oldPrice" style="text-decoration: none;">{{productData.listed_price | currency: productData.currency_code +' ':'symbol':''}}</div>
+    
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of product price -->
+    
+                    <form name="AddToCartForm" [formGroup]="AddToCartForm" novalidate (ngSubmit)="addToCart(productData.id,productData.uuid)" >
+                        <!-- Advisor Information -->
+                        <div class="adivisor">
+                            <div class="language" *ngFor="let P of propertiesArray, let i = index">
+                                <div class="languageText">
+                                    <p >{{P.name}}</p>
+                                </div>
+                                <div class="start">*</div>
+                                <div id="selectLanguage">
+                                    <p-dropdown  id="languages" [options]="P.value"  [(ngModel)]="modelGroups[i]" [ngModelOptions]="{standalone: true}"
+                                        placeholder="--  Select {{P.name}}  --">
+                                        <ng-template let-item pTemplate="selectedItem" > 
+                                            <span style="vertical-align:middle">{{item.label}}</span>
+                                        </ng-template>
+                                        <ng-template let-language pTemplate="item">
+                                            <div class="ui-helper-clearfix">
+                                                <div>{{language.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <!-- Advisor -->
+                            <div *ngIf="productData.has_advisor == true">
+                                <!-- <div id="infoAdvisor">
+                                    <div id="infoTitle" >
+                                        <p>{{'PRODUCT.PRODUCT_DETAIL.ADVISOR_ID' | translate}}</p>
+                                    </div>
+                                    <div class="start">*</div>
+                                    <div id="adID">
+                                        <input type="text" formControlName="advisor_id" [attr.disabled]="true">
+                                    </div>
+                                    
+                                </div> -->
+                                <!-- <div class="div-alert" *ngIf="AddToCartForm.controls.advisor_id.touched  && showMessage">
+                                    <div class="div-alert-content">
+                                        <app-alert>
+                                            <p>Invalid advisor id.</p>
+                                        </app-alert>
+                                    </div>
+                                    
+                                </div> -->
+                                <!-- <div id="infoAdvisorName">
+                                    <div id="infoName">
+                                        <p>{{'PRODUCT.PRODUCT_DETAIL.ADVISOR_NAME' | translate}}</p>
+                                    </div>
+                                    <div id="infoValue">
+                                        <input type="text"  formControlName="advisor_name" [attr.disabled]="true">
+                                    </div>
+                                    <div id="infoImage">
+                                        <img [src]="AdvisorImg" alt="">
+                                    </div>
+                                </div> -->
+                                <!-- <div id="policy">
+                                    <div id="policyText">
+                                        <p> It is our policy to have a dedicated Thermomix Advisor assigned to every customer to ensure you receive a complete Thermomix experience.</p>
+                                    </div>
+                                </div> -->
+                            </div>
+                            
+                        </div>
+                        <!-- End Advisor Information -->
+                        <!-- Policy -->
+                        <!-- <div *ngIf="!showTerm">
+                            <div id="terms-conditions">
+                                <mat-checkbox color="primary" [(ngModel)]="checkbox" [ngModelOptions]="{standalone: true}">I agree to <a href={{termandcondition}} target="_blank" routerLinkActive="router-link-active" >Terms and Conditions</a>
+                                </mat-checkbox>
+                            </div>
+                        </div> -->
+                        
+                        <!-- End of policy -->
+                    <p-toast  position="top-right"  [showTransformOptions]="'translateX(-100%)'">
+                        <ng-template let-message pTemplate="message">
+                            <div style="text-align: center">
+                                <h4>{{message.summary}}</h4>
+                            </div>
+                        </ng-template>
+                    </p-toast>
+                        
+                    <!-- button -->
+                    <div id="btn-product">
+                        <div id="btn-product-div">
+                            <div id="btn-add-to-cart">
+                                <!-- <button *ngIf="showTerm" mat-button  type="submit" [disabled]="AddToCartForm.invalid || propertiesArray.length !== modelGroups.length " >Add to cart</button>
+                                <button *ngIf="!showTerm" mat-button  type="submit" [disabled]="AddToCartForm.invalid ||!checkbox || propertiesArray.length !== modelGroups.length ">Add to cart</button> -->
+    
+                                <app-button-loading style="width: 100%; height: 100%; display: contents;" *ngIf="showTerm" 
+                                    [buttonName] = "(getStaticTranslation('PRODUCT.PRODUCT_DETAIL.ADD_TO_CART') | async)" 
+                                    type="submit" [active]="active" 
+                                    [disabledBtn]="(AddToCartForm.invalid || propertiesArray.length !== modelGroups.length) "   
+                                    [ngClass] = "(AddToCartForm.invalid || propertiesArray.length !== modelGroups.length) ? '':'btn-create-disabled'">
+                                </app-button-loading>
+                                <app-button-loading style="width: 100%; height: 100%; display: contents;" *ngIf="!showTerm" 
+                                    [buttonName] = "(getStaticTranslation('PRODUCT.PRODUCT_DETAIL.ADD_TO_CART') | async)" 
+                                    type="submit" [active]="active" 
+                                    [disabledBtn]="(AddToCartForm.invalid || propertiesArray.length !== modelGroups.length) "   
+                                    [ngClass] = "(AddToCartForm.invalid || propertiesArray.length !== modelGroups.length) ? '':'btn-create-disabled'">
+                                </app-button-loading>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    </form>
+    
+                    <div id="btn-continue-shopping">
+                        <button mat-button (click)="continueShopping()">{{'PRODUCT.PRODUCT_DETAIL.CONTINUE' | translate}}</button>
+                    </div>
+    
+                    <!-- <div id="btn-invite-customer">
+                        <button mat-button *ngIf="isShowInviteButton" (click)="inviteCustomer()" >{{'PRODUCT.PRODUCT_DETAIL.INVITE_CUS' | translate}}</button>
+                    </div> -->
+    
+                    <div id="btn-invite-customer">
+                        <button mat-button style="background-color: #ffdf00; color: #000;" *ngIf="isShowInviteButton && productData.has_advisor " (click)="inviteCustomer()" >{{'PRODUCT.PRODUCT_DETAIL.INVITE_CUS' | translate}}</button>
+                    </div> 
+    
+                    <!-- End of button -->
+                    <!-- Detail information -->
+                    <div id="detail-information">
+                        <div><b>{{'PRODUCT.PRODUCT_DETAIL.CATEGORY' | translate}}: </b>
+                            <span *ngFor="let item of categoryList , let i = index">
+                                <!-- <a *ngIf="i+1 == categoryList.length" (click)="goToCategory(item.id)" >{{item.name}} </a>
+                                <a *ngIf="i+1 !== categoryList.length" (click)="goToCategory(item.id)" >{{item.name}}, </a> -->
+                                <a *ngIf="i+1 == categoryList.length" (click)="goToCategory(item.id)" >{{ (getTranslation(productData.id, item.id, 3) | async) !== ('PRODUCT_DETAIL.' + productData.id + '.CATEGORY.TITLE_' + item.id) ? (getTranslation(productData.id, item.id, 3) | async) : item.name}}</a>
+                                <a *ngIf="i+1 !== categoryList.length" (click)="goToCategory(item.id)" >{{ (getTranslation(productData.id, item.id, 3) | async) !== ('PRODUCT_DETAIL.' + productData.id + '.CATEGORY.TITLE_' + item.id) ? (getTranslation(productData.id, item.id, 3) | async) : item.name}}, </a>
+                                <!-- <a *ngIf="i+1 == categoryList.length" (click)="goToCategory(item.id)" >{{ (getTranslation('DETAIL.CATEGORY.TITLE', item.id) | async) !== ('DETAIL.CATEGORY.TITLE.' + item.id) ? (getTranslation('DETAIL.CATEGORY.TITLE', item.id) | async) : item.name }} </a> -->
+                                <!-- <a *ngIf="i+1 !== categoryList.length" (click)="goToCategory(item.id)" >{{ (getTranslation('DETAIL.CATEGORY.TITLE', item.id) | async) !== ('DETAIL.CATEGORY.TITLE.' + item.id) ? (getTranslation('DETAIL.CATEGORY.TITLE', item.id) | async) : item.name }}, </a> -->
+                            </span>
+                        </div>
+                    </div>
+                    <!-- End of detail information -->
+    
+                    <!-- Description -->
+                    <div id="description">
+                        <p>{{'PRODUCT.PRODUCT_DETAIL.DESCRIPTION' | translate}}</p>
+                        <div id="contenrDescription">
+                            <!-- <p>{{productData.product_description}}</p> -->
+                            <p>{{ (getTranslation(productData.id, '', 2) | async) !== ('PRODUCT_DETAIL.' + productData.id + '.' + 'DESCRIPTION') ? (getTranslation(productData.id, '', 2) | async) : productData.product_description }}</p>
+                            <!-- <p>{{ (getTranslation('DETAIL.DESCRIPTION', '') | async) !== ('DETAIL.DESCRIPTION') ? (getTranslation('DETAIL.DESCRIPTION', '') | async) :  productData.product_description}}</p> -->
+                        </div>
+                    </div>
+                    <!-- End of description -->
+                </div>
+    
+            </div>
+            <!-- End of border content -->
+        </div>
+        <!-- End of Content -->
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>
+

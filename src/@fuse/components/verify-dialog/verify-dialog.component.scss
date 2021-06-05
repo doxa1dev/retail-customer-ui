@@ -1,0 +1,53 @@
+.title{
+    font-size: 16px;
+    font-weight: 600 !important;
+    margin-top: -20px;
+    color: #5A616F !important;
+}
+hr{
+    margin-top: -20px;
+    background-color: #5A616F !important;
+}
+.message{
+    font-size: 16px;
+    // font-weight: 600;
+    color: #5A616F !important;
+}
+.pt-24{
+    padding-bottom: 30px;
+    @media screen and (min-width : 750px){
+        width: 60% !important;
+        margin: 0 auto;
+    }
+    .ok-button{
+        background-color: #0A73EB !important;
+        color: white !important;
+        padding-left: 43px !important;
+        padding-right: 43px !important;
+        border: 1px solid #0A73EB;
+        @media only screen and (max-width : 350px) {
+            padding-left: 35px !important;
+            padding-right: 35px !important;
+        }
+    }
+    .ok-continue{
+        background-color: #0A73EB !important;
+        color: white !important;
+        border: 1px solid #0A73EB;
+        @media only screen and (max-width : 350px) {
+            padding-left: 35px !important;
+            padding-right: 35px !important;
+        }
+    }
+    .cancel-button{
+        background-color: white !important;
+        color: #269A3E !important;
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        border: 1px solid #269A3E;
+        @media only screen and (max-width : 350px) {
+            padding-left: 25px !important;
+            padding-right: 25px !important;
+        }
+    }
+}

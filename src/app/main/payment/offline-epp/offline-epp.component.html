@@ -1,0 +1,159 @@
+<div id="epp" fxLayout="column">
+  <div id="epp-wrapper" fxLayout="column">
+    <div id="link">
+      <!-- <div class="link-icons">
+        <mat-icon routerLink="../payment-options-full" style="cursor: pointer;" (click)="backToPaymentOption()">
+          chevron_left</mat-icon>
+        <a href="javascript:void(0)">{{ 'OFFLINE_EPP.EPP_PAYMENT' | translate }}</a>
+      </div> -->
+      <app-title [type]="title" [message]="'OFFLINE_EPP.EPP_PAYMENT'">
+      </app-title>
+    </div>
+
+    <!-- show options -->
+    <div id="FormField">
+      <div id="block">
+        <form class="form-gr" [formGroup]="ccForm" novalidate (ngSubmit)="onSubmit()">
+          <div id="text">
+            <p>1. {{ 'OFFLINE_EPP.SELECT_BANK' | translate }}</p>
+          </div>
+
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="bank-name" (selectionChange)="filterBank($event.value)"
+              placeholder="------Select Bank------">
+              <!-- <mat-option value='0'>--Select--</mat-option> -->
+              <mat-option *ngFor="let bank of banks" [value]="bank.name">
+                {{ bank.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="isbankSelected" id="text">
+            <p>{{ 'OFFLINE_EPP.SELECT_TENURE' | translate }}</p>
+          </div>
+
+          <div class="form-radio-group" *ngIf="isbankSelected">
+            <mat-radio-group formControlName="tenure">
+              <mat-radio-button *ngFor="let bankTenure of bankTenures" [value]="bankTenure"
+                (change)="filterTenure($event)">
+                <mat-label>{{ bankTenure }}&nbsp; &nbsp;</mat-label>
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+
+          <div class="text" *ngIf="isTenureSelected">
+            <p class="text-b">{{ 'OFFLINE_EPP.YOU_WILL_PAY' | translate }} {{ amountNeedToPayPerMonth  | currency: currency+" " }} {{ 'OFFLINE_EPP.PER_MONTH' | translate }}</p>
+          </div>
+
+
+
+
+
+          <div id="text">
+            <p>2. {{ 'OFFLINE_EPP.ENTER_CREDIT_CARD' | translate }}</p>
+          </div>
+
+          <div>
+            <div class="form-input">
+              <mat-form-field appearance="outline">
+                <mat-label class="secondary-text">{{ 'OFFLINE_EPP.CREDIT_CARD_NUMBER' | translate }}</mat-label>
+                <input matInput formControlName="card-number" type="tel" autocomplete="cc-number" ccNumber />
+                <!-- <div *ngIf="ccForm.get('card-number').hasError('required') &&ccForm.get('card-number').dirty && submitted ||
+                    ccForm.get('card-number').hasError('validateCCNumber') &&ccForm.get('card-number').dirty && submitted ">
+                        <app-alert>
+                            <p> Invalid Credit Card Number </p>
+                        </app-alert>
+                    </div> -->
+              </mat-form-field>
+            </div>
+
+            <div class="form-input">
+              <mat-form-field appearance="outline">
+                <mat-label class="secondary-text">{{ 'OFFLINE_EPP.NAME_ON_CARD' | translate }}</mat-label>
+                <input matInput formControlName="name-on-card" />
+              </mat-form-field>
+            </div>
+
+            <div class="form-input">
+              <mat-form-field appearance="outline">
+                <mat-label class="secondary-text">{{ 'OFFLINE_EPP.EXPIRY_DATE' | translate }}</mat-label>
+                <input matInput formControlName="expiry-date" type="tel" autocomplete="cc-exp" ccExp />
+              </mat-form-field>
+            </div>
+
+            <div class="form-input">
+              <mat-form-field appearance="outline">
+                <mat-label class="secondary-text">{{ 'OFFLINE_EPP.CVC' | translate }}</mat-label>
+                <input matInput formControlName="cvc-number" type="tel" autocomplete="off" ccCvc />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <button mat-raised-button class="query-form-btn back-cancel-btn" aria-label="CANCEL" (click)="cancel()">
+            {{ 'OFFLINE_EPP.CANCEL' | translate }}
+          </button>
+          <button mat-raised-button color="accent" class="query-form-btn green-right-btn" aria-label="SUBMIT"
+            type="submit" [disabled]="ccForm.invalid">
+            {{ 'OFFLINE_EPP.SUBMIT' | translate }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="FormFooter">
+    <div class="inForm">
+      <div class="payment-info">
+        <p>{{ 'OFFLINE_EPP.PAYMENT_INFO' | translate }}:</p>
+        <div class="grid1" fxLayout="row">
+          <div class="verified" fxLayout="column">
+            <div class="table">
+
+              <div class="col-left">
+                <div>{{ 'OFFLINE_EPP.PENDING_VERIFIED' | translate }}:</div>
+                <div>{{ 'OFFLINE_EPP.VERIFIED' | translate }}:</div>
+                <div style="color: var(--red-color)">{{ 'OFFLINE_EPP.REMAINING' | translate }}:</div>
+              </div>
+              <div class="col-right">
+                <div>{{ pendingVerified | currency: " " }}</div>
+                <div>{{ verified | currency: " " }}</div>
+                <div style="color: var(--red-color)">{{ remaining | currency: currency + " " }}</div>
+              </div>
+            </div>
+            <!-- <p class="remaining">
+              <span id="remaining-in">{{ 'OFFLINE_EPP.REMAINING' | translate }}:</span>
+              {{ remaining | currency: currency + " " }}
+            </p> -->
+          </div>
+        </div>
+      </div>
+
+      <hr />
+      <div class="order-amount">
+        <p class="order">{{ 'OFFLINE_EPP.ORDER_AMOUNT' | translate }}:</p>
+        <div class="grid2" fxLayout="row">
+          <div class="amount" fxLayout="column">
+            <div class="table2">
+              <div class="col-left">
+                <div>{{ 'OFFLINE_EPP.SHIPPING' | translate }}:</div>
+                <div>{{ 'OFFLINE_EPP.SUBTOTAL' | translate }}:</div>
+                <div style="color: var(--red-color)">{{ 'OFFLINE_EPP.TOTAL' | translate }}:</div>
+              </div>
+              <div class="col-right">
+                <div>{{ shipping | currency: " " }}</div>
+                <div>{{ subTotal | currency: " " }}</div>
+                <div style="color: var(--red-color)">{{ total | currency: currency + " " }}</div>
+              </div>
+            </div>
+            <!-- <p class="total">
+              <span id="total-in">{{ 'OFFLINE_EPP.TOTAL' | translate }}:</span>
+              {{ total | currency: currency + " " }}
+            </p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

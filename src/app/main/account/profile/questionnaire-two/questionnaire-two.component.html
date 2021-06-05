@@ -1,0 +1,101 @@
+<div style="width: 100%;">
+    <div class="questione-two-content">
+        <div class="heading-query-form">
+            <!-- <span class="dot">●</span>
+            <span class="text-query-form">Query Form</span> -->
+    
+            <app-title [type]="title" [message]="'QUESTIONNAIRE_ONE.GUEST_QUESTION'"></app-title>
+        </div>
+    
+    
+        <div id="query" fxLayout="column">
+            <div id="query-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+                <div id="query-form">
+                    <div class="title">{{ 'QUESTIONNAIRE_2.GUEST_QUESTIONNAIRE_2' | translate }}</div>
+    
+                    <form name="queryForm" [formGroup]="queryForm" novalidate (ngSubmit)="onSubmit()">
+                        <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_2.QUESTIONS_1' | translate }}</mat-label>
+                        <div class="options-container">
+                            <div formArrayName="q1"
+                                *ngFor="let q1Control of queryForm['controls'].q1['controls']; let i = index"
+                                class="checkbox-padding-5px">
+                                <mat-checkbox [formControlName]="i">
+                                    <mat-label>{{q1data[i].text}}</mat-label>
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                        <div *ngIf="queryForm.get('q1').hasError('required')
+                                                        && (queryForm.get('q1').dirty || queryForm.get('q1').touched)">
+                            <app-alert>
+                                <p>{{ 'QUESTIONNAIRE_2.CHECK_QUESTIONS_1' | translate }}</p>
+                            </app-alert>
+                        </div>
+    
+                        <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_2.QUESTIONS_2' | translate }}
+                        </mat-label>
+                        <mat-form-field appearance="none">
+                            <input matInput formControlName="q2">
+                            <div *ngIf="queryForm.get('q2').hasError('required')
+                                                            && (queryForm.get('q2').dirty || queryForm.get('q2').touched)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_2.CHECK_QUESTIONS_2' | translate }}</p>
+                                </app-alert>
+                            </div>
+                        </mat-form-field>
+    
+                        <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_2.QUESTIONS_3' | translate }}</mat-label>
+                        <div class="options-container">
+                            <div formArrayName="q3"
+                                *ngFor="let q3Control of queryForm['controls'].q3['controls']; let i = index"
+                                class="checkbox-padding-5px">
+                                <mat-checkbox [formControlName]="i">
+                                    <mat-label>{{q3data[i].text}}</mat-label>
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="queryForm.get('q3').hasError('required')
+                                                                            && (queryForm.get('q3').dirty || queryForm.get('q3').touched)">
+                            <app-alert>
+                                <p>{{ 'QUESTIONNAIRE_2.CHECK_QUESTIONS_1' | translate }}</p>
+                            </app-alert>
+                        </div>
+    
+                        <mat-label class="green-label">{{ 'QUESTIONNAIRE_2.QUESTIONS_4' | translate }}</mat-label>
+                        <div class="options-container">
+                            <mat-radio-group formControlName="q4">
+                                <mat-radio-button *ngFor="let option of q4data" [value]="option.id">
+                                    <mat-label class="black-label">{{option.text}}</mat-label>
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+    
+                        <mat-label class="green-label">{{ 'QUESTIONNAIRE_2.QUESTIONS_5' | translate }}</mat-label>
+                        <div class="options-container">
+                            <mat-radio-group formControlName="q5">
+                                <mat-radio-button *ngFor="let option of q5data" [value]="option.id">
+                                    <mat-label class="black-label">{{option.text}}</mat-label>
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+    
+                        <div class="footer-btn-two">
+                            <button mat-raised-button class="query-form-btn back-cancel-btn" aria-label="CANCEL"
+                            [routerLink]="['/my-profile']">
+                            {{ 'QUESTIONNAIRE_2.CANCEL' | translate }}
+                            </button>
+    
+                            <button mat-raised-button color="accent" class="query-form-btn green-right-btn" aria-label="SUBMIT"
+                            type="submit">
+                            {{ 'QUESTIONNAIRE_2.FINISH' | translate }}
+                            </button>
+    
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

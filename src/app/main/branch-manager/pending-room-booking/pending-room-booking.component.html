@@ -1,0 +1,110 @@
+<div style="width: 100%">
+    <div class="container">
+        <div class="branch-manager">
+                <app-title *ngIf="status === 'pending'" [type]="title" [link]="'/branch-manager'" [message]="'PENDING_ROOM_BOOKING.PENDING_ROOM_BOOKING'">
+                </app-title>
+                <app-title *ngIf="status === 'past'" [type]="title" [link]="'/branch-manager'" [message]="'PENDING_ROOM_BOOKING.PAST_ROOM_BOOKING'">
+                </app-title>
+                <!-- <span class="dot" (click)="back()"><button mat-icon-button><mat-icon>chevron_left</mat-icon></button></span>
+                <span class="text" *ngIf="status === 'pending'">{{ 'PENDING_ROOM_BOOKING.PENDING_ROOM_BOOKING' | translate }}</span>
+                <span class="text" *ngIf="status === 'past'">{{ 'PENDING_ROOM_BOOKING.PAST_ROOM_BOOKING' | translate }} </span> -->
+            <div class="content" *ngIf="status === 'pending'">
+                <p id="list-text">{{ 'PENDING_ROOM_BOOKING.ACTIVITIES_PENDING_TO_APPROVE' | translate }} (<span *ngIf="Activities.length < 10 && Activities.length > 0">0</span>{{Activities.length}})</p>
+    
+                <div >
+                    <mat-card  *ngFor="let activitiy of Activities, let i = index" (click)="goToDetail(activitiy.id)" [ngStyle]="{'cursor': 'pointer'}">
+                        <mat-card-header>
+                            <mat-card-title></mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <p class="title">{{activitiy.title}} - {{ 'PENDING_ROOM_BOOKING.TYPE' | translate }}: {{activitiy.type}}</p>
+                            <table>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.DATE' | translate }}:</td>
+                                    <td class="righcolumn-2">{{activitiy.activity_date | date : 'dd/MM/yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.ROOM' | translate }}:</td>
+                                    <td class="righcolumn-2">{{activitiy.roomId}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: top;">
+                                        {{ 'PENDING_ROOM_BOOKING.TIME_SLOT' | translate }}:
+                                        <br>
+                                        (0{{activitiy.bookingSlots.length}} {{ 'PENDING_ROOM_BOOKING.SLOT' | translate }}<span *ngIf="activitiy.bookingSlots.length > 1">{{ 'PENDING_ROOM_BOOKING.S' | translate }}</span>)
+                                    </td>
+                                    <td class="righcolumn" style="vertical-align: top;">
+                                        <tr *ngFor="let item of activitiy.bookingSlots">
+                                            <td>{{item.slotDescription}}</td>
+                                        </tr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.ADVISOR' | translate }}:</td>
+                                    <td class="righcolumn-2">{{activitiy.created_by}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.CAPACITY' | translate }}:</td>
+                                    <td class="righcolumn-2">{{activitiy.capacity}}</td>
+                                </tr>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                
+            </div>
+            <div class="content" *ngIf="status === 'past'">
+                <p id="list-text">{{ 'PENDING_ROOM_BOOKING.ACTIVITIES_APPROVE' | translate }} (<span *ngIf="Activities.length < 10 && Activities.length > 0">0</span>{{Activities.length}})</p>
+    
+                <div *ngIf="Activities.length  > 0">
+                    <mat-card *ngFor="let activitiy of obs| async">
+                        <mat-card-header>
+                            <mat-card-title>{{activitiy.status}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <p class="title">{{activitiy.title}} - {{ 'PENDING_ROOM_BOOKING.TYPE' | translate }}: {{activitiy.type}}</p>
+                            <table>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.DATE' | translate }}:</td>
+                                    <td class="righcolumn">{{activitiy.activity_date | date : 'dd/MM/yyyy'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.ROOM' | translate }}:</td>
+                                    <td class="righcolumn">{{activitiy.roomId}}</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: top;">
+                                        {{ 'PENDING_ROOM_BOOKING.TIME_SLOT' | translate }}:
+                                        <br>
+                                        ( 0{{activitiy.bookingSlots.length}} {{ 'PENDING_ROOM_BOOKING.SLOT' | translate }})
+                                    </td>
+                                    <td class="righcolumn" style="vertical-align: top;">
+                                <tr *ngFor="let item of activitiy.bookingSlots">
+                                    <td>{{item.slotDescription}}</td>
+                                </tr>
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.ADVISOR' | translate }}:</td>
+                                    <td class="righcolumn">{{activitiy.created_by}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ 'PENDING_ROOM_BOOKING.CAPACITY' | translate }}:</td>
+                                    <td class="righcolumn">{{activitiy.capacity}}</td>
+                                </tr>
+                            </table>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-paginator showFirstLastuttons [pageSizeOptions]="[2,5,10,20]"></mat-paginator>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>
+
+

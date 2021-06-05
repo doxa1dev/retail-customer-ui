@@ -1,0 +1,135 @@
+<div id="paymentoptions" fxLayout="column" *ngIf="!loading">
+
+    <div id="paymentoptions-wrapper" fxLayout="column">
+        <div id="link">
+            <app-title [type]="title" [message]="'PAYMENT.FULL_PAYMENT'">
+            </app-title>
+        </div>
+
+        <!-- show options -->
+        <div id="FormField">
+            <div id="text">
+                <p>{{'PAYMENT.SELECT_PAYMENT_AMOUNT' | translate}}:</p>
+            </div>
+            <div id="checkbox">
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button [checked]="true" (change)="radioChangePaymentFull($event.value)" value="1"
+                        id="payfull">
+                        <p>{{'PAYMENT.SINGLE_PAYMENT' | translate}}.</p>
+                    </mat-radio-button><br>
+                    <p class="promotion-text" *ngIf="hasValidOnlineBankingGift && valueRadio==='1' && false ">{{'PAYMENT_OPTION.EXTRA_GIFT' | translate}}</p>
+                    <mat-radio-button *ngIf="env!='SG'" value="2" id="payPartially" (change)="radioChangePaymentPartially($event.value)">
+                        <p>{{'PAYMENT.MULTIPLE_PAYMENTS' | translate}}.</p>
+                    </mat-radio-button>
+                </mat-radio-group>
+
+                <div id="block">
+                    <form class="form-gr" [formGroup]="toPayForm" novalidate>
+                        <input formControlName="toPayFull" *ngIf="isDisable && env!='SG'" type="text" id="abc"
+                            [attr.disabled]="true">
+
+                        <input formControlName="inputToPay" *ngIf="!isDisable && env!='SG'" type="text" id="abc">
+
+                        <div
+                            *ngIf="toPayForm.get('inputToPay').hasError('required') && isShow">
+                            <app-alert>
+                                <p>{{'PAYMENT.PAYMENT_AMOUNT_IS_REQUIRED' | translate}}.</p>
+                            </app-alert>
+                        </div>
+
+                        <div *ngIf="!toPayForm.get('inputToPay').hasError('required') && toPayForm.controls.inputToPay.touched 
+                            && toPayForm.controls.inputToPay.errors?.max && isShow">
+                            <app-alert>
+                                <p>{{'PAYMENT.PAYMENT_AMOUNT_CANNOT_EXCEED' | translate}} ({{remaining| currency:currency+' '}}).
+                                </p>
+                            </app-alert>
+                        </div>
+
+                        <div *ngIf="!toPayForm.get('inputToPay').hasError('required') && toPayForm.controls.inputToPay.touched 
+                            && toPayForm.controls.inputToPay.errors?.min && isShow">
+                            <app-alert>
+                                <p>{{'PAYMENT.PAYMENT_AMOUNT_GREATER' | translate}} {{0.00| currency:currency+' '}}.
+                                </p>
+                            </app-alert>
+                        </div>
+                        
+
+                        <div *ngIf="!toPayForm.get('inputToPay').hasError('required') && 
+                        toPayForm.get('inputToPay').hasError('changePrice') && 
+                        (toPayForm.get('inputToPay').dirty || toPayForm.get('inputToPay').touched) && isShow">
+                        <app-alert>
+                            <p>{{'PAYMENT.PRICE_MUST_BE_NUMBER' | translate}}r</p>
+                        </app-alert>
+                        </div>
+
+                        <!-- <button mat-raised-button color="primary" class="next-button" aria-label="Next"
+                            (click)="nextToSelectPayment()" *ngIf='isDisable'>
+                            NEXT
+                        </button> -->
+
+                        <!-- <button [disabled]="toPayForm.invalid" mat-raised-button color="primary" class="next-button"
+                            aria-label="Next" (click)="nextToSelectPayment()" *ngIf='!isDisable'>
+                            NEXT
+                        </button> -->
+
+                        <app-button-loading  *ngIf='isDisable' [buttonName] = 'buttonName'  disabledBtn="true" [active] = "active" (click) = "nextToSelectPayment()" ></app-button-loading>
+                        <app-button-loading  *ngIf='!isDisable' [buttonName] = 'buttonName'  disabledBtn="true" [active] = "active" (click) = "nextToSelectPayment()" ></app-button-loading>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="FormFooter">
+        <div class="inForm">
+            <div class="payment-info">
+                <p>{{'PAYMENT.PAYMENT_INFORMATION' | translate}}:</p>
+                <div class="grid1" fxLayout="row">
+                    <div class="verified" fxLayout="column">
+                        <div class="table">
+                            <div class="col-left">
+                                <div>{{'PAYMENT.PENDING_VERIFIED' | translate}}:</div>
+                                <div>{{'PAYMENT.VERIFIED' | translate}}:</div>
+                                <div style="color: var(--red-color);">{{'PAYMENT.REMAINING' | translate}}:</div>
+                            </div>
+                            <div class="col-right">
+                                <div>{{pendingVerified| currency:' '}}</div>
+                                <div>{{verified| currency:' '}}</div>
+                                <div style="color: var(--red-color);">{{remaining| currency:currency+' '}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="order-amount">
+                <p class="order">{{'PAYMENT.ORDER_AMOUNT' | translate}}:</p>
+                <div class="grid2" fxLayout="row">
+                    <div class="amount" fxLayout="column">
+                        <div class="table2">
+                            <div class="col-left">
+                                <div>{{'PAYMENT.SHIPPING' | translate}}:</div>
+                                <div>{{'PAYMENT.SUBTOTAL' | translate}}:</div>
+                                <div style="color: var(--red-color);">{{'PAYMENT.TOTAL' | translate}}:</div>
+                            </div>
+                            <div class="col-right">
+                                <div>{{shipping | currency:' '}}</div>
+                                <div>{{subtotal | currency:' '}}</div>
+                                <div style="color: var(--red-color);">{{total| currency:currency+' '}}</div>
+                            </div>
+                        </div>
+                        <!-- <p class="total"><span id="total-in">Total:</span> {{total| currency:currency+' '}}</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+<app-placeholder-loading *ngIf="loading" component="paymentOption"></app-placeholder-loading>

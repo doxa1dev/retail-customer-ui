@@ -1,0 +1,43 @@
+<div *ngIf = "listOrder.length > 0">
+    <p *ngIf="message !== null && message !== undefined">{{message}}</p>
+    <mat-card class="order-list-product"  *ngFor="let order of listOrder">
+        
+        <ng-container *ngIf="order.is_buying_for_customer && showIsBuying">
+            <div class="ad-pay-by-ad">
+                <p>{{ 'ORDER_DETAIL.AD_PAY_BY_AD' | translate }}</p>
+            </div>
+        </ng-container>
+        
+        <!-- <ng-container *ngIf="order.is_customer_pay && showIsCustomerPay">
+            <div class="ad-pay-by-cus">
+                <p>{{ 'ORDER_DETAIL.AD_PAY_BY_CUS' | translate }}</p>
+            </div>
+        </ng-container> -->
+
+        <!-- <div *ngIf="order.is_buying_for_customer && showIsBuying " style="width: 100%;background-color: var(--link-color);border-radius: 4px;margin-bottom: 5px;">
+            <p style="color:  white; text-align: center;">{{ 'ORDER_DETAIL.AD_PAY_BY_AD' | translate }}</p>
+        </div> -->
+        
+        <!-- <div *ngIf="order.is_customer_pay && showIsCustomerPay " style="width: 100%;background-color: var(--link-color);border-radius: 8px;margin-bottom: 5px;">
+            <p style="color:  white; text-align: center;">{{ 'ORDER_DETAIL.AD_PAY_BY_CUS' | translate }}</p>
+        </div> -->
+        <div *ngIf="showStatus" class="status-order">
+            {{order?.status}}
+        </div>
+        <div class ="order-product" *ngFor="let product of order.listProduct">
+            <app-product (click)="goToDetail(order.uuid)" 
+                [product] = "product" 
+                [showAdvisor] = "showAdvisor === undefined ? true : false"
+                [showCustomer]="showCustomer"
+                [orderId]="order.id">
+            </app-product>
+        </div>
+        <div class="order-summary" *ngIf = "order.listProduct.length !== 0">
+            <span class="order-id">{{ getStaticTranslation('ORDER_DETAIL.ORDER') | async }} #{{order.order_id_tmm}}</span>
+            <span class="order-total"> {{totalItem(order)}} {{ getStaticTranslation('ORDER_DETAIL.ITEM') | async }}, {{ getStaticTranslation('ORDER_DETAIL.TOTAL') | async }}: <span class="summary">{{order.totalAmount | currency: order.currency + ' ':'symbol':''}}</span></span>
+        </div>
+    </mat-card>
+</div>
+<div *ngIf = "listOrder.length === 0">
+    <app-empty-box-product></app-empty-box-product>
+</div>

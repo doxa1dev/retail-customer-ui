@@ -1,0 +1,15 @@
+<div class = "content">
+    <div class = "form-store">
+        <app-title [type]="title" [message]="'HOME.STORE'">
+        </app-title>
+        <form class="form-search">
+            <input class="input-search" #searchBox (keyup) = "search(searchBox.value)" placeholder="{{ 'HOME.SEARCH' | translate }}">
+            <img class="icon-search-product" src="../../../../assets/icons/material-icons/Search.png"/>
+        </form>
+    </div>
+    <a>
+        <div class= "flex-container" fxLayout="row">
+            <products  class="product" *ngFor="let product of productsInit" [id] = "product.id" [img_product]="product.categoryPhotoKey" [name_product]="(getTranslation('CATEGORY.TITLE', product.id) | async) !== ('CATEGORY.TITLE' + '.' + product.id) ? (getTranslation('CATEGORY.TITLE', product.id) | async) : product.categoryName"
+            [ngStyle]="{'flex': productsInit.length === 1 || productsInit.length === 2 ? '1' : ''}"></products>
+        </div></a>
+</div>

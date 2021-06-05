@@ -1,0 +1,53 @@
+
+
+<div *ngIf="type ==='REJECTED' ">
+    <h1 matDialogTitle class="title">{{ titleDialog }}</h1>
+    <hr>
+    <div mat-dialog-content class="message">{{confirmMessage}}</div>
+    <div  mat-dialog-actions class="pt-24-rejected">
+        <button class="ok-button" mat-raised-button (click)="dialogRef.close(true)">{{ 'CONFIRM.OK' | translate }}</button>
+        <button class="cancel-button" mat-button
+            (click)="dialogRef.close(false)">{{ 'CONFIRM.CANCEL' | translate }}</button>
+    </div>
+</div>
+
+
+
+<div  *ngIf="type === 'APPROVED'" >
+    <h1 matDialogTitle class="title">{{ titleDialog }}</h1>
+    <hr>
+    <div mat-dialog-content class="message">{{confirmMessage}}</div>
+
+    <div mat-dialog-actions class="pt-24-approved">
+        <button class="cancel-button-1" mat-button (click)="dialogRef.close(false)">{{ 'CONFIRM.CANCEL' | translate }}</button>
+        <button class="ok-button" mat-raised-button (click)="dialogRef.close(true)">{{ 'CONFIRM.OK' | translate }}</button>
+    </div>
+</div>
+
+
+
+
+<div *ngIf="type === 'COMMON'">
+    <h1 matDialogTitle class="title">{{titleDialog}}</h1>
+    <hr>
+    <div mat-dialog-content class="message">{{confirmMessage}}</div>
+    <div mat-dialog-actions class="pt-24-rejected">
+        <button [ngClass]="is_have_class_success ? 'ok-button-success': 'ok-button'"  mat-raised-button (click)="dialogRef.close(true)">{{btnYes}}</button>
+        <button class="cancel-button" mat-button
+            (click)="dialogRef.close(false)">{{btnNo}}</button>
+    </div>
+
+</div>
+
+
+<div *ngIf="type === 'INFOR'">
+    <h1 matDialogTitle class="title" style="font-weight: 600;">{{titleDialog}}</h1>
+    <hr>
+    <div mat-dialog-content class="message">{{confirmMessage}}</div>
+    <div mat-dialog-actions class="pt-24-rejected">
+        <button [ngClass]="is_have_class_success ? 'ok-button-success': 'ok-button'"  mat-raised-button (click)="dialogRef.close(true)">{{btnYes}}</button>
+        <button class="cancel-button" mat-button
+            (click)="dialogRef.close(false)">{{btnNo}}</button>
+    </div>
+
+</div>

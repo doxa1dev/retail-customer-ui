@@ -1,0 +1,71 @@
+<div style='width: 100%;'>
+    <div class="container">
+        <div class="classes" fxLayout="column">
+            
+            <span class="back">
+                <app-title [type]="title" [message]="'FIND_CLASS.FIND_A_CLASS'">
+                </app-title>
+            </span>
+            
+    
+            <div id="search-class">
+                <input type="text" [(ngModel)]="dataSearch" placeholder="{{ 'FIND_CLASS.SEARCH_BY_ACTIVITY' | translate }}">
+                <mat-icon matSuffix>search</mat-icon>
+            </div>
+    
+            <div id=filter-class>
+                <div id="filter">
+                    <p>{{ 'FIND_CLASS.FILTER' | translate }}</p>
+                </div>
+                <div id="select">
+                    <!-- <mat-form-field>
+                       <select matNativeControl required>
+                            <option value="all">All</option>
+                            <option value="month">By month</option>
+                        </select> 
+                        [touchUI]="true"
+                    </mat-form-field> --> 
+                    <div class="ui-g-12 ui-md-4">
+                        <!-- <h3>Month Picker</h3> -->
+                        <p-calendar [(ngModel)]="filterSearch" view="month"  [minDate]="minDate"  dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+                    </div>
+                </div>
+                <!-- <div id="button"> -->
+                   <!-- <button mat-button (click) = "search()">Search</button> -->
+                   <app-button-loading [buttonName] = 'buttonName' [disabledBtn] = "false" [active] = "active"  (click) = "search()" [ngClass] = "true ? '':'btn-create-disabled'"></app-button-loading>
+                <!-- </div> -->
+            </div>
+            <div *ngIf = "check" class="check-data">{{ 'FIND_CLASS.NO_ACTIVITY' | translate }}</div>
+            <div class="img" *ngIf="arrClasses.length === 0">
+                <img id="logo" src="assets/images_doxa/classes.png" alt="">
+            </div>
+    
+            <div class="class" *ngFor="let class of arrClasses">
+                <div class="inside">
+                    <div id="left">
+                        <img id="img" src="{{storageUrl}}{{class.cover_photo_key}}" alt="">
+                        <div id="day">{{class.activity_date | date: 'dd/MM/yyyy'}}</div>
+                        <div id="time">{{class.start_time}} - {{class.end_time}}</div>
+                    </div>
+        
+                    <div id="right">
+                        <div id="right-title" [routerLink]="['/activity-overview/class-information']" [queryParams]="{id:class.id}" routerLinkActive="router-link-active" >
+                            <div id="title">{{class.title}}</div>
+                            <div id="address">{{class.address.show_address}}</div>
+                            <div id="advisor">{{class.advisor}}</div>
+                        </div>
+                        <div class="button-view">
+                            <button (click)="Reserve(class.id)" mat-raised-button color="primary" class="view-button"
+                                aria-label="Reserve">
+                                {{ 'FIND_CLASS.RESERVE' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

@@ -1,0 +1,18 @@
+<div class="left_title" *ngIf=" type === title_left" >
+    <button mat-icon-button (click)="back()">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
+    <a (click)="back()">{{ message | translate }}</a><span>{{option}}</span>
+</div>
+
+<div class="left_title" *ngIf=" type === title_link" >
+    <button mat-icon-button (click)="back_link()">
+        <mat-icon>chevron_left</mat-icon>
+    </button>
+    <a (click)="back_link()">{{ message | translate }}</a>
+</div>
+
+<div class="dot_title" *ngIf=" type === title_dot">
+    <span class="dot">●</span>
+    <a>{{ message | translate }}</a>
+</div>

@@ -1,0 +1,83 @@
+<div style="width: 100%;">
+    <div class="container">
+      <div class="redeem-order">
+        <app-title [type]="title" [message]="'HOST_GIFT.YOUR_HOST_GIFT'">
+        </app-title>
+      </div>
+
+      <div class="list-redeem-order">
+        <mat-card style="width: 90%;" *ngFor="let order of obs | async ; index as i"> 
+          <div style="display: flex; margin-top: 20px;">  
+            <p class="order_id_number" >{{ 'ORDER_DETAIL.ORDER' | translate }} #{{order.order_id_tmm}} </p>
+          </div>
+          <mat-card-content>
+            <table>
+              <tr>
+                <td style="vertical-align: top;">
+                  {{ 'PRODUCT.CUSTOMER_NAME' | translate }}:
+                  <br>
+                </td>
+                <td class="righcolumn" style="vertical-align: top; margin-left: 45px;"> {{order.customer_name}}</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">
+                  {{ 'HOST_GIFT.RECOGNITION_DATE' | translate }}:
+                  <br>
+                </td>
+                <td class="righcolumn" style="vertical-align: top;">{{order.recognition_date}}</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">
+                  {{ 'HOST_GIFT.EXPIRE_DATE' | translate }}:
+                  <br>
+                </td>
+                <td class="righcolumn" style="vertical-align: top;">{{order.expired_date}} <span *ngIf="(order.time_left >= 0) && order.status == 'Redeemable'">- {{order.time_left}} {{ 'HOST_GIFT.DAYS_LEFT' | translate }}</span> </td>
+              </tr>
+              <tr *ngIf="order.redeemption_date">
+                <td style="vertical-align: top;">
+                  {{ 'HOST_GIFT.REDEEMTION_DATE' | translate }}:
+                  <br>
+                </td>
+                <td class="righcolumn" style="vertical-align: top;">{{order.redeemption_date}}</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">
+                  {{ 'ORDER_DETAIL.STATUS' | translate }}:
+                  <br>
+                </td>
+                <td class="righcolumn" style="vertical-align: top;" 
+                [ngStyle]="{color: (order.status == 'Expired' || order.status == 'Not Applicable Period' || order.status == 'Order Cancel') ? 'var(--red-color)' : 'var(--primary-color)'}">{{order.status}}</td>
+              </tr>
+              <tr *ngIf="(order.time_left >= 0) && order.status == 'Redeemable'">
+                <td colspan="2" style="text-align:center;">
+                  <button [disabled]="!order.checkRedeem" (click)="addGiftToCart(order)" class="button-redeem">{{ 'HOST_GIFT.REDEEM' | translate }}</button>
+                </td>
+              </tr>
+
+            </table>
+          </mat-card-content>
+    
+        </mat-card>
+
+        <p-toast  position="top-right"  [showTransformOptions]="'translateX(-100%)'">
+          <ng-template let-message pTemplate="message">
+              <div style="text-align: center">
+                  <div style="padding:0.5em 0em">{{message.summary}}</div>
+              </div>
+          </ng-template>
+        </p-toast>  
+    
+          <div *ngIf="totalSize === 0" style="text-align: center;font-size: 12px;">
+            <p>{{ 'HOST_GIFT.NO_REDEEM' | translate }}</p>
+         </div>
+    
+        <mat-paginator showFirstLastuttons [pageSizeOptions]="[3,6,10,20]"></mat-paginator>
+      </div>
+    
+     
+    
+    
+    </div>
+  
+    <app-bottom-navigation></app-bottom-navigation>
+  </div>

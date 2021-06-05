@@ -1,0 +1,47 @@
+<div class="payment-done">
+    <div class="content">
+        <div class="header">
+
+            <!-- <img style="cursor: pointer;" class="icon-back" src="../../../../assets/icons/material-icons/Chevron Left.png">
+
+            <span class="text-payment" style="text-decoration: underline;">Payment</span> -->
+        </div>
+
+        <div class="complete-payment">
+            <img *ngIf="(paymentSuccess=='true' && paymentOption==='FUL') || (paymentSuccess=='true' && paymentOption==='DEP') || (paymentSuccess=='true' && paymentOption==='EPP')" src="../../../../assets/images/payment/undraw_celebration_0jvk.png">
+            <img *ngIf="(paymentSuccess=='false' && paymentOption==='FUL') || (paymentSuccess=='false' && paymentOption==='DEP') || (paymentSuccess=='false' && paymentOption==='EPP') || (paymentSaved=='fail' && paymentOption==='FUL') || (paymentSaved=='fail' && paymentOption==='DEP') || (paymentSaved=='fail' && paymentOption==='EPP') || (paymentError=='true')" class="img-payment" src="../../../../assets/images/payment/failed-payment.jpg">
+            <span *ngIf="paymentSuccess=='true' && paymentOption==='FUL'" class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.THANK_YOU' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.PAYMENT_SUCCESSFUL' | translate}}</span>
+            <span *ngIf="paymentSuccess=='true' && paymentOption==='DEP'" class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.THANK_YOU' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.DEPOSIT_PAYMENT_SUCCESSFUL' | translate}}</span>
+            <span *ngIf="paymentSuccess=='true' && paymentOption==='EPP'" class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.THANK_YOU' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.INSTALLMENT_PAYMENT_SUCCESSFUL' | translate}}</span>
+
+            <span *ngIf="paymentSuccess=='false' && paymentOption==='FUL'"
+                class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.OOOOPS' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.PAYMENT_FAILED' | translate}}</span>
+            <span *ngIf="paymentSuccess=='false' && paymentOption==='DEP'"
+                class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.OOOOPS' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.DEPOSIT_PAYMENT_FAILED' | translate}}</span>
+            <span *ngIf="paymentSuccess=='false' && paymentOption==='EPP'"
+                class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.OOOOPS' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.INSTALLMENT_PAYMENT_FAILED' | translate}}</span>
+
+            <span *ngIf="paymentSaved=='fail' && paymentOption==='FUL'" class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.SORRY' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.ERROR_PAYMENT' | translate}}</span>
+            <span *ngIf="paymentSaved=='fail' && paymentOption==='DEP'" class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.SORRY' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.ERROR_DEPOSIT_PAYMENT' | translate}}</span>
+            <span *ngIf="paymentSaved=='fail' && paymentOption==='EPP'" class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.SORRY' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.ERROR_INSTALLMENT_PAYMENT' | translate}}</span>
+
+            <span *ngIf="paymentError=='true'" class="text1-complete-payment">{{ 'ONLINE_PAYMENT_STATUS.SORRY' | translate}}<br>{{ 'ONLINE_PAYMENT_STATUS.ERROR_PAYMENT' | translate}}</span>
+            <a style="text-decoration: none">
+                <button *ngIf="paymentOption==='FUL' && remainingIsZero" (click)="backtoStore()">{{ 'ONLINE_PAYMENT_STATUS.BACK_TO_STORE' | translate}}</button>
+                <button *ngIf="paymentOption==='FUL' && !remainingIsZero" (click)="backtoPaymentOption()">{{ 'ONLINE_PAYMENT_STATUS.CONTINUE_PAYMENT' | translate}}</button>
+                <button *ngIf="paymentOption==='DEP' && installmentAmount===remaining"
+                    (click)="toConfirmInstallment()">{{ 'ONLINE_PAYMENT_STATUS.PAY_INSTALLMENT' | translate}}</button>
+
+                <button *ngIf="paymentOption==='EPP' && paymentSuccess=='true'"
+                    (click)="backtoStore()">{{ 'ONLINE_PAYMENT_STATUS.BACK_TO_STORE' | translate}}</button>  
+            </a>
+        </div>
+    </div>
+
+    <app-footer-payment *ngIf="paymentSuccess=='true' && paymentOption!=='EPP'" 
+        [pending_verified]='pendingVerified' [verified]='verified'
+        [remaining]='remaining' [shipping]='shipping' [toPay]='toPay' 
+        [subtotal]='subTotal' [total]='total'
+        [currency]='currency'>
+    </app-footer-payment>
+</div>

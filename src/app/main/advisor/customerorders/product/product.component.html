@@ -1,0 +1,82 @@
+<div class="product-customer-order">
+    <div class="customer-order-content">
+        <div id="img-product">
+            <img id="" src="{{storageUrl}}{{product.cover_photo_key}}">
+        </div>
+        <div id="detail-product">
+            <div id="name-product">
+                <p id="nameProd">{{ (getTranslation(orderId, product.id) | async) !== ('CUSTOMER_ORDER_DYNAMIC.' +
+                    orderId + '_' + product.id + '.' + product.id) ? (getTranslation(orderId, product.id) | async) :
+                    product.productName}}</p>
+                <div *ngIf="isShowListedPrice" id="oldPrice">
+                    {{product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</div>
+                <div *ngIf="product.price" id="newPrice">
+                    <b>{{product.price | currency: product.currencyCode + ' ':'symbol':''}}</b>
+                </div>
+            </div>
+            <div id="another-detail">
+                <div *ngIf="product.properties">
+                    <p *ngFor="let property of product.properties"><span
+                            style="text-transform:capitalize;">{{property.name}}: </span>{{property.value}}</p>
+                </div>
+                <ng-container *ngIf="showCustomer">
+                    <ng-container *ngIf="product?.customerName">
+                        <div class="customer-row">
+                            <div>{{ 'PRODUCT.CUSTOMER_NAME' | translate }}:</div>
+                            <div>{{product?.customerName}}</div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="product?.customerEmail">
+                        <div class="customer-row">
+                            <div>{{ 'PRODUCT.CUSTOMER_EMAIL' | translate }}:</div>
+                            <div>{{product?.customerEmail}}</div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <div *ngIf="showAdvisor === true">
+                    <p *ngIf="!isShow">{{ getStaticTranslation('PRODUCT.ADVISOR_ID') | async }}:
+                        {{product.advisorIdNumber}}</p>
+                    <p *ngIf="!isShow">{{ getStaticTranslation('PRODUCT.ADVISOR_NAME') | async }}:
+                        {{product.preferredName}}</p>
+                </div>
+                <p *ngIf="hasSerialNumber">Serials Number:</p>
+                <p *ngFor="let item of product.warranty">{{item}}</p>
+                <p *ngIf="product.quantity"><b>x {{product.quantity}}</b></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="detail-gift">
+        <div *ngIf="this.single_full_paymt_gifts">
+            <mat-card *ngFor="let gift of this.single_full_paymt_gifts">
+                <mat-card-header>
+                    <mat-card-title class="card-title">
+                        {{FULL_PAYMENT_GIFT}}
+                    </mat-card-title>
+                    <mat-card-subtitle class="card-subtitle">
+                        {{gift.name}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="card-content">
+                    x {{gift.quantity}}
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div *ngIf="this.online_bank_transfer_gifts">
+            <mat-card *ngFor="let gift of this.online_bank_transfer_gifts">
+                <mat-card-header>
+                    <mat-card-title class="card-title">
+                        {{ONLINE_BANK_TRANSFER_PAYMENT_GIFT}}
+                    </mat-card-title>
+                    <mat-card-subtitle class="card-subtitle">
+                        {{gift.name}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="card-content">
+                    x {{gift.quantity}}
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

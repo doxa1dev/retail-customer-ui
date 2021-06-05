@@ -1,0 +1,19 @@
+<div style="width: 100%;">
+  <div class="container">
+    <div class="img">
+      <img id="logo" src="assets/images_doxa/booking-done.png" alt="">
+      <div id="message1">{{ 'BOOKING_DONE.YOUR_CLASS_HAS_BEEN_BOOKED' | translate }}</div>
+      <div id="message2">{{ 'BOOKING_DONE.SEE_YOU_SOON' | translate }}</div> 
+      <div class="inside">   
+          <div class="button-view-all">
+            <button (click)="navigateToActivity()"  mat-raised-button color="primary"  class="view-all-button" aria-label="View">
+              {{ 'BOOKING_DONE.BACK_TO_EXPERIENCES' | translate }}
+            </button>
+          </div>
+    </div>
+    </div>
+  </div>
+  
+  <app-bottom-navigation></app-bottom-navigation>
+</div>
+

@@ -1,0 +1,69 @@
+<div style="width: 100%;">
+    <div class="naep-form-one" *ngIf="!loading">
+        <div class="header">
+            <app-title [type]="title" [message]="'NAEP.FILL_NAEP_FORM'" [link]="'/advisor-earning-program'" ></app-title>
+        </div>
+        <div class="form-body">
+            <div class="title">{{'NAEP.NAEP_INDUCTION_FORM' | translate}}</div>
+    
+            <div class="form-detail">
+                <p>{{'NAEP.NEW_PARTNER_NAME' | translate}}</p>
+                <div class="item">
+                    <input readonly class="input-data" type="text" [(ngModel)]="dataNaepForm.customerName" readonly>
+                </div>
+            </div>
+    
+            <div class="form-detail">
+                <p>{{'NAEP.CONTACT_NO' | translate}}</p>
+                <div class="phone-number">
+                    <div class="dialcode" style="width: 30%;border-radius: 8px;">
+                        <app-dialCode [disable]="editable"  SelectedDial={{dial_code}} ></app-dialCode>
+                    </div>
+                    <div style="width: 65%; margin-left: 5%;">
+                        <input readonly class="input-data" type="text" [(ngModel)]="dataNaepForm.phoneNumer" readonly>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-detail">
+                <p>{{'NAEP.RECRUITED_BY' | translate}}</p>
+                <div class="item">
+                    <input readonly class="input-data" type="text" [(ngModel)]="dataNaepForm.recruiterName" readonly>
+                </div>
+            </div>
+    
+            <div class="form-detail">
+                <p>{{'NAEP.TEAM_MANAGER' | translate}}</p>
+                <div class="item">
+                    <input readonly class="input-data" type="text" [(ngModel)]="dataNaepForm.teamManagerName" readonly>
+                </div>
+            </div>
+    
+            <div class="time-naep">{{'NAEP.TIME_TITLE' | translate}}</div>
+    
+            <div class="form-detail">
+                <p>{{'NAEP.START' | translate}}</p>
+                <div class="calendar">
+                    <p-calendar [readonlyInput]="true"
+                    [showIcon]="true" [disabled]="true" [(ngModel)]="dataNaepForm.startTime" ></p-calendar>
+                </div>
+            </div>
+    
+            <div class="form-detail">
+                <p>{{'NAEP.END' | translate}}</p>
+                <div class="calendar">
+                    <p-calendar [disabled]="true" [showIcon]="true" [(ngModel)]="dataNaepForm.endTime" ></p-calendar>
+                </div>
+            </div>
+    
+            <div class="btn-next">
+                <button (click)="nextStep()">{{'NAEP.BTN_NEXT' | translate}} </button>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+    <app-placeholder-loading *ngIf="loading" component="checkOut"></app-placeholder-loading>
+</div>
+
+

@@ -1,0 +1,29 @@
+{
+    "routing":{
+        "index":"/index.html",
+        "routes":{
+            "/":{
+                "match": "exact"
+            },
+            "/store":{
+                "match": "prefix"
+            }
+        }
+    },
+    "static.ignore":[
+        "^\/icons\/.*$",
+        "^\/assets\/images\/.*$",
+        "^\/assets\/icons\/.*$"
+    ],
+    "external":{
+        "urls":[
+            {
+                "url":"https://fonts.googleapis.com/icon?family=Material+Icons"
+            }
+        ]
+    },
+    "push":{
+        "showNotifications": true,
+        "backgroundOnly": false
+    }
+}

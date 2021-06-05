@@ -1,0 +1,12 @@
+<div *ngIf="status_recruit === status_reject" class="reject">
+    <p (click)="goDetail()">{{ 'TEAM_LEADER.REJECTED' | translate}}</p>
+</div>
+
+<div *ngIf="status_recruit === status_approve" class="approve">
+    <p (click)="goDetail()">{{ 'TEAM_LEADER.APPROVED' | translate}}</p>
+</div>
+
+<div *ngIf="status_recruit === status_pending" class="pending">
+    <p>{{ 'TEAM_LEADER.STATUS_PENDING' | translate}}</p>
+    <button (click)="goDetail()">{{ 'TEAM_LEADER.VIEW' | translate}}</button>
+</div>

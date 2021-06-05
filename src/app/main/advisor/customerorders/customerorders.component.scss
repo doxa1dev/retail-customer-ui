@@ -1,0 +1,14 @@
+@import "src/@fuse/scss/fuse";
+
+.customer-order-container {
+    width: 100%;
+    height: 100%;
+
+    app-bottom-navigation {
+        display: none;
+    
+        @include media-breakpoint("xs") {
+            display: unset;
+        }
+    }
+}

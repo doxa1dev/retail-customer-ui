@@ -1,0 +1,105 @@
+<div class="pay-m-pos">
+    <div class="content">
+        <div class="title">
+            <a routerLink="/payment-options" routerLinkActive="payment-options" style="text-decoration: none">
+                <img class="icon-back" src="../../../../assets/icons/material-icons/Chevron Left.png">
+            </a>
+            <span class="text-payment">Payment</span>
+        </div>
+
+        <div class="select-mPOS">
+            <span class="text-select-mPOS" *ngIf='isShowComplete'>Select mPOS machine:</span><br>
+            <mat-form-field class="form-select-mPOS" appearance="none" *ngIf='isShowComplete'>
+                <mat-select [(ngModel)]="selected" placeholder="Search mPOS" (selectionChange)="onSelect()">
+                    <mat-option value="alo">7899</mat-option>
+                    <mat-option value="alo">6868</mat-option>
+                    <mat-option value="alo">4730</mat-option>
+                    <mat-option value="alo">5569</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="credit-card-payment" *ngIf='!isShow' (click)='onLoadPin()'>
+                <img src="../../../../assets/images//payment/undraw_credit_card_payment_12va.png">
+                <span>Insert / Tap Card</span>
+            </div>
+
+            <div class="enter-pin-payment" *ngIf='!isShowPin' (click)='onLoadComplete()'>
+                <img src="../../../../assets/images//payment/enter pin2.png">
+                <span>Enter Pin</span>
+            </div>
+
+            <div class="complete-payment" *ngIf='!isShowComplete'>
+                <img src="../../../../assets/images//payment/undraw_celebration_0jvk.png">
+                <span class="text1-complete-payment">Thank you<br>We are processing your payment!</span>
+                <a routerLink="/store" routerLinkActive="store" style="text-decoration: none"><button>Back to
+                        store</button></a>
+
+            </div>
+        </div>
+
+        <div class="FormFooter">
+            <div class="inForm">
+                <div class="payment-info">
+                    <p>Payment Information:</p>
+                    <div class="grid1" fxLayout="row">
+                        <div class="verified" fxLayout="column">
+                            <div class="table">
+                                <mat-grid-list class="listGrid" cols="2" rowHeight="20px">
+                                    <mat-grid-tile class="name">
+                                        <p>Pending verified:</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="price">
+                                        <p>0.00</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="name">
+                                        <p>Verified:</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="price">
+                                        <p>0.00</p>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </div>
+
+                            <p class="remaining">Remaining: SGD 2,380.00</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="order-amount">
+                    <p class="order">Order amount:</p>
+                    <div class="grid2" fxLayout="row">
+                        <div class="amount" fxLayout="column">
+                            <div class="table2">
+                                <mat-grid-list class="listGrid2" cols="2" rowHeight="20px">
+                                    <mat-grid-tile class="name">
+                                        <p>Shipping:</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="price">
+                                        <p>5.00</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="name">
+                                        <p>Subtotal:</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="price">
+                                        <p>2,241.12</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="name">
+                                        <p>Tax:</p>
+                                    </mat-grid-tile>
+                                    <mat-grid-tile class="price">
+                                        <p>157.88</p>
+                                    </mat-grid-tile>
+                                </mat-grid-list>
+                            </div>
+
+                            <p class="total">Total: SGD 2,380.00</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

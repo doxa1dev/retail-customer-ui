@@ -1,0 +1,156 @@
+<mat-toolbar class="p-0 mat-elevation-z1">
+
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+  
+        <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+  
+            <button mat-icon-button class="navbar-toggle-button"
+                    *ngIf="!hiddenNavbar && !rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">apps</mat-icon>
+            </button>
+  
+        </div>
+
+        <div fxLayoutAlign="end center">
+
+            <!-- Logo theme -->
+  
+            <div class="logoThermo mr-8" fxLayout="row" fxLayoutAlign="center center">
+                <img class="Thermo" src="../../../../assets/images_doxa/thermomix-logo.png">
+            </div>
+  
+            <!-- End Logo themme -->
+
+        </div>
+  
+        <div class="" fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="end center">
+  
+            <!-- Logo theme -->
+  
+            <!-- <div class="logoThermo mr-8" fxLayout="row" fxLayoutAlign="center center">
+                <img class="Thermo" src="../../../../assets/images_doxa/thermomix-logo.png">
+            </div> -->
+  
+            <!-- End Logo themme -->
+            <div class="toolbar-separator"></div>
+            <!-- [matMenuTriggerFor]="shoppingcartMenu" -->
+            <button mat-button fxShow.gt-xs
+                    class="shopping-cart-button" (click) = "goToShoppingBag()">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <a class="cart-icon" style="text-decoration: none" >
+                        <i class="material-icons" >shopping_cart</i>
+                        <span *ngIf="total_product > 0" class="number-item">{{total_product}}</span>
+                        <!-- <router-outlet></router-outlet> -->
+                    </a>
+                </div>
+            </button>
+  
+            <mat-menu #shoppingcartMenu="matMenu" [overlapTrigger]="false">
+  
+                <!-- <button mat-menu-item *ngFor="let lang of languages" (click)="setLanguage(lang)">
+                    <span fxLayout="row" fxLayoutAlign="start center">
+                        <img class="flag mr-16" [src]="'assets/icons/flags/'+lang.flag+'.png'">
+                        <span class="iso">{{lang.title}}</span>
+                    </span>
+                </button> -->
+  
+            </mat-menu>
+  
+            <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
+  
+            <button mat-button [matMenuTriggerFor]="userMenu"
+                    class="user-button">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <img class="avatar mr-0 mr-sm-16" id="userMenuImg" [src]="userMenuImgUrl">
+                    <span *ngIf="quantityNotifi > 0" class="dot-notifi"></span>
+                    <!-- <span class="username mr-12" fxHide fxShow.gt-sm>UserName</span> -->
+                    <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+                </div>
+            </button>
+
+            <mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="menu">
+
+                <button id="profile" mat-menu-item class="" [routerLink]="['/my-profile']" *ngIf="isShowMenu && !is_anomynous_account">
+                    <mat-icon>person</mat-icon>
+                    <span>{{ 'TOOLBAR.MY_PROFILE' | translate }}</span>
+                </button>
+
+                <!-- <button mat-menu-item class="news" (click) = "moveToNewSList()" *ngIf="isShowMenu && !is_anomynous_account">
+                    <mat-icon>receipt</mat-icon>
+                    <span>{{ 'TOOLBAR.NEWS' | translate }}</span>
+                    <span style="color: var(--red-color);" class="text-news-notifi" *ngIf="quantityNotifi > 0">({{quantityNotifi}})</span>
+                </button> -->
+  
+                <button id="invite-friends" mat-menu-item class="" (click)="invite()" *ngIf="isShowInvite">
+                    <mat-icon>share</mat-icon>
+                    <span>{{ 'TOOLBAR.INVITE_FRIENDS' | translate }}</span>               
+                </button>
+  
+                <!-- <button mat-menu-item class="" [matMenuTriggerFor]="languagues">
+                    <mat-icon>language</mat-icon>
+                    <span>{{ 'TOOLBAR.LANGUAGE' | translate }}</span>
+                </button> -->
+                
+                <!-- <button *ngIf="entity ==='MY'" mat-menu-item (click)="moveToPrivacyPolicy()">
+                    <mat-icon svgIcon="pivacy"></mat-icon>
+                    <span>{{ 'TOOLBAR.PRIVACY_POLICY' | translate }}</span>
+                </button>
+
+                <button *ngIf="entity ==='MY'" mat-menu-item (click)="moveToRefundPolicy()">
+                    <mat-icon>loop</mat-icon>
+                    <span>{{ 'TOOLBAR.REFUND_POLICY' | translate }}</span>
+                </button>
+                
+                <button *ngIf="entity ==='MY'" mat-menu-item (click)="moveToShippingPolicy()">
+                    <mat-icon svgIcon="shipping_policy"></mat-icon>
+                    <span>{{ 'TOOLBAR.SHIPPING_POLICY' | translate }}</span>
+                </button>
+
+                <button *ngIf="entity ==='MY'" mat-menu-item (click)="moveToTermsAndCondition()">
+                    <mat-icon>description</mat-icon>
+                    <span>{{ 'TOOLBAR.TERMS_AND_CONDITIONS' | translate }}</span>
+                </button>
+
+                <button mat-menu-item (click)="moveNAEPTermsConditions()">
+                    <mat-icon svgIcon="pivacy"></mat-icon>
+                    <span>{{ 'TOOLBAR.NAEP_TERMS_CONDITIONS' | translate }}</span>
+                </button>
+
+                <button *ngIf="entity ==='MY'" mat-menu-item (click)="moveToPurchasePrivacyPolicy()">
+                    <mat-icon svgIcon="pivacy"></mat-icon>
+                    <span>{{ 'TOOLBAR.PURCHASE_PRIVACY_POLICY' | translate }}</span>
+                </button>
+                
+                <button *ngIf="entity ==='MY'" mat-menu-item (click)="moveToEventPrivacyPolicy()">
+                    <mat-icon svgIcon="pivacy"></mat-icon>
+                    <span>{{ 'TOOLBAR.EVENT_PRIVACY_POLICY' | translate }}</span>
+                </button> -->
+
+                <button id="contact-us" *ngIf="entity ==='MY'" mat-menu-item (click)="moveToContactUs()">
+                    <mat-icon>email</mat-icon>
+                    <span>{{ 'TOOLBAR.CONTACT_US' | translate }}</span>
+                </button> 
+                
+                <button id="log" mat-menu-item class="" (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span *ngIf="isShowMenu && !is_anomynous_account">{{ 'TOOLBAR.LOG_OUT' | translate }}</span>
+                    <span *ngIf="!isShowMenu || is_anomynous_account">{{ 'TOOLBAR.LOG_IN' | translate }}</span>
+                    <!-- <span *ngIf="!isShowMenu">{{ 'TOOLBAR.LOG_IN' | translate }}</span> -->
+
+                    
+
+                 
+                </button>
+  
+            </mat-menu>
+
+            <mat-menu  #languagues="matMenu" [overlapTrigger]="false">
+                <button mat-menu-item (click) = "changeLanguages('en')" [ngStyle]="{backgroundColor: (language == 'en') ? 'var(--primary-color)' : 'white'}">{{ 'CHANGE_LANGUAGE.ENGLISH' | translate }}</button>
+                <button *ngIf="!checkLanguage" mat-menu-item (click) = "changeLanguages('en')" [ngStyle]="{backgroundColor: (language == 'en') ? 'var(--primary-color)' : 'white'}" >{{ 'CHANGE_LANGUAGE.CHINESE' | translate }}</button>
+            </mat-menu>
+  
+        </div>
+  
+    </div>
+  
+  </mat-toolbar>

@@ -1,0 +1,184 @@
+@import "src/@fuse/scss/fuse";
+
+.container {
+    width: 100% !important;
+    height: 100%;
+    background-color: #DFDFDF;
+    padding-top: 10px;
+    
+    .activities {
+        padding-top: 10px;
+        font-size: 12px;
+        color: var(--text-color);
+        width: 90%;
+        margin: 0 auto;
+        background-color: white;
+        padding-bottom: 10px;
+        
+        .link {
+            .dot {
+                font-size: 18px;
+                padding-left: 15px;
+                padding-right: 5px;
+                
+
+                @include media-breakpoint("xs") {
+                    font-size: 12px;
+                }
+
+                // @include media-breakpoint("sm") {
+                //     margin-left: 12px;
+                // }
+            }
+
+            .text {
+                font-size: 12px;
+                text-decoration: underline;
+
+                @media screen and (min-width : 750px){
+                    font-size: 14px !important;
+                }
+            }
+        }
+    }
+
+    .thermomix {
+        background-color: var(--primary-color);
+        color: white;
+        height: 235px;
+        width: 100;
+
+        // margin-top: 50px;
+        #top {
+            padding-top: 30px;
+            width: 55%;
+            margin: 0 auto;
+
+            p {
+                text-align: center;
+                font-size: 16px;
+                @media screen and (min-width : 750px){
+                    font-size: 18px !important;
+                }
+            }
+        }
+
+        #bottom {
+            display: flex;
+            width: 100%;
+            padding-top: 60px;
+
+            #left {
+                width: 50%;
+                text-align: center;
+                cursor: pointer;
+                p{
+                    @media screen and (min-width : 750px){
+                        font-size: 14px !important;
+                    }
+                }
+            }
+
+            #right {
+                width: 50%;
+                text-align: center;
+                cursor: pointer;
+                p{
+                    @media screen and (min-width : 750px){
+                        font-size: 14px !important;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .img {
+        width: 90%;
+        background-color: white;
+        margin: 0 auto;
+        padding-top: 30px;
+        padding-bottom: 30px !important;
+
+        #logo {
+            display: block;
+            width: 250px;
+            height: 205px;
+            margin: 0px auto;
+            margin-top: 0px;
+
+        }
+    }
+
+    .button {
+        width: 90%;
+        background-color: white;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        .inside{
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            padding-top: 50px;
+            @media screen and (min-width : 750px){
+                width: 50% !important;
+            }
+            @media only screen and (max-width : 400px) {
+                width: 100% !important;
+            }
+            .button-create {
+                margin-bottom: 30px !important;
+                margin: 0 auto;            
+                .create-button {
+                    background-color: white;
+                    cursor: pointer;
+                    color: var(--primary-color);
+                    border: 1px solid var(--primary-color);
+                    font-size: 14px;
+                    padding: 10px;
+                    margin-right: 20px;
+                    border-radius: 10px;
+                    -moz-border-radius: 10px;
+                    -webkit-border-radius: 10px;
+                    -ms-border-radius: 10px;
+                    -o-border-radius: 10px;
+                    @media only screen and (max-width : 400px) {
+                        margin-right: 10px;
+                        padding: 10px 2px 10px 2px;
+                    }
+                }
+            }
+    
+            .button-view-all {
+                margin-bottom: 30px !important;        
+                margin: 0 auto;      
+                .view-all-button {
+                    cursor: pointer;
+                    background-color: var(--primary-color);
+                    color: white ;
+                    border: 1px solid var(--primary-color);
+                    font-size: 14px;
+                    padding: 5px 10px;
+                    border-radius: 10px;
+                    -moz-border-radius: 10px;
+                    -webkit-border-radius: 10px;
+                    -ms-border-radius: 10px;
+                    -o-border-radius: 10px;
+                    @media only screen and (max-width : 350px) {
+                        // padding: 10px 2px 10px 2px;
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

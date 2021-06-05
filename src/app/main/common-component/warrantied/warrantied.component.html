@@ -1,0 +1,46 @@
+<div class="warrantied-product">
+    <div class="content" fxLayout="row">
+        <img class="product-img" fxFlex="35" src="{{storageUrl}}{{warranty.productImage}}">
+
+        <div class="product-info" fxFlex="65">
+            <p class="product-name">{{productName}}</p>
+            <p class="product-price">{{warranty.productPrice | currency: warranty.currency + ' ':'symbol':''}}</p>
+            <span *ngIf="warranty.warrantyStartDate">{{ 'WARRANTIED_PRODUCT.RECEIVED_DATE' | translate }}:</span><span class="product-date">{{warranty.warrantyStartDate}}</span>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="body" fxLayout="column">
+        <div fxLayout="row" class="body-name">
+            <div class="name-info" fxFlex="35">
+                <p>{{ 'WARRANTIED_PRODUCT.ORDER_NUMBER' | translate }}:</p>
+                <p *ngIf="warranty.advisorID != null">{{ 'WARRANTIED_PRODUCT.ADVISOR_ID' | translate }}:</p>
+                <p *ngIf="warranty.advisorName != null">{{ 'WARRANTIED_PRODUCT.ADVISOR_NAME' | translate }}:</p>
+
+                <p class="serial-number">{{ 'WARRANTIED_PRODUCT.SERIAL_NUMBER' | translate }}:</p>
+                <p>{{ 'WARRANTIED_PRODUCT.WARRANTY_PERIOD' | translate }}:</p>
+                <!-- <p class="warranty" [ngStyle]="{'color':warranty.status === 'Warranty expired' ? 'var(--red-color)' : 'var(--primary-color)' }" >{{warranty.status}}</p> -->
+            </div>
+        
+            <div class="name-data" fxFlex="65">
+                <p>{{warranty.orderIdTmm}}</p>
+                <p *ngIf="warranty.advisorID != null" >{{warranty.advisorID}}</p>
+                <p class="advisor-name" *ngIf="warranty.advisorName != null">{{warranty.advisorName}}</p>
+
+                <p class="serial-number-data" >{{warranty.serialNumber}}</p>
+                <p>{{warranty.warrantyPeriod}}</p>
+
+                <!-- <p class="warranty-data" *ngIf="!(warranty.status === 'Warranty expired')">Warrantied till : {{warranty.warrantyExpired}}</p> -->
+            </div>
+        </div>
+
+        <div fxLayout="row" class="status">
+            
+            <p class="warranty" [ngStyle]="{'color':warranty.status === 'Warranty expired' ? 'var(--red-color)' : warranty.status === 'Warranty not activated' ? 'var(--text-color)' : 'var(--primary-color)',
+             'max-width':warranty.status === 'Warranty expired' ? '50%' : warranty.status === 'Warranty not activated' ? '75%' : '35%' }" fxFlex="35"
+             >{{warranty.status}}</p>
+             
+            <p class="warranty-data" *ngIf="!(warranty.status === 'Warranty expired') && warranty.warrantyExpired" fxFlex="65">{{ 'WARRANTIED_PRODUCT.WARRANTIED_TILL' | translate }} : {{warranty.warrantyExpired}}</p>
+        </div>
+    </div>
+</div>

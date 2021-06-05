@@ -1,0 +1,115 @@
+@import "src/@fuse/scss/fuse";
+$mobile-iphone5-witdth: 340px;
+@mixin iphone5 { @media(max-width: #{$mobile-iphone5-witdth}) {
+        @content;
+    }
+}
+
+toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 999; 
+    // position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    // z-index: 1;
+
+    &.below {
+        z-index: 2;
+    }
+
+    .mat-toolbar {
+        position: relative;
+        background: inherit !important;
+        color: inherit !important;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        .logo-icon {
+            width: 38px;
+        }
+    }
+
+    .logoThermo{
+      // background-color: red;
+      width: 150px;
+      margin-bottom: 7px;
+      padding-right: 15px;
+      @include iphone5 {
+        width: auto;
+      }
+    }
+    .user-button,
+    .shopping-cart-button,
+    .chat-panel-toggle-button,
+    .quick-panel-toggle-button {
+        min-width: 64px;
+        height: 64px;
+
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+
+    #userMenuImg{
+        object-fit: cover;
+    }
+
+    .navbar-toggle-button {
+        min-width: 64px;
+        height: 64px;
+    }
+
+    .toolbar-separator {
+        height: 64px;
+        width: 1px;
+
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+    
+    .shopping-cart-button {
+        .cart-icon {
+            position: relative;
+            .number-item {
+                height: 18px;
+                position: absolute;
+                top: -10px;
+                right: -8px;
+                background: var(--red-color);
+                border-radius: 25px;
+                padding: 2px;
+                font-size: var(--mobi-label);
+                color: #ffffff;
+                width: 18px;
+            }
+        }
+    }
+
+    .user-button {
+        position: relative;
+        .dot-notifi {
+           
+            right: 45px;
+            top: 8px;
+            position: absolute;
+            border-radius: 50px;
+            width: 14px;
+            height: 14px;
+            background: var(--red-color);
+            font-size: var(--mobi-label);
+            color: white;
+            padding: 2px;
+
+            @include media-breakpoint('xs') {
+                right: 13px;
+                top: 5px;
+            }
+        }
+    }   
+}

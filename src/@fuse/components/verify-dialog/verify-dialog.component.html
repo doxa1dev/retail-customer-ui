@@ -1,0 +1,9 @@
+<h1 *ngIf = "isPhonenumber" matDialogTitle class="title">{{ 'VERIFY.PHONE' | translate }}</h1>
+<h1 *ngIf = "isEmail" matDialogTitle class="title">{{ 'VERIFY.EMAIL' | translate }}</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+<div mat-dialog-actions class="pt-24">
+    <button *ngIf = "isEmail" class="ok-button" mat-raised-button (click)="dialogRef.close(true)">{{ 'VERIFY.OK' | translate }}</button>
+    <button *ngIf = "isPhonenumber" class="ok-continue" mat-raised-button (click)="dialogRef.close(true)">{{ 'VERIFY.CONTINUE' | translate }}</button>
+    <button class="cancel-button" mat-button (click)="dialogRef.close(false)">{{ 'VERIFY.CANCEL' | translate }}</button>
+</div>

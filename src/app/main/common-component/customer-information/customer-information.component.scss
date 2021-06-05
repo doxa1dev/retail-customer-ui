@@ -1,0 +1,35 @@
+.customer-information {
+    position: relative;
+    color: var(--text-color) !important;
+
+    .title {
+        font-weight: 600;
+        margin: 0px;
+    }
+
+    .body {
+        .body-name {
+            .name-data {
+                .name {
+                    word-break: break-word;
+                    width: 170px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    -webkit-line-clamp: 1;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                }
+            }
+        }
+    }
+
+    .img-customer {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        object-fit: cover;
+    }
+}

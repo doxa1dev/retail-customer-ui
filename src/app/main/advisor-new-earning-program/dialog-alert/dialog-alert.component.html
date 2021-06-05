@@ -1,0 +1,19 @@
+<h1 matDialogTitle class="title">{{title}}</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+
+<div *ngIf="type ==='BACK' " mat-dialog-actions class="pt-24-rejected">
+    <button class="ok-button" mat-raised-button (click)="dialogRef.close(true)"
+    >{{ 'CONFIRM.GO_BACK' | translate }}</button>
+    
+    <button class="cancel-button" mat-button (click)="dialogRef.close(false)"
+    >{{ 'CONFIRM.DISCARD_INPUT' | translate }}</button>
+</div>
+
+<div *ngIf="type === 'APPLY'" mat-dialog-actions class="pt-24-approved">
+    <button class="cancel-button-1" mat-button (click)="dialogRef.close(true)"
+    >{{ 'CONFIRM.GO_BACK' | translate }}</button>
+    
+    <button class="ok-button" mat-raised-button (click)="dialogRef.close(false)"
+    >{{ 'CONFIRM.CONFIRM' | translate }}</button>
+</div>

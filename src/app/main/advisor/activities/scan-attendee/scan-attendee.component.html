@@ -1,0 +1,37 @@
+<div style="width: 100%; background-color: var(--fuse-background);">
+    <div class="qr-code">
+        <div class="order-qr" fxLayout="column" fxLayoutAlign="">
+    
+            <div class="qr-header" (click)="back()">
+                <div class="activities">
+                    <app-title [type]="title" [message]="'SCAN.SCAN_ATTENDEE'">
+                    </app-title>
+                </div>
+            </div>
+    
+            <div>
+                <mat-card id="qr-code">
+                    <p>{{ 'SCAN.UPDATE_ATTENDANCE' | translate }}</p>
+                    <p>{{ 'SCAN.PLEASE_SCAN' | translate }}</p>
+                    <div class="scan">
+                        <zxing-scanner [torch]="torchEnabled" [(device)]="currentDevice"
+                            (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled" [tryHarder]="tryHarder"
+                            (permissionResponse)="onHasPermission($event)" (camerasFound)="onCamerasFound($event)"
+                            (torchCompatible)="onTorchCompatible($event)">
+                        </zxing-scanner>
+                    </div>
+                   
+                </mat-card>
+                <div class="advisor-scan-attendee">
+                    <div class="advisor-add-image">
+                        <button (change) = "onSelectFileUploadImage($event)"  (click)="fileDropRef.click()" > Upload Image
+                            <input #fileDropRef type="file" accept='image/*' style="display: none;"  />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

@@ -1,0 +1,46 @@
+@import "src/@fuse/scss/fuse";
+.alert{
+    padding : 0px !important;
+}
+div{
+    height: 48px;
+    @media only screen and (max-width : 550px) {
+        height: 53px !important;
+    }
+    
+    padding : 0px;
+    width: 100%;
+    // padding-left: 10px;
+    display: block;
+    margin: 0px auto;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    position: relative;
+    
+    table{
+        padding : 0px;
+        margin: 0px;
+        height: 100%;
+        mat-icon{
+        // margin-left: 5px !important;
+        // margin-right: 3px !important;
+        // margin: 0;
+        // position: absolute;
+        // top: 50% !important;
+        // left: 6% !important;
+        // transform: translate(-50%, -50%);
+            color: var(--red-color);
+        }
+        .alertMessage{
+            color: var(--red-color);
+            font-size: 12px;
+            font-weight: 500;
+        }
+    }
+   
+   
+    
+}
+
+@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";

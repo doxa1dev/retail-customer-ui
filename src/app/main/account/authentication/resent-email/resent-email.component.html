@@ -1,0 +1,63 @@
+<div id="resent-email" fxLayout="column">
+    <div id="resent-email-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+        <div id="resent-email-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+            <div id="resent-email-header">
+                <div class="formLogo">
+                    <img src="assets/images_doxa/thermomix-logo.png">
+                </div>
+                <div class="fromLanguage">
+                    <button mat-icon-button [matMenuTriggerFor]="languagues">
+                        <mat-icon>language</mat-icon>
+                        <p style="margin: 0px; font-size: var(--mobi-label);">{{showLanguage}}</p>
+                    </button>
+                </div> 
+                <mat-menu  #languagues="matMenu" [overlapTrigger]="false">
+                    <button mat-menu-item (click)="getLanguge('en')">English</button>
+                    <button mat-menu-item (click)="getLanguge('zh')">Chinese</button>
+                </mat-menu>
+            </div>
+            <div id="resent-email-title">
+                <button mat-icon-button [routerLink]="['/login']">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <p class="resent-email-text">{{ 'RESENT_EMAIL.TITLE' | translate }}</p>
+            </div>
+            <div class="resent-email-logo">
+                <img src="assets/images_doxa/undraw_my_password_d6kg.svg" alt="">
+            </div>
+            
+            <div class="resent-email-direction">
+                <p>{{ 'RESENT_EMAIL.TEXT01' | translate }}</p>
+                <p>{{ 'RESENT_EMAIL.TEXT02' | translate }}</p>
+            
+                <p style="margin-top: 20px">{{ 'RESENT_EMAIL.TEXT03' | translate }}</p>
+            </div>
+            <form action="#" class="form-resent-email" [formGroup]="resentEmailForm" (ngSubmit)="onSubmit()">
+                <div>
+                    <input type="text" id="email" class="inputForm" formControlName="email"
+                        placeholder="e.g cecilia.chen@gmail.com">
+                </div>
+                <div>
+                    <app-alert *ngIf="isShowErrorActivedEmail">
+                        <p>{{ 'RESENT_EMAIL.ERROR_ACTIVED_EMAIL' | translate }}</p>
+                    </app-alert>
+                    <app-alert *ngIf="isShowErrorNotregisterEmail">
+                        <p>{{ 'RESENT_EMAIL.ERROR_NOT_REGISTER_EMAIL' | translate }}</p>
+                    </app-alert>
+                </div>
+
+                <div class="btn-resent-email">
+                    <button mat-button class="btncancel" (click)="backToLogin()"
+                        routerLinkActive="router-link-active">{{ 'RESENT_EMAIL.CANCEL' | translate }}</button>
+                    <button mat-button class="btnreset" type="submit" [disabled]="resentEmailForm.invalid"
+                    >{{ 'RESENT_EMAIL.CONFIRM' | translate }}</button>
+                </div>
+
+            </form>
+                        
+            
+        </div>
+        <h2 class="FormFooter">{{ 'RESENT_EMAIL.POWERED_BY_DOXA' | translate }}</h2>
+    </div>
+
+</div>

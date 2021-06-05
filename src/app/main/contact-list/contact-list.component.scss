@@ -1,0 +1,162 @@
+@import "src/@fuse/scss/fuse";
+
+.container {
+  width:100%;
+  height:100%;
+  background-color: white;
+  border: solid 20px var(--fuse-background) !important;
+  
+  @include media-breakpoint("xs") {
+    padding-bottom: 20px;
+
+    border-left: solid 15px var(--fuse-background) !important;
+    border-right: solid 15px var(--fuse-background) !important;
+    border-top: solid 8px var(--fuse-background) !important;
+    // border-bottom: solid 8px var(--fuse-background) !important;
+    border-bottom: solid 70px var(--fuse-background) !important;
+  }
+
+
+
+  .search-contacts {
+    position: relative;
+
+    .input-search {
+      margin-bottom: 5px;
+      color: var(--text-color) !important;
+      margin-top: 15px;
+      // margin-left: 40px;
+      margin-left: 5%;
+      padding: 12px;
+      width: 90%;
+      border: 0.5px solid rgb(183, 183, 183);
+      border-radius: 8px;
+      @include media-breakpoint("xs") {
+          font-size: 13px;
+      }
+    }
+
+    .icon-search {
+      width: 2%;
+      position: absolute;
+      // right: 120px;
+      // top: 26px;
+      right: 8%;
+      top: 35%;
+
+      @include media-breakpoint("xs") {
+        width: 5%;
+        right: 33px;
+        top: 28px;
+      }
+    }
+  }
+
+    .list-contacts{
+          .list-text{
+           margin-top: 10px;
+           margin-left: 40px;
+            margin-bottom: 5px;
+        }
+          p{
+              font-size: 18px;
+              color: var(--text-color);
+              margin: 10px 0 10px 20px;
+              @include media-breakpoint("xs") {
+                  font-size: 13px;
+              }
+            
+        }
+
+           
+        mat-card{
+          //margin-top: 20px !important;
+          padding: 0px !important;
+          border-radius: 8px;
+          display: block;
+          margin: auto !important ;
+          width: 48%;
+          height: auto;
+          box-shadow: 0px 2px 8px #00000029;
+          border-radius: 8px;
+          @include media-breakpoint("xs") {
+              width: 100%;
+              height: auto;
+          }
+          .name-customer{
+            font-weight: bolder;
+            padding-top: 5px;
+            color: var(--primary-color)  !important;
+            font-size: 18px;
+            margin-top: 10px;
+            float: right;
+            @include media-breakpoint("xs") {
+                font-size: 12px;
+                margin-top: 10px;
+                margin-left: 28px;
+                margin-bottom: -10px;
+            }
+       
+        }
+
+          .detail{
+          
+            color: #0A73EB;
+            font-size: 18px;
+            margin-top: 10px;
+            padding-top: 5px;
+            margin-left: auto;
+            margin-right: 12px;
+            @include media-breakpoint("xs") {
+                font-size: 12px;
+                 margin-top: 10px;
+                 margin-left: auto;
+                 margin-right: 12px;
+            
+            }
+          }
+          mat-card-content{
+              font-size: 18px;
+              padding: 10px !important;
+              @include media-breakpoint("xs") {
+                  font-size: 12px;
+              }
+          
+              table{
+                  
+                  .righcolumn-2{
+                      padding-left: 14px;
+                  }
+                  .righcolumn{
+                      padding-left: 33px;
+                      word-break: break-all;
+                      text-overflow: ellipsis;
+                      overflow: hidden;
+                      -webkit-line-clamp: 1;
+                      overflow: hidden;
+
+                  //    display: -webkit-box;
+                    
+                  }
+                  font-size: 18px;
+                  @include media-breakpoint("xs") {
+                      font-size: 12px;
+                      margin-left: 15px;
+                      margin-top: -13px;
+                  }
+              }
+              
+          }
+      }
+
+    }
+
+}
+
+app-bottom-navigation {
+  display: none;
+
+  @include media-breakpoint("xs") {
+      display: unset;
+  }
+}

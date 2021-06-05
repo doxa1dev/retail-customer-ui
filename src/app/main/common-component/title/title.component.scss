@@ -1,0 +1,53 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+.left_title{
+    
+    width: 100%;
+    display: block;
+    margin: 0px auto;
+  //  margin-bottom: 10px !important;
+   // margin-top: 5px !important;
+   
+    a{
+        text-decoration: none !important;
+        cursor: pointer;
+        color: var(--text-color) !important;
+        font-size: var(--mobi-primary-text) !important;
+        margin-left: -5px;
+    }
+}
+
+.left_link{
+    
+    width: 100%;
+    display: block;
+    margin: 0px auto;
+    margin-bottom: 10px !important;
+    margin-top: 5px !important;
+    a{
+        text-decoration: none !important;
+        cursor: pointer;
+        color: var(--text-color) !important;
+        font-size: var(--mobi-primary-text) !important;
+        margin-left: -5px;
+    }
+}
+
+.dot_title
+{
+    width: 90%;
+    display: block;
+    margin: 0px auto;
+    // margin-bottom: 10px !important;
+   // margin-top: 10px !important;
+   padding-top: 10px;
+    span{
+        margin-right: 5px;
+    }
+    a{
+        color: var(--text-color) !important;
+        font-size: var(--mobi-primary-text) !important;
+        text-decoration: none !important;
+    }
+}

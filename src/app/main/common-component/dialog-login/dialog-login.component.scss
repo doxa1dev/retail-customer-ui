@@ -1,0 +1,90 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+.dialog-login {
+
+    @include media-breakpoint("xs") {
+        margin: -10px;
+    }
+
+    .title{
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: -10px;
+        color: #5A616F !important;
+        margin-bottom: 30px;
+    }
+
+    hr{
+        margin-top: -20px;
+        background-color: #5A616F !important;
+    }
+
+    .message{
+        font-size: 16px;
+        font-weight: 600;
+        color: #5A616F !important;
+        margin-top: 15px;
+        margin-bottom: 20px;
+
+        @include media-breakpoint("xs") {
+            font-size: 14px;
+        }
+    }
+    
+    .pt-24-approved {
+        padding-bottom: 30px;
+        width: 100%;
+    
+        @media screen and (min-width : 750px){
+            width: 80% !important;
+            margin: 0 auto;
+        }
+    
+        .btn-login {
+            text-align: center;
+            background-color: var(--primary-color) !important;
+            color: white !important;
+            font-weight: normal;
+            border: 1px solid var(--primary-color); 
+            height: 40px;
+            width: 29%;
+            margin: 0px;
+            padding: 0px;
+    
+            @include media-breakpoint("xs") {
+                font-size: 14px;
+                width: 30%;
+            }
+        }
+    
+        .btn-cancel {
+            text-align: center;
+            background-color: #fffff0 !important;
+            color: var(--primary-color) !important;
+            font-weight: normal;
+            border: 1px solid var(--primary-color);
+            height: 40px;
+            width: 29%;
+            margin: 0px;
+            margin-right: auto;
+            padding: 0px;
+    
+            @include media-breakpoint("xs") {
+                font-size: 14px;
+                width: 30%;
+            }
+        }
+    
+        .btn-sign-in {
+            margin-left: auto;
+        }
+    
+        .btn-sign-up {
+            display: block;
+            margin: auto;
+            background-color: var(--link-color) !important;
+            border: 1px solid var(--link-color);
+        }
+    }
+}

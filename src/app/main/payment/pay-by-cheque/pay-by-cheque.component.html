@@ -1,0 +1,91 @@
+<div class="pay-by-cheque">
+    <div class="content">
+        <div class="header">
+            <app-title [type]="title" [message]="'PAYMENT.FULL_PAYMENT'">
+            </app-title>
+        </div>
+
+        <div class="info-order">
+            <p>{{ 'PAY_AT_CHEQUE.MAKE_SURE' | translate }}{{order_id_tmm}} {{ 'PAY_AT_CHEQUE.WHERE_YOUR_BANK' | translate }}
+                <br>{{ 'PAY_AT_CHEQUE.IT_HELPS_US' | translate }}</p>
+        </div>
+
+        <div class="bank-details">
+            <p class="title">{{ 'PAY_AT_CHEQUE.TITLE' | translate }}</p>
+
+            <div class="info-details">
+                <div class="info-name">
+                    <span id="text-name">{{ 'PAY_AT_CHEQUE.PAYNEE_NAME' | translate }}:</span>
+                    <span id="name">{{payeeName}}</span>
+                </div>
+
+                <div class="info-order-number">
+                    <span id="text-oder-number"> {{ 'PAY_AT_CHEQUE.ORDER_NUMBER' | translate }}:</span>
+                    <button class="copy-order-number" id="copy-order-number" (click)="copyOrderNumber()">{{ 'PAY_AT_CHEQUE.COPY' | translate }}</button>
+                    <span id="order-number">{{ 'PAY_AT_CHEQUE.ORDER' | translate }}{{order_id_tmm}}</span>
+                </div>
+
+                <div class="info-amount">
+                    <span id="text-amount">{{ 'PAY_AT_CHEQUE.AMOUNT_TO_SEND' | translate }}:</span>
+                    <span id="amount">{{toPay | currency:currency+' '}}</span><br>
+                </div>
+
+                <div class="info-bank">
+                    <span id="text-bank">{{ 'PAY_AT_CHEQUE.BANK_NAME' | translate }}:</span>
+                    <span id="bank">{{bankName}}</span><br>
+                </div>
+
+                <div class="info-acc-number">
+                    <span id="text-acc-number">{{ 'PAY_AT_CHEQUE.ACCOUNT_NUMBER' | translate }}:</span>
+                    <button class="copy-acc-number" id="copy-acc-number" (click)="copyAccountNumber()">{{ 'PAY_AT_CHEQUE.COPY' | translate }}</button>
+                    <span id="acc-number">{{bankAccountNumber}}</span><br>
+                </div>
+
+                <div class="info-uen-number">
+                    <span id="text-uen-number">{{ 'PAY_AT_CHEQUE.UEN' | translate }}:</span>
+                    <button class="copy-acc-number" id="copy-uen-number" (click)="copyUENNumber()">{{ 'PAY_AT_CHEQUE.COPY' | translate }}</button>
+                    <span id="uen-number">{{uenNumber}}</span><br>
+                </div>
+            </div>
+
+            <p class="note">{{ 'PAY_AT_CHEQUE.WE_NEVER_TAKES_MONEY' | translate }}
+            </p>
+        </div>
+
+        <div class="info-order">
+            <p>{{ 'PAY_AT_CHEQUE.MAKE_SURE' | translate }}{{order_id_tmm}} {{ 'PAY_AT_CHEQUE.WHERE_YOUR_BANK' | translate }}
+                <br>{{ 'PAY_AT_CHEQUE.IT_HELPS_US' | translate }}</p>
+        </div>
+        <form [formGroup]="TTPaymentInfoForm" >
+            <p id="pay-note">{{'PAY_AT_CHEQUE.NOTE' | translate}}</p>
+
+            <input   type="text" id="pay-number" 
+                placeholder="{{(getStaticTranslation('PAY_AT_CHEQUE.PAYMENT_REFERENCE_NUMBER') | async)}}" 
+                formControlName="payment_ref_number">
+            <div *ngIf="TTPaymentInfoForm.get('payment_ref_number').hasError('required') && isShow">
+                <app-alert>
+                    <p>{{ 'PAYMENT_DETAIL.TT_PAYMENT_REFERENCE_NUMBER' | translate }}</p>
+                </app-alert>
+            </div>
+        <div class="btn-pay">
+            <!-- <app-button-loading 
+                [buttonText] = "'PAY_AT_CHEQUE.COMPLETE_PAYMENT' | translate"
+                [buttonName] = 'buttonName'  
+                disabledBtn="true" 
+                [active] = "active" 
+                (click) = "createPayment()">
+            </app-button-loading> -->
+        </div>
+    </form>
+    </div>
+    <div style="display: grid;">
+        <app-button-loading 
+        [buttonText] = "'PAY_AT_CHEQUE.COMPLETE_PAYMENT' | translate"
+        [buttonName] = 'buttonName'  
+        disabledBtn="true" 
+        [active] = "active" 
+        (click) = "createPayment()">
+    </app-button-loading>
+        <app-footer-payment [verified]='verified' [pending_verified]='pendingVerified' [remaining]='remaining' [shipping]='shipping' [toPay]='toPay' [subtotal]='subTotal' [total]='toTal' [currency]='currency'></app-footer-payment>
+    </div>
+</div>

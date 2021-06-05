@@ -1,0 +1,16 @@
+<div class="infos">
+    <p><b>{{ 'CUSTOMER_INFORMATION.CUSTOMER_INFORMATION' | translate }}</b></p>
+    <p id="p">{{ customerInformation.firstName }} {{customerInformation.lastName}}</p>
+    <p id="p">
+        {{ setDisplayAddressLine(customerInformation.addressLine1, customerInformation.addressLine2, customerInformation.addressLine3, customerInformation.postalCode) }}
+    </p>
+    <p id="p">{{ setStateCountryLine(customerInformation.stateCode, customerInformation.countryCode) }}</p>
+</div>
+<div class="messages">
+    <mat-icon svgIcon="messages-order" id="icons"></mat-icon>
+    <mat-card id="card">{{ customerInformation.email }}</mat-card>
+</div>
+<div class="phone">
+    <mat-icon svgIcon="phone-order" id="icons"></mat-icon>
+    <mat-card id="card">(+{{ customerInformation.phoneDialCode }}) {{customerInformation.phoneNumber}}</mat-card>
+</div>

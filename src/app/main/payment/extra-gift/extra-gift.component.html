@@ -1,0 +1,140 @@
+<div *ngIf="!loading" id="epp">
+  <div id="epp-wrapper">
+    <div class="header">
+      <app-title [type]="title" [message]="'PAYMENT.FULL_PAYMENT'">
+      </app-title>
+    </div>
+
+    <!-- show options -->
+    <div id="FormField">
+      <div id="block">
+        <!-- <form
+            class="form-gr"
+            [formGroup]="ccForm"
+            novalidate
+            (ngSubmit)="onSubmit()"
+          > -->
+        <div class="form-gr" [formGroup]="bankTransferGiftForm">
+          <div class="form-arr" *ngFor="let productAndBankGift of listProductAndBankGifts; let i = index">
+            <div id="text">
+              <p>{{'EXTRA_GIFT.SELECT_EXTRA_GIFT' | translate}} {{productAndBankGift.productName}}</p>
+            </div>
+            <div class="form-mat-select" formArrayName="{{productAndBankGift.formName}}"
+              *ngFor="let productGiftSelection of bankTransferGiftForm.get(productAndBankGift.formName)['controls']">
+              <mat-form-field appearance="outline">
+                <mat-select (selectionChange)="filterGift($event.value)" placeholder="Select Extra Gift"
+                  [formControl]="productGiftSelection">
+                  <mat-option *ngFor="let gift of productAndBankGift.bankTransferGifts" [value]="gift.id">
+                    {{ gift.product_name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- 2C2P -->
+          <div hidden=true>
+             <FORM method="post" name="2c2pPayment" [action]="SG2c2pUrl"                    
+                 id="sg2c2p_paynow_form">
+                <INPUT type="hidden" name="version"         [value]="version">
+                <INPUT type="hidden" name="merchant_id"     [value]="merchant_id">
+                <INPUT type="hidden" name="currency"        [value]="currency2c2p">
+                <INPUT type="hidden" name="result_url_1"    [value]="result_url_1">
+                <INPUT type="hidden" name="hash_value"      [value]="hash_value">
+                <INPUT type="hidden" name="payment_option"  [value]="payment_option_2c2p">
+                <INPUT type="hidden" name="request_3ds"         [value]="request_3ds">
+                <INPUT type="hidden" name="qr_type"             [value]="qrType">
+                <INPUT type="hidden" name="user_defined_1"   [value]="user_defined_1">
+        PRODUCT INFO :  <INPUT type="text" name="payment_description" [value]="payment_description"  readonly><br/>
+        ORDER NO :      <INPUT type="text" name="order_id" [value]="order_id_2c2p"  readonly><br/>
+        AMOUNT:         <INPUT type="text" name="amount"    [value]="amount2c2p" readonly><br/>
+            </FORM>
+        </div>
+
+          <div class="button-div">
+            <button mat-raised-button class="back-cancel-btn" aria-label="CANCEL" (click)="backToPaymentOption()">
+              {{'EXTRA_GIFT.BACK' | translate}}
+            </button>
+            <button mat-raised-button color="accent" class="green-right-btn" aria-label="SUBMIT"
+              (click)=" nextToTTPayment()" [disabled]="bankTransferGiftForm.invalid">
+              {{'EXTRA_GIFT.NEXT' | translate}}
+            </button>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+  <!-- <app-footer-payment [verified]='verified' [pending_verified]='pendingVerified' [remaining]='remaining'
+    [shipping]='shipping' [toPay]='toPay' [subtotal]='subTotal' [total]='total' [currency]='currency'>
+  </app-footer-payment> -->
+
+  <!-- Change 15-10 gift -->
+    <div class="FormFooter">
+      <div class="inForm">
+        <!-- <div class="payment-info">
+          <p>{{ "PAYMENT_OPTION_FULL.PAYMENT_INFO" | translate }}:</p>
+          <div class="grid1" fxLayout="row">
+            <div class="verified" fxLayout="column">
+              <div class="table">
+  
+                <div class="col-left">
+                  <div>{{ "PAYMENT_OPTION_FULL.PENDING_VERIFIED" | translate }}:</div>
+                  <div>{{ "PAYMENT_OPTION_FULL.VERIFIED" | translate }}:</div>
+                  <div style="color: var(--red-color)">{{ "PAYMENT_OPTION_FULL.REMAINING" | translate }}:</div>
+                </div>
+  
+                <div class="col-right">
+                  <div>{{ pendingVerified | currency: " " }}</div>
+                  <div>{{ verified | currency: " " }}</div>
+                  <div style="color: var(--red-color)">
+                    {{ remaining | currency: currency + " " }}
+                  </div>
+                </div>
+              </div>
+           
+            </div>
+          </div>
+        </div>
+  
+        <hr /> -->
+        <div class="order-amount">
+          <p class="order" style="padding-top: 15px" >
+            <!-- {{ "PAYMENT_OPTION_FULL.ORDER_AMOUNT" | translate }}: -->
+          </p>
+          <div class="grid2" fxLayout="row">
+            <div class="amount" fxLayout="column">
+              <div class="table2">
+  
+                <div class="col-left">
+                  <div>{{ "PAYMENT_OPTION_FULL.SHIPPING" | translate }}:</div>
+                  <div>{{ "PAYMENT_OPTION_FULL.SUBTOTAL" | translate }}:</div>
+                  <div style="color: var(--red-color)">{{ "PAYMENT_OPTION_FULL.TOTAL" | translate }}:</div>
+                </div>
+  
+                <div class="col-right">
+                  <div>{{ shipping | currency: " " }}</div>
+                  <div>{{ subTotal | currency: " " }}</div>
+                  <div style="color: var(--red-color)">{{ total | currency: currency + " " }}</div>
+                </div>
+              </div>
+              <!-- <p class="total"><span id="total-in">Total:</span> {{total| currency:currency+' '}}</p> -->
+            </div>
+            <!-- <div class="button-share">
+              <button (click)="goSharePaymentLink()" mat-raised-button color="primary"
+                class="share-button" aria-label="View">
+                {{ "PAYMENT_OPTION_FULL.SHARE_PAYMENT" | translate }}
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<app-placeholder-loading *ngIf="loading" component="selectPayment"></app-placeholder-loading>

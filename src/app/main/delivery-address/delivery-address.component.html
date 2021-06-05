@@ -1,0 +1,26 @@
+<div class="content" fxLayout="column">
+    <div id="link">
+      <div class="link-icons">
+        <mat-icon class="icon">chevron_left</mat-icon>
+        <a>Delivery Address</a>
+      </div>
+    </div>
+    <form novalidate (ngSubmit)="onSubmit()" class="delivery-form" [formGroup]="deliveryAddress">
+      <div class="form-group">
+        <br>
+        <label class="search-label">Search by Email</label>
+        <input class="form-control" type="text" id="search-email-input" placeholder="e.g cecilia.chen@gmail.com" formControlName="searchEmail">
+        <button class="search-button" type="submit">SEARCH</button>
+        <div class="customer-info">
+            <a class="use-and-edit" routerLink="../editaddress">Use and Edit</a>
+            <br>
+            <p>Cecilia Chen</p>
+            <p>126 North Bridge Road, #11-02, Singapore<p>
+            <p>628300</p>
+            <p>Phone: 837193</p>
+            <p>Email: cecilia.chen@gmail.com</p>
+        </div>
+      </div>
+    </form>
+  </div>
+

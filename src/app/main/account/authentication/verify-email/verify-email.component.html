@@ -1,0 +1,84 @@
+<div id="verify-email" fxLayout="column">
+
+    <div id="verify-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="verify-content" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div id="FormTitle">
+                <div class="formLogo">
+                    <img src="assets/images_doxa/thermomix-logo.png">
+                </div>
+                <div class="fromLanguage">
+                    <button mat-icon-button [matMenuTriggerFor]="languagues">
+                        <mat-icon>language</mat-icon>
+                        <p style="margin: 0px; font-size: var(--mobi-label);">{{showLanguage}}</p>
+                    </button>
+                </div> 
+                <mat-menu  #languagues="matMenu" [overlapTrigger]="false">
+                    <button mat-menu-item (click)="getLanguge('en')">English</button>
+                    <button mat-menu-item (click)="getLanguge('zh')">Chinese</button>
+                </mat-menu>
+            </div>
+
+            <div *ngIf="returnValue === 200">
+                <div id="confirmEmail" fxLayout="column" >
+
+                    <div fxLayout="column" fxLayoutAlign="center center">
+    
+                        <div [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                            <p>{{ 'VERIFY_EMAIL.ACCOUNT_HAS_VERIFIED' | translate }}</p>
+                            
+                            <img  src="assets/images_doxa/undraw_done.svg" alt="">
+                            <button id="btnConfirmEmail" mat-button routerLink="/login" routerLinkActive="active">{{ 'VERIFY_EMAIL.LOGIN' | translate }}</button>
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+
+
+            <div *ngIf="returnValue === 201">
+                <div id="confirmEmail" fxLayout="column" >
+
+                    <div fxLayout="column" fxLayoutAlign="center center">
+    
+                        <div [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                            <p>{{ 'VERIFY_EMAIL.SORRY_ACCOUNT_INCORRECT' | translate }}</p>
+                            
+                            <img  src="assets/images_doxa/undraw_done.svg" alt="">
+                            <button id="btnConfirmEmail" mat-button routerLink="/login" routerLinkActive="active">{{ 'VERIFY_EMAIL.LOGIN' | translate }}</button>
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+
+
+            <div *ngIf="returnValue === 202">
+                <div id="confirmEmail" fxLayout="column" >
+
+                    <div fxLayout="column" fxLayoutAlign="center center">
+    
+                        <div [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                            <p class="main-text">{{ 'VERIFY_EMAIL.SORRY_LINK_HAS_EXPIRED' | translate }}</p>
+                            <p class="text-expired">{{ 'VERIFY_EMAIL.ACCOUNT_LONGER_AVAILABLE' | translate }}</p>
+                            <img  src="assets/images_doxa/error_tmm.png" alt="">
+
+                            <p class="text-expired">{{ 'VERIFY_EMAIL.PRESS_BUTTON_ANOTHER_LINK' | translate }}</p>
+                            
+                            <button id="btnResentEmail" mat-button (click)="gotoResentEmail()" routerLinkActive="active">{{ 'VERIFY_EMAIL.SEND_ACTIVATION_EMAIL' | translate }}</button>
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+            
+        </div>
+
+        <h2 class="FormFooter">{{ 'VERIFY_EMAIL.POWERED_BY_DOXA' | translate }}</h2>
+    </div>
+
+</div>

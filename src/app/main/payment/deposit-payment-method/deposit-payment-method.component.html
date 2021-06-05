@@ -1,0 +1,222 @@
+<div class="payment-method" *ngIf="!loading">
+  <div class="content">
+    <!-- <div class="header">
+            <img style="cursor: pointer;" (click)='backToRecurringPaymentPage()' class="icon-back"
+                src="../../../../assets/icons/material-icons/Chevron Left.png">
+            <span class="text-payment" style="text-decoration: underline;">Payment</span>
+        </div> -->
+    <div class="header">
+      <app-title [type]="title" [message]="'PAYMENT.PAY_DEPOSIT'"> </app-title>
+    </div>
+
+    <!-- <p class="text-method">Select payment method:</p> -->
+
+    <div id="selectbox">
+      <!-- <a routerLink="/paym-pos" routerLinkActive="paym-pos" style="text-decoration: none;"> -->
+      
+      <mat-card class="card" *ngIf="checkDisplayFPX()" (click)="payByFPX()">
+        <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+          <p>{{'PAYMENT.ONLINE_BANKING_TRANSFER' | translate}}</p>
+          <div class="right">
+            <!-- <div class="img">
+              <img
+                class="mc"
+                src="../../../../assets/images/payment/mc_symbol.png"
+              />
+              <img
+                class="visa"
+                src="../../../../assets/images/payment/visa.png"
+              />
+            </div> -->
+            <mat-icon>chevron_right</mat-icon>
+            <div hidden="true">
+              <FORM
+                ngNoForm
+                method="post"
+                name="ePayment"
+                [action]="ipay88FpxUrl"
+                id="fpx-form"
+              >
+                <INPUT
+                  type="hidden"
+                  name="MerchantCode"
+                  [value]="fpx_merchantCode"
+                />
+                <INPUT type="hidden" name="PaymentId" [value]="fpx_paymentId" />
+                <INPUT type="hidden" name="RefNo" [value]="refNo" />
+                <INPUT type="hidden" name="Amount" [value]="amount" />
+                <INPUT type="hidden" name="Currency" [value]="currency" />
+                <INPUT type="hidden" name="ProdDesc" [value]="prodDesc" />
+                <INPUT type="hidden" name="UserName" [value]="userName" />
+                <INPUT type="hidden" name="UserEmail" [value]="userEmail" />
+                <INPUT type="hidden" name="UserContact" [value]="userContact" />
+                <INPUT type="hidden" name="Remark" [value]="remark" />
+                <INPUT type="hidden" name="Lang" [value]="lang" />
+                <INPUT
+                  type="hidden"
+                  name="SignatureType"
+                  [value]="signatureType"
+                />
+                <INPUT type="hidden" name="Signature" [value]="signature" />
+                <INPUT type="hidden" name="ResponseURL" [value]="responseUrl" />
+                <INPUT type="hidden" name="BackendURL" [value]="backendUrl" />
+              </FORM>
+            </div>
+        </div>
+      </mat-card>
+
+      <mat-card
+        class="card"
+        *ngIf="checkDisplayIpay88OTP()"
+        (click)="payByIpay88()"
+      >
+        <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+        <p>{{'PAYMENT.ONLINE_PAYMENT_IPAY88' | translate}}</p>
+        <div class="right">
+          <!-- <div class="img">
+            <img
+              class="mc"
+              src="../../../../assets/images/payment/mc_symbol.png"
+            />
+            <img
+              class="visa"
+              src="../../../../assets/images/payment/visa.png"
+            />
+          </div> -->
+          <mat-icon>chevron_right</mat-icon>
+          <div hidden="true">
+            <FORM
+              ngNoForm
+              method="post"
+              name="ePayment"
+              [action]="ipay88OtpUrl"
+              id="ipay88-form"
+            >
+              <INPUT
+                type="hidden"
+                name="MerchantCode"
+                [value]="one_time_merchantCode"
+              />
+              <INPUT type="hidden" name="PaymentId" [value]="paymentId" />
+              <INPUT type="hidden" name="RefNo" [value]="refNo" />
+              <INPUT type="hidden" name="Amount" [value]="amount" />
+              <INPUT type="hidden" name="Currency" [value]="currency" />
+              <INPUT type="hidden" name="ProdDesc" [value]="prodDesc" />
+              <INPUT type="hidden" name="UserName" [value]="userName" />
+              <INPUT type="hidden" name="UserEmail" [value]="userEmail" />
+              <INPUT type="hidden" name="UserContact" [value]="userContact" />
+              <INPUT type="hidden" name="Remark" [value]="remark" />
+              <INPUT type="hidden" name="Lang" [value]="lang" />
+              <INPUT
+                type="hidden"
+                name="SignatureType"
+                [value]="signatureType"
+              />
+              <INPUT type="hidden" name="Signature" [value]="signature" />
+              <INPUT type="hidden" name="ResponseURL" [value]="responseUrl" />
+              <INPUT type="hidden" name="BackendURL" [value]="backendUrl" />
+            </FORM>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card
+        class="card"
+        *ngIf="checkDisplayWireCardOTP()"
+        (click)="payByWirecard()"
+      >
+        <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+        <p>Online Payment (Wirecard)</p>
+        <div class="right">
+          <!-- <div class="img">
+            <img
+              class="mc"
+              src="../../../../assets/images/payment/mc_symbol.png"
+            />
+            <img
+              class="visa"
+              src="../../../../assets/images/payment/visa.png"
+            />
+          </div> -->
+          <mat-icon>chevron_right</mat-icon>
+        </div>
+      </mat-card>
+
+      <mat-card
+        class="card"
+        *ngIf="checkDisplayPayAtOffice()"
+        (click)="nextToPayOffice()"
+      >
+      
+        <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+        <p>Pay at Thermomix® Office</p>
+        <mat-icon class="right">chevron_right</mat-icon>
+      </mat-card>
+
+      <mat-card
+        class="fixcard"
+        *ngIf="checkDisplayPayOnLineTT()"
+        (click)="nextToPayByCheque()"
+      >
+        <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+        <p>Pay by Telegraphic Transfer (TT)</p>
+        <mat-icon class="right">chevron_right</mat-icon>
+      </mat-card>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="FormFooter">
+    <div class="inForm">
+        <div class="payment-info">
+            <p>{{'PAYMENT.DEPOSIT_PAYMENT_INFORMATION' | translate}}</p>
+            <div class="grid1" fxLayout="row">
+                <div class="verified" fxLayout="column">
+                    <div class="table">
+                        <div class="col-left">
+                            <div>{{'PAYMENT.TO_PAY' | translate}}:</div>
+                            <div>{{'PAYMENT.PENDING_VERIFIED' | translate}}:</div>
+                            <div>{{'PAYMENT.VERIFIED' | translate}}:</div>
+                            <div style=" color: var(--red-color);">{{'PAYMENT.REMAINING' | translate}}:</div>
+                        </div>
+                        <div class="col-right">
+                            <div>{{toPay | currency:' '}}</div>
+                            <div>{{pendingVerified | currency:' '}}</div>
+                            <div>{{verified | currency:' '}}</div>
+                            <div style=" color: var(--red-color);">{{remaining | currency:currency+' '}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="order-amount">
+            <p class="order">{{'PAYMENT.ORDER_AMOUNT' | translate}}:</p>
+            <div class="grid2" fxLayout="row">
+                <div class="amount" fxLayout="column">
+                    <div class="table2">
+                        <div class="col-left">
+                            <div>{{'PAYMENT.SHIPPING' | translate}}:</div>
+                            <div>{{'PAYMENT.SUBTOTAL' | translate}}:</div>
+                            <div style=" color: var(--red-color);">{{'PAYMENT.TOTAL' | translate}}:</div>
+                        </div>
+                        <div class="col-right">
+                            <div>{{shipping | currency:' '}}</div>
+                            <div>{{subTotal | currency:' '}}</div>
+                            <div style=" color: var(--red-color);">{{total | currency:currency+' '}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> 
+</div>
+
+<app-placeholder-loading
+  *ngIf="loading"
+  component="selectPayment"
+></app-placeholder-loading>

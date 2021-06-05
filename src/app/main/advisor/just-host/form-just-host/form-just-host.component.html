@@ -1,0 +1,133 @@
+<div style="width: 100%;">
+    <div class="container">
+      <div class="redeem-order">
+        <app-title 
+            [type]="title" [message]="'JUST_HOST_GIFT.EVENT_HOST_GIFT'" 
+            [link]="'/advisor/just-host'">
+        </app-title>
+      </div>
+
+      <div class="title">
+        <p>{{ 'JUST_HOST_GIFT.JUST_HOST' | translate }}</p>
+      </div>
+
+      <div class="form-infor" [formGroup]="justHostForm">
+        <div class="fill-input">
+            <p>{{ 'JUST_HOST_GIFT.HOST_NAME' | translate }}</p>
+            <input formControlName="host_name" type="text" placeholder="{{'JUST_HOST_GIFT.CUSTOMER_NAME' | translate }}">
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('host_name').hasError('required') && isSubmit">
+                {{ 'JUST_HOST_GIFT.HOST_NAME_REQUIRED' | translate }}
+            </mat-error>
+        </div>
+
+        <div class="fill-input">
+            <p>{{ 'JUST_HOST_GIFT.HOST_CONTACT_NUMBER' | translate }}</p>
+            <input formControlName="host_contact_number" (keypress)="keyPressNumbers($event)" type="text" placeholder="{{'JUST_HOST_GIFT.CUSTOMER_CONTACT_NUMBER' | translate }}">
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('host_contact_number').hasError('required') && isSubmit">
+                {{ 'JUST_HOST_GIFT.HOST_CONTACT_NUMBER_REQUIRED' | translate }}
+            </mat-error>
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('host_contact_number').hasError('maxlength') && isSubmit">
+                {{ 'JUST_HOST_GIFT.HOST_CONTACT_NUMBER_MAX_LENGTH' | translate }}
+            </mat-error>
+        </div>
+
+        <div class="fill-input">
+            <p>{{ 'JUST_HOST_GIFT.DEMO_DATE' | translate }}</p>
+            <p-calendar formControlName="demo_date" placeholder="{{ 'JUST_HOST_GIFT.SELECT_DEMO_DATE' | translate }}" (onSelect)="onChangeDate($event)" [showIcon]="true" [maxDate]="today"  ></p-calendar>
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('demo_date').hasError('required') && isSubmit">
+                {{ 'JUST_HOST_GIFT.DEMO_DATE_REQUIRED' | translate }}
+            </mat-error>
+        </div>
+
+        <div class="fill-input">
+            <p>{{ 'JUST_HOST_GIFT.DEMO_LOCATION' | translate }}</p>
+            <input type="text" formControlName="address_line1" style="margin-bottom: 10px;" placeholder="{{'JUST_HOST_GIFT.ADDRESS_1' | translate }}">
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('address_line1').hasError('required') && isSubmit">
+                {{ 'JUST_HOST_GIFT.ADDRESS_1_REQUIRED' | translate }}
+            </mat-error>
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('address_line1').hasError('maxlength') && isSubmit">
+                {{ 'JUST_HOST_GIFT.ADDRESS_1_MAX_LENGTH' | translate }}
+            </mat-error>
+            <input type="text" formControlName="address_line2" style="margin-bottom: 10px;" placeholder="{{'JUST_HOST_GIFT.ADDRESS_2' | translate }}">
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('address_line2').hasError('required') && isSubmit">
+                {{ 'JUST_HOST_GIFT.ADDRESS_2_REQUIRED' | translate }}
+            </mat-error>
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('address_line2').hasError('maxlength') && isSubmit">
+                {{ 'JUST_HOST_GIFT.ADDRESS_2_MAX_LENGTH' | translate }}
+            </mat-error>
+            <input type="text" formControlName="address_line3" style="margin-bottom: 10px;" placeholder="{{'JUST_HOST_GIFT.ADDRESS_3' | translate }}">
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('address_line3').hasError('maxlength') && isSubmit">
+                {{ 'JUST_HOST_GIFT.ADDRESS_3_MAX_LENGTH' | translate }}
+            </mat-error>
+            <input type="text" formControlName="postal_code" placeholder="{{'JUST_HOST_GIFT.POSTAL_CODE' | translate }}">
+            <mat-error class="error-message" 
+                *ngIf = "justHostForm.get('postal_code').hasError('maxlength') && isSubmit">
+                {{ 'JUST_HOST_GIFT.POSTAL_CODE_MAX_LENGTH' | translate }}
+            </mat-error>
+        </div>
+
+        <div class="fill-guest" formArrayName="guest">
+            <p>{{ 'JUST_HOST_GIFT.GUEST' | translate }}</p>
+            <div class="guest_detail" *ngFor="let deposit of justHostForm['controls'].guest['controls']; let i = index" [formGroupName]="i">
+                <input type="text" formControlName="guest_name" placeholder="{{'JUST_HOST_GIFT.GUEST_NAME' | translate }}">
+                <input type="text" formControlName="guest_contact_number" (keypress)="keyPressNumbers($event)" style="margin-left: 5%;" placeholder="{{'SIGN_UP.PHONE_NUMBER' | translate }}">
+                <mat-icon
+                    *ngIf="justHostForm['controls'].guest['controls'].length > 1"
+                    (click)="addOrRemoveGuest('remove', i)" svgIcon="delete">
+                </mat-icon>
+                
+                <mat-error class="error-message"
+                    *ngIf="(justHostForm.get('guest').value[i].guest_name == null || 
+                            justHostForm.get('guest').value[i].guest_name == undefined || 
+                            justHostForm.get('guest').value[i].guest_name.length == 0 ||
+                            justHostForm.get('guest').value[i].guest_contact_number == null || 
+                            justHostForm.get('guest').value[i].guest_contact_number == undefined || 
+                            justHostForm.get('guest').value[i].guest_contact_number.length == 0
+                            ) && isSubmit">
+                    {{ 'JUST_HOST_GIFT.GUEST_REQUIRED' | translate }}
+                </mat-error>
+                <mat-error class="error-message"
+                    *ngIf="justHostForm.get('guest').value[i].guest_contact_number?.length > 40 && isSubmit">
+                    {{ 'JUST_HOST_GIFT.CUSTOMER_CONTACT_NUMBER_MAX_LENGTH' | translate }}
+                </mat-error>
+            </div>
+            <button (click)="addOrRemoveGuest('add', 0)" class="btn-add-guest">{{ 'JUST_HOST_GIFT.ADD_GUEST' | translate }}</button>
+        </div>
+
+      </div>
+
+    <p class="photo">{{ 'JUST_HOST_GIFT.UPLOAD_DEMO_PHOTO' | translate }}</p>
+    <div class="upload-photo" onclick="document.getElementById('file').click()" >
+        <!-- <label for="file" style="cursor: pointer;">{{ 'CREATE_ACTIVITY.CHANGE_PICTURE' | translate }}</label> -->
+        <img *ngIf="!imgUrl" class="image-default" src="'../../../assets/images_doxa/ic_add_a_photo.png" alt="Avatar">
+        <img class="image-select"   [src]="imgUrl" *ngIf="imgUrl">
+        <div *ngIf="!imgUrl">{{ 'JUST_HOST_GIFT.ADD_PHOTO' | translate }}</div>
+        <input type="file" (change)="onSelectFile($event)" id="file" style="display: none"  accept='image/*' />
+    </div>
+    <mat-error class="error-message" 
+        *ngIf = "!imgUrl && isSubmit">
+        {{ 'JUST_HOST_GIFT.DEMO_PHOTO_REQUIRED' | translate }}
+    </mat-error>
+    <p class="photo-need">{{ 'JUST_HOST_GIFT.PHOTO_NEED' | translate }}</p>
+
+    <div class="create-button">
+        <div class="example-button-row">
+            <button mat-button class="btn-color-custom btn-cancel-event" (click)="cancle()">{{ 'CREATE_ACTIVITY.CANCEL' | translate }}</button>
+            <button mat-button class="btn-color-custom btn-create-event" (click)= "submit()">{{ 'BECOME_AN_ADVISOR.SUBMIT' | translate }}</button>
+        </div>
+    </div>
+      <!-- <div>
+          <input type="file" multiple (change)="onChangeFile($event)">
+      </div> -->
+    
+    </div>
+  </div>

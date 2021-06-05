@@ -1,0 +1,28 @@
+<div class = "content">
+    <div class="header">
+        <app-title [type]="title" [message]="'PAYMENT.FULL_PAYMENT'">
+        </app-title>
+    </div>
+
+    <div class="parent">
+        <div class="image">
+            <img  src="assets/images_doxa/error_tmm.png" alt="">
+        </div>
+        <p class="message_01">{{'PAYMENT.ERROR_TMM_01' | translate}}</p>
+        <p>{{'PAYMENT.ERROR_TMM_02' | translate}}</p>
+        <table class="table-information">
+            <tr style="width: 100%;">
+                <td style="width: 50%;">{{'PAYMENT.ERROR_TRANSACTION_ID' | translate}}</td>
+                <td style="width: 35%; text-align:right" id="transactionId">{{transaction_Id}}</td>
+                <td (click)="copyTransaction()" style="width: 15%;  text-align:right ; color:var(--link-color); cursor: pointer;">{{'PAYMENT.ERROR_COPY' | translate}}</td>
+            </tr>
+            <tr>
+                <td style="width: 50%;">{{'PAYMENT.ERROR_ORDER_ID' | translate}}</td>
+                <td style="width: 35%; text-align:right" id="orderId">{{orderID}}</td>
+                <td (click)="copyOrder()" style="width: 15%;  text-align:right;color:var(--link-color); cursor: pointer;">{{'PAYMENT.ERROR_COPY' | translate}}</td>
+            </tr>
+        </table>
+
+        <button (click)="gotoStore()">{{'PAYMENT.ERROR_BTN' | translate}}</button>
+    </div>
+</div>

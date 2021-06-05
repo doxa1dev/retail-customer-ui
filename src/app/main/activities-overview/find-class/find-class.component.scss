@@ -1,0 +1,215 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+    p-calendar {
+        ::ng-deep .ui-calendar {
+            display: block !important;
+            
+            input {
+                border: 0.5px solid #707070 !important;
+                flex-grow: 1 !important;
+                transition: none;
+                box-shadow: none;
+                border-radius: 5px;
+                width: 100%;
+                &:enabled:focus:not(.ui-state-error) {
+                    box-shadow:none;
+                    border-color: #707070;
+                }
+                
+            }
+            .ui-datepicker {
+                .ui-state-active {
+                    background-color: #269A3E;
+                    border: 0.5px solid #707070;
+                    border-radius: 12px;
+                }
+            }
+        }
+    }
+}
+.container {
+    width: 100%;
+    background-color: #DFDFDF;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom:10px;
+
+    .classes {
+        width: 90%;
+        height: 100%;
+        background-color: white;
+        margin: 0 auto;
+        font-size: 12px;
+        color: var(--text-color);
+
+        @include media-breakpoint('xs') {
+            height: 92%;
+        }
+
+        .back {
+            .header {
+                color: var(--text-color) !important;
+                text-decoration: underline;
+            }
+        }
+
+        #search-class{
+                width: 90%;
+                margin: 0 auto;
+                position: relative;
+                input{
+                    padding: 15px;
+                    width: 100%;
+                    border: 1px solid var(--border-color);
+                }
+                margin-top: 10px;
+                mat-icon{
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                }
+        }
+        #filter-class{
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+            position: relative;
+            #filter{
+                width: 10%;
+                display: flex;
+                float: left;
+                margin-right: 10px;
+                align-items: center;
+                height: 100%;
+            }
+            #select{
+                width: 50%;
+                display: flex;
+                float: left;
+                mat-form-field{
+                    width: 100%;
+                }
+            }
+            #button{
+                width: 35%;
+                display: flex;
+                float: right;
+                align-items: center;
+                height: 100%;
+                button{
+                    width: 100%;
+                    background-color: var(--primary-color);
+                    color: white;
+                    border: 1px solid var(--primary-color);
+                }
+            }
+        }
+        .check-data{
+            text-align: center;
+            font-size: 14px;
+            padding-bottom: 20px;
+        }
+        .img {
+            background-color: red;
+            width: 70%;
+            background-color: white;
+            margin: 0 auto;
+            padding-bottom: 30px !important;
+
+            #logo {
+                display: block;
+                width: 100%;
+                margin: 0px auto;
+                margin-top: 0px;
+            }
+        }
+
+        .class {
+            width: 100%;
+            .inside {
+                width: 90%;
+                margin: 0 auto;
+                display: flex;
+                border-radius: 10px;
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -ms-border-radius: 10px;
+                -o-border-radius: 10px;
+                border: 0px solid var(--border-color);
+                -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                -moz-box-shadow: 0px 3px 16px #00000029 !important;
+                box-shadow: 0px 3px 16px #00000029 !important;
+                // opacity: 0.8;
+                margin-top: 15px;
+                #left {
+                    width: 50%;
+
+                    #img {
+                        width: 150px;
+                        height: 100px;
+                        padding: 15px;
+                        object-fit:contain;
+                    }
+
+                    #day {
+                        padding-left: 15px;
+                    }
+
+                    #time {
+                        padding-left: 15px;
+                        padding-bottom: 10px;
+                    }
+                }
+
+                #right {
+                    width: 50%;
+                    margin-bottom: 10px;
+                    #right-title{
+                        cursor: pointer;
+                    }
+                    .button-view {
+                        padding-top: 10px;
+                        margin: 0 auto;
+                        width: 90%;
+
+                        .view-button {
+
+                            cursor: pointer;
+                            background-color: var(--primary-color);
+                            color: white;
+                            border: 1px solid var(--primary-color);
+                            font-size: 12px;
+                            padding: 0px 40px 0px 40px;
+                        }
+                    }
+
+                    #title {
+                        color: var(--primary-color);
+                        padding-top: 15px;
+                        padding-bottom: 3px;
+                    }
+
+                    #address {
+                        padding-bottom: 3px;
+                    }
+                    #advisor{
+                        margin-top: 0px;
+                    }
+                }
+            }
+
+
+        }
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

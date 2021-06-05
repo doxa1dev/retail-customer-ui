@@ -1,0 +1,21 @@
+
+<div class="content" fxLayout="column">
+  <div id="link">
+    <div class="link-icons">
+      <mat-icon class="icon">chevron_left</mat-icon>
+      <a>Edit Address</a>
+    </div>
+  </div>
+  <form novalidate (ngSubmit)="onSubmit()" class="edit-form" [formGroup]="editAddress">
+    <div class="form-group">
+      <input class="form-control" type="text" id="firstname-input" placeholder="First Name" formControlName="firstName">
+      <input class="form-control" type="text" id="lastname-input" placeholder="Last Name" formControlName="lastName">
+      <input class="form-control" type="text" id="email-input" placeholder="Email" formControlName="email">
+      <input class="form-control" type="text" id="postal-code-input" placeholder="Postal Code" formControlName="postalCode">
+      <input class="form-control" type="text" id="detail-address-input" placeholder="Detail Address" formControlName="detailAddress">
+      <input class="form-control" type="text" id="unit-no-input" placeholder="Unit No #" formControlName="unitNo">
+      <input class="form-control" type="text" id="city-state-input" placeholder="City/State" formControlName="cityState">
+      <button class="submit-button" type="submit" [disabled]="editAddress.invalid">SUBMIT</button>
+    </div>
+  </form>
+</div>

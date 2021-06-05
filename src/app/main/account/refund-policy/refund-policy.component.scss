@@ -1,0 +1,68 @@
+@import "src/@fuse/scss/fuse";
+
+.refund-policy {
+    width:100%;
+    height:100%;
+    background-color: white;
+    color: var(--text-color);
+    font-size: var(--web-primary-text);
+    border: solid 20px var(--fuse-background) !important;
+    padding-bottom: 20px;
+
+    @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text);
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 25px var(--fuse-background) !important;
+    }
+
+    .body-refund {
+        padding: 0px 15px 0px 15px;
+
+        .header-refund {
+            font-weight: 600;
+        }
+
+        // ol {
+        //     padding: 0px;
+        //     counter-reset: item;
+
+        //     li {
+        //         display: block;
+        //         font-weight: 600;
+        //         padding-bottom: 10px;
+        //         font-style: italic;
+
+        //         ol {
+                    
+        //             li{
+        //                 font-style: normal;
+        //                 font-weight: normal !important;
+        //             }
+        //         }
+
+        //         p {
+        //             font-style: normal;
+        //             margin: 0px;
+        //             font-weight: normal !important;
+        //         }
+        //     }
+
+        //     li:before {
+        //         content: counters(item, ".") " "; counter-increment: item;
+        //     }
+
+        //     p {
+        //         font-style: italic;
+        //         margin: 0px;
+        //         font-weight: 600;
+        //     }
+
+        //     span {
+        //         display: block;
+        //         padding-bottom: 10px;
+        //     }
+        // }
+    }
+}

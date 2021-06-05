@@ -1,0 +1,290 @@
+<div style="width: 100%;">
+    <div id="order-summary" fxLayout="column" class="order-button" *ngIf="order !== undefined && !loading">
+
+        <div id="order-summary-wrapper" fxLayout="column">
+            <div id="link">
+                <app-title [type]="title" [message]="'ORDER_HISTORY.ORDER_DETAIL'" link="/order-history">
+                </app-title>
+                <!-- <div class="link-icons">
+                    <mat-icon (click)="back()">chevron_left</mat-icon>
+                    <a (click)="back()">Order Details</a>
+                </div> -->
+            </div>
+    
+            <!-- <div *ngIf="is_buying_for_customer" style="width: 90%;background-color: var(--link-color);border-radius: 8px;margin-bottom: 5px; margin: 0px auto;">
+                <p style="color:  white; text-align: center;">{{'ORDER_DETAIL.PAY_BY_AD' | translate}}</p>
+            </div> -->
+    
+            <!-- <div *ngIf="is_buying_for_customer" style="width: 90%;background-color: var(--link-color);border-radius: 8px;margin-bottom: 5px; margin: 0px auto;">
+                <p style="color:  white; text-align: center;">{{'ORDER_DETAIL.PAY_BY_CUS' | translate}}</p>
+            </div> -->
+            <div class="order-button"> 
+                <button *ngIf="order.status === 'TO_PAY'" class="order-btn btn-host" (click)="nextToPaymentContinue()">
+                    {{'ORDER_DETAIL.PAY_NOW' | translate}}
+                </button>
+                <button *ngIf="order.status === 'TO_RECEIVE'" class="order-btn btn-host" (click)="UpdateStatus()">
+                    {{'ORDER_DETAIL.RECEIVE_NOW' | translate}}
+                </button>
+                <button *ngIf="order.status === 'TO_HOST' && order.advisorCustomer" class="order-btn btn-host" (click)="GoCustomerHost()">
+                    {{'ORDER_DETAIL.HOST_NOW' | translate}}
+                </button>
+                <button *ngIf="order.status === 'TO_UNBOX' && order.advisorCustomer" class="order-btn btn-host" (click)="GoCustomerUnbox()" >
+                    {{'ORDER_DETAIL.UNBOX_NOW' | translate}}
+                </button>
+                <button *ngIf="order.status === 'TO_HOST' && order.advisorCustomer" class="order-btn btn-no-host" (click)="GoCustomerNoHost()">
+                    {{'ORDER_DETAIL.DONT_NEED_A_HOST_PARTY' | translate}}
+                </button>
+                <button *ngIf="order.status === 'TO_UNBOX' && order.advisorCustomer" class="order-btn btn-no-host" (click)="GoCustomerNoUnbox()">
+                    {{'ORDER_DETAIL.DONT_UNBOX_NOW' | translate}}
+                </button>
+                <button *ngIf="order.status !== 'TO_PAY' && order.status !== 'TO_VERIFY' && order.status !== 'CANCELLED'" class="order-btn btn-invoice" (click)="nextToInvoice()">
+                    {{'ORDER_DETAIL.INVOICE' | translate}}
+                </button>
+                <button *ngIf="order.status !== 'TO_PAY' && order.status !== 'TO_VERIFY' && order.status !== 'CANCELLED'" class="order-btn btn-invoice" (click)="downloadInvoice()" download id="download" >
+                    {{'ORDER_DETAIL.DOWNLOAD' | translate}}
+                </button>
+                <!-- <a href="this.invoicePdf" target="_blank"></a> -->
+                <button *ngIf="(order.status == 'TO_SHIP' || order.status == 'TO_VERIFY') && isCheckSpecialShipping" class="order-btn btn-invoice" (click)="changeSpecial()">
+                    {{'ORDER_DETAIL.CHOOSE_DELIVERY_DATE' | translate}}
+                </button>
+            </div>
+            <div id="pending-info">
+                <p> {{'ORDER_DETAIL.ORDER' | translate}} # {{order.order_id_tmm}}</p>
+                <p> {{'ORDER_DETAIL.UPDATED_AT' | translate}}    {{order.updatedAt | date:"dd/MM/yyyy HH:mm"}}</p>
+            </div>
+    
+            <div class="detail-payment">
+                <div class="one-product">
+                    <app-order-list-product [listOrder]="listOrders" [showAdvisor]="false" [isOrderDetail]=true [showIsBuying]=false>
+                    </app-order-list-product>
+                </div>
+    
+            </div>
+    
+            <!-- reason not unbox, not host -->
+            <div class="advisor-info" *ngIf="!(noUnBoxedReasons == null && noHostedReasons == null)">
+                
+                <div class="reason" *ngIf="noUnBoxedReasons != null">
+                    <p class="title-rs">{{'ORDER_DETAIL.TITLE_NOT_UNBOXED' | translate}}</p>
+                    
+                    <p class="rs-text">{{'ORDER_DETAIL.REASON'| translate}} "<span>{{noUnBoxedReasons}}</span>"</p>
+                </div>
+                
+                <div class="reason" *ngIf="noHostedReasons != null">
+                    <p class="title-rs">{{'ORDER_DETAIL.TITLE_NOT_HOSTED' | translate}}</p>
+                    
+                    <p class="rs-text">{{'ORDER_DETAIL.REASON'| translate}} "<span>{{noHostedReasons}}</span>"</p>
+                </div>
+            </div>
+    
+    
+            <div class="advisor-info" *ngIf="is_need_advisor">
+                <!-- <div ></div> -->
+                <div class="advisor-detail" *ngIf="!isShow">
+                    <div id="info-ad">
+                        <p><b>{{'ORDER_DETAIL.ADVISOR' | translate}}</b></p>
+                        <p>{{cart_advisor_name}} ( {{'ORDER_DETAIL.ID' | translate}}: {{order.advisorCustomer.advisorIdNumber}})</p>
+                    </div>
+                    <div id="img-advisor">
+                        <img src="{{this.imageAdvisor}}" alt="">
+                    </div>
+                </div>
+    
+                <div class="advisor-detail" *ngIf="isShow && is_naep == false">
+                    <div id="info-ad" >
+                        <p><b>{{'ORDER_DETAIL.ADVISOR' | translate}}</b></p>
+                        <p style="color: var(--red-color);">{{'ORDER_DETAIL.CONFIRM' | translate}}</p>
+                        <p > {{'ORDER_DETAIL.REMARK_ADVISOR_NAME' | translate}}: {{remark_advisor_name}}</p>
+                        <p > {{'ORDER_DETAIL.REMARK_ADVISOR_ID' | translate}}: {{remark_advisor_id}}</p>
+                        <p > {{'ORDER_DETAIL.REMARK_ADVISOR_PHONE' | translate}}: {{remark_advisor_phone_number}}</p>
+                    </div>
+                    <!-- <div id="img-advisor">
+                        <img src="{{this.imageAdvisor}}" alt="">
+                    </div> -->
+                </div>
+            </div>
+    
+            <div *ngIf="order.status != 'TO_HOST' && order.status != 'TO_UNBOX' && shipping.shippingMethod != 'SELF_COLLECT'" class="delivery-address">
+                <app-delivery-address [deliveryAddress]="order.deliveryAddress"></app-delivery-address>
+            </div>
+    
+            <div class="customer-info">
+                <app-customer-info [customerInformation]="order.customerInformation"></app-customer-info>
+            </div>
+    
+            <div *ngIf="order.status != 'TO_HOST' && order.status != 'TO_UNBOX' " class="shipping-infos1">
+                <div class="shipping-detail1">
+                    <p><b>{{'ORDER_DETAIL.SHIPPING_INFOMATION' | translate}}</b></p>
+                    <div *ngIf="shipping.shippingMethod === 'SELF_COLLECT'" id="self-collect">
+                        <div id="method">{{'ORDER_DETAIL.DELIVERED_BY_SELF_COLLECTION' | translate}}.</div>
+                        <!-- <div id="footer">Collection Date:
+                            {{shipping.customerSelectedShippingDate | date :'dd/MM/yyyy'}}</div> -->
+                        <div id="footer" style=" white-space: pre-wrap; margin: 10px 0" *ngIf="isShowShipping">{{'ORDER_DETAIL.NOTE' | translate}} <br/>{{manual_shipping_note}}</div>
+                    </div>
+                    <div *ngIf="shipping.shippingMethod === 'BY_COURRIER'" id="by-courier">
+                        <div *ngIf="is_manual_shipping">
+                            <p id="method">{{'ORDER_DETAIL.MANUAL_SHIPPING' | translate}}{{manual_shipping_time}}</p>
+                            <p *ngIf="isShowShipping" style=" white-space: pre-wrap; margin: 10px 0" id="method">{{'ORDER_DETAIL.NOTE' | translate}} <br/>{{manual_shipping_note}}</p>
+                        </div>
+                        <div *ngIf="!shipping.shippingAgentId && !is_manual_shipping">
+                            <div *ngIf="shipStatus === 'TO_PAY' || shipStatus === 'TO_VERIFY' || shipStatus === 'TO_SHIP'">
+                                <p id="method" *ngIf="!shipping.isManualShipping">{{'ORDER_DETAIL.TO_BE_DELIVERED_BY_COURIER' | translate}}.</p>
+                                <p id="method" *ngIf="shipping.isManualShipping">{{'ORDER_DETAIL.TO_BE_DELIVERED_BY_THERMOMIX' | translate}}.</p>
+                                <p id="footer" style=" white-space: pre-wrap; margin: 10px 0;" *ngIf="isShowShipping">{{'ORDER_DETAIL.NOTE' | translate}} <br/>{{manual_shipping_note}}</p>
+                            </div>
+    
+                            <div *ngIf="shipStatus === 'TO_RECEIVE' || shipStatus === 'TO_UNBOX' || shipStatus === 'TO_HOST' || shipStatus === 'COMPLETED'">
+                                <p id="method" *ngIf="!shipping.isManualShipping">{{'ORDER_DETAIL.DELIVERED_BY_COURIER' | translate}}.</p>
+                                <p id="method" *ngIf="shipping.isManualShipping">{{'ORDER_DETAIL.DELIVERED_BY_THERMOMIX' | translate}}.</p>
+                                <p id="footer" style=" white-space: pre-wrap; margin: 10px 0" *ngIf="isShowShipping">{{'ORDER_DETAIL.NOTE' | translate}} <br/>{{manual_shipping_note}}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="shipping.shippingAgentId && !is_manual_shipping">
+                            <p id="method"> {{'ORDER_DETAIL.DELIVERED_BY_COURIER' | translate}} {{shipping.shippingStatus.shippingAgent}}</p>
+                            <p id="info" style=" white-space: pre-wrap; margin: 10px 0" *ngIf="isShowShipping">{{'ORDER_DETAIL.NOTE' | translate}} <br/>{{manual_shipping_note}}</p>
+                            <p id="info" *ngIf="shipping.pickupDateTime !== null">{{'ORDER_DETAIL.PICKUP_DATE_TIME' | translate}} 
+                                {{shipping.pickupDateTime | date: 'EEE MMM dd yyyy HH:mm:ss zzzz'}}</p>
+                            <p id="info" *ngIf="shipping.shippingStatus.overallStatus">{{'ORDER_DETAIL.SHIPMENT_STATUS' | translate}}:
+                                {{shipping.shippingStatus.overallStatus}}</p>
+                            <p id="footer" *ngIf="shipping.shippingStatus.updatedTime">{{'ORDER_DETAIL.TRACKING_UPDATE_AT' | translate}}:
+                                {{shipping.shippingStatus.updatedTime | date: 'EEE, MMM dd yyyy HH:mm '}}</p>
+                                
+                            <table mat-table [dataSource]="shippingStatusTableData" class="mat-elevation-z4">
+                                <ng-container matColumnDef="groupNum">
+                                    <th mat-header-cell *matHeaderCellDef> {{'ORDER_DETAIL.GROUP_NO' | translate}}o. </th>
+                                    <td mat-cell *matCellDef="let productStatus"> {{productStatus.pieceId}} </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="trackingId">
+                                    <th mat-header-cell *matHeaderCellDef>{{'ORDER_DETAIL.TRACKING_ID' | translate}}</th>
+                                    <div *ngIf="checkTrackingHost()">
+                                        <td mat-cell *matCellDef="let productStatus">
+                                            <a id="{{productStatus.trackingId}}" target="_blank"
+                                                href="{{viewTrackingDetails(productStatus.trackingId)}}">{{productStatus.trackingId}}</a>
+                                        </td>
+                                    </div>
+                                    <div *ngIf="!checkTrackingHost()">
+                                        <td mat-cell *matCellDef="let productStatus"> {{productStatus.trackingId}} </td>
+                                    </div>
+                                </ng-container>
+    
+                                <!-- <ng-container matColumnDef="productName">
+                                    <th mat-header-cell *matHeaderCellDef> Product Name </th>
+                                    <td mat-cell *matCellDef="let productStatus"> {{productStatus.productName}} </td>
+                                </ng-container> -->
+    
+                                <!-- <ng-container matColumnDef="qty">
+                                    <th mat-header-cell *matHeaderCellDef> Qty </th>
+                                    <td mat-cell *matCellDef="let productStatus"> {{productStatus.quantity}} </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                                    <td mat-cell *matCellDef="let productStatus"> {{productStatus.status}} </td>
+                                </ng-container>
+    
+                                <ng-container matColumnDef="date">
+                                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                                    <td mat-cell *matCellDef="let productStatus"> {{productStatus.updatedTime}} </td>
+                                </ng-container> -->
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <p id="shipping-method">{{shipping_method}}</p>
+                    <p *ngIf="isShowShipping" id="time">Note: {{note_shipping}}</p>
+                    <p *ngIf="!isSholivered {{DeliveryBy(order.shipping.shippingMethod)}}</p>
+                    <p id="timwShipping" id="time">{{shipping_date| date:"dd/MM/yyyy"}}</p> -->
+                    <!-- <p>Delivered {{DeliveryBy(order.shipping.shippingMethod)}}</p>
+                    <p id="time">{{order.shipping.shipDate | date:"dd/MM/yyyy HH:mm"}}</p>  -->
+                </div>
+            </div>
+    
+            <div class="order-amount">
+                <div class="order-detail">
+                    <p><b>{{'ORDER_DETAIL.ORDER_AMOUNT' | translate}}</b></p>
+                </div>
+                <div class="full-payment-detail">
+                    <div class="AAA">
+                        <p id="left">{{'ORDER_DETAIL.SHIPPING_FEE' | translate}}:</p>
+                        <p id="right">{{order.shippingFee}}</p>
+                    </div>
+                    <div class="BBB">
+                        <p id="left">{{'ORDER_DETAIL.SUBTOTAL' | translate}}:</p>
+                        <p id="right">{{order.subtotal}}</p>
+                    </div>
+                    <div class="CCC">
+                        <p id="left"><b>{{'ORDER_DETAIL.TOTAL' | translate}}:</b></p>
+                        <p id="right"><b>{{order.totalAmount | currency: order.currency + " ":'symbol':''}}</b></p>
+                    </div>
+                </div>
+            </div>
+    
+            <div  class="shipping-infos2" *ngIf="methodPaymentList.length > 0 && order.status != 'TO_HOST' && order.status != 'TO_UNBOX'">
+                <p class="title-payment"><b>{{'ORDER_DETAIL.PAYMENT_METHOD' | translate}}</b></p>
+                <div class="shipping-detail2" *ngFor="let method of methodPaymentList">
+                    <p>{{method}}</p>
+                </div>
+            </div>
+    
+            <ng-container *ngIf="order.warrantyInfo && order.warrantyInfo.length > 0">
+                <div class="warranty-information">
+                    <div class="warranty-information-title">
+                        Warranty Information
+                    </div>
+                    <div *ngFor="let product of order.warrantyInfo">
+                        <div class="warranty-product">
+                            <div class="warranty-product-row">
+                                <div class="mr-1">{{ 'ORDER_DETAIL.PRODUCT_NAME' | translate }}:</div>
+                                <div class="product-name">{{product.productName}}</div>
+                            </div>
+                            <div class="warranty-product-row">
+                                <div class="mr-1">{{ 'ORDER_DETAIL.SERIAL_NUMBER' | translate }}:</div>
+                                <div>{{product.serialNumber}}</div>
+                            </div>
+                            <div class="warranty-product-row">
+                                <div class="mr-1">{{ 'ORDER_DETAIL.WARRANTY_DURATION' | translate }}:</div>
+                                <div>{{product.warrantyDuration}}</div>
+                            </div>
+                            <div class="warranty-product-row">
+                                <div class="mr-1">{{ 'ORDER_DETAIL.STATUS' | translate }}:</div>
+                                <div class="in-warranty" *ngIf="product?.status === 'In Warranty'">{{product?.status}}</div>
+                                <div class="warranty-expired" *ngIf="product?.status !== 'In Warranty'">{{product?.status}}</div>
+                            </div>
+                            <div class="warranty-product-row">
+                                <div class="mr-1">{{ 'ORDER_DETAIL.START_DATE_WARRANTY' | translate }}:</div>
+                                <div>{{product?.startDate}}</div>
+                            </div>
+                            <div class="warranty-product-row">
+                                <div class="mr-1">{{ 'ORDER_DETAIL.END_DATE_WARRANTY' | translate }}:</div>
+                                <div>{{product?.endDate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            
+            <div class="order-history-table">
+                <div class="order-history-row">
+                    <div class="hisory-header history-id"><span>{{'ORDER_DETAIL.ORDER_ID' | translate}}</span></div>
+                    <div class="hisory-header history-id-data">
+                        <span #idInput class="history-id">#{{order.order_id_tmm}}</span>
+                        <a class="history-copy" (click)="copyToClipboard(order.order_id_tmm)">{{'ORDER_DETAIL.COPY' | translate}}</a>
+                    </div>
+                </div>
+                <div class="order-history-row" *ngFor="let his of order.history">
+                    <div class="history-action">{{his.action}}</div>
+                    <div class="history-day">{{his.createdAt | date:"dd-MM-yyyy HH:mm"}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+
+    <app-placeholder-loading *ngIf="loading" component="orderDetail"></app-placeholder-loading>
+</div>
+
+

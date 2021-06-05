@@ -1,0 +1,67 @@
+<div>
+    <h1 matDialogTitle *ngIf="!isJustHost" class="title">{{ 'CONFIRM.CHOOSE_HOST_GIFT' | translate }}</h1>
+    <h1 matDialogTitle *ngIf="isJustHost" class="title">{{ 'JUST_HOST_GIFT.CHOOSE_GIFT' | translate }}</h1>
+    <hr>
+
+    <div mat-dialog-content class="content-dialog">
+        <div style="margin-bottom: 20px;" *ngIf="select_gift_arr.length > 1">
+            <p-dropdown appendTo="body" id="languages" [options]="select_gift_arr" placeholder="-- ssasa --"
+            [(ngModel)]="selectedGift" (onChange)="changeGift()">
+                <ng-template let-item pTemplate="selectedItem" > 
+                    <span style="vertical-align:middle">{{item.label}}</span>
+                </ng-template>
+                <!-- <ng-template let-language pTemplate="item">
+                    <div class="ui-helper-clearfix">
+                        <div>{{language.label}}</div>
+                    </div>
+                </ng-template> -->
+            </p-dropdown>
+        </div>
+        <img src="{{storeUrl + product.storage_key}}"> 
+
+        <div style="display: block; margin: auto; text-align: center;">
+            <p class="text-name" [innerHTML]="product.product_name | titletranformPipe ">{{product.productName}}</p>
+            <!-- <p class="text-price">{{price | currency: currency + ' '}}</p> -->
+            <div *ngIf="checkiIsHaveInternalDiscount() === true" style="display: flex;">
+                <p class="price-product"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+                <p class="new-price-product"> {{ product.internal_discount_price | currency: product.currencyCode + ' ': 'symbol':''}}
+                </p>
+            </div>
+            <div *ngIf="checkiIsHaveInternalDiscount() === false && checkHasPromotionPrice(product.promotionalPrice) === true" style="display: flex;">
+                <p class="price-product"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+                <p class="new-price-product"> {{ product.promotionalPrice | currency: product.currencyCode + ' ': 'symbol':''}}</p>
+            </div>
+            <div
+                *ngIf="checkiIsHaveInternalDiscount() === false && checkHasPromotionPrice(product.promotionalPrice) === false">
+                <p class="pricelisted"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+            </div>
+
+            <div class="language" *ngFor="let p of product.properties, let i = index">
+                <div class="languageText">
+                    <p >{{p.name}}</p>
+                </div>
+        
+                <div id="selectLanguage">
+                    <p-dropdown appendTo="body" id="languages" [options]="p.value" placeholder="--  Select {{p.name}}  --" 
+                    [(ngModel)]="modelGroups[i]" (onChange)="changeProperties()">
+                        <ng-template let-item pTemplate="selectedItem" > 
+                            <span style="vertical-align:middle">{{item.label}}</span>
+                        </ng-template>
+                        <ng-template let-language pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                <div>{{language.label}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p *ngIf="isCheck" style="color: var(--red-color);">Please select properties</p>
+
+    <div mat-dialog-actions class="pt-24-approved">
+        <button class="ok-button" mat-raised-button (click)="confirm()">{{ 'CONFIRM.CONFIRM' | translate }}</button>  
+        <button class="cancel-button-1" mat-button (click)="cancel()">{{ 'CONFIRM.CANCEL' | translate }}</button>
+    </div>
+</div>

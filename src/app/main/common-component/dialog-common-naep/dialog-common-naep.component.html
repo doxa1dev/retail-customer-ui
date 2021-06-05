@@ -1,0 +1,8 @@
+<h1 matDialogTitle class="title">{{title}}</h1>
+<hr>
+<div mat-dialog-content [ngClass]="message === undefined ? 'message-none' : 'message'">{{message}} <br> {{message2}}</div>
+<div mat-dialog-actions class="btn-ok">
+    <button [ngClass]="buttonColor ? 'btn-green' : 'btn-red'" mat-raised-button (click)="dialogRef.close(true)">
+        {{buttonText}}
+    </button>
+</div>

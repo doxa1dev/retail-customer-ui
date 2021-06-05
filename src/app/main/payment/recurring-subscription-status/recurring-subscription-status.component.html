@@ -1,0 +1,27 @@
+<div class="payment-done">
+    <div class="content">
+        <div class="header">
+
+            <!-- <img style="cursor: pointer;" class="icon-back" src="../../../../assets/icons/material-icons/Chevron Left.png">
+
+            <span class="text-payment" style="text-decoration: underline;">Payment</span> -->
+        </div>
+
+        <div class="complete-payment">
+            <img *ngIf="paymentSaved==='success'" src="../../../../assets/images/payment/undraw_celebration_0jvk.png">
+            <img *ngIf="paymentSuccess=='false' || paymentSaved=='fail'" class="img-payment" src="../../../../assets/images/payment/failed-payment.jpg">
+            <span *ngIf="paymentSaved==='success' " class="text1-complete-payment">{{ "RECURRING.THANK_YOU" | translate }}<br>{{ "RECURRING.RECURRING_PAYMENT_SUCCESSFUL" | translate }}</span>
+            <!-- <span *ngIf="paymentSuccess=='true' && paymentOption==='DEP'" class="text1-complete-payment">Thank you<br>Deposit Payment Successful</span> -->
+            <span *ngIf="paymentSuccess=='false'" class="text1-complete-payment">{{ "RECURRING.OOOPS" | translate }}<br>{{ "RECURRING.RECURRING_PAYMENT_FAIL" | translate }}</span>
+            <!-- <span *ngIf="paymentSuccess=='false' && paymentOption==='DEP'" class="text1-complete-payment">Oooops<br>Deposit Payment Failed</span> -->
+            <span *ngIf="paymentSaved=='fail'" class="text1-complete-payment">{{ "RECURRING.SORRY" | translate }}<br>{{ "RECURRING.ERROR" | translate }}</span>
+            <!-- <span *ngIf="paymentSaved=='fail' && paymentOption==='DEP'" class="text1-complete-payment">Sorry<br>Error happend when processing your deposit payment. Please contact Thermomix admin at admin@thermomix.com or +65-88888888</span> -->
+            <a   style="text-decoration: none">
+                <button *ngIf="paymentSaved==='success' || paymentSaved==='fail'" (click)="backtoStore()">{{ "RECURRING.BACK_TO_STORE" | translate }}</button>
+                <button *ngIf="paymentSuccess==='false'" (click)="toPayRecurringPayment()">{{ "RECURRING.CONTINUE" | translate }}</button>
+            </a>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,275 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+.pay-epp {
+    @include background();
+    color: var(--text-color) !important;
+    
+    .content-epp {
+        @include backgroundPage();
+        height: 80%;
+
+        @include media-breakpoint("lg") {
+            height: 92%;
+        }
+
+        @include media-breakpoint("xs") {
+            padding-top: 13px !important;
+        }
+
+        .header {
+            height: 30px;
+            margin-top: -15px;
+            margin-left: -20px;
+        }
+
+        .text-method {
+            margin: 0px;
+            padding: 10px 0px 15px 15px;
+        }
+
+        #selectbox {
+            position: absolute;
+            margin: 0 auto;
+            margin-top: -10px;
+            width: 75%;
+
+            @media only screen and (min-width : 750px) {
+                width: 65%;
+                font-size: 18px;
+            }
+
+            .card {
+                cursor: pointer;
+                color: var(--text-color) !important;
+                display: flex;
+                margin-top: 5px;
+                // height: 45px!important;
+                width: 100% !important;
+                -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                -moz-box-shadow: 0px 3px 16px #00000029 !important;
+                box-shadow: 0px 3px 16px #00000029 !important;
+                opacity: 0.8;
+
+                @media only screen and (min-width : 750px) {
+                    margin-top: 10px !important;
+                    // height: 50px;
+                }
+
+                .div-text{
+                    margin-top: 15px;
+                    margin-left: 40px;
+
+                    @include media-breakpoint("lg") {
+                        margin-top: 5px;
+                    }
+
+                    @media only screen and (max-width : 400px) {
+                        margin-top: 9px;
+                        margin-left: 20px;
+                    }
+
+                    p {
+                        margin-top: 3px !important;
+                        margin-bottom: 0!important;
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                        }
+                    }
+                    .promotion-text{
+                        margin-top: 0!important;
+                        font-style: italic;
+                        color: var(--primary-color);
+                        font-size: var(--mobi-small-text);
+                        @media only screen and (min-width : 750px) {
+                            font-size: 12px;
+                        }
+                    }
+
+
+                }
+
+                .text-hlb {
+                    margin-top: 30px;
+
+                    @media only screen and (max-width : 400px) {
+                        margin-top: 15px;
+                        margin-left: 20px;
+                    }
+                }
+
+                .text-public-bank {
+                    margin-top: 35px;
+
+                    @include media-breakpoint("lg") {
+                        margin-top: 15px;
+                    }
+
+                    @media only screen and (max-width : 400px) {
+                        margin-top: 9px;
+                        margin-left: 20px;
+                    }
+                }
+
+                .div-text-office{
+                    margin-top: -5px;
+                    margin-left: 10px;
+                    @media only screen and (min-width : 1230px) {
+                        height: auto !important;
+                    }
+                    @media only screen and (max-width : 1250px) {
+                        margin-top: -6px;
+                        //padding-bottom: 7px;
+                    }
+                    @media only screen and (min-width : 750px) {
+                        height: auto ;
+                    }
+                    p {
+                        margin-top: 3px !important;
+                        margin-bottom: 0!important;
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                        }
+                    }
+                 
+                }
+
+                .left {
+                    width: 25%;
+                    height: 60px;
+                    margin-left: 20px;
+                    // margin-top: -6px;
+
+                    @include media-breakpoint("lg") {
+                        height: 40px;
+                    }
+
+                    @media only screen and (max-width : 400px) {
+                        margin-top: -5px;
+                        margin-left: 10px;
+                        width: 40%;
+                        height: 50px;
+                    }
+                }
+
+                .left-leong-bank {
+                    width: 25%;
+                    height: 100px;
+                    // margin-top: -10px;
+                    // margin-bottom: -10px;
+
+                    @media only screen and (max-width : 400px) {
+                        width: 40%;
+                        height: 60px;
+                    }
+                }
+
+                .public-bank {
+                    margin-top: -20px;
+                    margin-bottom: -20px;
+                    height: 140px;
+                    width: 25%;
+                    
+                    @include media-breakpoint("lg") {
+                        margin-top: -20px;
+                        margin-bottom: -20px;
+                        height: 100px;
+                        width: 25%;
+                    }
+
+                    @media only screen and (max-width : 400px) {
+                        height: 75px;
+                        margin-top: -10px;
+                        margin-bottom: -10px;
+                        width: 40%;
+                    }
+                }
+
+                .right {
+                    margin-left: auto;
+                    margin-top: 15px;
+                    display: flex;
+
+                    @include media-breakpoint("lg") {
+                        margin-top: 5px;
+                    }
+
+                    @media only screen and (max-width : 400px) {
+                        margin-top: 7px;
+                    }
+
+                    .img {
+                        margin-top: 5px;
+                        margin-left:auto ;
+                        margin-right: 15px;
+                        width: 58px;
+                        display: flex;
+
+                        @media only screen and (max-width : 400px) {
+                            margin-right: 15px;
+                            width: 29px;
+                        }
+
+                        .mc{
+                            object-fit: contain;
+                            height:14px; 
+                            width: 21px;
+                        }
+                        .visa{
+                            object-fit: contain;
+                            height:14px; 
+                            width: 40px;
+                        } 
+                    }
+
+                }
+
+                .right-hlb {
+                    margin-top: 30px;
+
+                    @media only screen and (max-width : 400px) {
+                        margin-top: 15px;
+                    }
+                }
+
+                .right-public-bank {
+                    margin-top: 35px;
+
+                    @include media-breakpoint("lg") {
+                        margin-top: 15px;
+                    }
+
+                    @media only screen and (max-width : 400px) {
+                        margin-top: 7px;
+                    }
+                }
+            }
+
+            .card-without-gift-text{
+                @extend .card; 
+                // height: 45px !important;
+                height: auto !important;
+                padding: 5px;
+
+                @media only screen and (min-width : 750px) {
+                    margin-top: 10px !important;
+                    height: auto !important;
+                    padding: 5px;
+                }
+            }
+
+            .card-public {
+                @extend .card; 
+                // height: 45px !important;
+                height: auto !important;
+                padding: 20px 0px 20px 0px !important;
+
+                @media only screen and (min-width : 750px) {
+                    margin-top: 10px !important;
+                    height: auto !important;
+                    padding: 5px;
+                }
+            }
+        }
+    }
+}

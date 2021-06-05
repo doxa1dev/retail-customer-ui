@@ -1,0 +1,17 @@
+<div class="infos">
+    <p><b>{{ 'DELIVERY_ADDRESS' | translate }}</b></p>
+    <p id="p">{{ deliveryAddress.firstName }} {{deliveryAddress.lastName}}</p>
+    <!-- <p id="p">{{ deliveryAddress.detailAddress }}</p>  -->
+    <p id="p">
+        {{ setDisplayAddressLine(deliveryAddress.addressLine1, deliveryAddress.addressLine2, deliveryAddress.addressLine3, deliveryAddress.postalCode) }}
+    </p>
+    <p id="p">{{ setStateCountryLine(deliveryAddress.stateCode, deliveryAddress.countryCode) }}</p>
+</div>
+<div class="messages">
+    <mat-icon svgIcon="messages-order" id="icons"></mat-icon>
+    <mat-card id="card">{{ deliveryAddress.email }}</mat-card>
+</div>
+<div class="phone">
+    <mat-icon svgIcon="phone-order" id="icons"></mat-icon>
+    <mat-card id="card">(+{{ deliveryAddress.phoneDialCode }}) {{deliveryAddress.phoneNumber}}</mat-card>
+</div>

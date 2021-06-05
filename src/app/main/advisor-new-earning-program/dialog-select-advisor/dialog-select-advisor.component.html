@@ -1,0 +1,12 @@
+<h1 matDialogTitle class="title">{{title}}</h1>
+<hr>
+<div mat-dialog-content class="message">{{confirmMessage}}</div>
+
+<p-dropdown [options]="dataAdvisor" optionLabel="recruiterCustomer.firt_name"
+    (onChange)="selectedAdvisor($event)"></p-dropdown>
+
+<div mat-dialog-actions class="pt-24">
+    <button class="ok-button2" mat-raised-button (click)="dialogRef.close(this.advisorID)">
+    CONFIRM
+    </button>
+</div>

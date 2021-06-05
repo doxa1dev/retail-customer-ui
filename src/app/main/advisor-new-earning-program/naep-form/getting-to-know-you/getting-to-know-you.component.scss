@@ -1,0 +1,210 @@
+@import "src/@fuse/scss/fuse";
+
+:host{
+    ::ng-deep .ui-dropdown{
+        border: none;
+    }
+    ::ng-deep .ui-dropdown .customer {
+        border: none;
+    }
+    ::ng-deep .mat-radio-label{
+        margin-top: 10px;
+    }
+    ::ng-deep .mat-radio-label-content{
+        user-select: auto;
+        display: inline-block;
+        order: 0;
+        line-height: inherit;
+        padding-left: 8px;
+        padding-right: 0;
+        font-size: 13px;
+    }
+}
+
+.getting-to-know-you{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: solid 20px var(--fuse-background) !important;
+    color: var(--text-color) !important;
+
+    @include media-breakpoint("xs") {
+        padding-bottom: 10px;
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        // border-bottom: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 70px var(--fuse-background) !important;
+        font-size: var(--mobi-primary-text);
+    }
+    .header{
+        // padding-left: 5px;
+        padding-top: 0px;
+        padding-bottom: 5px;
+        @include media-breakpoint("xs") {
+          padding-right: 10px;
+        }
+        @include media-breakpoint("sm") {
+          padding-right: 42px;
+        }
+    }
+
+    
+    .question-detail{
+
+        .title{
+            color: Var(--primary-color) ;
+            margin: 0 auto;
+            width: 100%;
+            font-weight: 600;
+            text-align: center;
+            font-size: 24px;
+            @include media-breakpoint("xs") {
+                font-size: 16px;
+            }
+        }
+
+        .about-me{
+            .content{
+                background-color: #E3F3E2;
+                // height: 30px;
+                padding: 10px 5%;
+            }
+            .infor-question{
+                width: 90%;
+                margin: 0 auto;
+                text-align: justify;
+            }
+            .question_1{
+                width: 90%;
+                margin: 0 auto;
+                display: flex;
+                margin-top: 15px;
+                .question{
+                    color: var(--primary-color);
+                    padding: 15px 0px 15px 4%;
+                    width: 35%;
+                }
+                .item{
+                    text-align: left;
+                    width: 80%;
+                    @include media-breakpoint("xs") {
+                        width: 60%;
+                    }
+                    .input-data{
+                        width: 100%;
+                        height: 48px;
+                        border: 1px solid var(--border-color);    
+                        border-radius: 8px;
+                        margin-left: 10px;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+            .question_2{
+                width: 90%;
+                margin: 0 auto;
+                margin-top: 15px;
+                .question{
+                    color: var(--primary-color);
+                    width: 100%;
+                }
+                .item{
+                    text-align: left;
+                    width: 100%;
+                    .input-data{
+                        width: 100%;
+                        height: 48px;
+                        border: 1px solid var(--border-color);    
+                        border-radius: 8px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+
+            .question_3{
+                font-size: 14px;
+                width: 90%;
+                margin: 0 auto;
+                margin-top: 15px;
+                .question{
+                    color: var(--primary-color);
+                    width: 100%;
+                    @include media-breakpoint("xs") {
+                        font-size: 13px;
+                    }
+                }
+                .item{
+                    font-size: 14px;
+                    font-size: 14px;
+                    display: block;
+                    .radio-btn{
+                        .mat-radio-button{
+                            display: inline;
+                            margin-top: 10px;
+                        }
+                    }
+                    .input-data{
+                        font-size: 14px;
+                        width: 100%;
+                        float: right;
+                        height: 48px;
+                        border: 1px solid var(--border-color);    
+                        border-radius: 8px;
+                        margin-top: 10px;
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+
+            .btn-next{
+                width: 90%;
+                margin: 0 auto;
+                // text-align: right;
+                margin-top: 30px;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+                .btn-back{
+                    padding-bottom: 20px;
+                    cursor: pointer;
+                    background-color: white;
+                    border: 1px solid var(--primary-color);
+                    color: var(--primary-color);
+                    padding: 10px 150px;
+                    border-radius: 8px;
+                    margin-bottom: 25px;
+                    float: left;
+                    @include media-breakpoint("xs") {
+                        padding: 10px 40px;
+                        margin-bottom: 25px;
+                    }
+                }
+                
+                .ntn-next{
+                    float: right;
+                    cursor: pointer;
+                    background-color: var(--primary-color);
+                    border: 1px solid var(--primary-color);
+                    color: white;
+                    padding: 10px 150px;
+                    border-radius: 8px;
+                    @include media-breakpoint("xs") {
+                        padding: 10px 40px;
+                    }
+                    
+                }
+            }
+        }
+    }
+
+
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

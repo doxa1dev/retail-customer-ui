@@ -1,0 +1,191 @@
+@import "src/@fuse/scss/fuse";
+
+:host{
+    ::ng-deep .ui-dropdown{
+        border: none;
+    }
+    ::ng-deep .ui-dropdown-label {
+        padding-left: 15px;
+        padding-top : 15px;
+    }
+    ::ng-deep .ui-dropdown .customer {
+        border: none;
+    }
+    
+    p-calendar {
+        
+        ::ng-deep .ui-calendar {
+            display: flex !important;
+            padding: 6px;
+            // border: 1px solid var(--border-color) !important;
+            border-radius: 8px !important;
+            height: 48px;
+            input {
+                border: none !important;
+                border-right: none !important;
+                flex-grow: 1 !important;
+                transition: none;
+                box-shadow: none;
+                
+                &:enabled:focus:not(.ui-state-error) {
+                    box-shadow:none;
+                    border-color: var(--border-color);
+                }
+                
+            }
+            button {
+                background-color: #fff;
+                border: none !important;
+                .ui-button-icon-left {
+                    color: #269A3E;
+                    height: 1.2rem;
+                }
+                .ui-button-text {
+                    margin-right: 2.5px;
+                    margin-bottom: 0.5px;
+                    &:enabled:active,&:enabled:hover {
+                        color: #ffffff; 
+                    }
+                }
+                &:enabled:focus:not(.ui-state-error) {
+                    box-shadow:none;
+                    border-color: var(--border-color);
+                }
+            }
+            .ui-datepicker {
+                .ui-state-active {
+                    background-color: #269A3E;
+                    border: 0.5px solid var(--border-color);
+                    border-radius: 12px;
+                }
+            }
+        }
+    }
+}
+
+.naep-form-one{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: solid 20px var(--fuse-background) !important;
+    color: var(--text-color) !important;
+
+    @include media-breakpoint("xs") {
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        // border-bottom: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 70px var(--fuse-background) !important;
+        font-size: var(--mobi-primary-text);
+    }
+    .header{
+        // padding-left: 5px;
+        padding-top: 0px;
+        padding-bottom: 5px;
+        @include media-breakpoint("xs") {
+          padding-right: 10px;
+        }
+        @include media-breakpoint("sm") {
+          padding-right: 42px;
+        }
+    }
+    .form-body{
+        .title{
+            color: Var(--primary-color) ;
+            margin: 0 auto;
+            width: 100%;
+            font-weight: 600;
+            text-align: center;
+            font-size: 24px;
+            @include media-breakpoint("xs") {
+                font-size: 16px;
+            }
+        }
+        .form-detail{
+            width: 100%;
+            p{
+                margin-left: 5%;
+            }
+            .item{
+                text-align: center;
+                width: 100%;
+                .input-data{
+                    cursor: context-menu;
+                    width: 90%;
+                    height: 48px;
+                    // border: 1px solid darkcyan;    
+                    -moz-box-shadow:  0px 3px 16px #00000029 !important;
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    border-radius: 8px;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                }
+            }
+            .phone-number{
+                margin: 0 auto;
+                width: 90%;
+                display: flex;
+                .dialcode{
+                    -moz-box-shadow:  0px 3px 16px #00000029 !important;
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    border-radius: 8px;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                }
+                .input-data{
+                    cursor: context-menu;
+                    width: 100%;
+                    height: 48px;
+                    right: 0; 
+                    -moz-box-shadow:  0px 3px 16px #00000029 !important;
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    border-radius: 8px;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                }
+            }
+            .calendar{
+                width: 90%;
+                text-align: center;
+                margin: 0 auto;
+                -moz-box-shadow:  0px 3px 16px #00000029 !important;
+                -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                border-radius: 8px;
+                box-shadow: 0px 3px 16px #00000029 !important;
+                
+            }
+        }
+        .time-naep{
+            width: 100%;
+            // color: Var(--primary-color) ;
+            margin: 0 auto;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 20px;
+            @include media-breakpoint("xs") {
+                font-size: var(--mobi-title-text);
+            }
+        }
+
+        .btn-next{
+            width: 90%;
+            margin: 0 auto;
+            text-align: right;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            button{
+                padding: 10px 50px;
+                border-radius: 8px;
+                cursor: pointer;
+                background-color: var(--primary-color);
+                border: 1 solid var(--primary-color);
+                color: white;;
+            }
+        }
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

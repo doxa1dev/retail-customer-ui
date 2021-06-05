@@ -1,0 +1,46 @@
+<div style='width: 100%; height: 100%;'>
+    <div class="news">
+        <div class="header-news">
+            <!-- <span class="dot">●</span>
+            <span class="text-news">{{ 'NEWS' | translate }}</span> -->
+    
+            <app-title [type]="title" [message]="'NEWS'"></app-title>
+            <span class="text-news-notifi" *ngIf="quantityNotifi > 0">({{quantityNotifi}})</span>
+        </div>
+    
+        <div class="content" 
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        [scrollWindow]="false"
+        (scrolled)="onScroll()" style="position: relative;">
+            <div class="list-new" *ngFor="let news of newsList">
+                <div class="" fxLayout="column" (click)="getUuidNews(news.uuid)" style="cursor: pointer;"
+                [ngClass]="(news.statusCustomerNewsNotification == 'VIEWED') ? 'old-notification' : 'new-notification'">
+                    <div fxLayout="row" class="row-header">
+                        <p id="title" fxFlex="70">{{news.title}}</p>
+                        <p id="day" fxFlex="30">{{news.createdAt}}</p>
+                    </div>
+    
+                    <div fxLayout="row" id="des" class="row-body">
+                        <p id="des" fxFlex="70">{{news.description}}</p>
+                        <img id="img-notifi" fxFlex="30" src="{{news.storageKeyIsCover}}">
+                        
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
+    
+        <div style="position: fixed; bottom: 60px; left: 0; width: 100%;">
+            <ngx-spinner bdOpacity = 0.9 bdColor = ""
+            size = "small"  color = "#707070"
+            type = "ball-pulse-sync" [fullScreen] = "false"></ngx-spinner>
+        </div>
+        
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>
+

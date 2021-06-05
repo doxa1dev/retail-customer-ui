@@ -1,0 +1,136 @@
+<div style="width: 100%;">
+    <div class="contact-detail">
+        <div class="header-contact-detail">
+            <app-title [type]="title" [message]="'CONTACT_LIST.CONTACT_DETAIL'"></app-title>
+        </div>
+    
+        <div class="body-contact-detail">
+    
+            <!-- Personal Information -->
+            <mat-card class="personal-information">
+                <p class="title">{{'CUSTOMER_DETAIL.PERSONAL'| translate}}</p>
+    
+                <div class="content-contact-detail">
+                    <div class="personal-text">
+                        <div class="left">
+                            <p>{{'CUSTOMER_DETAIL.NAME_IC'| translate}}</p>
+                            <p>{{'CUSTOMER_DETAIL.PREFERRED_NAME'| translate}}</p>
+                        </div>
+    
+                        <div class="right">
+                            <p>{{customer.nameAsInIC}}</p>
+                            <p>{{customer.preferredName}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="address-text">
+                        <div class="left">
+                            <p>{{'CUSTOMER_DETAIL.ADDRESS'| translate}}</p>
+                        </div>
+    
+                        <div class="right">
+                            <p>{{customer.address}} {{customer.country}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="personal-text">
+                        <div class="left">
+                            <p>{{'CUSTOMER_DETAIL.EMAIL'| translate}}</p>
+                            <p>{{'CUSTOMER_DETAIL.PHONE_NUMBER'| translate}}</p>
+                        </div>
+    
+                        <div class="right">
+                            <p>{{customer.email}}</p>
+                            <p>{{customer.phoneNumber}}</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <!-- Guest Questionnaire -->
+            <mat-card class="questionnaire">
+                <p class="title">{{'CUSTOMER_DETAIL.GUEST_QUESTIONNAIRE'| translate}}</p>
+    
+                <div class="content-contact-detail">
+                    <div class="left">
+                        <p>{{'CUSTOMER_DETAIL.PRE_DEMO_QUESTIONNAIRE'| translate}}</p>
+                        <p>{{'CUSTOMER_DETAIL.POST_DEMO_QUESTIONNAIRE'| translate}}</p>
+                    </div>
+    
+                    <div class="mid">
+                        <p
+                            [ngStyle]="{color: customer.questionnaireOne != undefined ? 'var(--primary-color)' : 'var(--red-color)'}">
+                            {{customer.questionnaireOne != undefined ? 'Completed' : 'Not Completed'}}</p>
+                        <p
+                            [ngStyle]="{color: customer.questionnaireTwo != undefined ? 'var(--primary-color)' : 'var(--red-color)'}">
+                            {{customer.questionnaireTwo != undefined ? 'Completed' : 'Not Completed'}}</p>
+                    </div>
+    
+                    <div class="right">
+                        <p (click)="onViewQuestionOne()">{{customer.questionnaireOne != undefined ? 'View' : ''}}</p>
+                        <p (click)="onViewQuestionTwo()">{{customer.questionnaireTwo != undefined ? 'View' : ''}}</p>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <!-- Advising Team -->
+            <mat-card class="advising-team" *ngIf="existValue">
+                <p class="title">{{'CUSTOMER_DETAIL.ADVISING_TEAM'| translate}}</p>
+    
+                <div class="content-contact-detail">
+                    <div class="advisor">
+                        <p class="left">{{'CUSTOMER_DETAIL.ADVISOR'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.advisorName === undefined)">
+                            {{customer.advisorName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}: {{customer.advisorId}})</p>
+                        <p class="empty-image" *ngIf="customer.advisorName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageAdvisor}}" *ngIf="!(customer.advisorName === undefined)">
+                        </div>
+                    </div>
+    
+                    <div class="recruiter">
+                        <p class="left">{{'CUSTOMER_DETAIL.RECRUITER'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.recruiterName === undefined)">
+                            {{customer.recruiterName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}: {{customer.recruiterId}})
+                        </p>
+                        <p class="empty-image" *ngIf="customer.recruiterName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageRecruiter}}" *ngIf="!(customer.recruiterName === undefined)">
+                        </div>
+                    </div>
+    
+                    <div class="team-leader">
+                        <p class="left">{{'CUSTOMER_DETAIL.TEAM_LEADER'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.teamLeaderName === undefined)">
+                            {{customer.teamLeaderName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}: {{customer.teamLeaderId}})
+                        </p>
+                        <p class="empty-image" *ngIf="customer.teamLeaderName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageTeamLeader}}" *ngIf="!(customer.teamLeaderName === undefined)">
+                        </div>
+                    </div>
+    
+                    <div class="branch-manager" style="padding-bottom: 0px;">
+                        <p class="left">{{'CUSTOMER_DETAIL.BRANCH_MANAGER'| translate}}</p>
+                        <p class="mid" *ngIf="!(customer.branchManagerName === undefined)">
+                            {{customer.branchManagerName}}<br>({{'CUSTOMER_DETAIL.ID'| translate}}:
+                            {{customer.branchManagerId}})</p>
+                        <p class="empty-image" *ngIf="customer.branchManagerName === undefined"></p>
+    
+                        <div class="right">
+                            <img src="{{imageBranchManager}}" *ngIf="!(customer.branchManagerName === undefined)">
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <button class="button-delete" (click)="deleteContact()">{{'CUSTOMER_DETAIL.DELETE_CONTACT'| translate}}</button>
+    
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

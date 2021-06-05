@@ -1,0 +1,293 @@
+@import "src/@fuse/scss/fuse";
+
+:host{
+    ::ng-deep .ui-dropdown{
+        border: none;
+    }
+    ::ng-deep .ui-dropdown .customer {
+        border: none;
+    }
+    ::ng-deep .mat-checkbox-inner-container {
+        display: inline-block;
+        height: 13px;
+        line-height: 0;
+        margin: auto;
+        margin-right: 8px;
+        order: 0;
+        position: relative;
+        vertical-align: middle;
+        white-space: nowrap;
+        width: 13px;
+        flex-shrink: 0;
+    }
+    p-calendar {
+        
+        ::ng-deep .ui-calendar {
+            display: flex !important;
+            padding: 6px;
+            // border: 1px solid var(--border-color) !important;
+            border-radius: 8px !important;
+            height: 48px;
+            input {
+                border: none !important;
+                border-right: none !important;
+                flex-grow: 1 !important;
+                transition: none;
+                box-shadow: none;
+                
+                &:enabled:focus:not(.ui-state-error) {
+                    box-shadow:none;
+                    border-color: var(--border-color);
+                }
+                
+            }
+            button {
+                background-color: #fff;
+                border: none !important;
+                .ui-button-icon-left {
+                    color: #269A3E;
+                    height: 1.2rem;
+                }
+                .ui-button-text {
+                    margin-right: 2.5px;
+                    margin-bottom: 0.5px;
+                    &:enabled:active,&:enabled:hover {
+                        color: #ffffff; 
+                    }
+                }
+                &:enabled:focus:not(.ui-state-error) {
+                    box-shadow:none;
+                    border-color: var(--border-color);
+                }
+            }
+            .ui-datepicker {
+                .ui-state-active {
+                    background-color: #269A3E;
+                    border: 0.5px solid var(--border-color);
+                    border-radius: 12px;
+                }
+            }
+        }
+    }
+}
+
+.naep-form-three{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: solid 20px var(--fuse-background) !important;
+    color: var(--text-color) !important;
+
+    @include media-breakpoint("xs") {
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        // border-bottom: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 70px var(--fuse-background) !important;
+        font-size: var(--mobi-primary-text);
+    }
+    .header{
+        // padding-left: 5px;
+        padding-top: 0px;
+        padding-bottom: 5px;
+        @include media-breakpoint("xs") {
+          padding-right: 10px;
+        }
+        @include media-breakpoint("sm") {
+          padding-right: 42px;
+        }
+    }
+    .form-body{
+        .title{
+            color: Var(--primary-color) ;
+            margin: 0 auto;
+            width: 100%;
+            font-weight: 600;
+            text-align: center;
+            font-size: 24px;
+            @include media-breakpoint("xs") {
+                font-size: 16px;
+            }
+        }
+        
+            width: 100%;
+            .title-bar{
+                padding-top: 5px;
+                padding-bottom: 5px;
+                margin: 10px 0 20px 0;
+                background-color: #e3f3e2;
+                p{
+                    margin-left: 20px;
+                    padding: 0px;
+                    margin-block: auto;
+                }
+            }
+            .check-list {
+                margin-bottom: 15px;
+                .custom-checkbox{
+                    margin: 13px 5px 13px 5px;
+                    .title-list {
+                        display: flex;
+                        .custom-control-input {
+                            background-color: #269a3e !important;
+                            border-radius: 3px;
+                        }
+                    }
+                }
+                .custom-control-input{
+                    margin-left: 20px;
+                    color:#3bc46a !important;
+                    // background-color: red;
+                }
+                .custom-control-input:checked{
+                    margin-left: 20px;
+                    background-color:#3bc46a !important;
+                    border-color: red;
+                }
+                .custom-control-label{
+                    color:#269a3e;
+                    margin-left: 8px;
+                    padding-top: 5px;
+                }
+                .textbox {
+                    margin: 2px 10px 0px 20px;
+                    padding-left: 20px;
+                    padding-right: 10px;
+                    p , label{
+                        color: #788190;
+                        padding: 0px;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                        margin-block: auto;
+                    }
+                }
+                
+            }
+
+                    .date-time{
+                        margin-left: 50px;
+                        display: flex;
+                        input{
+                            margin-left: 20px;
+                            height: 25px;
+                            margin-bottom: 10px;
+                            border-radius: 5px;
+                            width: 65%;
+                            border: 1px solid #ccc;
+                        }
+                    }
+
+                 
+                
+                
+         
+
+            .phone-number{
+                margin: 0 auto;
+                width: 90%;
+                display: flex;
+                .dialcode{
+                    -moz-box-shadow:  0px 3px 16px #00000029 !important;
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    border-radius: 8px;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                }
+                .input-data{
+                    width: 100%;
+                    height: 48px;
+                    right: 0; 
+                    -moz-box-shadow:  0px 3px 16px #00000029 !important;
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    border-radius: 8px;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                }
+            }
+     
+        .time-naep{
+            width: 100%;
+            // color: Var(--primary-color) ;
+            margin: 0 auto;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 20px;
+            @include media-breakpoint("xs") {
+                font-size: var(--mobi-title-text);
+            }
+        }
+
+        .new-partner {
+            padding-left: 5px;
+            .title-list {
+                display: flex;
+            }
+            .custom-control-label{
+                margin: 5px 22px 10px 6px;
+            }
+            .date-time-2{
+                padding-left: 20px;
+                display: grid;
+                input#date5 {
+                    // background-color: #dfdfdf;
+                    height: 30px;
+                    border-radius: 5PX;
+                    width: 90%;
+                    margin-top: 3px;
+                    border: 1px solid #ccc;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        .btn-group{
+            padding: 0px 25px 0 25px;
+            display: flex;
+            justify-content: space-between;
+            .btn-next{
+                margin: 0px;
+                width: 45%;
+                margin-top: 10px;
+                margin-bottom: 20px;
+                // justify-content: space-between;
+                button{
+                    width: 100%;
+                    padding: 10px 40px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    background-color: var(--primary-color);
+                    border: 1px solid var(--primary-color);
+                    color: white;;
+                    
+                }
+            }
+    
+    
+            .btn-back {
+                width: 45%;
+                margin-top: 10px;
+                margin-bottom: 20px;
+                // justify-content: space-between;
+                button{
+                    width: 100%;
+                    padding: 10px 40px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    background-color: white;
+                    border: 1px solid var(--primary-color);
+                    color: rgb(49, 49, 49);
+                   
+                }
+            }
+
+
+        }
+ 
+
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

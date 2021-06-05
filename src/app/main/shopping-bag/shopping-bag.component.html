@@ -1,0 +1,210 @@
+
+<div class="shopping-bag" *ngIf="!loading">
+    
+    <div class="content">
+        <div class="header">
+            <app-title [type]="title" [message]="'SHOPPING_BAG.TITLE'">
+            </app-title>
+        </div>
+        <div class="back-store">
+            <a style="text-decoration: none" routerLink="/store" routerLinkActive="/store">
+                <span class="text-back-store">{{'SHOPPING_BAG.CONTINUE' | translate}}</span></a><br>
+        </div>
+        
+        <!-- List Products -->
+        <mat-card class="list-products" *ngIf="carArr.length > 0">
+            <div *ngFor="let cart of carArr">
+                <div class="product" *ngIf="cart.is_naep_discount === false" >
+                    <div class="image-product">
+                        <img class="img-product"
+                            src="{{storeUrl+cart.cover_photo_key}}">
+                    </div>
+    
+                    <div class="info-product">
+                        <!-- <p class="name-product">{{cart.product_name}}</p> -->
+                        <!-- <p class="name-product">{{cart | json }}</p> -->
+                        <p class="name-product" [innerHTML]="((getTranslation(cartId, cart.id) | async) !== ('CART.' + cartId + '.CART_ITEM.' + cart.id + '.PRODUCT_TITLE') ? (getTranslation(cartId, cart.id) | async) : cart.product_name) | titletranformPipe">{{ (getTranslation(cartId, cart.id) | async) !== ('CART.' + cartId + '.CART_ITEM.' + cart.id + '.PRODUCT_TITLE') ? (getTranslation(cartId, cart.id) | async) : cart.product_name }}</p>
+    
+                        <div *ngIf="!is_redemption_cart">
+                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 1">
+                                <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                <span class="new-price-product">{{cart.naep_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                            </div>
+        
+                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 2">
+                                <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                <span class="new-price-product">{{cart.internal_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                            </div>
+        
+                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice( cart.promotional_price) === true">
+                                <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                <span class="new-price-product">{{cart.promotional_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                            </div>
+                           
+                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice( cart.promotional_price) === false">
+                                <span class="price-product" style="text-decoration: none; font-weight: 700;">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="is_redemption_cart">
+                            <div >
+                                <span class="price-product" style="text-decoration: none; font-weight: 700;">{{cart.redemption_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                            </div>
+                        </div>
+                        
+                        <p class="language-product" *ngFor="let item of cart.properties"><span style="text-transform: capitalize;">{{item.name}}</span>: {{item.value}} </p>
+                        <div *ngIf="cart.has_advisor">
+                            <p class="ad-id-product" *ngIf="isShowAdvisorInfo" >{{'SHOPPING_BAG.ADVISOR_ID' | translate}}: {{cart_advisor_id}}</p>
+                            <p class="ad-name-product" *ngIf="isShowAdvisorInfo" >{{'SHOPPING_BAG.ADVISOR_NAME' | translate}}: {{cart_advisor_name}}</p>
+                        </div>
+                        <div class="quantity-product">
+                            <button [disabled]="disableDecreaseButton" class="decrease-btn" (click)="DecreaseItem(getPrice2(cart), cart.id, cart.quantity)">-</button>
+                            <label>{{cart.quantity}}</label>
+                            <button [disabled]="disableButton" class="increase-btn" (click)="IncreaseItem(getPrice2(cart)  , cart.id, cart.quantity)">+</button>
+                            <button class="remove-product" (click)="removeProductCart(cart.id)">{{'SHOPPING_BAG.REMOVE' | translate}}</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+         
+
+
+            <div *ngIf="naepArray.length >0">
+                <div  class="naep">
+                    <div class="product" *ngFor="let cart of naepArray" >
+
+                        <div *ngIf="cart.is_deposit" style="padding: 5px; width: 100%;">
+                            <div class="image-product">
+                                <img class="img-product"
+                                    src="{{storeUrl+cart.cover_photo_key}}">
+                            </div>
+            
+                            <div class="info-product">
+                                <p class="name-product" [innerHTML]="cart.product_name | titletranformPipe "></p>
+                                
+                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 1">
+                                    <p class="price-naep">{{'PRODUCT.PRICE' | translate}} {{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</p>
+                                    <p class="price-naep">{{'PRODUCT.DEPOSIT' | translate}} {{cart.naep_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</p>
+                                </div>
+            
+                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 2">
+                                    <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                    <span class="new-price-product">{{cart.internal_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                                </div>
+            
+            
+                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice( cart.promotional_price) === true">
+                                    <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                    <span class="new-price-product">{{cart.promotional_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                                </div>
+                               
+                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice( cart.promotional_price) === false">
+                                    <span class="price-product" style="text-decoration: none; font-weight: 700;">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+            
+                                </div>
+                                
+                                <p class="language-product" *ngFor="let item of cart.properties"><span style="text-transform: capitalize;">{{item.name}}</span>: {{item.value}} </p>
+                                
+                                <div *ngIf="false">
+                                    <p class="ad-id-product" >{{'SHOPPING_BAG.ADVISOR_ID' | translate}}: {{cart_advisor_id}}</p>
+                                    <p class="ad-name-product">{{'SHOPPING_BAG.ADVISOR_NAME' | translate}}: {{cart_advisor_name}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="product" *ngIf="productKit.length != 0">
+                        <div style="padding: 5px; width: 100%;">
+                            <div class="image-product">
+                                <img class="img-product"
+                                    src="{{storeUrl + productFee[0].cover_photo_key}}">
+                            </div>
+
+                            <div class="info-product">
+                                <p class="name-product" [innerHTML]="productKit[0].naep_advisor_kit.name | titletranformPipe "></p>
+                                
+                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 1">
+                                    <span class="price-product">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+                                    <span class="new-price-product">{{productFee[0].naep_discount_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span><br>
+                                </div>
+            
+                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 2">
+                                    <span class="price-product">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+                                    <span class="new-price-product">{{productFee[0].internal_discount_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span><br>
+                                </div>
+            
+            
+                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 3 && checkHasPromotionPrice( productFee[0].promotional_price) === true">
+                                    <span class="price-product">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+                                    <span class="new-price-product">{{productFee[0].promotional_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span><br>
+                                </div>
+                               
+                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 3 && checkHasPromotionPrice( productFee[0].promotional_price) === false">
+                                    <span class="price-product" style="text-decoration: none; font-weight: 700;">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+            
+                                </div>
+                                
+                                <p class="language-product" *ngFor="let item of productFee[0].properties"><span style="text-transform: capitalize;">{{item.name}}</span>: {{item.value}} </p>
+                                
+                                <div *ngIf="false">
+                                    <p class="ad-id-product" >{{'SHOPPING_BAG.ADVISOR_ID' | translate}}: {{cart_advisor_id}}</p>
+                                    <p class="ad-name-product">{{'SHOPPING_BAG.ADVISOR_NAME' | translate}}: {{cart_advisor_name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="remove">   
+                    <p class="btn-remove-naep" (click)="removeProductCartNAEP()">{{'SHOPPING_BAG.REMOVE' | translate}}</p>
+                </div>
+
+            </div>
+
+            
+            
+        </mat-card>
+        <div id="no-product" *ngIf="carArr.length == 0">
+            <p>{{'SHOPPING_BAG.NO_ITEM_IN_BAG' | translate}}</p>
+            <img  src="assets/images_doxa/undraw_empty_xct9.svg" alt="">
+        </div>
+        
+    </div>
+
+    <!-- Footer -->
+    <div class="FormFooter" *ngIf="carArr.length > 0">
+        <div class="inForm">
+            <div class="order">
+                <!-- <p class="order">Order amount:</p> -->
+                <div class="grid2" fxLayout="row">
+                    <div class="amount" fxLayout="column">
+                        <div class="table">
+                            <div class="col-left">
+                                <div>{{'SHOPPING_BAG.SHIPPING' | translate}}:</div>
+                                <div>{{'SHOPPING_BAG.SUBTOTAL' | translate}}:</div>
+    
+                            </div>
+                            <div class="col-right">
+                                <div *ngIf="!isCheckNaep">{{shipping | currency:' '}}</div>
+                                <div *ngIf="isCheckNaep">{{naepShipping | currency:' '}}</div>
+
+                                <div *ngIf="!isCheckNaep">{{subTotal | currency:' '}}</div>
+                                <div *ngIf="isCheckNaep">{{naepSubTotal | currency:' '}}</div>
+                            </div>
+                        </div>
+                        <p *ngIf="!isCheckNaep" class="total">{{'SHOPPING_BAG.TOTAL' | translate}}: <span style="padding-left: 10px;">{{ Total  | currency: currency + ' '}}</span></p>
+                        <p *ngIf="isCheckNaep" class="total">{{'SHOPPING_BAG.TOTAL' | translate}}: <span style="padding-left: 10px;">{{ naepTotal | currency: currency + ' '}}</span></p>
+                    </div>
+                    <div class="button-pay">
+                        <button (click)="goCheckOut()" routerLinkActive="router-link-active"  mat-raised-button color="primary" class="PAY-button" aria-label="View">
+                            {{'SHOPPING_BAG.NEXT' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-placeholder-loading *ngIf="loading" component="shoppingBag"></app-placeholder-loading>
+

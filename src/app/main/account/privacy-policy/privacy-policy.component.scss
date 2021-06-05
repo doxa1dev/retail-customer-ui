@@ -1,0 +1,23 @@
+@import "src/@fuse/scss/fuse";
+
+.privacy-policy {
+    width:100%;
+    height:100%;
+    background-color: white;
+    color: var(--text-color);
+    font-size: var(--web-primary-text);
+    border: solid 20px var(--fuse-background) !important;
+    padding-bottom: 20px;
+
+    @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text);
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 25px var(--fuse-background) !important;
+    }
+
+    .body-privacy {
+        padding: 0px 15px 0px 15px;
+    }
+}

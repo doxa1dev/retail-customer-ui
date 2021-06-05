@@ -1,0 +1,41 @@
+<div class="product-improve" (mouseenter)='getDataCreateCart()' (touchstart)='getDataCreateCart()'>
+
+    <div (click)='showProductDetail()'>
+        <div class="image-special">
+            <!-- <div *ngIf="!product.special_is_deleted">
+                <img class="image-key" *ngIf="product.is_key_product" src="assets/icons/ICON/greenstar.svg" alt="">
+                <img class="image-naep" *ngIf="product.is_naep_product" src="assets/icons/ICON/NAEP.svg" alt="">
+            </div> -->
+    
+            <img class="img-product" src="{{storageUrl + product.productPhotoKey}}">
+        </div>
+    
+        <p class="name-product"
+            [innerHTML]="((getTranslation(product.id) | async) !== ('PRODUCT.TITLE.' + product.id) ? (getTranslation(product.id) | async) : product.productName) | titletranformPipe ">
+        </p>
+        <div *ngIf="checkiIsHaveInternalDiscount(product) === true">
+            <p class="price-product"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+            <p class="new-price-product"> {{ product.internal_discount_price | currency: product.currencyCode + ' ': 'symbol':''}}
+            </p>
+        </div>
+        <div *ngIf="checkiIsHaveInternalDiscount(product) === false && checkHasPromotionPrice(product.promotionalPrice) === true">
+            <p class="price-product"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+            <p class="new-price-product"> {{ product.promotionalPrice | currency: product.currencyCode + ' ': 'symbol':''}}</p>
+        </div>
+        <div
+            *ngIf="checkiIsHaveInternalDiscount(product) === false && checkHasPromotionPrice(product.promotionalPrice) === false">
+            <p class="pricelisted"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+        </div>
+    </div>
+
+    <app-button-loading class="btn-loading" (click)="addToCart(false)" [buttonName]="buttonNameAdd" [active]='activeAdd'></app-button-loading>
+    <app-button-loading class="btn-loading" (click)="addToCart(true)" [buttonName]="buttonNameBuy" [active]='activeBuy'></app-button-loading>
+</div>
+
+<p-toast position="top-right" [showTransformOptions]="'translateX(-100%)'">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <h4>{{message.summary}}</h4>
+        </div>
+    </ng-template>
+</p-toast>

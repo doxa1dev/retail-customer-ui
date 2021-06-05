@@ -1,0 +1,59 @@
+@import "../../../../../../@fuse/scss/fuse";
+@import "../../../../../../@fuse/scss/partials/background";
+
+
+
+.qr-code {
+    @include background();
+    .order-qr {
+        @include backgroundPage();
+        height: 95%;
+        @include media-breakpoint("xs") {
+            padding: 15px 0px !important;
+        }
+        .qr-header {
+            .back-button {
+                color: var(--text-color) !important;
+                text-decoration: underline !important;
+            }
+        }
+        #nounbox-text {
+            width: 30%;
+            max-width: 294px;
+            display: table;
+            margin: 0px auto;
+            margin-top: 20px;
+            @include media-breakpoint("xs") {
+                width: 100%;
+            }
+            p{
+                font-size: 18px;
+                text-align: left;
+                @include media-breakpoint("xs") {
+                    font-size: 16px;
+                }
+            }
+            mat-radio-button{
+                margin: 10px 0px;
+            }
+            mat-form-field{
+                width: 100%;
+            }
+            input{
+                padding: 10px;
+                width: 100%;
+                border: 2px solid #5A616F;
+                border-radius: 8px;
+            }
+            .submit-button{
+                display: block;
+                width: 40%;
+                margin: 0px auto;
+                background-color: var(--primary-color);
+                border-radius: 8px;
+                color: white;
+                padding: 5px 10px;
+            }
+        }
+    }
+}

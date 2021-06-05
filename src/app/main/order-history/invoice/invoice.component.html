@@ -1,0 +1,298 @@
+<div style="width: 100%;">
+  <div id="view-invoice" fxLayout="column" class="order-button">
+
+    <div id="invoice-summary-wrapper" fxLayout="column">
+        <div id="link">
+            <app-title [type]="title" [message]="'ORDER_DETAIL.TITLE_INVOICE'" 
+            link="/order-detail" [param]="{uuid: uuid}"> 
+            </app-title>
+        </div>
+        <div class="invoice-detail">
+            <div class="header-title">
+                <div class="img">
+                    <img class="logo" src="assets/images_doxa/thermomix-logo.png" alt="">
+                </div>
+                <div class="company-detail" *ngIf="env != 'MY'">
+                    <div class="name">The Future of Cooking Pte. Ltd.</div>
+                    <div class="detail">(Co./GST ID No: 201609998E)</div>
+                    <div class="detail">67 Ubi Avenue 1, #01-03 Starhub Green, Singapore 408942</div>
+                    <div class="detail"><span>Tel:</span> +65 6634 2016 (General line)</div>
+                    <div class="detail"><span>Fax:</span> +65 6634 2081 <span>E-mail:</span> info@thermomix.com.sg</div>
+                    <div class="detail"><span>Website:</span> http://club.thermomix.com.sg</div>
+                </div>
+                <div class="company-detail" *ngIf="env == 'MY'">
+                    <div class="name">True Mix Sdn. Bhd.</div>
+                    <div class="detail">(842085-U) (AJL 931777)</div>
+                    <div class="detail">(GST ID No: 001678901248)</div>
+                    <div class="detail">11A & 15, Jalan PJU 3/46 , Sunway Damansara Technology Park,</div>
+                    <div class="detail">47810 Petaling Jaya, Selangor Darul Ehsan, Malaysia.</div>
+                    <div class="detail"><span>Tel:</span> +603-7804 9326 <span>Fax:</span> +603-7806 2463 </div>
+                    <div class="detail"><span>Email:</span> enquiry@thermomix.com.my </div>
+                    <div class="detail"><span>Website:</span> http://club.thermomix.com.my</div>
+                </div>
+            </div>
+            <div class="name-page">INVOICE</div>
+            <table>
+                <tr>
+                    <td style="width: 17%;"></td>
+                    <td style="width: 1%;"></td>
+                    <td style="width: 45%;"></td>
+                    <td style="width: 23%;"></td>
+                    <td style="width: 1%;">:</td>
+                    <td style="width: 15%; text-align: right;"></td>
+                  </tr>
+                  <tr>
+                    <td>Customer name: </td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.name}}</td>
+                    <td>Order No</td>
+                    <td>:</td>
+                    <td class="detail" style="text-align: right;">{{informationInvoice.orderNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.email}}</td>
+                    <td>Order Date</td>
+                    <td>:</td>
+                    <td class="detail" style="text-align: right;">{{informationInvoice.orderDate | date : "dd/MM/yyyy"}}</td>
+                  </tr>
+                  <tr>
+                    <td>Address</td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.address}} </td>
+                    <td>Advisor ID</td>
+                    <td>:</td>
+                    <td class="detail" style="text-align: right;">{{informationInvoice.advisorId}}</td>
+                  </tr>
+                  <tr>
+                    <td>Phone</td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.phoneNumber}}</td>
+                    <td>Shipping Method</td>
+                    <td>:</td>
+                    <td class="detail" style="text-align: right;">{{informationInvoice.shippingMethod}}</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>WH Location</td>
+                    <td>:</td>
+                    <td class="detail" style="text-align: right;">{{informationInvoice.locationWH}}</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Name:</td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.delivery_name}} </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Email:</td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.delivery_email}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Phone:</td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.delivery_phone}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Address</td>
+                    <td>:</td>
+                    <td class="detail">{{informationInvoice.delivery_address}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+            </table>
+
+            <br><br>
+
+            <table class="tb3-invoice" *ngIf="!checkEaep">
+                <tr class="bold">
+                  <td>No.</td>
+                  <td>Item code</td>
+                  <td>Quantity</td>
+                  <td style="width: 30%;">Description</td>
+                  <td style="text-align: right; width: 15%;">Unit Price</td>
+                  <td style="text-align: right;">Amount ({{currency}})</td>
+                </tr>
+                <br>
+                <tr *ngFor="let product of listProduct, let i = index" class="detailColor" >
+                  <td>{{i + 1}}</td>
+                  <td>{{product.sku}}</td>
+                  <td>{{product.quantity}}</td>
+                  <td>{{product.description}}</td>
+                  <td style="text-align: right;">{{product.unitPrice}}</td>
+                  <td style="text-align: right;">{{product.amount}}</td>
+                </tr>
+                <br>
+                <tr>
+                  <td colspan="5" style="text-align: right; font-weight: 600;">Total Amount <span *ngIf="env!='MY'">(incl. 7% GST)</span> :</td>
+                  <td class="detailColor" style="text-align: right; border-top: 1px solid black; font-weight: 600; border-bottom-style: double ; border-bottom-color: black;">{{totalAmount}}</td>
+                </tr>
+            </table>
+
+            <table class="tb3-invoice" *ngIf='checkEaep'>
+                <tr class="bold">
+                  <td>No.</td>
+                  <td>Item code</td>
+                  <td>Quantity</td>
+                  <td style="width: 35%;">Description</td>
+                  <td style="text-align: right; width: 10%;">Unit Price</td>
+                  <td style="text-align: right;">Amount ({{currency}})</td>
+                  <td style="text-align: right;">Remarks</td>
+                </tr>
+                <br>
+                <tr *ngFor="let product of listProduct, let i = index" class="detailColor" >
+                  <td>{{i + 1}}</td>
+                  <td>{{product.sku}}</td>
+                  <td>{{product.quantity}}</td>
+                  <td>{{product.description}}</td>
+                  <td style="text-align: right;">{{product.unitPrice}}</td>
+                  <td style="text-align: right;">{{product.amount}}</td>
+                  <td style="text-align: right;">{{product.remarks}}</td>
+                </tr>
+                <br>
+                <tr>
+                  <td colspan="5" style="text-align: right; font-weight: 600;">Total Amount <span *ngIf="env!='MY'">(incl. 7% GST)</span> :</td>
+                  <td class="detailColor" style="text-align: right; border-top: 1px solid black; font-weight: 600; border-bottom-style: double ; border-bottom-color: black;">{{totalAmount}}</td>
+                </tr>
+            </table>
+
+            <br><br>
+
+            <table class="tb5-invoice">
+                <tr style="border-top: 2px solid black;" class="bold">
+                  <td>Type</td>
+                  <td>Bank</td>
+                  <td>Payment Method</td>
+                  <td>Payment Reference</td>
+                  <td style="text-align: right;">Payment Amount ({{currency}})</td>
+                </tr>
+                <br>
+                <tr *ngFor="let payment of listPayment" class="detailColor">
+                  <td>{{payment.type}}</td>
+                  <td>{{payment.bank}}</td>
+                  <td>{{payment.paymentMethod}}</td>
+                  <td>{{payment.paymentReference}}</td>
+                  <td style="text-align: right;">{{payment.paymentAmount}}</td>
+                </tr>
+            </table>
+            <br>
+
+            <table class="tb6-invoice" *ngIf="env!='MY'">
+                <tr>
+                  <td style="width: 60%;"></td>
+                  <td style="width: 15%; border-top: 1px solid black;">GST 7%</td>
+                  <td style="width: 3%; border-top: 1px solid black;">:</td>
+                  <td class="detailColor" style="border-top: 1px solid black;">{{gst}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Deposit Collected</td>
+                  <td>:</td>
+                  <td class="detailColor">{{depositCollected}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Balance</td>
+                  <td>:</td>
+                  <td class="detailColor">{{balance}}</td>
+                </tr>
+            </table>
+
+            <table class="tb6-invoice" *ngIf="env=='MY'">
+            <tr>
+                <td style="width: 60%;"></td>
+                <td style="width: 15%; border-top: 1px solid black;">Deposit Collected</td>
+                <td style="width: 3%; border-top: 1px solid black;">:</td>
+                <td class="detailColor" style="border-top: 1px solid black;">{{depositCollected}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Balance</td>
+                <td>:</td>
+                <td class="detailColor">{{balance}}</td>
+            </tr>
+            </table>
+            <br>
+            <table class="tb6-invoice" *ngIf="env=='MY'">
+            <tr>
+                <td style="width: 60%;"></td>
+                <td style="width: 15%; border-top: 1px solid black;">No. of Instalments</td>
+                <td style="width: 3%; border-top: 1px solid black;">:</td>
+                <td class="detailColor" style="border-top: 1px solid black;">{{noOfInstalments}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Monthly Instalment</td>
+                <td>:</td>
+                <td class="detailColor">{{monthlyInstalment | currency: " "}} x {{noOfInstalments}}</td>
+            </tr>
+            </table>
+            <br>
+
+            <div class="tb7-invoice" *ngIf="env=='MY'">
+                <table  *ngFor="let bank of arrBank , let i = index">
+                  <tr>
+                    <td style="width: 30%;" class="bold">Card Information {{i+1}}:</td>
+                  </tr>
+                  <tr>
+                    <td style="width: 8%;">{{bank.cardType}}</td>
+                  </tr>
+                  <tr>
+                    <td>ACCT</td>
+                    <td style="width: 1.5%;">:</td>
+                    <td>{{bank.acct}}</td>
+                  </tr>
+                  <tr>
+                    <td>REF #</td>
+                    <td>:</td>
+                    <td>{{bank.refNo}}</td>
+                  </tr>
+                  <tr>
+                    <td>AUTH #</td>
+                    <td>:</td>
+                    <td>{{bank.auth}}</td>
+                  </tr>
+                </table>
+            </div>
+            
+            <br>
+            <table class="tb7-invoice">
+              <tr>
+                <td style="width: 20%;" class="bold">Invoice Notes</td>
+                <td style="width: 3%;">:</td>
+                <td>{{note}}</td>
+              </tr>
+            </table>
+
+            <div class="divFooter">
+                <div class="left">
+                  <div style="font-weight: 600;">Important Note:</div>
+                  <div>Please check that all information is accurate upon receipt.</div>
+                  <div>Any claims of discrepancy(ies) SEVEN (7) days after the delivery date will not be entertained.</div>
+                  <div>This is a computer-generated invoice. No signature required.</div>
+                </div>
+                <div class="right">
+                  <img *ngIf="env!='MY'" class="vorwerk" src="assets/images_doxa/Thermomix-Official-Distributor-Badge-PNG.png" alt="">
+                  <img *ngIf="env=='MY'" class="vorwerk" style="object-fit: contain;" src="assets/images_doxa/dsam.PNG" alt="">
+                </div>
+              </div>
+        </div>
+    </div>
+  </div>
+
+  <app-bottom-navigation></app-bottom-navigation>
+</div>
+

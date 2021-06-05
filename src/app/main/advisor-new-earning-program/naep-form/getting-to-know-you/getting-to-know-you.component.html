@@ -1,0 +1,153 @@
+<div>
+    <div class="getting-to-know-you">
+        <div class="header">
+            <app-title  [type]="title" [message]="'NAEP.FILL_NAEP_FORM'" [link]="'/advisor-earning-program'" ></app-title>
+        </div>
+    
+        <div class="question-detail" [formGroup]="queryForm">
+            <div class="title">{{'NAEP.NAEP_INDUCTION_FORM' | translate}}</div>
+    
+            <div class="about-me">
+                <p class="content">{{'NAEP.NEW_PARTNER_INFOR_TITLE' | translate}}</p>
+                <p class="infor-question"> {{'NAEP.MANAGER_TO_SHARE' | translate}}</p>
+                
+                <div style="color: var(--primary-color); width: 90%; margin: 0 auto; margin-top: 35px;">1. </div>
+                <div class="question_1" style="margin-top: -32px;">
+                    <div class="question">{{'NAEP.FAMILY_MEMBER' | translate}}</div>
+                    <div class="item">
+                        <input class="input-data" type="text" formControlName="family"> 
+    
+                        <mat-error class="error-message" style="padding-left: 10px;"
+                        *ngIf="queryForm.get('family').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="question_1">
+                    <div class="question">{{'NAEP.CHILDREN' | translate}}</div>
+                    <div class="item">
+                        <input class="input-data" type="text" formControlName="children">
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('children').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+            
+                <div class="question_1">
+                    <div class="question">{{'NAEP.AGES' | translate}}</div>
+                    <div class="item">
+                        <input class="input-data" type="text" formControlName="ages">
+    
+                        <mat-error class="error-message" style="padding-left: 10px;"
+                        *ngIf="queryForm.get('ages').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="question_1">
+                    <div class="question">{{'NAEP.SPOUSE_CAREER' | translate}}</div>
+                    <div class="item">
+                        <input class="input-data" type="text" formControlName="career">
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('career').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="question_2">
+                    <div class="question">{{'NAEP.WORKING_EXPERIENCE' | translate}}</div>
+                    <div class="item">
+                        <input class="input-data" type="text" placeholder="{{'NAEP.WRITE_ANSWER_HERE' | translate }}" formControlName="q2">
+                    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('q2').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="question_3">
+                    <div class="question">{{'NAEP.CURRENLY_WORKING' | translate}}</div>
+                    <div class="item">
+                        <mat-radio-group class="radio-btn" formControlName="q3">
+                            <mat-radio-button *ngFor="let item of q3data" [value]="item.id">{{item.text}}</mat-radio-button>
+                        </mat-radio-group>
+                        <input class="input-data" formControlName="q3Text" type="text" placeholder="abc">
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('q3').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('q3Text').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="question_3">
+                    <div class="question">{{'NAEP.JOIN_THERMOMIX' | translate}}</div>
+                    <div class="item">
+                        <mat-radio-group class="radio-btn" formControlName="q4">
+                            <mat-radio-button *ngFor="let item of q4data" [value]="item.id">{{item.text}}</mat-radio-button>
+                        </mat-radio-group>
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('q4').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="question_3">
+                    <div class="question">{{'NAEP.HOW_MUCH_INCOME' | translate}}</div>
+                    <div class="item">
+                        <mat-radio-group class="radio-btn" formControlName="q4a">
+                            <mat-radio-button *ngFor="let item of q4adata" [value]="item.id">{{item.text}}</mat-radio-button>
+                        </mat-radio-group>
+                        <input class="input-data" formControlName="q4aText" type="text" placeholder="abc">
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('q4a').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('q4aText').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="question_3">
+                    <div class="question">{{'NAEP.HOW_MANY_DAY' | translate}}</div>
+                    <div class="item">
+                        <mat-radio-group class="radio-btn" formControlName="q5">
+                            <mat-radio-button style="font-size: 14px;" *ngFor="let item of q5data" [value]="item.id">{{item.text}}</mat-radio-button>
+                        </mat-radio-group>
+    
+                        <mat-error class="error-message" style="padding-left: 10px;" 
+                        *ngIf="queryForm.get('q5').hasError('required') && isCheck">
+                        {{ 'NAEP.FORM_REQUIRE' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+    
+                <div class="btn-next">
+                    <button class="btn-back" (click)="backStep()">{{'NAEP.BTN_BACK' | translate}}</button>
+                    <button class="ntn-next" (click)="nextStep()">{{'NAEP.BTN_NEXT' | translate}}</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

@@ -1,0 +1,115 @@
+<div style="width: 100%;">
+    <div class = "content-advisor-recruitment" >
+        <div class = "form-advisor-recruitment">
+            <app-title [type]="title" [message]="'ADVISOR_RECRUITMENT.ADVISOR_RECRUITMENT'">
+            </app-title>
+            <!-- <button class="btn-recruit-advisor" [routerLink]="['/advisor/recruit-new-advisor']" style="cursor: pointer;">{{ 'ADVISOR_RECRUITMENT.RECRUITMENT_NEW_ADVISOR' | translate }}</button> -->
+        
+            <!-- <div class="tab">
+                <button class="tablinks" onclick="openForm(event, 'recruit-advisor')"></button>
+                <button class="tablinks" onclick="openForm(event, 'select-contact')"></button>  
+            </div> -->
+         <mat-tab-group class="tabs-group">
+            <mat-tab  label="{{ 'RECRUIT_NEW_ADVISOR.RECRUIT_BY_EMAIL' | translate }}" class="invite-new-contact">
+                <ng-template mat-tab-label>
+                
+                   {{ 'RECRUIT_NEW_ADVISOR.RECRUIT_BY_EMAIL' | translate }}
+                </ng-template>
+                <ng-template matTabContent>
+
+                <div class="form-invite-new-contact" [formGroup]="inviteForm">
+                    <!-- <p class="title-invite">{{ 'RECRUIT_NEW_ADVISOR.RECRUIT_NEW_ADVISOR' | translate }}</p> -->
+        
+                    <div class="input-info-invite">
+                        <p>{{ 'RECRUIT_NEW_ADVISOR.PRE_NAME' | translate }}</p>
+                        <input formControlName="name" >
+                    </div>
+        
+                    <!-- error -->
+                    <mat-error *ngIf="inviteForm.get('name').hasError('required') && isShowError" style="margin-left: 20%;">
+                        {{ 'RECRUIT_NEW_ADVISOR.NAME_REQUIRED' | translate }}
+                    </mat-error>
+        
+                    <div class="input-info-invite">
+                        <p>{{ 'RECRUIT_NEW_ADVISOR.EMAIL' | translate }}</p>
+                        <input formControlName="email" >
+                    </div>
+        
+                    <!-- error -->
+                    <mat-error *ngIf="inviteForm.get('email').hasError('required') && isShowError" style="margin-left: 20%;">
+                        {{ 'RECRUIT_NEW_ADVISOR.EMAIL_REQUIRED' | translate }}
+                    </mat-error>
+        
+                    <mat-error *ngIf="!inviteForm.get('email').hasError('required') && isShowError && inviteForm.controls.email.errors?.pattern"
+                    style="margin-left: 20%;">
+                        {{ 'RECRUIT_NEW_ADVISOR.EMAIL_FAILED' | translate }}
+                    </mat-error>
+                    <div style="display: flex;  justify-content: center;">
+                        <app-button-loading [buttonName]="buttonName" disabledBtn="true" [active]="active" (click)="inviteEmail()" ></app-button-loading>
+                        <app-button-loading [buttonName]="buttonName2" disabledBtn="true" [active]="active2" (click)="inviteWhatsapp()" ></app-button-loading>
+                    </div>
+                </div>
+            </ng-template>
+            </mat-tab>
+
+            <mat-tab  label="{{ 'RECRUIT_NEW_ADVISOR.RECRUIT_BY_CONTACT' | translate }}" class="invite-new-contact" *ngIf="true">
+                <ng-template mat-tab-label>
+                
+                    {{ 'RECRUIT_NEW_ADVISOR.RECRUIT_BY_CONTACT' | translate }}
+                 </ng-template>
+                 <ng-template matTabContent>
+ 
+                <div class="select-contact" [formGroup]="inviteForm">
+
+                        <p-dropdown [options]="contact_list" (onChange)="getValueContact($event)"  filter="true"  class="area-dropdown" [style]="{'width':'100%', 'margin-top': '20px','margin-bottom': '20px'}" 
+                        optionLabel="first_name" placeholder="Search by Customer's name"></p-dropdown>
+                    
+
+                    <div *ngIf="customerContacts != null" style="margin-top: 10px;">
+                        <p>{{ 'ACTIVITY_ATTENDEE.NAME' | translate }}: {{customerContacts.first_name}}</p>
+                        <p>{{ 'ACTIVITY_ATTENDEE.EMAIL' | translate }}: {{customerContacts.email}}</p>
+                        <p>{{ 'ACTIVITY_ATTENDEE.PHONE_NUMBER' | translate }}: (+{{customerContacts.phone_dial_code}}) {{customerContacts.phone_number}} </p>
+                    </div>
+                        
+                    <mat-error *ngIf="!inviteForm.get('email').hasError('required') && isShowError && inviteForm.controls.email.errors?.pattern"
+                    style="margin-left: 20%;">
+                        {{ 'RECRUIT_NEW_ADVISOR.EMAIL_FAILED' | translate }}
+                    </mat-error>
+                    <div style="display: flex;  justify-content: center;">
+
+                        <app-button-loading [buttonName]="buttonName" disabledBtn="true" [active]="active" (click)="inviteEmailContact()" ></app-button-loading>
+                        <app-button-loading [buttonName]="buttonName2" disabledBtn="true" [active]="active2" (click)="inviteWhatsappContact()" ></app-button-loading>
+                    </div>
+                </div>
+                </ng-template>
+            </mat-tab>
+         </mat-tab-group>
+        </div>
+    
+        <mat-divider></mat-divider>
+    
+        <div class = "body-advisor-recruitment">
+            <span class = "text-submission_history">{{ 'ADVISOR_RECRUITMENT.SUBMISSION_HISTORY' | translate }}</span>
+    
+            <ag-grid-angular style="width: 100%; height: 430px;"  class="ag-theme-balham advisor-all"
+                [rowData]="advisorArray"
+                [columnDefs]="columnAdvisor"
+                floatingFilter=true 
+                rowSelection="multiple"
+                [gridOptions]="gridOptions"
+                [defaultColDef]="defaultColDef"
+                (gridReady)="onGridReady($event)"
+                (rowDoubleClicked)='onViewCustomerNaepInfor($event)'
+                (rowClicked) = 'onViewCustomerNaepInfor($event)'
+                [singleClickEdit]=true
+                (gridSizeChanged)="onGridSizeChanged($event)"
+                [overlayLoadingTemplate]="loadingTemplate"
+                [overlayNoRowsTemplate]="noRowsTemplate"          
+                >
+            </ag-grid-angular>
+        </div>
+        
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

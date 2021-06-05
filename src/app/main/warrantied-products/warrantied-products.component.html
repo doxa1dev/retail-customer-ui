@@ -1,0 +1,37 @@
+<div style="width: 100%;">
+    <div class="content" >
+        <!-- <div class = "form-warrantied">
+            <span class="dot">●</span>
+            <span class = "text-warrantied">{{ 'MENU.WARRANTIED_PRODUCTS' | translate }}</span>
+        </div> -->
+        <app-title [type]="title" [message]="'MENU.WARRANTIED_PRODUCTS'">
+        </app-title>
+        <form class="search-warranty-product">
+            <input class="input-search" type="text" 
+                placeholder="{{ 'WARRANTIED_PRODUCT.SEARCH' | translate }}" 
+                name="search"
+                [(ngModel)]="keySearch"
+                (keyup)="search($event)"
+                >
+            <button mast-raise-button class="search-button" type="submit">
+                <img class="icon-search" src="../../../../assets/icons/material-icons/Search.png" *ngIf="!isSearch"  />
+                <mat-spinner *ngIf="isSearch"></mat-spinner>
+            </button>
+        </form>
+        <ng-container *ngIf="warrantyProductArray && warrantyProductArray?.length > 0">
+            <mat-card [routerLink]="['/warrantied-products/detail']" *ngFor="let warrantied of warrantyProductArray">
+                <app-warrantied [warranty]='warrantied'
+                    [productName]="(getTranslation(warrantied.serialNumber) | async) !== ('WARRANTIED_PRODUCT.' + warrantied.serialNumber + '.TITLE') ? ((getTranslation(warrantied.serialNumber) | async)) : warrantied.productName"
+                    (click)="onViewWarrantyDetail(warrantied.uuid)">
+                </app-warrantied>
+            </mat-card>
+        </ng-container>
+        <ng-container *ngIf="warrantyProductArray && warrantyProductArray?.length === 0">
+            <div class="no-warranty-product">
+                {{ 'WARRANTIED_PRODUCT.NO_PRODUCT' | translate }}
+            </div>
+        </ng-container>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

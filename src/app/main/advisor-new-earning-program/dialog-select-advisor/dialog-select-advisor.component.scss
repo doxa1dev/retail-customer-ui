@@ -1,0 +1,107 @@
+:host {
+  ::ng-deep .ui-dropdown {
+    border: 0.5px solid var(--border-color);
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  ::ng-deep .ui-dropdown .ui-dropdown-label {
+    font-family: Arial, sans-serif !important; 
+    font-size: var(--mobi-primary-text);
+    margin-top: 6px;
+    color: var(--text-color) !important;
+    padding-left: 15px;
+    margin-left: 1px;
+  }
+
+  ::ng-deep .ui-dropdown .ui-dropdown-trigger {
+    margin-top: 1px;
+    margin-right: 5px;
+    height: 95%;
+  }
+
+  ::ng-deep .ui-multiselect {
+    width: 100%;
+    height: 40px;
+    display: block;
+    border: 1px solid #707070;
+    border-radius: 6px;
+  }
+  ::ng-deep .ui-multiselect-label {
+    font-family: Arial, sans-serif !important; 
+    vertical-align: middle;
+    height: 36px;
+    width: 95%;
+    margin: 0 auto !important;
+    font-size: var(--mobi-primary-text);
+    margin: 0px;
+    line-height: 28px;
+    color: #788190 !important;
+  }
+  ::ng-deep .ui-multiselect-trigger {
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 1.5em;
+    height: 90%;
+    position: absolute;
+    right: 2%;
+    top: 5%;
+  }
+}
+
+
+
+.title {
+  font-size: 16px;
+  font-weight: 600 !important;
+  margin-top: -10px;
+  color: #5a616f !important;
+  margin-bottom: 10px;
+}
+
+hr {
+  margin-top: 10px;
+  background-color: #5a616f !important;
+}
+
+.message {
+  padding-top: 6px;
+  padding-bottom: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #5a616f !important;
+
+  @media only screen and (max-width: 350px) {
+    font-size: 14px;
+  }
+}
+
+.pt-24 {
+  text-align: center;
+  padding-bottom: 0px;
+  display: block;
+  margin: auto;
+
+  .ok-button2 {
+    border-radius: 8px;
+    height: 45px;
+    text-align: center;
+    width: 144px;
+    background-color: #269a3e;
+    color: white !important;
+    border: 0px solid;
+    cursor: pointer;
+
+    @media only screen and (max-width: 350px) {
+      padding-left: 35px !important;
+      padding-right: 35px !important;
+    }
+  }
+}
+
+p-dropdown {
+
+}

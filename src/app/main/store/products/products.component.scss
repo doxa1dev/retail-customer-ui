@@ -1,0 +1,53 @@
+@import "src/@fuse/scss/fuse";
+
+.item-product {
+    margin-bottom: 20px;
+    .img-product {
+        object-fit: contain;
+        width: 70%;
+        display: block;
+        margin: 0px auto;
+        border-radius: 10px;
+        width: 254px;
+        height: 173px;
+        @include media-breakpoint("xl") {
+            width: 400px;
+            height: 273px;
+        }
+        @include media-breakpoint("lg") {
+            width: 214px;
+            height: 153px;
+        }
+        @include media-breakpoint("md") {
+            width: 215px;
+            height: 141px;
+        }
+        //phone
+        @include media-breakpoint("sm") {
+            width: 250px;
+            height: 160px;
+        }
+        @include media-breakpoint("xs") {
+            width: 115px;
+            height: 88px;
+        }
+
+    }
+    .name-product {
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        font-size: var(--mobi-primary-text);
+        margin-top: -10px;
+        color: var(--primary-color);
+        text-align: center; 
+        font-size: var(--web-primary-text);
+        word-break: break-word;
+        @include media-breakpoint("xs") {
+            font-size: var(--mobi-primary-text);
+        }
+    }
+}

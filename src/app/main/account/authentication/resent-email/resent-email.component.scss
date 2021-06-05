@@ -1,0 +1,166 @@
+@import "src/@fuse/scss/fuse";
+#resent-email {
+  background-size: cover;
+  background: url("assets/images_doxa/background.jpg") no-repeat;
+  width: 100%;
+  #resent-email-form-wrapper {
+    flex: 1 0 auto;
+    padding: 32px;
+    @include media-breakpoint("xs") {
+      padding: 16px;
+    }
+    #resent-email-form {
+      background-color: white;
+      max-width: 384px;
+      opacity: 1;
+      padding: 24px;
+      text-align: center;
+      p{
+        text-align: left;
+      }
+      width: 384px;
+      @include mat-elevation(16);
+
+      @include media-breakpoint("xs") {
+        padding: 16px;
+        width: 100%;
+      }
+      #resent-email-header {
+        display: block;
+        min-height: 40px;
+        padding: 0px;
+        position: relative;
+        .formLogo {
+          display: inline-block;
+          margin: 0px auto;
+          vertical-align: middle;
+          width: 144px;
+        }
+        .fromLanguage {
+          color: green;
+          display: block;
+          position: absolute;
+          right: -10px;
+          top: -5px;
+        }
+        margin-bottom: 20px;
+      }
+      #resent-email-title {
+        display: inline-block;
+        justify-content: center;
+        padding: 0px;
+        position: relative;
+        width: 100%;
+        button {
+          left: 0%;
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .resent-email-text {
+          display: inline-block;
+          font-size: 18px;
+          height: 100%;
+          text-align: center;
+          width: 100%;
+          @include media-breakpoint("xs") {
+            font-size: 16px;
+            height: 22px;
+          }
+          color: var(--primary-color);
+          font-weight: 550;
+          letter-spacing: 0.08px;
+          opacity: 1;
+        }
+      }
+      .resent-email-logo {
+        display: block;
+        height: 205px;
+        margin-top: 55px;
+        margin: 0px auto;
+        width: 250px;
+      }
+      .resent-email-direction {
+        color: #5a616f;
+        margin-bottom: 18px;
+        margin-top: 50px;
+        text-align: left;
+        color: var(--text-color);
+        @include media-breakpoint("xs") {
+            font-size: 12px;
+        }
+        p {
+          padding: 0px 0px;
+        }
+      }
+      .submitResult {
+          text-align: center;
+          @include media-breakpoint("xs") {
+            font-size: 12px;
+        }
+      }
+      .form-resent-email {
+        display: block;
+        margin-bottom: 150px;
+        margin: 0px auto;
+        ::placeholder{
+          color: var(--placeholder-color) !important; 
+        }
+        .inputForm {
+          margin-top: 10px;
+          border-radius: 8px;
+          box-shadow: 0px 3px 16px #00000029;
+          color: var(--input-color) !important;
+          font-size: 18px;
+          height: 48px;
+          outline: none;
+          width: 100%;
+          @include media-breakpoint("xs") {
+            font-size: 12px;
+           }
+        }
+        .inputFormPadding {
+          padding-top: 15px;
+          padding-bottom: 15px;
+        }
+      }
+      .btn-resent-email {
+        margin-top: 60px;
+        .btnreset {
+          border-radius: 8px;
+          padding: 0px;
+          width: 48%;
+          background-color: var(--primary-color);
+          height: 48px;
+          text-align: center;
+          color: #ffffff;
+          float: right;
+          font-size: 13px;
+          height: 48px;
+          padding: 0px;
+          text-align: center;
+          width: 48%;
+        }
+        .btncancel {
+          border-radius: 8px;
+          border: 1px solid #3bc46a;
+          color: #269a3e;
+          float: left;
+          font-size: 13px;
+          height: 48px;
+          text-align: center;
+          width: 48%;
+        }
+      }
+    }
+    .FormFooter {
+      color: white;
+      font-size: 16px;
+      // font-weight: 500;
+      @include media-breakpoint('xs') {
+          font-size: 11px;
+      }
+      margin-bottom: 0px;
+    }
+  }
+}

@@ -1,0 +1,197 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../@fuse/scss/partials/background";
+
+.list-products {
+    @include background();
+    .product_list {
+        @include backgroundPage();
+        @include media-breakpoint("xs") {
+            padding: 0 !important;
+            padding-top: 5px !important;
+            height: 96%;
+        }
+        height: 96%;
+        .header-list-product {
+            margin-left: 0px;
+            height: 35px;
+            margin-top: -4px;
+            margin-bottom: 5px;
+            
+            .form-search {
+                box-shadow: 0px 0px 7px #00000029 !important; 
+                float: right;
+                margin-top: -30px;
+                @include media-breakpoint("xs") {
+                    margin-right: 15px;
+    
+                }
+                .input-search {
+                    margin-right: 7px;  
+                    padding: 0px;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    font-size: var(--web-box-text);
+                    color: #788190;
+                    height: 26px;
+                    text-align: right;
+                    float: left;
+                    @include media-breakpoint("xs") {
+                        width: 120px;
+                        padding-top: 5px;
+                        font-size: 13px;
+                        font-size: var(--mobi-box-text);
+                    }
+                }
+                .icon-search-product {
+                    color: #788190;
+                    width: 17px;
+                    padding-top: 3px;
+                    margin-right: 5px;
+                    @include media-breakpoint("xs") {
+                        margin-right: 11px;
+                        margin-top: 1px;
+                        width: 17px;
+                    }
+                }
+            }
+        }
+        .list-product {
+            width: 100%;
+            display: table;
+            box-shadow: none;
+            margin-top: 5px;
+
+            .product {
+                margin-top: 15px;
+                margin-left: 7%;
+                float: left;
+                width: 25%;
+                @include media-breakpoint("xs") {
+                    width: 40%;
+                }
+                cursor: pointer;
+                
+                .image-product {
+                    text-align: center;
+                    min-height: 220px;
+
+                    .image-special{
+                        top: 0;
+                        left: 0;
+                        position: relative;
+                        width: 100%;
+
+                        .image-key{
+                            height: 21px;
+                            width: 20px;
+                            z-index: 1001;
+                            position: absolute;
+                            object-fit: scale-down;
+                            top: 0px;
+                            left: 4px;
+                            float: left;
+
+                            // margin: 0px;
+                            // width: 20%;
+                            // height: 25px !important;
+                            // margin-bottom: -5px;
+                            @include media-breakpoint("lg") {
+                                top: 0;
+                                left: 0;
+                                height: 31px;
+                                width: 30px;
+                                object-fit: contain;
+                            }
+                        }
+                        .image-naep{
+                            height: 27px;
+                            width: 35px;
+                            z-index: 1001;
+                            position: absolute;
+                            object-fit: scale-down;
+                            top: -2px;
+                            right: 5px;
+                            float: right;
+
+                            // position: absolute;
+                            // right: 3px;
+                            // margin: 0px;
+                            // width: 30%;
+                            // height: 25px !important;
+                            // margin-bottom: -5px;
+
+                            @include media-breakpoint("lg") {
+                                top: -5px;
+                                right: 0;
+                                height: 40px;
+                                width: 50px;
+                                object-fit: contain;
+                            }
+                        }
+
+                        .img-product {
+                            z-index: 999;
+                            position: relative;
+                            top: 0;
+                            left: 0;
+
+                            // margin-top: 10px;
+                            height: 15vh;
+                            width: 30vw;
+                            object-fit: scale-down;
+                            @include media-breakpoint("lg") {
+                                height: 30vh;
+                            }
+                        }
+                    }
+
+                    .name-product {
+                        word-break: break-word;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        -webkit-line-clamp: 1;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        text-align: center;
+                        
+                        counter-reset: var(--text-color);
+                        font-size: var(--web-primary-text);
+                        // overflow: hidden;
+                        // text-overflow: ellipsis;
+                        // white-space: nowrap;
+                        @include media-breakpoint("xs") {
+                            font-size: var(--mobi-primary-text);
+                        }
+                    }
+                    .price-product {
+                        text-align: center;
+                        text-decoration: line-through;
+                        color: var(--text-color);
+                        font-size: var(--web-primary-text);
+                        @include media-breakpoint("xs") {
+                            font-size: var(--mobi-primary-text);
+                        }
+                    }
+                    .new-price-product {
+                        text-align: center;
+                        font-weight: 700;
+                        color: var(--red-color);
+                        font-size: var(--web-primary-text);
+                        @include media-breakpoint("xs") {
+                            font-size: var(--mobi-primary-text);
+                        }
+                    }
+                    .pricelisted{
+                        text-align: center;
+                        font-weight: 700;
+                        color: var(--text-color);
+                        font-size: var(--web-primary-text);
+                        @include media-breakpoint("xs") {
+                            font-size: var(--mobi-primary-text);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

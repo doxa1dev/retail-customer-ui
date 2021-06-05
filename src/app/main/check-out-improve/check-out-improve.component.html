@@ -1,0 +1,1510 @@
+<div id="checkoutdetail" fxLayout="column">
+    <div id="checkoutdetail-wrapper" fxLayout="column" fxLayoutAlign="">
+      <div id="link">
+          <app-title [type]="title" [message]="'HOME.STORE'" link="/store">
+          </app-title>
+      </div>
+      <div id="no-product" *ngIf="carArr.length == 0">
+        <a routerLink="/store" routerLinkActive="/store" class="label-continue">Continue Shopping</a>
+        <p>{{'SHOPPING_BAG.NO_ITEM_IN_BAG' | translate}}</p>
+        <img  src="assets/images_doxa/undraw_empty_xct9.svg" alt="">
+      </div>
+
+      <div class="detail-check-out" *ngIf="carArr.length > 0" >
+          <!-- Shopping bag -->
+        <div class="check-out">
+            <mat-accordion  class="example-headers-align">
+                <mat-expansion-panel (opened)="panelOpenStateCart = true"
+                                    (closed)="panelOpenStateCart = false" hideToggle="true" [expanded]="allExpandState || panelOpenStateCart ">
+                    <mat-expansion-panel-header [ngClass]="panelOpenStateCart ? 'active' : 'inactive' ">
+                        <mat-panel-title [ngClass]="panelOpenStateCart ? 'titleactive' : 'titleinactive' ">
+                            Review Your Cart
+                        </mat-panel-title>
+                        <mat-panel-description style="flex-grow: 0; margin-right: 0px;">
+                        <mat-icon *ngIf="!panelOpenStateCart">add</mat-icon>
+                        <mat-icon *ngIf="panelOpenStateCart">remove</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="mat-expansion-panel-body">
+                    <a routerLink="/store" routerLinkActive="/store" class="label-continue">Continue Shopping</a>
+                        
+
+                        <mat-card class="list-products" *ngIf="carArr.length > 0">
+                            <div *ngFor="let cart of carArr">
+                                <div class="product"  *ngIf="cart.is_naep_discount === false">
+                                    <div class="image-product">
+                                        <img class="img-product"
+                                            src="{{storeUrl+cart.cover_photo_key}}">
+                                    </div>
+                    
+                                    <div class="info-product">
+                                        <p class="name-product" [innerHTML]="((getTranslation(cartId, cart.id) | async) !== ('CART.' + cartId + '.CART_ITEM.' + cart.id + '.PRODUCT_TITLE') ? (getTranslation(cartId, cart.id) | async) : cart.product_name) | titletranformPipe">{{ (getTranslation(cartId, cart.id) | async) !== ('CART.' + cartId + '.CART_ITEM.' + cart.id + '.PRODUCT_TITLE') ? (getTranslation(cartId, cart.id) | async) : cart.product_name }}</p>
+                                        
+                    
+                                        <div *ngIf="!is_redemption_cart">
+                                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 1">
+                                                <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                                <span class="new-price-product">{{cart.naep_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                                            </div>
+                        
+                                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 2">
+                                                <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                                <span class="new-price-product">{{cart.internal_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                                            </div>
+                        
+                                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice( cart.promotional_price) === true">
+                                                <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                                <span class="new-price-product">{{cart.promotional_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                                            </div>
+                                           
+                                            <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice( cart.promotional_price) === false">
+                                                <span class="price-product" style="text-decoration: none; font-weight: 700;">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                            </div>
+                                        </div>
+                
+                                        <div *ngIf="is_redemption_cart">
+                                            <div >
+                                                <span class="price-product" style="text-decoration: none; font-weight: 700;">{{cart.redemption_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <p class="language-product" *ngFor="let item of cart.properties"><span style="text-transform: capitalize;">{{item.name}}</span>: {{item.value}} </p>
+                                        <div class="quantity-product">
+                                            <button [disabled]="disableDecreaseButton" *ngIf="!cart.host_gift_id" class="decrease-btn" (click)="decreaseItem(rederPriceProduct(cart), cart.id, cart.quantity)">-</button>
+                                            <label>{{cart.quantity}}</label>
+                                            <button [disabled]="disableButton" *ngIf="!cart.host_gift_id" class="increase-btn" (click)="increaseItem(rederPriceProduct(cart)  , cart.id, cart.quantity)">+</button>
+                                            <button class="remove-product" (click)="removeProductCart(cart.id)">{{'SHOPPING_BAG.REMOVE' | translate}}</button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <hr *ngIf="cart.is_naep_discount === false" style="border-top: 1px solid var(--descrp-background)">
+
+                            </div>
+                            <div *ngIf="naepArray.length >0">
+                                <div  class="naep">
+                                    <div class="product" *ngFor="let cart of naepArray" >
+                
+                                        <div *ngIf="cart.is_deposit" style="padding: 5px; width: 100%; display: flex;">
+                                            <div class="image-product">
+                                                <img class="img-product"
+                                                    src="{{storeUrl+cart.cover_photo_key}}">
+                                            </div>
+                            
+                                            <div class="info-product">
+                                                <p class="name-product" [innerHTML]="cart.product_name | titletranformPipe "></p>
+                                                
+                                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 1">
+                                                    <p class="price-naep">{{'PRODUCT.PRICE' | translate}} {{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</p>
+                                                    <p class="price-naep">{{'PRODUCT.DEPOSIT' | translate}} {{cart.naep_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</p>
+                                                </div>
+                            
+                                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 2">
+                                                    <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                                    <span class="new-price-product">{{cart.internal_discount_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                                                </div>
+                            
+                            
+                                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice(cart.promotional_price) === true">
+                                                    <span class="price-product">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                                                    <span class="new-price-product">{{cart.promotional_price | currency: cart.currency_code + ' ':'symbol':''}}</span><br>
+                                                </div>
+
+                                                <div *ngIf="checkiIsHaveInternalDiscount(cart) === 3 && checkHasPromotionPrice(cart.promotional_price) === false">
+                                                    <span class="price-product" style="text-decoration: none; font-weight: 700;">{{cart.listed_price | currency: cart.currency_code + ' ':'symbol':''}}</span>
+                            
+                                                </div>
+                                                
+                                                <p class="language-product" *ngFor="let item of cart.properties"><span style="text-transform: capitalize;">{{item.name}}</span>: {{item.value}} </p>
+                                                
+                                                <div *ngIf="false">
+                                                    <p class="ad-id-product" >{{'SHOPPING_BAG.ADVISOR_ID' | translate}}: {{cart_advisor_id}}</p>
+                                                    <p class="ad-name-product">{{'SHOPPING_BAG.ADVISOR_NAME' | translate}}: {{cart_advisor_name}}</p>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                                    </div>
+                
+                                    <div class="product" *ngIf="productKit.length != 0">
+                                        <div style="padding: 5px; width: 100%; display: flex;">
+                                            <div class="image-product">
+                                                <img class="img-product"
+                                                    src="{{storeUrl + productFee[0].cover_photo_key}}">
+                                            </div>
+                
+                                            <div class="info-product">
+                                                <p class="name-product" [innerHTML]="productKit[0].naep_advisor_kit.name | titletranformPipe "></p>
+                                                
+                                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 1">
+                                                    <span class="price-product">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+                                                    <span class="new-price-product">{{productFee[0].naep_discount_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span><br>
+                                                </div>
+                            
+                                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 2">
+                                                    <span class="price-product">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+                                                    <span class="new-price-product">{{productFee[0].internal_discount_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span><br>
+                                                </div>
+                            
+                            
+                                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 3 && checkHasPromotionPrice( productFee[0].promotional_price) === true">
+                                                    <span class="price-product">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+                                                    <span class="new-price-product">{{productFee[0].promotional_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span><br>
+                                                </div>
+
+                                                <div *ngIf="checkiIsHaveInternalDiscount(productFee[0]) === 3 && checkHasPromotionPrice( productFee[0].promotional_price) === false">
+                                                    <span class="price-product" style="text-decoration: none; font-weight: 700;">{{productFee[0].listed_price | currency: productFee[0].currency_code + ' ':'symbol':''}}</span>
+                            
+                                                </div>
+                                                
+                                                <p class="language-product" *ngFor="let item of productFee[0].properties"><span style="text-transform: capitalize;">{{item.name}}</span>: {{item.value}} </p>
+                                                
+                                                <div *ngIf="false">
+                                                    <p class="ad-id-product" >{{'SHOPPING_BAG.ADVISOR_ID' | translate}}: {{cart_advisor_id}}</p>
+                                                    <p class="ad-name-product">{{'SHOPPING_BAG.ADVISOR_NAME' | translate}}: {{cart_advisor_name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="remove">   
+                                    <p class="btn-remove-naep" (click)="removeProductCartNAEP()">{{'SHOPPING_BAG.REMOVE' | translate}}</p>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <mat-action-row class="mat-row-hr" >
+                        <button class="mat-row-button"  mat-button color="primary" (click)="openPannelButton(1)">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+                
+            </mat-accordion>
+        </div>
+
+        <!-- Delivery option -->
+        <div class="check-out" *ngIf="cartShop != undefined" id="delivetyOption">
+            <mat-accordion  class="example-headers-align">
+                <mat-expansion-panel (opened)="panelOpenStateCartDelivery = true"
+                                    (closed)="panelOpenStateCartDelivery = false" hideToggle="true"  [expanded]="allExpandState">
+                    <mat-expansion-panel-header [ngClass]="panelOpenStateCartDelivery ? 'active' : 'inactive' ">
+                        <mat-panel-title [ngClass]="panelOpenStateCartDelivery ? 'titleactive' : 'titleinactive' ">
+                            Delivery Options
+                        </mat-panel-title>
+                        <mat-panel-description style="flex-grow: 0; margin-right: 0px;">
+                        <mat-icon *ngIf="!panelOpenStateCartDelivery">add</mat-icon>
+                        <mat-icon *ngIf="panelOpenStateCartDelivery">remove</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div class="mat-expansion-panel-body">
+                      <div class="my-order-detail">
+                          <div class="my-order-detail-header">
+                            
+                            <p class="delivery-opt-title">{{ 'CHECK_OUT.CHOOSE_DELIVERY_OPTION' | translate }}:</p>
+                            <mat-radio-group (change)="onChangeShippingMethod($event)"  name="delivery" aria-label="Select an option delivery">
+                                <div class="my_self my_self_delivery">
+                                    <div class="checkbox">
+                                        <mat-radio-button (change)="checkSelfCollect($event)" value="1">
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="text">
+                                        <p *ngIf="nation_code == 'MY'"><span>
+                                          {{ 'CHECK_OUT.SELF_COLLECT_MY' | translate }}</span>   <br> {{ 'CHECK_OUT.HOURS_ONLY_MY' | translate }} </p>
+                                        <p *ngIf="nation_code == 'SG'"><span>
+                                          {{ 'CHECK_OUT.SELF_COLLECT_SG' | translate }}</span>   <br> {{ 'CHECK_OUT.HOURS_ONLY_SG' | translate }} </p>
+                                    </div>
+                                </div>
+                                <div class="my_customer my_customer_delivery">
+                                    <div class="checkbox">
+                                        <mat-radio-button (change)="checkDeliveryByCounrier($event)"  value="2">
+                                        </mat-radio-button>
+                                    </div>
+                                    <div class="text">
+                                        <!-- <p *ngIf="nation_code == 'MY'"><span style="font-weight: 600;">
+                                          {{ 'CHECK_OUT.BY_COUNRIER' | translate }}</span><br>{{ 'CHECK_OUT.MY_ONLY' | translate }}</p> -->
+                                        <p><span>{{ 'CHECK_OUT.BY_COUNRIER' | translate }}</span>
+                                          <br>{{ nation_code == 'MY' ? ['CHECK_OUT.MY_ONLY' | translate] : ['CHECK_OUT.SG_ONLY' | translate] }}</p>
+                                    </div>
+                                </div>
+                            </mat-radio-group>
+
+                            <mat-error class="error-message-delivery" *ngIf="!isDefaultSelfCollect && isCheckSelectDeliveryOption">
+                              {{ 'CHECK_OUT.PLEASE_CHOOSE_DELIVERY_OPTION' | translate }}
+                            </mat-error>
+                          </div>
+                          <div class="my-order-detail-buy-for-customer">
+                            
+                            
+                            <div class="customer-choose-area">
+                        
+                              <mat-radio-group *ngIf="isShowFormShippingSpecial"  (change)='onChangeRadio($event)' class="specific-date-gr" [formGroup]='specificDateTimeForm'>
+                                
+                                <mat-radio-button class="radio-btn" *ngIf="cartShop.isCheckSpecialOnly" value="1" [checked]='isCheckButton1'>{{ 'CHECK_OUT.SPECIFIC_DATE' | translate }}
+                                  <br> <span style="font-size: smaller; font-style: italic;"> {{ 'CHECK_OUT.ADDITIONAL_CHARGE' | translate }} </span></mat-radio-button>
+                        
+                                <div *ngIf="isCheckShowRadio1" class="shipping-special-form">
+                                  <div class="content-ship-form">
+                                    <p>{{ 'CHECK_OUT.SELECT_DATE' | translate }}</p>
+                                    <p-calendar class="calendar-ship" [showIcon]="true" (onSelect)="onChangeDateStandard()" (onMonthChange)='onYearChange($event)'
+                                    placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}" formControlName='specificDate1' appendTo="body"
+                                    dateFormat="DD,dd/mm/yy" readonlyInput="true" [disabledDays]='[0,1]' [disabledDates]='publicHolidayArr' 
+                                    [minDate]='minDateShip' [showOtherMonths]="false"></p-calendar>
+                                  </div>
+                      
+                                  <p class="note-special">{{ 'CHECK_OUT.NOTE_SPECIAL_ONLY' | translate }}</p>
+                      
+                                  <!-- <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificDate1').hasError('required') && isCheckShowRequired">
+                                    {{ 'CHECK_OUT.SELECT_DATE_REQUIRED' | translate }}
+                                  </mat-error> -->
+
+                                  <!-- <div class="content-ship-form">
+                                    <p> </p>
+                                    <button [ngClass]="!isCheckBtnLater ? 'btn-select-date' : 'btn-select-now'" (click)='selectDateLater()'>{{!isCheckBtnLater ? ['CHECK_OUT.SELECT_DATE_LATER' | translate] : ['CHECK_OUT.SELECT_DATE_NOW' | translate]}}</button>
+                                  </div> -->
+                                </div>
+                               
+                                <mat-radio-button class="radio-btn" *ngIf="cartShop.isCheckSpecialBefore" value="2" [checked]='isCheckButton2'> {{ 'CHECK_OUT.SPECIFIC_DATE_BEFORE' | translate }}
+                                  <br> <span style="font-size: smaller; font-style: italic; white-space: normal;"> {{ 'CHECK_OUT.ADDITIONAL' | translate }}  {{valueShipSD | currency: currency + ' '}})</span></mat-radio-button>
+                        
+                                <div *ngIf="isCheckShowRadio2" class="shipping-special-form">
+                                  <div class="content-ship-form" style="margin-bottom: 10px;">
+                                    <p>{{ 'CHECK_OUT.SELECT_DATE' | translate }}</p>
+                                    <p-calendar class="calendar-ship" [showIcon]="true" (onSelect)="onChangeDateBefore()" 
+                                    placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}" formControlName='specificDate2' (onMonthChange)='onYearChange($event)'
+                                    dateFormat="DD,dd/mm/yy" readonlyInput="true" [disabledDays]='[0,6]' [disabledDates]='publicHolidayArr' appendTo="body"
+                                    [minDate]='minDateShip' [maxDate]='maxDateShip' [showOtherMonths]="false"></p-calendar>
+                                  </div>
+                      
+                                  <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificDate2').hasError('required') && isCheckShowRequired">
+                                    {{ 'CHECK_OUT.SELECT_DATE_REQUIRED' | translate }}
+                                  </mat-error>
+                        
+                                  <div class="content-ship-form">
+                                    <p>{{ 'CHECK_OUT.SELECT_TIME' | translate }}</p>
+                                    <p-dropdown class="dropdown-ship" [options]="timeOptionDateBefore" formControlName='specificTime2'
+                                    (onChange)="onChangeTime($event)" optionLabel="DEL_TIME_SLOT" placeholder="{{ 'CHECK_OUT.SELECT_TIME_SPECIAL' | translate }}"></p-dropdown>
+                                  </div>
+                      
+                                  <p class="note-special">{{ 'CHECK_OUT.NOTE_SPECIAL' | translate }}</p>
+                      
+                                  <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificTime2').hasError('required') && isCheckShowRequired">
+                                    {{ 'CHECK_OUT.SELECT_TIME_REQUIRED' | translate }}
+                                  </mat-error>
+                                </div>
+                        
+                               
+                                <mat-radio-button class="radio-btn" *ngIf="cartShop.isCheckSpecialAfter" value="3" [checked]='isCheckButton3'>{{ 'CHECK_OUT.SPECIFIC_DATE_AFTER' | translate }}<br> 
+                                  <span style="font-size: smaller; font-style: italic; white-space: normal;">{{ 'CHECK_OUT.ADDITIONAL' | translate }} {{valueShipSD | currency: currency + ' '}})</span></mat-radio-button>
+                        
+                                <div *ngIf="isCheckShowRadio3" class="shipping-special-form">
+                                  <div class="content-ship-form" style="margin-bottom: 10px;">
+                                    <p>{{ 'CHECK_OUT.SELECT_DATE' | translate }}</p>
+                                    <p-calendar class="calendar-ship" [showIcon]="true" (onSelect)="onChangeDateAfter()" 
+                                    placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}" formControlName='specificDate3' (onMonthChange)='onYearChange($event)'
+                                    dateFormat="DD,dd/mm/yy" readonlyInput="true" [disabledDays]='[0]' [disabledDates]='publicHolidayArr' appendTo="body"
+                                    [minDate]='minDateShip' [maxDate]='maxDateShip' [showOtherMonths]="false"></p-calendar>
+                                  </div>
+                      
+                                  <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificDate3').hasError('required') && isCheckShowRequired">
+                                    {{ 'CHECK_OUT.SELECT_DATE_REQUIRED' | translate }}
+                                  </mat-error>
+                      
+                                  <div class="content-ship-form">
+                                    <p>{{ 'CHECK_OUT.SELECT_TIME' | translate }}</p>
+                                    <p-dropdown class="dropdown-ship" [options]="timeOptionDateAfter" formControlName='specificTime3'
+                                    (onChange)="onChangeTime($event)" optionLabel="time_slot" placeholder="{{ 'CHECK_OUT.SELECT_TIME_SPECIAL' | translate }}"></p-dropdown>
+                                  </div>
+                      
+                                  <p class="note-special">{{ 'CHECK_OUT.NOTE_SPECIAL' | translate }}</p>
+                      
+                                  <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificTime3').hasError('required') && isCheckShowRequired">
+                                    {{ 'CHECK_OUT.SELECT_TIME_REQUIRED' | translate }}
+                                  </mat-error>
+                                </div>
+
+                                <mat-radio-button class="radio-btn" value="4" [checked]='isCheckButton4'>{{ 'CHECK_OUT.CHOOSE_LATER' | translate }}</mat-radio-button>
+                                <p class="note-special" *ngIf="isCheckButton4">{{ 'CHECK_OUT.NOTE_SPECIAL_ONLY_LATER' | translate }}</p>
+                              </mat-radio-group>
+                            </div>
+          
+                          </div>
+                      </div>
+                  </div>
+
+                    <mat-action-row class="mat-row-hr">
+                        <button class="mat-row-button"  mat-button color="primary" (click)="openPannelButton(2)"
+                        [ngStyle]="{'margin-top': isCheckSelectDeliveryOption ? '20px' : '10px'}">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+                
+            </mat-accordion>
+        </div>
+
+
+        <!-- My-order -->
+        <div class="check-out" id="myOrder">
+            <mat-accordion  class="example-headers-align">
+                <mat-expansion-panel (opened)="panelOpenStateCartMyOrder = true"
+                                    (closed)="panelOpenStateCartMyOrder = false" hideToggle="true"  [expanded]="allExpandState">
+                    <mat-expansion-panel-header [ngClass]="panelOpenStateCartMyOrder ? 'active' : 'inactive' ">
+                        <mat-panel-title [ngClass]="panelOpenStateCartMyOrder ? 'titleactive' : 'titleinactive' ">
+                            My Order
+                        </mat-panel-title>
+                        <mat-panel-description style="flex-grow: 0; margin-right: 0px;">
+                        <mat-icon *ngIf="!panelOpenStateCartMyOrder">add</mat-icon>
+                        <mat-icon *ngIf="panelOpenStateCartMyOrder">remove</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="mat-expansion-panel-body">
+                        <div class="my-order-detail">
+                          <div *ngIf="is_advisor">
+                            <div class="my-order-detail-header" >
+                              
+                              <mat-radio-group   name="customer" aria-label="Select an option delivery">
+                                  <div class="my_self">
+                                      <div class="checkbox">
+                                          <mat-radio-button (change)="checkChangeBuyForMySelf($event)" value="1" [checked]="is_buy_for_myself">
+                                          </mat-radio-button>
+                                      </div>
+                                      <div class="text">
+                                          <p>Buy For Myself </p>
+                                      </div>
+                                  </div>
+                                  <div class="my_customer" >
+                                      <div class="checkbox">
+                                          <mat-radio-button  value="2" [checked]="!is_buy_for_myself" (change)="checkChangeBuyForMySelf($event)">
+                                          </mat-radio-button>
+                                      </div>
+                                      <div class="text">
+                                          <p>Buy For Customer </p>
+                                      </div>
+                                  </div>
+                              </mat-radio-group>
+                          </div>
+                          <div class="my-order-detail-buy-for-customer" *ngIf="!is_buy_for_myself">
+                              <span style="margin-right: 15px;"> Is Customer a Club member?   </span>
+                              <mat-radio-group>
+                                  <mat-radio-button [checked]="is_buy_for_customer_has_account" style="margin-right: 10px;" (change)="checkIsClubMember($event)" value="1" >
+                                      Yes  
+                                  </mat-radio-button>
+                                  <mat-radio-button [checked]="!is_buy_for_customer_has_account" value="2" (change)="checkIsClubMember($event)" >
+                                      No  
+                                  </mat-radio-button>
+                              </mat-radio-group>
+                          </div>
+                          </div>
+                            
+                            <!-- Customer Information -->
+                            <div class="my-information" id = "myInformation" >
+
+                              <!-- buy for normal customer -->
+                              <div  *ngIf="is_buy_for_myself && !is_anomynous_customer">
+                                <form novalidate  name="myInformation" class="delivery-form"
+                                [formGroup]="myInformation" (ngSubmit)="onUpdateCustomerInformation()">
+                                <div class="form-group">
+                                  <div class="delivery">
+                                    <label class="delivery-label" *ngIf="is_buy_for_myself">{{ 'CHECK_OUT_IMPROVE.MY_INFORMATION' | translate }}</label>
+                                    <label class="delivery-label" *ngIf="!is_buy_for_myself">{{ 'CHECK_OUT.CUSTOMER_INFORMATION' | translate }}</label>
+
+                                    <!-- <span class="delivery-label"></span> -->
+
+                                    <a class="edit-link" *ngIf="is_show_customer_information_form == false"
+                                      (click)="is_show_customer_information_form=!is_show_customer_information_form;">{{'CHECK_OUT_IMPROVE.CHANGE' | translate}}</a>
+                                    <a class="edit-link" *ngIf="is_show_customer_information_form == true "
+                                      (click)="is_show_customer_information_form=!is_show_customer_information_form">{{ 'CHECK_OUT.CLOSE' | translate }}</a>
+                                  </div>
+                                  <div *ngIf='!is_show_customer_information_form'>
+                                    <div *ngIf="display_my_information">
+                                      <p>{{display_my_information.name}}</p>
+                                      <p>{{display_my_information.address}}</p>
+                                      <div class="email-address-and-phone">
+                                        <div class="my-information-show">
+                                          <mat-icon class="search-email-icon" [ngStyle]="{'color':'#279A3F'}">mail</mat-icon>
+                                          <input class="form-control" readonly type="text" id="search-email-input"
+                                            placeholder={{display_my_information.email}}>
+                                        </div>
+                                        <div class="my-information-show">
+                                          <mat-icon class="search-phone-icon" [ngStyle]="{'color':'#279A3F'}">phone</mat-icon>
+                                          <input class="form-control" readonly type="text" id="search-phone-input"
+                                            placeholder={{display_my_information.phone_number}}>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                          
+                                  <div class="my-information-form" *ngIf='is_show_customer_information_form'>
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT.FIRST_NAME' | translate }}"
+                                        formControlName="firstName" disabled>
+                                    </div>
+                          
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" type="text" placeholder="{{ 'CHECK_OUT.EMAIL' | translate }}"
+                                        formControlName="emailAddress" disabled>
+                                    </div>
+                          
+                                    <div class="row-cus">
+                                      <div class="col-4-cus select-code">
+                                        <div class="form-group-2">
+                                          <app-dialCode  [disable]="true" class="select-custom"  [SelectedDial]="myInformationDialCode">
+                                          </app-dialCode>
+                                        </div>
+                                      </div>
+                          
+                                      <div class="col-8-cus input-phone">
+                                        <div class="form-group-2 phone-number">
+                                          <input class="form-control input-custom" type="text"
+                                            placeholder="{{ 'CHECK_OUT.PHONE_NUMBER' | translate }}" formControlName="phoneNumber" disabled>    
+                                        </div>
+                                      </div>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_1_REQUIRED' | translate }}"
+                                        formControlName="addressLine1">
+                          
+                                      
+                                      <mat-error class="error-message" *ngIf="myInformation.get('addressLine1').hasError('required') && is_show_error_customer_information_form">
+                                        {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_1_REQUIRED' | translate }}
+                                      </mat-error>
+                          
+                                  
+                                      <mat-error class="error-message" *ngIf="myInformation.get('addressLine1').hasError('maxlength') && is_show_error_customer_information_form">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_2_REQUIRED' | translate }}"
+                                        formControlName="addressLine2">
+                                        
+                                        <mat-error class="error-message" *ngIf="myInformation.get('addressLine2').hasError('required') && is_show_error_customer_information_form">
+                                          {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_2_REQUIRED' | translate }}
+                                        </mat-error>
+                                      
+                                        <mat-error class="error-message" *ngIf="myInformation.get('addressLine2').hasError('maxlength') && is_show_error_customer_information_form">
+                                          {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                        </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_3_REQUIRED' | translate }}"
+                                        formControlName="addressLine3">
+                          
+                                        <mat-error class="error-message" *ngIf="myInformation.get('addressLine3').hasError('required') && is_show_error_customer_information_form">
+                                          {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_3_REQUIRED' | translate }}
+                                        </mat-error>
+                                      <mat-error class="error-message" *ngIf="myInformation.get('addressLine3').hasError('maxlength') && is_show_error_customer_information_form">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT.POSTAL_CODE' | translate }}"
+                                        formControlName="postalCode">
+                          
+                                      
+                                      <mat-error class="error-message" *ngIf="myInformation.get('postalCode').hasError('required') && is_show_error_customer_information_form">
+                                        {{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_IS_REQUIRE' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div id="detail-div">
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="nation_code != 'MY'" [(ngModel)]="city_state_code" formControlName="stateCode" placeholder="{{ 'CHECK_OUT.STATE_CODE' | translate }}">
+                                            <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{state.key}}">{{state.value}}
+                                              </mat-option>
+                                            </div>
+                                          </mat-select>
+                                        </mat-form-field>
+                          
+                                        <mat-error class="error-message" *ngIf="myInformation.get('stateCode').hasError('required') && is_show_error_customer_information_form">
+                                          {{ 'CHECK_OUT_IMPROVE.STATE_CODE_IS_REQUIRED' | translate }}
+                                        </mat-error>
+                                      </div>
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="true" formControlName="countryCode"  [(ngModel)]="nation_code" placeholder="{{ 'CHECK_OUT.COUNTRY_CODE' | translate }}"
+                                            (selectionChange)="setFormState($event)">
+                                            <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{country.key}}">{{country.value}}
+                                              </mat-option>
+                                            </div>  
+                                          </mat-select>
+                                        </mat-form-field>
+                          
+                                        <mat-error class="error-message" *ngIf="myInformation.get('countryCode').hasError('required') && is_show_error_customer_information_form">
+                                          {{ 'CHECK_OUT.COUNTRY_CODE_IS_REQUIRED' | translate }}
+                                        </mat-error>
+                                      </div>
+                                      
+                                    </div>
+                          
+                                    <div class="button-row">
+                                      <button mat-button class="btn-color-custom">{{ 'CHECK_OUT.SAVE_CHANGE' | translate }}</button>
+                                    </div>
+                          
+                                  </div>
+                          
+                                  
+                                </div>
+                                </form>
+                              </div>
+
+
+
+                              <!-- buy for anomynous customer -->
+                              <div  *ngIf="is_buy_for_myself && is_anomynous_customer">
+                                <form novalidate  name="buyForCustomerInformation" class="delivery-form"
+                                [formGroup]="buyForCustomerInformation" (ngSubmit)="onUpdateForAnomynousCustomer()">
+                                <div class="form-group">
+                                  <div class="delivery">
+                                    <label class="delivery-label" *ngIf="is_buy_for_myself">{{ 'CHECK_OUT_IMPROVE.MY_INFORMATION' | translate }}</label>
+                                    <label class="delivery-label" *ngIf="!is_buy_for_myself">{{ 'CHECK_OUT.CUSTOMER_INFORMATION' | translate }}</label>
+
+                                    <!-- <span class="delivery-label"></span> -->
+
+                                    <a class="edit-link" *ngIf="is_show_customer_information_form == false"
+                                      (click)="is_show_customer_information_form=!is_show_customer_information_form;">Change</a>
+                                    <a class="edit-link" *ngIf="is_show_customer_information_form == true && is_valid_buy_by_anomynous"
+                                      (click)="is_show_customer_information_form=!is_show_customer_information_form">{{ 'CHECK_OUT.CLOSE' | translate }}</a>
+                                  </div>
+                                  <div *ngIf='!is_show_customer_information_form'>
+                                    <div *ngIf="display_my_information">
+                                      <p>{{display_my_information.name}}</p>
+                                      <p>{{display_my_information.address}}</p>
+                                      <div class="email-address-and-phone">
+                                        <div class="my-information-show">
+                                          <mat-icon class="search-email-icon" [ngStyle]="{'color':'#279A3F'}">mail</mat-icon>
+                                          <input class="form-control" readonly type="text" id="search-email-input"
+                                            placeholder={{display_my_information.email}}>
+                                        </div>
+                                        <div class="my-information-show">
+                                          <mat-icon class="search-phone-icon" [ngStyle]="{'color':'#279A3F'}">phone</mat-icon>
+                                          <input class="form-control" readonly type="text" id="search-phone-input"
+                                            placeholder={{display_my_information.phone_number}}>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                          
+                                  <div class="my-information-form" *ngIf='is_show_customer_information_form'>
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" 
+                                      placeholder= "{{ 'CHECK_OUT_IMPROVE.NAME_REQUIRE' | translate }}"
+                                        formControlName="firstName" >
+                                    </div>
+
+                                     
+                                    <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('firstName').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                      {{ 'CHECK_OUT_IMPROVE.NAME_IS_REQUIRED' | translate }}
+                                    </mat-error>
+                          
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" type="text" placeholder="{{ 'CHECK_OUT_IMPROVE.MAIL_REQUIRE' | translate }}"
+                                        formControlName="emailAddress" >
+
+
+                                    </div>
+                                    <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('emailAddress').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                      {{ 'CHECK_OUT_IMPROVE.MAIL_IS_REQUIRED' | translate }}
+                                    </mat-error>
+
+                                    <mat-error class="error-message" *ngIf="!buyForCustomerInformation.get('emailAddress').hasError('required') &&
+                                    buyForCustomerInformation.controls.emailAddress.errors?.pattern && buyForCustomerInformation.controls.emailAddress.touched && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT.EMAIL_FAILED' | translate }}
+                                      </mat-error>
+                          
+                                    <div class="row-cus">
+                                      <div class="col-4-cus select-code">
+                                        <div class="form-group-2">
+                                          <app-dialCode   class="select-custom" #anomynousDial  [SelectedDial]="anomynousDialCode">
+                                          </app-dialCode>
+                                        </div>
+                                      </div>
+                          
+                                      <div class="col-8-cus input-phone">
+                                        <div class="form-group-2 phone-number">
+                                          <input class="form-control input-custom" type="text"
+                                            placeholder="{{ 'CHECK_OUT_IMPROVE.PHONE_REQUIRE' | translate }}" formControlName="phoneNumber" >    
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('phoneNumber').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                      {{ 'CHECK_OUT_IMPROVE.PHONE_IS_REQUIRE' | translate }}
+                                    </mat-error>
+
+                                    <mat-error class="error-message" *ngIf="!buyForCustomerInformation.get('phoneNumber').hasError('required') && buyForCustomerInformation.get('phoneNumber').errors?.pattern && is_show_error_customer_information_form_by_advisor">
+                                      {{ 'SIGN_UP.PHONE_NUMBER_FAILED' | translate }}
+                                    </mat-error>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom"  placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_1_REQUIRED' | translate }}"
+                                        formControlName="addressLine1">
+
+                                        <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine1').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                          {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_1_REQUIRED' | translate }}
+                                        </mat-error>
+
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine1').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_2_REQUIRED' | translate }}"
+                                        formControlName="addressLine2">
+
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine2').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_2_REQUIRED' | translate }}
+                                      </mat-error>
+                                      
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine2').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_3_REQUIRED' | translate }}"
+                                        formControlName="addressLine3">
+                          
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine3').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_3_REQUIRED' | translate }}
+                                      </mat-error>
+
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine3').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder=" {{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_REQUIRE' | translate }}"
+                                        formControlName="postalCode">
+                          
+                                      
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('postalCode').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_IS_REQUIRE' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div id="detail-div">
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="nation_code != 'MY'" [(ngModel)]="city_state_code" formControlName="stateCode" placeholder="{{ 'CHECK_OUT.STATE_CODE_IS_REQUIRED' | translate }}">
+                                            <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{state.key}}">{{state.value}}
+                                              </mat-option>
+                                            </div>
+                                          </mat-select>
+                                        </mat-form-field>
+                          
+                                        <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('stateCode').hasError('required') && is_show_error_customer_information_form">
+                                          {{ 'CHECK_OUT.STATE_CODE_IS_REQUIRED' | translate }}
+                                        </mat-error>
+                                      </div>
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="nation_code != 'MY'" formControlName="countryCode"  [(ngModel)]="nation_code" placeholder="{{ 'CHECK_OUT.COUNTRY_CODE_IS_REQUIRED' | translate }}"
+                                            (selectionChange)="setFormState($event)">
+                                            <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{country.key}}">{{country.value}}
+                                              </mat-option>
+                                            </div>
+                                          </mat-select>
+                                        </mat-form-field>
+                          
+                                        <!-- <mat-error class="error-message" *ngIf="myInformation.get('countryCode').hasError('required') && is_show_error_customer_information_form">
+                                          {{ 'CHECK_OUT.COUNTRY_CODE_IS_REQUIRED' | translate }}
+                                        </mat-error> -->
+                                      </div>
+                                      
+                                    </div>
+                          
+                                    <div class="button-row">
+                                      <button mat-button class="btn-color-custom">{{ 'CHECK_OUT.SAVE_CHANGE' | translate }}</button>
+                                    </div>
+                          
+                                  </div>
+                          
+                                  
+                                </div>
+                                </form>
+                              </div>
+
+
+
+
+
+
+                              <!-- Advisor buy for customer has account -->
+                              <div *ngIf="!is_buy_for_myself && is_buy_for_customer_has_account">
+                                <div novalidate class="delivery-form" [formGroup]="myInformation"
+                                  style="margin-top:10px" >
+                                  <div class="form-group">
+                                    <div class="delivery" >
+                                      <span class="delivery-label">{{ 'CHECK_OUT.CUSTOMER_INFORMATION' | translate }}</span>
+                                      <a class="edit-link" *ngIf="!is_show_choose_contact" (click)="chooseFromContact()">Choose Form Contact</a>
+                                      <div *ngIf="is_show_choose_contact">
+
+                                        <div>
+                                          <p >{{ 'CHECK_OUT.CONTACT_LIST' | translate }}</p>
+                                          <p-dropdown [options]="list_customer_from_contact_list" (onChange)="geCustomerInforFromContact($event)"  filter="true"  class="area-dropdown" [style]="{'width':'100%'}"  optionLabel="first_name" placeholder="Search by Full Name"></p-dropdown>
+                                        </div>
+                                      
+  
+                                        <p>{{ 'CHECK_OUT.OR' | translate }}</p>
+                                        <div >
+                                          <!-- <p>{{ 'CHECK_OUT.MAKE_SURE' | translate }} <span (click)="inviteToCreateAccount()" style="color:var(--link-color); text-decoration: underline;cursor: pointer;">{{ 'CHECK_OUT.HERE' | translate }}</span> </p> -->
+                                          <p>{{ 'CHECK_OUT.CUSTOMER_EMAIL' | translate }}</p>
+                                          <input  type="text" matInput [(ngModel)]="email_add_new" (input)="checkValidEmail()"  [ngModelOptions]="{standalone: true}" placeholder="Email.doxa@gmail.com" style="border: solid 1px var(--border-color); border-radius: 6px;">
+                                          <button mat-raised-button color="accent" (click)="getCustomerFromInputEmail()" [ngClass] = "is_valid_email_add_new ? 'submit-button':'submit-button_disable'"  style="width:50%; margin: 10px auto; display: block;" aria-label="CREATE AN ACCOUNT"
+                                                      >
+                                                      {{ 'CHECK_OUT.SUBMIT' | translate }}
+                                          </button>
+  
+                                          <div *ngIf="is_show_invalid_add_new">
+                                            <p style="color:  'red';">{{ 'CHECK_OUT.ACC_NOT_FOUND' | translate }}</p>
+                                          </div>
+
+                                          <div *ngIf="is_show_same_email">
+                                            <p style="color:  'red';">Cannot Invite yourself.</p>
+                                          </div>
+  
+                                        </div>
+                                        <div *ngIf="is_summit_button_pay && !is_choose_contact_list ">
+                                          <p style="color:  'red';">You need to choose your cusomer.</p>
+                                        </div>
+                                      </div>
+                                      
+                                        
+                                        
+                                    </div>
+                                    <div *ngIf="!is_show_choose_contact">
+                                      <form novalidate  name="buyForCustomerInformation" 
+                                      [formGroup]="buyForCustomerInformation" (ngSubmit)="onUpdateCustomerInformationByAdvisor()">
+                                      <div >
+                                        <!-- class="form-group" -->
+                                    <div class="delivery">
+
+                                      <a class="edit-link" *ngIf="is_show_customer_information_form == false"
+                                        (click)="is_show_customer_information_form=!is_show_customer_information_form;">Change</a>
+                                      <a class="edit-link" style="margin-bottom: 5px;" *ngIf="is_show_customer_information_form == true && is_valid_advisor_buy_for_customer "
+                                        (click)="is_show_customer_information_form=!is_show_customer_information_form">{{ 'CHECK_OUT.CLOSE' | translate }} </a>
+                                    </div>
+                                    <div *ngIf='!is_show_customer_information_form'>
+                                      <div *ngIf="display_my_information">
+                                        <p>{{display_my_information.name}}</p>
+                                        <p>{{display_my_information.address}}</p>
+                                        <div class="email-address-and-phone">
+                                          <div class="my-information-show">
+                                            <mat-icon class="search-email-icon" [ngStyle]="{'color':'#279A3F'}">mail</mat-icon>
+                                            <input class="form-control" readonly type="text" id="search-email-input"
+                                              placeholder={{display_my_information.email}}>
+                                          </div>
+                                          <div class="my-information-show">
+                                            <mat-icon class="search-phone-icon" [ngStyle]="{'color':'#279A3F'}">phone</mat-icon>
+                                            <input class="form-control" readonly type="text" id="search-phone-input"
+                                              placeholder={{display_my_information.phone_number}}>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                            
+                                    <div class="my-information-form" *ngIf='is_show_customer_information_form'>
+                                      <div class="form-group-2">
+                                        <input class="form-control input-custom" placeholder= "Name" disabled formControlName="firstName" >
+                                      </div>
+
+                                      
+                                      <mat-error class="error-message"  *ngIf="buyForCustomerInformation.get('firstName').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        Name is required.
+                                      </mat-error>
+                            
+                            
+                                      <div class="form-group-2">
+                                        <input class="form-control input-custom" disabled type="text" placeholder="{{ 'CHECK_OUT.EMAIL' | translate }}"
+                                          formControlName="emailAddress" >
+
+
+                                      </div>
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('emailAddress').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        Email is required.
+                                      </mat-error>
+                            
+                                      <div class="row-cus">
+                                        <div class="col-4-cus select-code">
+                                          <div class="form-group-2">
+                                            <app-dialCode   class="select-custom" #dialBuyForCustomerHasAccount [disable]="true" [SelectedDial]="dialCodeBuyForCustomerHasAccount">
+                                            </app-dialCode>
+                                          </div>
+                                        </div>
+                            
+                                        <div class="col-8-cus input-phone">
+                                          <div class="form-group-2 phone-number">
+                                            <input class="form-control input-custom" type="text"
+                                              placeholder="{{ 'CHECK_OUT.PHONE_NUMBER' | translate }}" disabled formControlName="phoneNumber" >    
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('phoneNumber').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        Phone number is required.
+                                      </mat-error>
+                            
+                                      <div class="form-group-2">
+                                        <input class="form-control input-custom"  placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_1_REQUIRED' | translate }}"
+                                          formControlName="addressLine1">
+
+                                          <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine1').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                            {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_1_REQUIRED' | translate }}
+                                          </mat-error>
+
+                                        <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine1').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                          {{ 'CHECK_OUT.ADDRESS_LENGTH_LIMIT' | translate }}
+                                        </mat-error>
+                                      </div>
+                            
+                                      <div class="form-group-2">
+                                        <input class="form-control input-custom" placeholder="{{'CHECK_OUT_IMPROVE.ADDRESS_LINE_2_REQUIRED' | translate }}"
+                                          formControlName="addressLine2">
+                                          <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine2').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                            {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_2_REQUIRED' | translate }}
+                                          </mat-error>
+                                        
+                                        <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine2').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                          {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                        </mat-error>
+                                      </div>
+                            
+                                      <div class="form-group-2">
+                                        <input class="form-control input-custom" placeholder="{{'CHECK_OUT_IMPROVE.ADDRESS_LINE_3_REQUIRED' | translate }}"
+                                          formControlName="addressLine3">
+
+                                          <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine3').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                            {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_3_REQUIRED' | translate }}
+                                          </mat-error>
+                            
+                                  
+                                        <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine3').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                          {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                        </mat-error>
+                                      </div>
+                            
+                                      <div class="form-group-2">
+                                        <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_REQUIRE' | translate }}"
+                                          formControlName="postalCode">
+                                        
+                                          <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('postalCode').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                            {{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_IS_REQUIRE' | translate }}
+                                          </mat-error>
+                                        
+                          
+                                      </div>
+                            
+                                      <div id="detail-div">
+                                        <div class="detail-div-inline">
+                                          <mat-form-field appearance="none">
+                                            <mat-select [disabled]="nation_code != 'MY'" formControlName="stateCode" placeholder="{{ 'CHECK_OUT_IMPROVE.STATE_CODE' | translate }}">
+                                              <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                                                <mat-option value="{{state.key}}">{{state.value}}
+                                                </mat-option>
+                                              </div>
+                                            </mat-select>
+                                          </mat-form-field>
+                            
+                                          <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('stateCode').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                            {{ 'CHECK_OUT_IMPROVE.STATE_CODE_IS_REQUIRED' | translate }}
+                                          </mat-error>
+                                        </div>
+                                        <div class="detail-div-inline">
+                                          <mat-form-field appearance="none">
+                                            <mat-select [disabled]="true" formControlName="countryCode"  [(ngModel)]="nation_code" placeholder="{{ 'CHECK_OUT.COUNTRY_CODE' | translate }}"
+                                              (selectionChange)="setFormState($event)">
+                                              <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                                                <mat-option value="{{country.key}}">{{country.value}}
+                                                </mat-option>
+                                              </div>
+                                            </mat-select>
+                                          </mat-form-field>
+                            
+                                          <!-- <mat-error class="error-message" *ngIf="myInformation.get('countryCode').hasError('required') && is_show_error_customer_information_form">
+                                            {{ 'CHECK_OUT.COUNTRY_CODE_IS_REQUIRED' | translate }}
+                                          </mat-error> -->
+                                        </div>
+                                        
+                                      </div>
+                            
+                                      <div class="button-row">
+                                        <button mat-button class="btn-color-custom">{{ 'CHECK_OUT.SAVE_CHANGE' | translate }}</button>
+                                      </div>
+                            
+                                    </div>
+                            
+                                    
+                                  </div>
+                                        </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                              <!-- Advisor buy for customer hasn't account -->
+
+                              <!-- Need chang -->
+
+                              <div  *ngIf="!is_buy_for_myself && !is_buy_for_customer_has_account">
+                                <form novalidate  name="buyForCustomerInformation" class="delivery-form"
+                                [formGroup]="buyForCustomerInformation" (ngSubmit)="onUpdateCustomerInformationByAdvisor()">
+                                <div class="form-group">
+                                  <div class="delivery">
+                                    <label class="delivery-label" *ngIf="is_buy_for_myself">My Information</label>
+                                    <label class="delivery-label" *ngIf="!is_buy_for_myself">{{ 'CHECK_OUT.CUSTOMER_INFORMATION' | translate }}</label>
+
+                                    <!-- <span class="delivery-label"></span> -->
+
+                                    <a class="edit-link" *ngIf="is_show_customer_information_form == false"
+                                      (click)="is_show_customer_information_form=!is_show_customer_information_form;">Change</a>
+                                    <a class="edit-link" *ngIf="is_show_customer_information_form == true && is_valid_advisor_buy_for_customer && is_show_close"
+                                      (click)="is_show_customer_information_form=!is_show_customer_information_form">{{ 'CHECK_OUT.CLOSE' | translate }}</a>
+                                  </div>
+                                  <div *ngIf='!is_show_customer_information_form'>
+                                    <div *ngIf="display_my_information">
+                                      <p>{{display_my_information.name}}</p>
+                                      <p>{{display_my_information.address}}</p>
+                                      <div class="email-address-and-phone">
+                                        <div class="my-information-show">
+                                          <mat-icon class="search-email-icon" [ngStyle]="{'color':'#279A3F'}">mail</mat-icon>
+                                          <input class="form-control" readonly type="text" id="search-email-input"
+                                            placeholder={{display_my_information.email}}>
+                                        </div>
+                                        <div class="my-information-show">
+                                          <mat-icon class="search-phone-icon" [ngStyle]="{'color':'#279A3F'}">phone</mat-icon>
+                                          <input class="form-control" readonly type="text" id="search-phone-input"
+                                            placeholder={{display_my_information.phone_number}}>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                          
+                                  <div class="my-information-form" *ngIf='is_show_customer_information_form'>
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" 
+                                      placeholder= "{{'CHECK_OUT_IMPROVE.NAME_REQUIRE'| translate}}"
+                                        formControlName="firstName" >
+                                    </div>
+
+                                     
+                                    <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('firstName').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                      {{'CHECK_OUT_IMPROVE.NAME_IS_REQUIRED'| translate}}
+                                    </mat-error>
+                          
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" type="text" placeholder="{{ 'CHECK_OUT_IMPROVE.MAIL_REQUIRE' | translate }}"
+                                        formControlName="emailAddress" >
+
+
+                                    </div>
+                                    <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('emailAddress').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                      {{'CHECK_OUT_IMPROVE.MAIL_IS_REQUIRED'| translate}}
+                                    </mat-error>
+
+                                    <mat-error class="error-message" *ngIf="!buyForCustomerInformation.get('emailAddress').hasError('required') &&
+                                    buyForCustomerInformation.controls.emailAddress.errors?.pattern && buyForCustomerInformation.controls.emailAddress.touched && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT.EMAIL_FAILED' | translate }}
+                                      </mat-error>
+                      
+                                    <div class="row-cus">
+                                      <div class="col-4-cus select-code">
+                                        <div class="form-group-2">
+                                          <app-dialCode   class="select-custom" #dialBuyForCustomerAnomynous SelectedDial={{dialCodeBuyForCustomerAnomynous}} >
+                                          </app-dialCode>
+                                        </div>
+                                      </div>
+                          
+                                      <div class="col-8-cus input-phone">
+                                        <div class="form-group-2 phone-number">
+                                          <input class="form-control input-custom" type="text"
+                                            placeholder="{{ 'CHECK_OUT_IMPROVE.PHONE_REQUIRE' | translate}}" formControlName="phoneNumber" >    
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('phoneNumber').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                      {{ 'CHECK_OUT_IMPROVE.PHONE_IS_REQUIRE' | translate }}
+                                    </mat-error>
+
+                                    <mat-error class="error-message" *ngIf="!buyForCustomerInformation.get('phoneNumber').hasError('required') && buyForCustomerInformation.get('phoneNumber').errors?.pattern && is_show_error_customer_information_form_by_advisor">
+                                      {{ 'SIGN_UP.PHONE_NUMBER_FAILED' | translate }}
+                                    </mat-error>
+
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom"  placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_1_REQUIRED' | translate }}"
+                                        formControlName="addressLine1">
+
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine1').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_1_REQUIRED' | translate }}
+                                      </mat-error>
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine1').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_2_REQUIRED' | translate }}"
+                                        formControlName="addressLine2">
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine2').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_1_REQUIRED' | translate }}
+                                      </mat-error>
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine2').hasError('maxlength') && is_show_error_customer_information_form">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_3_REQUIRED' | translate }}"
+                                        formControlName="addressLine3">
+                                        <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine3').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                          {{ 'CHECK_OUT_IMPROVE.MY_ADDRESS_LINE_3_REQUIRED' | translate }}
+                                        </mat-error>
+                                 
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('addressLine3').hasError('maxlength') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_REQUIRE' | translate }}"
+                                        formControlName="postalCode">
+                          
+                                      
+                                      <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('postalCode').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                        {{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_IS_REQUIRE' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div id="detail-div">
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="nation_code != 'MY'"  formControlName="stateCode" placeholder="{{ 'CHECK_OUT_IMPROVE.STATE_CODE' | translate }}">
+                                            <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{state.key}}">{{state.value}}
+                                              </mat-option>
+                                            </div>
+                                          </mat-select>
+                                        </mat-form-field>
+                          
+                                        <mat-error class="error-message" *ngIf="buyForCustomerInformation.get('stateCode').hasError('required') && is_show_error_customer_information_form_by_advisor">
+                                          {{ 'CHECK_OUT_IMPROVE.STATE_CODE_IS_REQUIRED' | translate }}
+                                        </mat-error>
+                                      </div>
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="true" formControlName="countryCode"  [(ngModel)]="nation_code" placeholder="{{ 'CHECK_OUT.COUNTRY_CODE' | translate }}"
+                                            (selectionChange)="setFormState($event)">
+                                            <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{country.key}}">{{country.value}}
+                                              </mat-option>
+                                            </div>
+                                          </mat-select>
+                                        </mat-form-field>
+                                      </div>
+                                      
+                                    </div>
+                          
+                                    <div class="button-row">
+                                      <button mat-button class="btn-color-custom">{{ 'CHECK_OUT.SAVE_CHANGE' | translate }}</button>
+                                    </div>
+                          
+                                  </div>
+                          
+                                  
+                                </div>
+                                </form>
+                              </div>
+                             
+                            </div>
+
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="shipping-location" *ngIf="nation_code == 'MY'" id="shipping-location">
+                                <p class="choose-area-title">{{ 'CHECK_OUT.CHOOSE_A' | translate }}</p>
+                                <p class="choose-area-description">{{ 'CHECK_OUT.CHOOSE_A_TEXT' | translate }}</p>
+                                <p-dropdown appendTo="body" [options]="shipping_location"  [disabled]="is_disaled_city" [(ngModel)]="shipping_location_selected"  class="area-dropdown" [style]="{'width':'100%'}"  optionLabel="name" placeholder="Select shipping/collection area"></p-dropdown>
+                                <p style="margin-bottom: 0px;color: red;" class="error-shipping-location" *ngIf="isShowErrorShippingLocation && shipping_location_selected === null">{{'CHECK_OUT.CHOOSE_SHIPPING' | translate}}</p>
+                            </div>
+
+
+
+
+
+
+
+                            <!-- Delivery  address -->
+                        
+
+                            <div  *ngIf="!self_collect_free_active" class="delivery-address" id="deliveryAddress">
+                                
+
+                                <form novalidate  name="deliveryAddress" class="delivery-form"
+                                [formGroup]="deliveryAddress" (ngSubmit)="onSubmitDeliveryAddress()">
+                                <div class="form-group">
+
+                                  <div class="delivery">
+                                    <p class="delivery-address-title">Delivery Address</p>
+
+                                    <a class="edit-link" *ngIf="is_show_delivery_address_form == false"
+                                      (click)="is_show_delivery_address_form = !is_show_delivery_address_form;">Change</a>
+                                    <a class="edit-link" *ngIf="is_show_delivery_address_form == true"
+                                      (click)="is_show_delivery_address_form = !is_show_delivery_address_form">{{ 'CHECK_OUT.CLOSE' | translate }}</a>
+                                  </div>
+                                  <div style="margin-top:10px" fxLayout="row" fxLayoutAlign="" class="buy_checkbox" *ngIf="is_show_delivery_address_form">
+                                    <mat-checkbox  name="terms" aria-label="I read and accept" required color="primary" #Terms (change)="updateDeliveryCheckbox($event)"      >
+                                        <span class="checkbox-same-as" *ngIf="is_buy_for_myself" >Same as My Information</span>
+                                        <span class="checkbox-same-as" *ngIf="!is_buy_for_myself" >Same as Customer Information</span>
+
+                                    </mat-checkbox>
+                                  </div>
+                                    
+                                  
+                                  <div   *ngIf='!is_show_delivery_address_form'>
+                                    <div *ngIf="display_delivery_address">
+                                      <p>{{display_delivery_address.name}}</p>
+                                      <p>{{display_delivery_address.address}}</p>
+                                      <div class="email-address-and-phone">
+                                        <div class="delivery-address-show">
+                                          <mat-icon class="search-email-icon" [ngStyle]="{'color':'#279A3F'}">mail</mat-icon>
+                                          <input class="form-control" disabled type="text" id="search-email-input"
+                                            placeholder={{display_delivery_address.email}}>
+                                        </div>
+                                        <div class="delivery-address-show">
+                                          <mat-icon class="search-phone-icon" [ngStyle]="{'color':'#279A3F'}">phone</mat-icon>
+                                          <input class="form-control" disabled type="text" id="search-phone-input"
+                                            placeholder={{display_delivery_address.phone_number}}>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div></div>
+                          
+                                  <div  class="customer-information" *ngIf='is_show_delivery_address_form'>
+                          
+                                   
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.NAME_REQUIRE' | translate }}"
+                                        formControlName="firstName">
+                          
+                                      <!-- check required -->
+                                      <mat-error class="error-message" *ngIf="deliveryAddress.get('firstName').hasError('required') && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT_IMPROVE.NAME_IS_REQUIRED' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" type="text" placeholder="{{ 'CHECK_OUT_IMPROVE.MAIL_REQUIRE' | translate }}"
+                                        formControlName="emailAddress">
+                          
+                                      <!-- check required -->
+                                      <mat-error class="error-message" *ngIf="deliveryAddress.get('emailAddress').hasError('required') && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT_IMPROVE.MAIL_IS_REQUIRED' | translate }}
+                                      </mat-error>
+                          
+                                      <!-- check form email -->
+                                      <mat-error class="error-message" *ngIf="!deliveryAddress.get('emailAddress').hasError('required') &&
+                                      deliveryAddress.controls.emailAddress.errors?.pattern && deliveryAddress.controls.emailAddress.touched && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT.EMAIL_FAILED' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="row-cus">
+                                      <div class="col-4-cus select-code">
+                                        <div class="form-group-2">
+                                          <!-- [SelectedDial]="deliveryDialCode"  -->
+                                          <app-dialCode class="select-custom" #delivery SelectedDial={{deliveryDialCode}} >
+                                          </app-dialCode>
+                                        </div>
+                                      </div>
+                          
+                                      <div class="col-8-cus input-phone">
+                                        <div class="form-group-2 phone-number">
+                                          <input class="form-control input-custom" type="text"
+                                            placeholder="{{ 'CHECK_OUT_IMPROVE.PHONE_REQUIRE' | translate }}" formControlName="phoneNumber">
+                                        </div>
+                                      </div>
+                                             
+                                    </div>
+                                     <!-- check required -->
+                                     <mat-error class="error-message" *ngIf="deliveryAddress.get('phoneNumber').hasError('required') && is_show_error_delivery_address_form">
+                                      {{ 'CHECK_OUT_IMPROVE.PHONE_IS_REQUIRE' | translate }}
+                                    </mat-error>
+                    
+                                    <!-- check number -->
+                                    <mat-error class="error-message" *ngIf="!deliveryAddress.get('phoneNumber').hasError('required')
+                                    && deliveryAddress.get('phoneNumber').hasError('phone_number') 
+                                    && (deliveryAddress.get('phoneNumber').dirty || deliveryAddress.get('phoneNumber').touched) 
+                                    && is_show_error_delivery_address_form">
+                                    {{ 'SIGN_UP.PHONE_NUMBER_FAILED' | translate }}                 
+                                    </mat-error>       
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE_1_REQUIRED' | translate }}"
+                                        formControlName="addressLine1">
+                          
+                                      <!-- check required -->
+                                      <mat-error class="error-message" *ngIf="deliveryAddress.get('addressLine1').hasError('required') && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE1_REQUIRED' | translate }}
+                                      </mat-error>
+                          
+                                      <!-- check length limit -->
+                                      <mat-error class="error-message" *ngIf="deliveryAddress.get('addressLine1').hasError('maxlength') && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{'CHECK_OUT_IMPROVE.ADDRESS_LINE_2_REQUIRED' | translate }}"
+                                        formControlName="addressLine2">
+                                        <!-- <p class="note">e.g.: Orchard, Bishan, etc.</p> -->
+                                        <mat-error class="error-message" *ngIf="deliveryAddress.get('addressLine2').hasError('required') && is_show_error_delivery_address_form">
+                                          {{ 'CHECK_OUT_IMPROVE.ADDRESS_LINE2_REQUIRED' | translate }}
+                                        </mat-error>
+                                      <!-- check length limit -->
+                                      <mat-error class="error-message" *ngIf="deliveryAddress.get('addressLine2').hasError('maxlength') && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{'CHECK_OUT_IMPROVE.ADDRESS_LINE_3_OPTIONAL' | translate}}"
+                                        formControlName="addressLine3">
+
+                
+                          
+                                      <!-- check length limit -->
+                                      <mat-error class="error-message" *ngIf="deliveryAddress.get('addressLine3').hasError('maxlength') && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT_IMPROVE.ADDRESS_LENGTH_LIMIT' | translate }}
+                                      </mat-error>
+                                    </div>
+                          
+                                    <div class="form-group-2">
+                                      <input class="form-control input-custom" placeholder="{{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_REQUIRE' | translate }}"
+                                        formControlName="postalCode">
+                          
+                                      <!-- check required -->
+                                      <mat-error class="error-message" *ngIf="deliveryAddress.get('postalCode').hasError('required') && is_show_error_delivery_address_form">
+                                        {{ 'CHECK_OUT_IMPROVE.POSTAL_CODE_IS_REQUIRE' | translate }}
+                                      </mat-error>
+                                    </div>
+                                    <!-- [(ngModel)]="city_state_code" -->
+                                    <div id="detail-div">
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="nation_code != 'MY'"  formControlName="stateCode"  placeholder="{{ 'CHECK_OUT.STATE_CODE' | translate }}">
+                                            <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{state.key}}">{{state.value}}
+                                              </mat-option>
+                                            </div>
+                                          </mat-select>
+                                        </mat-form-field>
+                          
+                                        <mat-error class="error-message" *ngIf="deliveryAddress.get('stateCode').hasError('required') && is_show_error_delivery_address_form">
+                                          {{ 'CHECK_OUT.STATE_CODE_IS_REQUIRED' | translate }}
+                                        </mat-error>
+                                      </div>
+                                      <div class="detail-div-inline">
+                                        <mat-form-field appearance="none">
+                                          <mat-select [disabled]="true" formControlName="countryCode"  [(ngModel)]="nation_code" placeholder="{{ 'CHECK_OUT.COUNTRY_CODE' | translate }}"
+                                            (selectionChange)="setFormState($event)">
+                                            <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                                              <mat-option value="{{country.key}}">{{country.value}}
+                                              </mat-option>
+                                            </div>
+                                          </mat-select>
+                                        </mat-form-field>
+                                        <!-- <mat-error class="error-message" *ngIf="deliveryAddress.get('countryCode').hasError('required') && is_show_error_delivery_address_form">
+                                          {{ 'CHECK_OUT.COUNTRY_CODE_IS_REQUIRED' | translate }}
+                                        </mat-error> -->
+                                      </div>
+                                      
+                                    </div>
+                          
+                                    <div class="button-row">
+                                      <button mat-button class="btn-color-custom">{{ 'CHECK_OUT.SAVE_CHANGE' | translate }}</button>
+                                    </div>
+                          
+                                  </div>
+                          
+                                  
+                                </div>
+                              </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <mat-action-row class="mat-row-hr" *ngIf="is_need_advisor">
+                        <button class="mat-row-button"  mat-button color="primary" (click)="openPannelButton(3)">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+                
+            </mat-accordion>
+        </div>
+
+
+        <!-- Advisor Information -->
+        <div class="check-out" *ngIf="is_need_advisor && is_naep_cart === false && !is_redemption_cart" id="advisorArea">
+            <mat-accordion  class="example-headers-align">
+                <mat-expansion-panel (opened)="panelOpenStateCartAdvisor = true"
+                                    (closed)="panelOpenStateCartAdvisor = false" hideToggle="true"  [expanded]="allExpandState">
+                    <mat-expansion-panel-header [ngClass]="panelOpenStateCartAdvisor ? 'active' : 'inactive' ">
+                        <mat-panel-title [ngClass]="panelOpenStateCartAdvisor ? 'titleactive' : 'titleinactive' ">
+                            Advisor Information
+                        </mat-panel-title>
+                        <mat-panel-description style="flex-grow: 0; margin-right: 0px;">
+                        <mat-icon *ngIf="!panelOpenStateCartAdvisor">add</mat-icon>
+                        <mat-icon *ngIf="panelOpenStateCartAdvisor">remove</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="mat-expansion-panel-body">
+                        <div *ngIf="is_need_advisor ">
+                            <div class="advisor-detail" *ngIf="!is_not_has_advisor">
+                                <div id="info-ad">
+                                    <p>Advisor Name: {{cart_advisor_name}} </p>
+                                    <p>Advisor ID: {{cart_advisor_id}}</p>
+                                </div>
+                            </div>
+                
+                            <div class="advisor-detail" *ngIf="is_not_has_advisor && isCheckNaep == false && !is_redemption_cart">
+                                <div id="info-ad">
+                                    <form class="advisor-info-form" [formGroup]="registerForm" (ngSubmit)="submitRemark()">
+                                        <p style="text-align: justify;">{{ 'ORDER_SUMMARY.ADVISOR_TEXT' | translate }} </p>
+                                        <p>{{ 'ORDER_SUMMARY.ADVISOR_ID' | translate }}:</p>
+                                        <div  [ngClass]="{'image-advisor':isSearchAvisor}" >
+                                          <input formControlName="advisor_id" type="text"
+                                            class="form-control input-custom" placeholder="{{ 'ORDER_SUMMARY.ENTER' | translate }}"
+                                            [ngClass]="{ 'is-invalid': submitted }"
+                                            (ngModelChange)="searchAdvisorId($event)">
+                                          <div *ngIf="submitted && f.advisor_id.errors" class="invalid-feedback">
+                                            <div class="error-mess" *ngIf="f.advisor_id.errors.required"> {{'ORDER_SUMMARY.ID_REQUIRE'| translate }}</div>
+                                            <div class="error-mess" *ngIf="f.advisor_id.errors?.pattern"> {{'ORDER_SUMMARY.ID_NUMBER'| translate }}</div>
+                                          </div>
+                                          <img *ngIf="isSearchAvisor" class="img" src="{{advisorImg}}">
+                                        </div>
+                                      <p>{{ 'ORDER_SUMMARY.ADVISOR_NAME' | translate }}: </p>
+                                        <input
+                                            
+                                            type="text"  class="form-control input-custom"
+                                            formControlName="advisor_name"
+                                            [ngClass]="{ 'is-invalid': submitted && f.advisor_name.errors }"
+                                            placeholder="{{'ORDER_SUMMARY.ENTER' | translate }}" 
+                                            />
+                                          <div *ngIf="submitted && f.advisor_name.errors" class="invalid-feedback">
+                                              <div class="error-mess" *ngIf="submitted && f.advisor_name.errors.required && isDisplayError"> {{'ORDER_SUMMARY.NAME_REQUIRE'| translate }}
+                                              </div>
+                                          </div> 
+                
+                                        <p>{{ 'ORDER_SUMMARY.PHONE_NUM' | translate }}: </p>
+                                        <input
+                                            type="text"  class="form-control input-custom"
+                                            formControlName="remark_phone"
+                                            [ngClass]="{ 'is-invalid': submitted }"
+                                            placeholder="{{'ORDER_SUMMARY.ENTER' | translate }}" 
+                                            />
+                                            <!-- [(ngModel)]="phoneNumberFull" -->
+                                        <div class="button-row"  >
+                
+                                            <button  mat-button class="btn-color-custom" >
+                                                {{ 'ORDER_SUMMARY.SUBMIT' | translate }}</button> 
+                                                    <div class="error-mess" > 
+                                                        <p *ngIf="isDisplayConfirmtext" style="text-align: center; color:var(--primary-color)"> {{'ORDER_SUMMARY.CONFIRM_TEXT' | translate}} </p>
+                                                        <p *ngIf="isSubmitSuccessfull" style="text-align: center; color:red"> {{'ORDER_SUMMARY.ERROR_TEXT' | translate}} </p>
+                                                        <p *ngIf="is_need_assign_advisor_for_order" style="text-align: center; color:red"> Please enter advisor information before proceeding with payment.</p>
+
+                                                      </div>  
+                                        </div>
+                
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                
+            </mat-accordion>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div class="FormFooter" *ngIf="carArr.length > 0">
+        <div class="inForm">
+            <div class="order">
+                <!-- <p class="order">Order amount:</p> -->
+                <div class="grid2" fxLayout="row">
+                    <div class="amount" fxLayout="column">
+                        <div class="table">
+                            <div class="col-left">
+                                <div>{{'SHOPPING_BAG.SHIPPING' | translate}}:</div>
+                                <div>{{'SHOPPING_BAG.SUBTOTAL' | translate}}:</div>
+    
+                            </div>
+                            <div class="col-right">
+                                <!-- <div *ngIf="!isCheckNaep">{{shipping | currency:' '}}</div>
+                                <div *ngIf="isCheckNaep">{{naepShipping | currency:' '}}</div> -->
+                                <ng-container *ngIf="!isEntityMy">
+                                  <div *ngIf="!isCheckNaep">{{shipping | currency:' '}}</div>
+                                  <div *ngIf="isCheckNaep">{{naepShipping | currency:' '}}</div>
+                                </ng-container>
+                                <ng-container *ngIf="isEntityMy">
+                                  <div>{{ shippingFee | currency: ' ' }}</div>
+                                </ng-container>
+
+                                <div *ngIf="!isCheckNaep">{{subTotal | currency:' '}}</div>
+                                <div *ngIf="isCheckNaep">{{naepSubTotal | currency:' '}}</div>
+                            </div>
+                        </div>
+                        <p *ngIf="!isCheckNaep" class="total">{{'SHOPPING_BAG.TOTAL' | translate}}: <span style="padding-left: 10px;">{{ Total  | currency: currency + ' '}}</span></p>
+                        <p *ngIf="isCheckNaep" class="total">{{'SHOPPING_BAG.TOTAL' | translate}}: <span style="padding-left: 10px;">{{ naepTotal | currency: currency + ' '}}</span></p>
+                    </div>
+                    <div class="button-pay">
+                        <!-- <button (click)="createOrder()" class="active-button"  routerLinkActive="router-link-active"  mat-raised-button color="primary" aria-label="View">
+                           PAY
+                        </button> -->
+                        <app-button-loading style="cursor: pointer;" [buttonName]='buttonName' [active]='active' (click)="createOrder()"></app-button-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</div>

@@ -1,0 +1,123 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../@fuse/scss/partials/background";
+
+:host {
+    ::ng-deep .mat-progress-spinner {
+        width: 25px !important;
+        height: 25px !important;
+
+        svg {
+            color: var(--color--primary);
+            width: 25px !important;
+            height: 25px !important;
+        }
+    }
+}
+
+.content {
+    width:100%;
+    height:100%;
+    background-color: white;
+    border: solid 20px var(--fuse-background) !important;
+    
+    @include media-breakpoint("xs") {
+        padding-bottom: 20px;
+
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        // border-bottom: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 70px var(--fuse-background) !important;
+    }
+
+    .search-warranty-product {
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: row;
+        padding: 5px;
+        border: 0.5px solid #b7b7b7;
+        border-radius: 8px;
+        margin: 10px 20px 20px;
+
+        .input-search {
+            flex-basis: 90%;
+            height: 100%;
+            margin: 0 !important;
+            padding: 8px;
+        }
+
+        .search-button {
+            border: unset;
+            background: unset;
+            cursor: pointer;
+
+            .icon-search {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    }
+
+    .form-warrantied {
+        padding-left: 22px;
+        padding-top: 10px;
+        padding-bottom: 14px;
+        padding-right: 86px;
+        @include media-breakpoint("xs") {
+            padding-right: 10px;
+        }
+        @include media-breakpoint("sm") {
+            padding-right: 42px;
+        }
+
+        .dot {
+            font-size: 18px;
+            color: var(--text-color);
+            padding-right: 5px;
+            @include media-breakpoint("xs") {
+                font-size: 12px;
+            }
+            @include media-breakpoint("sm") {
+                margin-left: 12px;
+            }
+        }
+        .text-warrantied {
+            font-size: var(--web-primary-text);
+            color: var(--text-color);
+            text-decoration: underline;
+            @include media-breakpoint("xs") {
+                font-size: var(--mobi-primary-text);
+            }
+        }
+    }
+
+    mat-card {
+        padding: 0px !important;
+        margin: 0px 24px 16px 24px;
+        -webkit-box-shadow: 0px 2px 5px #00000029 !important;
+        -moz-box-shadow: 0px 2px 5px #00000029 !important;
+        box-shadow: 0px 2px 5px #00000029 !important;
+        app-warrantied {
+            padding: 0px 24px 0px 24px;
+        }
+    }
+
+    .no-warranty-product {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+        margin-top: 50px;
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

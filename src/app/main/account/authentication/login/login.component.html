@@ -1,0 +1,150 @@
+<div id="login" fxLayout="column">
+
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="login-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div id="FormTitle">
+                <app-title class="back" [type]="title" [message]="message" link="/store"></app-title>
+                <div class="formLogo">
+                    <img src="assets/images_doxa/thermomix-logo.png">
+                </div>
+                <div class="fromLanguage">
+                    <button mat-icon-button [matMenuTriggerFor]="languagues">
+                        <mat-icon>language</mat-icon>
+                        <p style="margin: 0px; font-size: var(--mobi-label);">{{showLanguage}}</p>
+                    </button>
+                </div>
+                <mat-menu  #languagues="matMenu" [overlapTrigger]="false">
+                    <button mat-menu-item (click)="getLanguge('en')">English</button>
+                    <button mat-menu-item (click)="getLanguge('en')">Chinese</button>
+                </mat-menu>
+            </div>
+
+
+            <mat-carousel id="imgLogin" style="position: none;"
+            timings="250ms ease-in"
+            [autoplay]="true"
+            interval="5000"
+            color="accent"
+            maxWidth="auto"
+            [maintainAspectRatio]="true"
+            slideHeight="70%"
+            proportion="65"
+            slides="3"
+            [loop]="true"
+            [hideArrows]="true"
+            [hideIndicators]="false"
+            [useKeyboard]="true"
+            [useMouseWheel]="false"
+            orientation="ltr"
+          >
+            <mat-carousel-slide style="background: transparent;"
+              #matCarouselSlide
+              *ngFor="let slide of slides; let i = index"
+              [image]="slide.image"
+    
+            ></mat-carousel-slide>
+          </mat-carousel>
+
+            <!-- <div id="imgLogin">
+            
+            </div>  -->
+
+
+            <div class="title">{{ 'LOGIN.LOG_IN' | translate }}</div>
+
+            <form name="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+                <mat-label class="secondary-text">{{ 'LOGIN.EMAIL' | translate }}</mat-label>
+
+                <mat-form-field appearance="none">
+                    <input type="email" matInput formControlName="email" placeholder="Email.doxa@gmail.com">
+
+                    <img class="images" src="assets/icons/ICON/Messages.svg" alt="" fxHide.gt-xs>
+
+                    <div *ngIf="loginForm.get('email').hasError('required') && loginForm.controls.email.touched">
+                        <app-alert>
+                            <p>{{ 'LOGIN.EMAIL_REQUIRED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                    <div *ngIf="!loginForm.get('email').hasError('required') &&
+                                loginForm.controls.email.errors?.pattern && loginForm.controls.email.touched">
+                        <app-alert>
+                            <p>{{ 'LOGIN.EMAIL_FAILED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+
+                <mat-label class="secondary-text">{{ 'LOGIN.PASSWORD' | translate }}</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput type="password" formControlName="password" >
+                    <img class="images" src="assets/icons/ICON/Lock.svg" alt="" fxHide.gt-xs>
+
+
+                    <div *ngIf="loginForm.get('password').hasError('required') && loginForm.controls.password.touched ">
+                        <app-alert>
+                            <p>{{ 'LOGIN.PASSWORD_REQUIRED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                    <div
+                        *ngIf="!loginForm.get('password').hasError('required') && loginForm.controls.password.touched && loginForm.get('password').errors?.pattern">
+                        <app-alert>
+                            <p>{{ 'LOGIN.PASSWORD_LEAST' | translate }}</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+
+                <div class="forgot-password" fxLayout="row" fxLayoutAlign="space-between center">
+                    <a class="forgot-password-text" (click)="nextToForgotPassword()">
+                        {{ 'LOGIN.FORGOT_PASSWORD' | translate }}
+                    </a>
+                </div>
+                <!-- <div style="width: 100%; text-align: center; margin: 0px; padding: 0px">
+                    <p style="margin: 10px 0px">{{ 'LOGIN.OR' | translate }}</p>
+                </div>
+                <div class="resend-mail" fxLayout="row" fxLayoutAlign="space-between center">
+                    <a class="resend-mail-text" (click)="nextToResentMail()">
+                        {{ 'LOGIN.RESEND_MAIL' | translate }}
+                    </a>
+                </div> -->
+
+                <!-- <button mat-raised-button color="primary" class="submit-button" aria-label="LOG IN"
+                    [disabled]="loginForm.invalid">
+                    SIGN IN
+                </button> -->
+                <br>
+                <app-button-loading [buttonName] = 'buttonName' [disabledBtn] = "loginForm.invalid" [active] = "active"  [ngClass] = "loginForm.valid ? '':'btn-create-disabled'"></app-button-loading>
+                <div *ngIf="loginAlert && (loginForm.controls.email.pristine && loginForm.controls.password.pristine)">
+                    <app-alert>
+                        <p>{{ 'LOGIN.LOGIN_FAILED' | translate }}</p>
+                    </app-alert>
+                </div>
+
+                <div *ngIf="loginAlert204 && (loginForm.controls.email.pristine && loginForm.controls.password.pristine)">
+                    <app-alert>
+                        <p>{{ 'LOGIN.LOGIN_FAILED204' | translate }}</p>
+                    </app-alert>
+                </div>
+
+                <div *ngIf="loginAlert202 && (loginForm.controls.email.pristine && loginForm.controls.password.pristine)">
+                    <app-alert>
+                        <p>{{ 'LOGIN.LOGIN_FAILED202' | translate }}</p>
+                    </app-alert>
+                </div>
+
+                <div *ngIf="loginAlert203 && (loginForm.controls.email.pristine && loginForm.controls.password.pristine)">
+                    <app-alert>
+                        <p>{{ 'LOGIN.LOGIN_FAILED203' | translate }}</p>
+                    </app-alert>
+                </div>
+            </form>
+            <div class="register">
+                <span>{{ 'LOGIN.DONT_HAVE_AN_ACCOUNT' | translate }}</span>
+                <a (click)="nextToSignUp()">{{ 'LOGIN.CUSTOMER_REGISTER' | translate }}</a>
+            </div>
+
+        </div>
+        <h2 class="FormFooter">{{ 'LOGIN.POWERED_BY_DOXA' | translate }}</h2>
+    </div>
+
+</div>

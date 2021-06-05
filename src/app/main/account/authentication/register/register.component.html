@@ -1,0 +1,165 @@
+<div id="register" fxLayout="column">
+
+    <div id="register-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+        <div id="register-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+            <div id="FormTitle">
+                <div class="formLogo">
+                    <img src="assets/images_doxa/thermomix-logo.png">
+                </div>
+                <div class="fromLanguage">
+                    <button mat-icon-button [matMenuTriggerFor]="languagues">
+                        <mat-icon>language</mat-icon>
+                        <p style="margin: 0px; font-size: var(--mobi-label);">{{showLanguage}}</p>
+                    </button>
+                </div>
+                <mat-menu #languagues="matMenu" [overlapTrigger]="false">
+                    <button mat-menu-item (click)="getLanguge('en')">English</button>
+                    <button mat-menu-item (click)="getLanguge('en')">Chinese</button> 
+                </mat-menu>
+            </div>
+            
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">{{ 'SIGN_UP.HAVE_AN_ACCOUNT' | translate }}<a class="link" (click)="backToLogin()"
+                        style="cursor: pointer;">&nbsp; {{ 'SIGN_UP.LOG_IN' | translate }}</a></span>
+            </div>
+
+            <div class="title">{{ 'SIGN_UP.REGISTER' | translate }}</div>
+            <form name="registerForm" [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()" >
+                <mat-label class="secondary-text">{{ 'SIGN_UP.NAME' | translate }}</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput formControlName="fname" placeholder="Example: Cecilla Chen">
+                    <div *ngIf="registerForm.get('fname').hasError('required') && is_summitted">
+                        <app-alert>
+                            <p>{{ 'SIGN_UP.NAME_REQUIRED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+                <mat-label class="secondary-text">{{ 'SIGN_UP.NICK_NAME' | translate }}</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput formControlName="preferredname" placeholder="Ceci">
+                </mat-form-field>
+                <mat-label class="secondary-text">{{ 'SIGN_UP.EMAIL' | translate }}</mat-label>
+                <mat-form-field appearance="none">
+                    <input  matInput formControlName="email" placeholder="Cecilla@gmail.com"  autocomplete="off" readonly 
+                    onfocus="this.removeAttribute('readonly');" >
+                    <div *ngIf="registerForm.get('email').hasError('required')  && is_summitted">
+                        <app-alert>
+                            <p>{{ 'SIGN_UP.EMAIL_REQUIRED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                    <div
+                        *ngIf="!registerForm.get('email').hasError('required') &&
+                                                    registerForm.controls.email.errors?.pattern && registerForm.controls.email.touched && is_summitted">
+                        <app-alert>
+                            <p>{{ 'SIGN_UP.EMAIL_FAILED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+                <mat-label class="secondary-text">{{ 'SIGN_UP.DESIGNATION' | translate }}</mat-label>
+                <p-dropdown id="designation" [options]="designations" [(ngModel)]="selectedDesignation"
+                    [ngModelOptions]="{standalone: true}" [style]="{'width':'100%','height':'48px'}">
+                    <ng-template let-item pTemplate="selectedItem">
+                        <span style="vertical-align:middle">{{item.label}}</span>
+                    </ng-template>
+                    <ng-template let-dis pTemplate="item">
+                        <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                            <div style="font-size:14px;float:left;margin-top:4px">{{dis.label}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+                <mat-label class="secondary-text">{{ 'SIGN_UP.PHONE_NUMBER' | translate }}</mat-label>
+                <div id="phoneNumber">
+                    <div id="phoneCode">
+                        <app-dialCode SelectedDial={{register_dial_code}}></app-dialCode>
+                    </div>
+                    <mat-form-field appearance="none" id="phoneNum">
+                        <input matInput formControlName="phoneNum" placeholder="123338055" autocomplete="off" readonly 
+                        onfocus="this.removeAttribute('readonly');">
+                    </mat-form-field>
+                    <div id="alertPhoneNumber">
+                        <div
+                            *ngIf="registerForm.get('phoneNum').hasError('required')  && is_summitted">
+                            <app-alert>
+                                <p>{{ 'SIGN_UP.PHONE_NUMBER_REQUIRED' | translate }}</p>
+                            </app-alert>
+                        </div>
+                        <div
+                            *ngIf="!registerForm.get('phoneNum').hasError('required') && registerForm.get('phoneNum').errors?.pattern && registerForm.controls.phoneNum.touched && is_summitted">
+                            <app-alert>
+                                <p>{{ 'SIGN_UP.PHONE_NUMBER_FAILED' | translate }}</p>
+                            </app-alert>
+                        </div>
+                    </div>
+                </div>
+                <!-- <mat-label class="secondary-text" id="advisor">{{ 'SIGN_UP.ADVISOR_ID' | translate }}</mat-label> -->
+                <!-- <mat-form-field appearance="none" id="advisor-id-avatar">
+                    <input matInput formControlName="AdvisorID">
+                </mat-form-field> -->
+                <!-- <mat-label class="secondary-text">{{ 'SIGN_UP.ADVISOR_NAME' | translate }}</mat-label> -->
+                <!-- <mat-form-field appearance="none" id="advisor-name-avatar">
+                    <input matInput formControlName="AdvisorName">
+                    <img [src]="AdvisorImg" alt="">
+                </mat-form-field> -->
+                <mat-label class="secondary-text">{{ 'SIGN_UP.PASSWORD' | translate }}</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput type="password" formControlName="password"  PasswordOnly>
+                    <div
+                        *ngIf="registerForm.get('password').hasError('required')  && is_summitted">
+                        <app-alert>
+                            <p>{{ 'SIGN_UP.PASSWORD_REQUIRED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                    <div
+                        *ngIf="!registerForm.get('password').hasError('required') && registerForm.controls.password.touched && registerForm.get('password').hasError('minlength') && is_summitted">
+                        <app-alert>
+                            <p>{{ 'SIGN_UP.PASSWORD_LEAST' | translate }}</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+                <mat-label class="secondary-text">{{ 'SIGN_UP.CONFIRM_PASSWORD' | translate }}</mat-label>
+                <mat-form-field appearance="none">
+                    <input matInput type="password" formControlName="confirmPassword"  PasswordOnly>
+                    <div
+                        *ngIf="registerForm.get('confirmPassword').hasError('required')  && is_summitted">
+                        <app-alert>
+                            <p>{{ 'SIGN_UP.COFIRM_PASSWORD_REQUIRED' | translate }}</p>
+                        </app-alert>
+                    </div>
+                    <div
+                        *ngIf="!registerForm.get('confirmPassword').hasError('required') &&  registerForm.get('confirmPassword').hasError('mustMatch') && registerForm.controls.password.touched && is_summitted">
+                        <app-alert>
+                            <p>{{ 'SIGN_UP.PASSWORD_DONT_MATCH' | translate }}</p>
+                        </app-alert>
+                    </div>
+                </mat-form-field>
+                <div class="terms" fxLayout="row" fxLayoutAlign="center center">
+                    <mat-checkbox name="terms" aria-label="I read and accept" required color="primary" #Terms>
+                    </mat-checkbox>
+                    <span>{{ 'SIGN_UP.I_AGREES' | translate }}<a href={{termAndPolicyLink.term}}
+                            target="_blank"
+                            rel="noopener noreferrer">{{ 'SIGN_UP.TERMS_OF_USE' | translate }}</a>{{ 'SIGN_UP.AND' | translate }}<a
+                            href={{termAndPolicyLink.policy}} target="_blank"
+                            rel="noopener noreferrer">{{ 'SIGN_UP.PRIVACY_POLICY' | translate }}</a>
+                        {{ 'SIGN_UP.PROVIDED_BY' | translate }}</span>
+                </div>
+
+                <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
+                    [disabled]="!Terms.checked">
+                    {{ 'SIGN_UP.CREATE_AN_ACCOUNT' | translate }}
+                </button>
+                <div *ngIf="registerMessage !== ''">
+                    <app-alert>
+                        <p>{{registerMessage}}</p>
+                    </app-alert>
+                </div>
+            </form>
+            <!-- <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">{{ 'SIGN_UP.HAVE_AN_ACCOUNT' | translate }}<a class="link" (click)="backToLogin()"
+                        style="cursor: pointer;">&nbsp; {{ 'SIGN_UP.SIGN_IN' | translate }}</a></span>
+            </div> -->
+
+        </div>
+        <h2 class="FormFooter">{{ 'SIGN_UP.POWERED_BY_DOXA' | translate }}</h2>
+    </div>
+
+</div>

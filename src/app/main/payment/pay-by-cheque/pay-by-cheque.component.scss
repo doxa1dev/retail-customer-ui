@@ -1,0 +1,304 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+.pay-by-cheque {
+    @include background();
+    color: var(--text-color);
+
+    .content {
+        @include backgroundPage();
+        height: auto;
+        margin-bottom: 8px;
+        @include media-breakpoint("xs") {
+            padding-top: 13px !important;
+        }
+
+        .header {
+            height: 30px;
+            margin-top: -15px;
+            margin-left: -20px;
+        }
+
+        .info-order {
+            background-color: var(--yellow-background);
+
+            & p {
+                text-align: center;
+                padding: 10px;
+            }
+        }
+
+        .bank-details {
+            padding-left: 16px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px #00000029;
+
+            .title {
+                margin: 0px;
+                font-weight: bold;
+                padding-top: 11px;
+                padding-bottom: 11px;
+            }
+
+            .info-details {
+                padding-right: 24px;
+
+                .info-name {
+                    padding-bottom: 3px;
+                    #text-name {
+                        font-weight: 600;
+                    }
+
+                    #name {
+                        float: right;
+                    }
+                }
+
+                .info-order-number {
+                    padding-bottom: 3px;
+
+                    #text-oder-number {
+                        font-weight: 600;
+                    }
+
+                    #order-number{
+                        font-weight: 600;
+                        float: right;
+                        padding-right: 9px;
+                    }
+
+                    .copy-order-number {
+                        float: right;
+                        color: var(--link-color);
+                        background-color: white;
+                        border: 0px;
+                        padding: 2px 0px 0px 0px;
+                        cursor: pointer;
+                    }
+                }
+
+                .info-amount {
+                    padding-bottom: 3px;
+
+                    #text-amount {
+                        font-weight: 600;
+                    }
+
+                    #amount {
+                        float: right;
+                    }
+                }
+
+                .info-bank {
+                    padding-bottom: 3px;
+
+                    #text-bank {
+                        font-weight: 600;
+                    }
+
+                    #bank {
+                        float: right;
+                    }
+                }
+
+                .info-acc-number {
+                    padding-bottom: 3px;
+
+                    #text-acc-number {
+                        font-weight: 600;
+                    }
+
+                    #acc-number {
+                        font-weight: 600;
+                        float: right;
+                        padding-right: 9px;
+                    }
+
+                    .copy-acc-number {
+                        float: right;
+                        color: var(--link-color);
+                        background-color: white;
+                        border: 0px;
+                        padding: 2px 0px 0px 0px;
+                        cursor: pointer;
+                    }
+                }
+
+                .info-uen-number {
+                    padding-bottom: 3px;
+
+                    #text-uen-number {
+                        font-weight: 600;
+                    }
+
+                    #uen-number {
+                        font-weight: 600;
+                        float: right;
+                        padding-right: 9px;
+                    }
+
+                    .copy-acc-number {
+                        float: right;
+                        color: var(--link-color);
+                        background-color: white;
+                        border: 0px;
+                        padding: 2px 0px 0px 0px;
+                        cursor: pointer;
+                    }
+                }
+
+
+                .info-bank-address {
+                    padding-bottom: 15px;
+                    #text-bank-address {
+                        font-weight: 600;
+                    }
+
+                    #bank-address {
+                        margin-top: -15px;
+                        text-align: right;
+                        display: block;
+                    }
+                }
+                .paynow {
+                    padding-bottom: 3px;
+
+                    #text-paynow {
+                        font-weight: 600;
+                    }
+
+                    #image-paynow {
+                        width: 50%;
+                        display: block;
+                        margin: 0px auto;
+                        padding: 7px;
+                        border: 1px solid rgba(90, 97, 111, 0.3);
+                        margin-top: 10px;
+                        max-width: 250px;
+                        
+                    }
+                }
+            }
+
+            .note {
+                padding-bottom: 16px;
+                padding-right: 24px;
+                opacity: 1 !important;
+            }
+        }
+        #pay-note{
+            margin-top: 30px;
+            font-style: italic; 
+            color: var(--primary-color); 
+        }
+
+        #pay-number {
+            // opacity: 60%;
+            color: var(--text-color);
+            width: 100%;
+            border: 0.5px solid var(--primary-color);
+            height: 46px;
+            outline: none;
+            padding-left: 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-top: 0px;
+        }
+
+        .btn-pay{
+            margin-top:10px;
+        }
+
+        .btn{
+            cursor: pointer;
+            text-align: center;
+            border: solid 0px;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            width: 100%;
+            height: 48px;
+        }
+
+        .btn-payment {
+            @extend .btn;
+            background-color: var(--primary-color);
+        }
+
+        .btn-cannot-payment {
+            @extend .btn;
+            background-color: var(--text-color);
+ 
+        }
+
+        .photo-information{
+            // height: 128px;
+            margin-bottom: 20px;
+            margin-top: 12px;
+            .image-default{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 10px;
+                opacity: 0.5;
+                border-radius: 6px;
+            }
+            .image-select{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                opacity: 1;
+                border-radius: 6px;
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+
+
+
+        div.upload {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color:#f3f3f3;
+            border: 1px solid var(--border-color);
+            border-radius:8px;
+            display:block;
+            height: 32px;
+            position:relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+
+        }
+
+        div.upload input[type="file"] {
+            display: block;
+            width: 100%;
+            height: 32px;
+            opacity: 0;
+            cursor:pointer;
+            position:absolute;
+            left:0;
+        }
+
+
+        .fileName {
+            display: block;
+            height: 32px;
+            font-size:12px;
+            color: var(--text-color);
+            padding: 7px;
+        }
+
+        .file-requirement{
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-color);
+            font-size:12px;
+           }
+
+    }
+
+    }

@@ -1,0 +1,11 @@
+<div class="item-product">
+    <div routerLink="/list-products" routerLinkActive="list-products" style="text-decoration: none" 
+    [queryParams]="{ categoryId: id }">
+        <img class = "img-product" src= "{{ img_product }}"><br>
+        <p class = "name-product" [innerHTML]="name_product | titletranformPipe"></p>
+    </div>
+</div>
+
+
+
+

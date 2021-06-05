@@ -1,0 +1,317 @@
+<div style="width: 100%;">
+    <div class="activity-become" fxLayout="column">
+        <div class="activity-search"  *ngIf = "activity" [formGroup]="activityForm">
+            <div class="activity-wrapper">
+                <app-title [type]="title" [message]="'ACTIVITY_EDIT.EDIT_ACTIVITY'">
+                </app-title>
+            </div>
+            <div class="activity-capacity">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.TITLE' | translate }}</p>
+                <div class="customer-information">
+                    <div class="form-group-2">
+                        <input formControlName="activityTitle" [(ngModel)]="activity.title" (change)="changeFormActivity()" class="form-control input-custom" placeholder="abc">
+                        <mat-error class="error-message" 
+                        *ngIf = "activityForm.get('activityTitle').hasError('required') && activityForm.controls.activityTitle.touched">
+                        {{ 'ACTIVITY_EDIT.TITLE_REQUIRED' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+            <div class="activity-type">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.SELECT_TYPE' | translate }}</p>
+                <div class="select-type">
+                    <p-dropdown formControlName="activityType" [(ngModel)]="defaultType" (onChange)="changeFormActivity()" class="activity-type-drow" [options]="actType"
+                        placeholder="--  {{ 'ACTIVITY_EDIT.SELECT_TYPE' | translate }}  --">
+                        <ng-template let-item pTemplate="selectedItem">
+                            <span style="vertical-align:middle">{{item.label}}</span>
+                        </ng-template>
+                        <ng-template let-language pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                <div>{{language.label}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <mat-error class="error-message" 
+                    *ngIf = "activityForm.get('activityType').hasError('required') && activityForm.controls.activityType.touched">
+                    {{ 'ACTIVITY_EDIT.TYPE_REQUIRED' | translate }}
+                </mat-error>
+            </div>
+    
+            <div class="activity-privacy" style="padding: 0 33px">
+                <p class="activity-title">{{ 'CREATE_ACTIVITY.SELECT_PRIVACY' | translate }}</p>
+                <div class="select-type">
+                    <p-dropdown formControlName="activityPrivacy" class="activity-type-drow" (onChange)="changeFormActivity()" [(ngModel)]="defaultPrivacy"  [options]="actPrivacy"
+                        >
+                        <ng-template let-item pTemplate="selectedItem">
+                            <span style="vertical-align:middle">{{item.label}}</span>
+                        </ng-template>
+                        <ng-template let-language pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                <div>{{language.label}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <mat-error class="error-message" 
+                    *ngIf = "activityForm.get('activityPrivacy').hasError('required') && submitted">
+                    {{ 'CREATE_ACTIVITY.TYPE_REQUIRED' | translate }}
+                </mat-error>
+            </div>
+    
+            <div class="activity-date">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.SELECT_DATE' | translate }}</p>
+                <div class="canlendar-choose">
+                    <div class="field-datepicker-custom">
+                        <p-calendar [(ngModel)]="defaultDate" formControlName="activityDate" [showIcon]="true"></p-calendar>
+                    </div>
+                    <!-- <mat-error class="error-message" 
+                    *ngIf = "activityForm.get('activityDate').hasError('required') && activityForm.controls.activityDate.touched">
+                        Date is required
+                    </mat-error> -->
+                </div>
+            </div>
+            <div class="activity-location">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.SELECT_LOCATION' | translate }}</p>
+                <div class="location-choose">
+                    <mat-radio-group formControlName="actitityLocation" [(ngModel)]="defauLocation" class="group-choose-location" name="delivery" aria-label="Select an option delivery"
+                    (change)="radioChange($event)">
+                        <div class="self-collect-free">
+                            <mat-radio-button value="1">
+                                <p>{{ 'ACTIVITY_EDIT.OFFICE' | translate }}<p>
+                            </mat-radio-button>
+                            <div class="activity-location-select">
+                                <div class="activity-location-title">{{ 'ACTIVITY_EDIT.ROOM' | translate }}</div>
+                                <div class="select-type">
+                                    <p-dropdown formControlName="activityRoom" [(ngModel)]="roomId" class="activity-type-drow"
+                                        (onChange)="onChangeRoom($event)"
+                                        [options]="actRoom" placeholder="--  {{ 'ACTIVITY_EDIT.SELECT_ROOM' | translate }}  --"
+                                        >
+                                        <ng-template let-item pTemplate="selectedItem">
+                                            <span style="vertical-align:middle">{{item.label}}</span>
+                                        </ng-template>
+                                        <ng-template let-language pTemplate="item">
+                                            <div class="ui-helper-clearfix">
+                                                <div>{{language.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <!-- <mat-error class="error-message" 
+                            *ngIf = "activityForm.get('actitityLocation').value === '1' 
+                                     && activityForm.get('activityDate').hasError('required')">
+                                Please select date
+                            </mat-error>
+                            <mat-error class="error-message" 
+                            *ngIf = "activityForm.get('actitityLocation').value === '1'
+                                    && !activityForm.get('activityDate').hasError('required') 
+                                    && activityForm.get('activityRoom').hasError('required')">
+                                Room is required
+                            </mat-error> -->
+                            <div class="activity-location-select time-slot">
+                                <div class="activity-location-title">{{ 'ACTIVITY_EDIT.TIME_SLOT' | translate }}</div>
+                                <div class="select-type">
+                                    <p-multiSelect formControlName="activityTimeSlot"  [(ngModel)]="roomDefault" class="activity-type-drow"
+                                        [options]="actTimeSlot" placeholder="--  Select Time Slot  --"
+                                        
+                                        (onChange)="onChangeTimeSlot()">
+                                        <ng-template let-item pTemplate="selectedItem">
+                                            <span style="vertical-align:middle">{{item.label}}</span>
+                                        </ng-template>
+                                        <ng-template let-language pTemplate="item">
+                                            <div class="ui-helper-clearfix">
+                                                <div>{{language.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-multiSelect>
+                                    <!-- <p-multiSelect [options]="actTimeSlot"
+                                       ></p-multiSelect> -->
+                                </div>
+                            </div>
+                            <!-- <mat-error class="error-message" 
+                            *ngIf = "activityForm.get('actitityLocation').value === '1'
+                                     && !activityForm.get('activityDate').hasError('required') 
+                                     && activityForm.get('activityRoom').hasError('required')">
+                                Please select Room
+                            </mat-error>
+                            <mat-error class="error-message" 
+                            *ngIf = "activityForm.get('actitityLocation').value === '1'
+                                    && !activityForm.get('activityRoom').hasError('required') 
+                                    && activityForm.get('activityTimeSlot').hasError('required')">
+                                Time slot is required
+                            </mat-error> -->
+                            <div class="activity-location-select time-slot" *ngIf="!locationDetail && !checkOtherLocation">
+                                <div class="activity-location-title" style="font-style: oblique;">{{arrSelectedTimeSlot.length}}{{ 'ACTIVITY_EDIT.3_SLOTS_SELECTED' | translate }}</div>
+                                <div style="font-style: oblique;">
+                                    <div  *ngFor="let slot of arrSelectedTimeSlot">
+                                        <div>{{slot.slotDescription}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="by-counrier">
+                            <mat-radio-button class="button" value="2">
+                                <p>{{ 'ACTIVITY_EDIT.OTHER_LOCATION' | translate }}<p>
+                            </mat-radio-button>
+                        </div>
+                        <a *ngIf = "locationDetail" class="btn-edit" (click) = "editAddress()">{{ 'ACTIVITY_EDIT.EDIT' | translate }}</a>
+                    </mat-radio-group>
+                </div>
+                <mat-error class="error-message" 
+                    *ngIf = "activityForm.get('actitityLocation').hasError('required') && activityForm.controls.actitityLocation.touched">
+                    {{ 'ACTIVITY_EDIT.LOCATION_REQUIRED' | translate }}
+                    
+                </mat-error>
+                <div *ngIf="locationDetail">
+                    <div>*{{ 'ACTIVITY_EDIT.ADDRESS' | translate }}</div>
+                    <div>{{addressDetail}}</div>
+                    <div>*{{ 'ACTIVITY_EDIT.DURATION' | translate }}</div>
+                    <div>{{ 'ACTIVITY_EDIT.START_AT' | translate }}{{otherLocationForm.value.durationStartTime}}</div>
+                    <div>{{ 'ACTIVITY_EDIT.END_AT' | translate }}{{otherLocationForm.value.durationEndTime}}</div>
+                </div>
+            </div>
+            <div class="activity-orther-location" *ngIf="checkOtherLocation" [formGroup]="otherLocationForm">
+                <div class="customer-information">
+                    <p class="title-edit-customer-info">*{{ 'ACTIVITY_EDIT.EDIT_ADDRESS' | translate }}</p>
+                    <div class="form-group-2">
+                        <p class="header-titile">{{ 'ACTIVITY_EDIT.UNIT_NO' | translate }}</p>
+                        <input formControlName = "locationUnit" [(ngModel)]="activity.address.unitNumber" (change)="changeOtherSave()" class="form-control input-custom" type="text" placeholder="{{ 'ACTIVITY_EDIT.UNIT_NO' | translate }}">
+                        <mat-error class="error-message" 
+                            *ngIf = "otherLocationForm.get('locationUnit').hasError('required') && otherLocationForm.controls.locationUnit.touched">
+                            {{ 'ACTIVITY_EDIT.UNIT_NO_REQUIRED' | translate }}
+                        </mat-error>
+                    </div>
+                    <div class="form-group-2">
+                        <p class="header-titile">{{ 'ACTIVITY_EDIT.DETAIL_ADDRESS' | translate }}</p>
+                        <input formControlName = "locationDetailAddress"  [(ngModel)]="activity.address.detailAddress" (change)="changeOtherSave()"  class="form-control input-custom" type="text" placeholder="Detail address">
+                        <mat-error class="error-message" 
+                            *ngIf = "otherLocationForm.get('locationDetailAddress').hasError('required')  && otherLocationForm.controls.locationDetailAddress.touched">
+                            {{ 'ACTIVITY_EDIT.DETAIL_ADDRESS_REQUIRED' | translate }}
+                        </mat-error>
+                    </div>
+                    <div class="form-group-2">
+                        <p class="header-titile">{{ 'ACTIVITY_EDIT.POSTAL_CODE' | translate }}</p>
+                        <input formControlName = "locationPostalCode" [(ngModel)]="activity.address.postalCode" (change)="changeOtherSave()" class="form-control input-custom" placeholder="{{ 'ACTIVITY_EDIT.POSTAL_CODE' | translate }}">
+                        <mat-error class="error-message" 
+                        *ngIf = "otherLocationForm.get('locationPostalCode').hasError('required') && otherLocationForm.controls.locationPostalCode.touched">
+                        {{ 'ACTIVITY_EDIT.POSTAL_CODE_REQUIRED' | translate }}
+                        </mat-error>
+                    </div>
+                    <div class="form-group-2">
+                        <p class="header-titile">{{ 'ACTIVITY_EDIT.CITY' | translate }}</p>
+                        <input formControlName = "locationCityState" [(ngModel)]="activity.address.cityState" (change)="changeOtherSave()" class="form-control input-custom" placeholder="{{ 'ACTIVITY_EDIT.CITY' | translate }}">
+                        <mat-error class="error-message" 
+                            *ngIf = "otherLocationForm.get('locationCityState').hasError('required')  && otherLocationForm.controls.locationCityState.touched">
+                            {{ 'ACTIVITY_EDIT.CITY_REQUIRED' | translate }}
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="customer-information activity-duration">
+                    <p class="title-edit-customer-info">*{{ 'ACTIVITY_EDIT.DURATION' | translate }}</p>
+                    <div class="activity-location-select">
+                        <div class="activity-location-title">{{ 'ACTIVITY_EDIT.START' | translate }}</div>
+                        <div class="select-type">
+                            <input formControlName = "durationStartTime"   [(ngModel)]="startTime" (click)="changeOtherSave()" class="select-time" placeholder="{{startTime}}" aria-label="24hr format" [ngxTimepicker]="fullTimeStart" [format]="24"  readonly>
+                            <ngx-material-timepicker #fullTimeStart></ngx-material-timepicker>
+                            <!-- <mat-error class="error-message" 
+                                *ngIf = "otherLocationForm.get('durationStartTime').hasError('required')  && otherLocationForm.controls.durationStartTime.touched">
+                                Start time is required
+                            </mat-error> -->
+                        </div>
+                    </div>
+                    <div class="activity-location-select time-slot">
+                        <div class="activity-location-title">{{ 'ACTIVITY_EDIT.END' | translate }}</div>
+                        <div class="select-type">
+                            <input formControlName = "durationEndTime"  [(ngModel)]="endTime" class="select-time" (click)="changeOtherSave()" placeholder="{{endTime}}" aria-label="24hr format" [ngxTimepicker]="fullTimeEnd" [format]="24"  readonly>
+                            <ngx-material-timepicker #fullTimeEnd></ngx-material-timepicker>
+                            <!-- <mat-error class="error-message" 
+                                *ngIf = "otherLocationForm.get('durationEndTime').hasError('required') && otherLocationForm.controls.durationEndTime.touched">
+                                End time is required
+                            </mat-error> -->
+                        </div>
+                    </div>
+                    <mat-error class="error-message" 
+                    *ngIf = "!otherLocationForm.get('durationEndTime').hasError('required')
+                             && otherLocationForm.get('durationStartTime').value >= otherLocationForm.get('durationEndTime').value">
+                             {{ 'ACTIVITY_EDIT.WRONG_TIME' | translate }}
+                    </mat-error>
+                </div>
+                <div class="activity-orther-button">
+                    <div class="example-button-row">
+                    <button mat-button class="btn-color-custom btn-cancel-activity">{{ 'ACTIVITY_EDIT.CANCEL' | translate }}</button>
+                    <button mat-button class="btn-color-custom btn-create-activity"
+                    [ngClass] = "changeLocationSave ? 'btn-create-active':'btn-create-disabled'"
+                    (click)="saveAddress()">{{ 'ACTIVITY_EDIT.SAVE_CHANGE' | translate }}
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <div class="activity-capacity">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.MAXIMUM_CAPACITY' | translate }}</p>
+                <div class="customer-information">
+                    <div class="form-group-2">
+                        <input type="text" formControlName="activityCapacity" [(ngModel)]="activity.capacity" (change)="changeFormActivity()" class="form-control input-custom" placeholder="10">
+                    </div>
+                    <!-- <mat-error class="error-message" 
+                        *ngIf = "activityForm.get('activityCapacity').hasError('required') && activityForm.controls.activityCapacity.touched">
+                        Maximum capacity (people) is required
+                    </mat-error>  -->
+                    <mat-error class="error-message" *ngIf = "activityForm.get('activityCapacity').hasError('pattern')">
+                        Maximum capacity (people) is number
+                    </mat-error>
+                </div>
+            </div>
+            <div class="activity-photo">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.COVER_PICTURE' | translate }}</p>
+                <div class="change-photo">
+                    <label for="file" style="cursor: pointer;">{{ 'ACTIVITY_EDIT.CHANGE_PICTURE' | translate }}</label>
+                    <input type="file" (change)="onSelectFile($event)" id="file" style="display: none"  accept='image/*' />
+                </div>
+                
+                <div class="photo-information">
+                    <img *ngIf="!myProfileImgUrl" class="image-default" src="'../../../assets/images_doxa/import_image_content.png" alt="Avatar">
+                    <img class="image-select" [src]="myProfileImgUrl" *ngIf="myProfileImgUrl">
+                </div>
+            </div>
+            <div class="activity-capacity">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.ACTIVITY_DESCRIPTION' | translate }}</p>
+                <div class="customer-information">
+                    <div class="form-group-2">
+                        <textarea formControlName="activityDescription" [(ngModel)]="activity.description" (change)="changeFormActivity()" class="text-area"></textarea>
+                    </div>
+                    <!-- <mat-error class="error-message" *ngIf = "activityForm.get('activityDescription').hasError('required') && activityForm.controls.activityDescription.touched">
+                        Description for activity is required
+                    </mat-error> -->
+                </div>
+            </div>
+            <div class="activity-capacity">
+                <p class="activity-title">{{ 'ACTIVITY_EDIT.NOTES' | translate }}</p>
+                <div class="customer-information">
+                    <div class="form-group-2">
+                        <input formControlName ="activityNote" (change)="changeFormActivity()" [(ngModel)]="activity.notes" class="form-control input-custom" placeholder="abc">
+                    </div>
+                </div>
+            </div>
+            <div class="activity-create-button">
+                <div class="example-button-row">
+                    <button mat-button class="btn-color-custom btn-cancel-activity" (click) = "back()">{{ 'ACTIVITY_EDIT.CANCEL' | translate }}</button>
+                    <!-- <button mat-button class="btn-color-custom btn-create-activity"
+                     [ngClass] = "changeActivity ? '':'btn-create-disabled'"
+                     (click)="updateActivity()">Update
+                     <mat-icon *ngIf="loading"><mat-spinner diameter="20">
+                    </mat-spinner></mat-icon>
+                    </button> -->
+                    <!-- <mat-bar-button 
+                        class="btn-color-custom btn-create-activity"
+                        [options]="barButtonOptions" 
+                        (btnClick)="updateActivity()">
+                    </mat-bar-button> -->
+                    <app-button-loading [buttonName] = 'buttonName' [disabledBtn] = "changeActivity" [active] = "active"  (click) = "updateActivity()"  [ngClass] = "changeActivity ? '':'btn-create-disabled'"></app-button-loading>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

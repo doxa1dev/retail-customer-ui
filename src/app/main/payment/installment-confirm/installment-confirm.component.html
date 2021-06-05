@@ -1,0 +1,137 @@
+<div id="epp" fxLayout="column">
+  <div id="epp-wrapper" fxLayout="column">
+    <div id="link">
+      <div class="link-icons">
+        <mat-icon routerLink="../payment-options-full" style="cursor: pointer;" (click)="backToOrderDetail()">
+          chevron_left</mat-icon>
+        <a href="javascript:void(0)">{{'INSTALLMENT_CONFIRM.FIXED_DEPOSIT' | translate}}</a>
+      </div>
+    </div>
+
+    <!-- show options -->
+    <div id="FormField">
+      <div id="block">
+
+        <div class="text-div">
+          <div class="text">
+            <p class="text-a">{{'INSTALLMENT_CONFIRM.PAY_INSTALLMENT' | translate}}</p>
+          </div>
+
+          <div class="text">
+            <p class="text-b">{{'INSTALLMENT_CONFIRM.BALANCE_FOR_INSTALLMENT' | translate}}: {{ installmentAmount | currency: " " }} </p>
+          </div>
+
+          <div class="text">
+            <p class="text-c">{{'INSTALLMENT_CONFIRM.HAVE_TO_PAY' | translate}} {{ paymentAmountForEachInstallment | currency: " " }} {{'INSTALLMENT_CONFIRM.PER_MONTH_IN' | translate}}
+              {{displayNumberOfPayments}} {{'INSTALLMENT_CONFIRM.MONTHS' | translate}}</p>
+          </div>
+
+        </div>
+        <div hidden=true>
+           <FORM ngNoForm method="post" name="ePayment"
+             [action]="ipay88ReccuringUrl"                        
+             id="ipay88-recurring-form">
+            <INPUT type="hidden" name="MerchantCode" [value]="merchant_code">
+            <INPUT type="hidden" name="RefNo" [value]="ref_No">
+            <INPUT type="hidden" name="FirstPaymentDate" [value]="first_payment_date">
+            <INPUT type="hidden" name="Currency" [value]="currency">
+            <INPUT type="hidden" name="Amount" [value]="amount">
+            <INPUT type="hidden" name="NumberofPayments" [value]="number_of_payments">
+            <INPUT type="hidden" name="Frequency" [value]="frequency">
+            <INPUT type="hidden" name="Desc" [value]="desc">
+            <INPUT type="hidden" name="CC_Ic" [value]="cc_holder_ic">
+            <INPUT type="hidden" name="CC_Email" [value]="cc_holder_email">
+            <INPUT type="hidden" name="CC_Phone" [value]="cc_holder_phone">
+            <INPUT type="hidden" name="P_Name" [value]="subscriber_name">
+            <INPUT type="hidden" name="P_Email" [value]="subscriber_email">
+            <INPUT type="hidden" name="P_Phone" [value]="subscriber_phone">
+            <INPUT type="hidden" name="P_Addrl1" [value]="subscriber_add1">
+            <INPUT type="hidden" name="P_Addrl2" [value]="subscriber_add2">
+            <INPUT type="hidden" name="P_City" [value]="subscriber_city">
+            <INPUT type="hidden" name="P_State" [value]="subscriber_state">
+            <INPUT type="hidden" name="P_Zip" [value]="subscriber_zip">
+            <INPUT type="hidden" name="P_Country" [value]="subscriber_country">
+            <INPUT type="hidden" name="Signature" [value]="signature">
+            <INPUT type="hidden" name="BackendURL" [value]="backend_url">
+            <INPUT type="hidden" name="ResponseURL" [value]="response_url">
+          </FORM>
+        </div>
+
+
+
+
+
+        <button mat-raised-button class="query-form-btn back-cancel-btn" aria-label="CANCEL" (click)="cancel()">
+          {{'INSTALLMENT_CONFIRM.CANCEL' | translate}}
+        </button>
+        <button mat-raised-button color="accent" class="query-form-btn green-right-btn" aria-label="SUBMIT"
+          (click)=" nextToIpay88RecurringPayment()">
+          {{'INSTALLMENT_CONFIRM.CONFIRM' | translate}}
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <app-footer-payment [verified]='verified' 
+  [pending_verified]='pendingVerified' 
+  [remaining]='remaining' 
+  [uuid]="orderUuid"
+  [shipping]='shipping' 
+  [subtotal]='subTotal' 
+  [total]='total' [currency]='currency' 
+  [linkShare] = "checkLinkShare"
+  [selectPayment]='false'
+  >
+  </app-footer-payment>
+
+  <!-- Footer -->
+  <!-- <div class="FormFooter">
+    <div class="inForm">
+      <div class="payment-info">
+        <p>{{'INSTALLMENT_CONFIRM.PAYMENT_INFO' | translate}}:</p>
+        <div class="grid1" fxLayout="row">
+          <div class="verified" fxLayout="column">
+            <div class="table">
+              <div class="col-left">
+                <div>{{'INSTALLMENT_CONFIRM.PENDING_VERIFIED' | translate}}:</div>
+                <div>{{'INSTALLMENT_CONFIRM.VERIFIED' | translate}}:</div>
+              </div>
+              <div class="col-right">
+                <div>{{ pendingVerified | currency: " " }}</div>
+                <div>{{ verified | currency: " " }}</div>
+              </div>
+            </div>
+            <p class="remaining">
+              <span id="remaining-in">{{'INSTALLMENT_CONFIRM.REMAINING' | translate}}:</span>
+              {{ remaining | currency: currency + " " }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+      <div class="order-amount">
+        <p class="order">{{'INSTALLMENT_CONFIRM.ORDER_AMOUNT' | translate}}:</p>
+        <div class="grid2" fxLayout="row">
+          <div class="amount" fxLayout="column">
+            <div class="table2">
+              <div class="col-left">
+                <div>{{'INSTALLMENT_CONFIRM.SHIPPING' | translate}}:</div>
+                <div>{{'INSTALLMENT_CONFIRM.SUBTOTAL' | translate}}:</div>
+              </div>
+              <div class="col-right">
+                <div>{{ shipping | currency: " " }}</div>
+                <div>{{ subTotal | currency: " " }}</div>
+              </div>
+            </div>
+            <p class="total">
+              <span id="total-in">{{'INSTALLMENT_CONFIRM.TOTAL' | translate}}:</span>
+              {{ total | currency: currency + " " }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>

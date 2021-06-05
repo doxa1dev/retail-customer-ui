@@ -1,0 +1,201 @@
+@import "src/@fuse/scss/fuse";
+// @import "../../../@fuse/scss/partials/background";
+
+::placeholder {
+  color: var(--text-color);
+}
+
+.recruit-new-advisor {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: solid 20px var(--fuse-background) !important;
+  color: var(--text-color) !important;
+
+  @include media-breakpoint("xs") {
+    border-left: solid 15px var(--fuse-background) !important;
+    border-right: solid 15px var(--fuse-background) !important;
+    border-top: solid 8px var(--fuse-background) !important;
+    // border-bottom: solid 8px var(--fuse-background) !important;
+    border-bottom: solid 70px var(--fuse-background) !important;
+    font-size: var(--mobi-primary-text);
+  }
+
+  .form-recruit-new-advisor {
+    // padding-left: 5px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+    @include media-breakpoint("xs") {
+      padding-right: 10px;
+    }
+    @include media-breakpoint("sm") {
+      padding-right: 42px;
+    }
+
+    .text-recruit-new-advisor {
+      margin-left: -8px;
+      font-size: var(--web-primary-text);
+      color: var(--text-color);
+      text-decoration: underline;
+      @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text);
+      }
+    }
+  }
+
+  .body-recruit-new-advisor {
+    padding: 0px 24px 0px 30px;
+
+    .search-advisor {
+      position: relative;
+
+      .input-search {
+        margin-bottom: 24px;
+        color: var(--text-color) !important;
+        margin-top: 10px;
+        padding: 12px;
+        width: 100%;
+        border: 0.5px solid rgb(183, 183, 183);
+        border-radius: 8px;
+      }
+
+      .icon-search {
+        width: 3%;
+        position: absolute;
+        right: 10px;
+        top: 20px;
+
+        @include media-breakpoint("xs") {
+          width: 7%;
+        }
+      }
+
+      .btn-search {
+        cursor: pointer;
+        width: 44%;
+      
+        // height: 39px;
+        color: #ffffff;
+        font-size: var(--mobi-large-button-text);
+        border: 0px solid;
+        background-color: var(--primary-color);
+        border-radius: 6px;
+        float: right;
+        padding: 10px 5px;
+      }
+    }
+  }
+
+  .advisor-no {
+    text-align: center;
+    margin-top: 90px;
+    width: 100%;
+  }
+
+  .search-no-data {
+    padding-top: 80px;
+    text-align: center;
+  }
+
+  .invite-new-contact {
+
+    .btn-invite-new-contact {
+      margin-top: 80px !important;
+      display: block;
+      margin: auto;
+      text-align: center;
+      cursor: pointer;
+      width: 50%;
+      color: #ffffff;
+      font-size: var(--mobi-large-button-text);
+      border: 0px solid;
+      background-color: var(--primary-color);
+      border-radius: 6px;
+      padding: 10px 5px;
+    }
+
+    .form-invite-new-contact {
+      margin-top: 20px !important;
+      display: block;
+      margin: auto;
+      width: 70%;
+      padding: 20px;
+      border: 1px solid gray;
+      border-radius: 8px;
+
+      @include media-breakpoint("xs") {
+        width: 90%;
+      }
+
+      .title-invite {
+        font-weight: 600;
+      }
+
+      .input-info-invite {
+        display: flex;
+        margin-bottom: 10px;
+        margin-top: 10px;
+
+        p {
+          width: 10%;
+        }
+
+        input {
+          margin-left: 10%;
+          width: 80%;
+          border: 0.5px solid gray;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+
+  .advisor-data {
+    position: relative;
+    margin-top: 64px;
+    padding-bottom: 8px;
+
+    mat-card {
+      padding: 12px 15px 16px 15px;
+      margin: 0px 24px 16px 24px;
+      border-radius: 8px;
+      -webkit-box-shadow: 0px 2px 5px #00000029 !important;
+      -moz-box-shadow: 0px 2px 5px #00000029 !important;
+      box-shadow: 0px 2px 5px #00000029 !important;
+
+      mat-radio-button {
+        position: absolute;
+        top: 12px;
+        right: 15px;
+      }
+    }
+  }
+
+  .footer {
+    position: sticky;
+    background-color: white;
+    width: 100%;
+    height: 64px;
+    bottom: 0;
+    
+    .btn-next {
+      margin: 0px 24px 24px 0px;
+      width: 37%;
+      height: 40px;
+      color: #ffffff;
+      font-size: var(--mobi-large-button-text);
+      border: 0px solid;
+      background-color: var(--primary-color);
+      border-radius: 6px;
+      float: right;
+    }
+  }
+}
+
+app-bottom-navigation {
+  display: none;
+
+  @include media-breakpoint("xs") {
+      display: unset;
+  }
+}

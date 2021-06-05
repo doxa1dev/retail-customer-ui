@@ -1,0 +1,53 @@
+<div style="width: 100%;">
+    <div class="container">
+        <div class="upcoming" fxLayout="column">
+    
+            <span class="back" *ngIf="page !== 'upcoming'">
+                <app-title [type]="title" [message]="'UPCOMMING_ACTIVITIES.MY_COMPLETED_CLASSES'">
+                </app-title>
+            </span>
+    
+            <span class="back" *ngIf="page === 'upcoming'">
+                <app-title [type]="title" [message]="'UPCOMMING_ACTIVITIES.MY_UPCOMING_CLASSES'">
+                </app-title>
+            </span>
+            
+            <div class="no-classes">
+                <p *ngIf="page === 'upcoming' && arrClasses.length == 0 ">
+                    {{'UPCOMMING_ACTIVITIES.NO_UPCOMING_CLASSES' | translate}}
+                </p>
+                <p *ngIf="page !== 'upcoming' && arrClasses.length == 0 ">
+                    {{'UPCOMMING_ACTIVITIES.NO_COMPLETED_CLASSES' | translate}}
+                </p>
+            </div>
+    
+            <div class="img" *ngIf="arrClasses.length === 0">
+                <img id="logo" src="assets/images_doxa/undraw_calendar_dutt.png" alt="">
+            </div>
+    
+            <div class="class" *ngFor="let class of arrClasses">
+                <div class="inside">
+                    <div id="left">
+                        <img id="img" src="{{storageUrl}}{{class.uri}}" alt="">
+                        <div id="day">{{class.day | date : "EEE, dd/MM/yyyy"}}</div>
+                        <div id="time">{{class.start}} - {{class.end}}</div>
+                    </div>
+        
+                    <div id="right">
+                        <div id="title">{{class.title}}</div>
+                        <div id="address">{{class.address}}</div>
+                        <div id="advisor">{{class.advisor}}</div>
+                        <div class="button-view">
+                            <button [routerLink]="['/activity-overview/class-information']" [queryParams]="{ id: class.id, page: page}" mat-raised-button color="primary" class="view-button" aria-label="View">
+                                {{ 'UPCOMMING_ACTIVITIES.VIEW' | translate }}
+                            </button>
+                          </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>   
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

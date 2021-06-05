@@ -1,0 +1,237 @@
+@import "src/@fuse/scss/fuse";
+
+:host {
+
+    ::ng-deep .carousel-slide-content {
+        width: 100%;
+        height: 100%;
+        /* position: absolute; */
+        z-index: 1;
+        background: transparent;
+    }
+
+}
+#login
+{
+    width: 100%;
+    background: url('assets/images_doxa/background.jpg') no-repeat;
+    background-size: cover;
+    #login-form-wrapper{
+        flex: 1 0 auto;
+        padding: 32px;
+        @include media-breakpoint('xs') {
+            padding: 16px;
+        }
+        #login-form {
+            background-color: white;
+            opacity: 1;
+            width: 384px;
+            max-width: 384px;
+            padding: 24px;
+            text-align: center;
+            @include mat-elevation(16);
+
+            @include media-breakpoint('xs') {
+                padding: 24px;
+                width: 100%;
+            }
+            #FormTitle{
+                display: block;
+                position: relative;
+                padding: 0px;
+                min-height: 40px;
+                .back{
+                    position: absolute;
+                    top: -10px;
+                    left: -10px;
+                }
+                .formLogo {
+                width: 144px;
+                margin: 0px auto;
+                display: inline-block;
+                vertical-align: middle;
+                }
+                .fromLanguage{
+                    color: green;
+                    display: block;
+                    position: absolute;
+                    top: -5px;
+                    right:-10px;
+                }
+            }
+            
+            #imgLogin{
+                width: 244px;
+                background-color: white;
+                margin: 32px auto;
+                .carousel{
+                    .carousel-list{
+                        width: 100%;
+                        margin-top: 6px;
+                        padding: 0px;
+                        list-style: none;
+                        display: flex;
+                        position: relative;
+                        .carousel-slide{
+                            .carousel-slide{
+                                .carousel-slide-content{
+                                    position: initial;
+                                    width: 100%;
+                                    height: 108%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .title {
+                font-size: 24px;
+                margin: 16px 0px;
+                color: var(--primary-color);
+                letter-spacing: 0.19px;
+                font-weight: 600;
+                @include media-breakpoint('xs') {
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            }
+
+            form {
+                width: 100%;
+                text-align: left;
+                font-size: 18px;
+                @include media-breakpoint('xs') {
+                    font-size: 12px;
+                }
+                mat-label{
+                    padding: 0px !important;
+                    margin-bottom: -10px !important;
+                }
+                mat-form-field {
+                    width: 100%;
+                    border: none;
+                    margin-top: -15px !important;
+                    margin-bottom: -10px !important;
+                }
+                ::placeholder{
+                    color: var(--placeholder-color) !important; 
+                  }
+                input[type='password'],
+                input[type='email']
+                {
+                    width: 100%;
+                    height: 48px;
+                    outline: none;
+                    font-size: 21px;
+                    
+                    @include media-breakpoint('xs') {
+                        font-size: 14px;
+                    }
+                    -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+                    -moz-box-shadow:  0px 3px 16px #00000029 !important;
+                    box-shadow: 0px 3px 16px #00000029 !important;
+                    border-radius: 8px;
+                    color:var(--input-color);
+                    position: relative;
+                    padding-left: 8px;
+                }
+                .images{
+                    position: absolute;
+                    top: 24px;
+                    right: 6px;
+                }
+                
+                .forgot-password {
+                    text-align: center;
+                    margin-top: 0px;
+                    width: 100%;
+                    display :block;
+                    .forgot-password-text {
+                        // padding: 10px 0px;
+                        cursor: pointer;
+                        // margin-bottom: 12px;
+                        font-size: 16px;
+                        font-weight: 400;
+                        text-align: center;
+                        margin: 0px auto;
+                        margin-top: 10px;
+                        display:inline-block;
+                        @include media-breakpoint('xs') {
+                            font-size: 11px;
+                        }
+                        text-decoration: none;
+                        color: var(--link-color);
+                    }
+                }
+
+                .resend-mail {
+                    text-align: center;
+                    margin-top: 0px;
+                    width: 100%;
+                    display :block;
+                    .resend-mail-text {
+                        // width: 100%;
+                        // padding: 10px 0px;
+                        cursor: pointer;
+                        // margin-bottom: 12px;
+                        font-size: 16px;
+                        font-weight: 400;
+                        text-align: center;
+                        margin: 0px auto;
+                        @include media-breakpoint('xs') {
+                            font-size: 11px;
+                        }
+                        text-decoration: none;
+                        color: var(--link-color);
+                    }
+                }
+                
+
+                }
+                .submit-button {
+                    width: 100%;
+                    margin: 0px auto;
+                    margin-top: 40px;
+                    display: block;
+                    background-color: var(--primary-color);
+                    border-radius: 8px;
+                    color: white;
+                    height: 48px;
+                    @include media-breakpoint('xs') {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .register {
+                margin: 20px auto 5px auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .text {
+                    margin-right: 8px;
+                }
+                font-size: 18px;
+                @include media-breakpoint('xs') {
+                    font-size: 12px;
+                }
+                a {
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: var(--link-color);
+                }
+            }
+            
+
+        }
+        .FormFooter{
+            color: white;
+            // font-weight: 500;
+            font-size: 16px;
+            @include media-breakpoint('xs') {
+                font-size: 11px;
+            }
+            margin-bottom: 0px;
+        }
+    }

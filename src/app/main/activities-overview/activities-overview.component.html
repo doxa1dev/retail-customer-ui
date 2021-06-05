@@ -1,0 +1,46 @@
+<div style="width: 100%;">
+    <div class="container">
+        <div class="activities">
+            <!-- <div class="link">
+                <span class="dot">●</span>
+                <span class="text">{{ 'ACTIVITIES_OVERVIEW.ACTIVITY_OVERVIEW' | translate }}</span>
+            </div> -->
+            <app-title [type]="title" [message]="'ACTIVITIES_OVERVIEW.ACTIVITY_OVERVIEW'">
+            </app-title>
+        </div>
+        <div class="thermomix">
+            <div id="top">
+                <p>{{ 'ACTIVITIES_OVERVIEW.THERMOMIX_LIVE' | translate }}</p>
+            </div>
+    
+            <div id="bottom">
+                <div id="left">
+                    <p (click)="navigateToUpcoming()">{{upcoming}}{{ 'ACTIVITIES_OVERVIEW.UPCOMING' | translate }}</p>
+                </div>
+    
+                <div id="right">
+                    <p (click)="navigateToCompleted()">{{completed}}{{ 'ACTIVITIES_OVERVIEW.COMPLETED' | translate }}</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="img">
+            <img id="logo" src="assets/images_doxa/customer-overview.png" alt="">
+        </div>
+    
+        <div class="button">
+            <div class="inside">
+                <div class="button-view-all">
+                    <button (click)="navigateToClass()" mat-raised-button color="primary" class="view-all-button"
+                        aria-label="View">
+                        {{ 'ACTIVITIES_OVERVIEW.RESERVE_ACTIVITY' | translate }}
+                    </button>
+                    <!-- {{completed}} -->
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

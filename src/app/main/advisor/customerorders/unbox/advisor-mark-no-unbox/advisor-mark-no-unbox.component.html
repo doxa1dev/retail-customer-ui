@@ -1,0 +1,45 @@
+<div class="qr-code">
+    <div class="order-qr" fxLayout="column" fxLayoutAlign="">
+
+        <div class="qr-header">
+            <!-- <button mat-icon-button routerLink="/order-history" routerLinkActive="/order-history"
+                style="text-decoration: none;">
+                <mat-icon (click) = "back()">chevron_left</mat-icon>
+            </button>
+            <a (click) = "back()" class="back-button" routerLink="/order-history" routerLinkActive="/order-history">{{ 'ADVISOR_MARK.REASONS_NOT_TO_UNBOX' | translate }}</a> -->
+            <app-title [type]="title" [message]="'ADVISOR_MARK.REASONS_NOT_TO_UNBOX'">
+            </app-title>
+        </div>
+
+        <div>
+            <mat-card id="nounbox-text">
+                <p>{{ 'ADVISOR_MARK.REASONS_FOR_NOT_UNBOXING' | translate }}</p>
+                <form>
+                    <mat-radio-group aria-label="Select an option" [(ngModel)] = "reason"  [ngModelOptions]="{standalone: true}">
+                        <mat-radio-button *ngFor="let option of reasonList; let i = index" [value]="option.value" >
+                            <span class="wrap-mat-radio-label">{{option.label}}</span>
+                        </mat-radio-button>
+                        <mat-radio-button value="100">{{ 'ADVISOR_MARK.OTHER_REASONS' | translate }}</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- <mat-form-field appearance="none" *ngIf="reason == '100'" style="padding:0px"> -->
+                        <input matInput *ngIf="reason == '100'" [(ngModel)]="reasonInput" [ngModelOptions]="{standalone: true}" placeholder="Fill reasons" (keyup)="onKey($event)">
+                        <mat-error class="error-message" *ngIf="reason == '100' && isError">
+                            {{ 'ORDER.NO_UNBOX_ERROR_REQUIRE' | translate }}
+                        </mat-error>
+                    <!-- </mat-form-field> -->
+                    <!-- <mat-error class="error-message" *ngIf="isError">
+                        {{ 'ORDER.NO_UNBOX_ERROR_REQUIRE' | translate }}
+                    </mat-error> -->
+                    <button mat-raised-button class="submit-button" aria-label="LOG IN" (click)="backHistory()" >
+                        {{ 'ADVISOR_MARK.CONFIRM' | translate }}
+                    </button>
+                </form>
+            </mat-card>
+        </div>
+
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,26 @@
+<div class="customer-information">
+    <p class="title">{{ 'CUSTOMER_INFORMATION.CUSTOMER_INFORMATION' | translate }}</p>
+
+    <div class="body" fxLayout="column">
+
+        <div fxLayout="row" class="body-name">
+
+            <div class="name-info" fxFlex="35">
+                <p>{{ 'CUSTOMER_INFORMATION.NAME' | translate }}:</p>
+                <p>{{ 'CUSTOMER_INFORMATION.EMAIL' | translate }}:</p>
+                <p>{{ 'CUSTOMER_INFORMATION.PHONE_NUMBER' | translate }}:</p>
+            </div>
+
+            <div class="name-data" fxFlex="65">
+                <p class="name">{{customerInformation.customerName}}</p>
+                <p>{{customerInformation.customerEmail}}</p>
+                <p>{{customerInformation.customerPhoneNumber}}</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <img class="img-customer" src="{{customerImage}}">
+
+</div>
+   

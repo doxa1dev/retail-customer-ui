@@ -1,0 +1,72 @@
+<div class="advisor-become" fxLayout="column">
+    <div class="advisor-search">
+        <div class="advisor-wrapper" >
+            <div class="link">
+                <span class="dot">●</span>
+                <span class = "text">{{ 'BECOME_AN_ADVISOR.BECOME_AN_ADVISOR' | translate }}</span>
+            </div>
+            <div class="advisor-form-field">
+                <p>{{ 'BECOME_AN_ADVISOR.ENTER_YOUR_ADVISOR_ID' | translate }}</p>
+                <form class="example-form" [formGroup] = "form">
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <input formControlName ="advisorId" [(ngModel)] = "advisorId" 
+                        type="text" matInput placeholder="1234"
+                        (ngModelChange) = "changeId()">
+                        <mat-icon matSuffix>search</mat-icon>
+                        <mat-error class="error-message" *ngIf = "form.get('advisorId').hasError('required')">
+                            {{ 'BECOME_AN_ADVISOR.ADVISOR_ID_IS_REQUIRED' | translate }}
+                        </mat-error>
+                        <mat-error class="error-message" *ngIf = "form.get('advisorId').hasError('pattern')">
+                            {{ 'BECOME_AN_ADVISOR.ADVISOR_ID_IS_NUMBER' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                  </form>
+            </div>
+            <div class="advisor-search-button">
+                <!-- <button mat-raised-button color="primary" class="search-button"
+                        [ngClass] = "(checkSearch && !form.get('advisorId').invalid) ? '':'advisor-btn-disable'"
+                        aria-label="Search" (click) = "serach()" >
+                        Search
+                </button> -->
+                <app-button-loading  [buttonName] = 'buttonName' [disabledBtn] = "!(checkSearch && !form.get('advisorId').invalid)" [active] = "active"  (click) = "serach()"  [ngClass] = "(checkSearch && !form.get('advisorId').invalid) ? '':'btn-create-disabled'"></app-button-loading>
+            </div>
+        </div>
+    </div>
+    <div class="advisor-search detail-container" *ngIf="!notAdvisor && !isClear">
+        <div class="advisor-wrapper detail" >
+            <div class="advisor-detail-search">
+                <p>{{ 'BECOME_AN_ADVISOR.RECRUITER_INFORMATION' | translate }}</p>
+                <!-- <input (change) = "changeAdvisor()" class="advisor-check" type="radio" name="gender"> -->
+                <div class="advisor-name">
+                    <div class="advisor-name-header">
+                        <span>{{ 'BECOME_AN_ADVISOR.NAME' | translate }}:</span>
+                    </div>
+                    <div class="advisor-name-detail">
+                        <span>{{advisorName}}</span>
+                    </div>
+                </div>
+                <div class="advisor-name">
+                     <div class="advisor-name-header">
+                        <span>{{ 'BECOME_AN_ADVISOR.ID_NUMBER' | translate }}:</span>
+                    </div>
+                    <div class="advisor-name-detail">
+                        <span>{{advisorIdNumber}}</span>
+                    </div>
+                </div>
+                <div class="avisor-img">
+                    <img class="avisor-img-radius" src="{{advisorImg}}" alt="Avatar">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="advisor-button" *ngIf="!notAdvisor && !isClear">
+            <button  class="advisor-btn advisor-btn-cancel" (click) = cancel()>{{ 'BECOME_AN_ADVISOR.CANCEL' | translate }}</button>
+            <button  class="advisor-btn advisor-btn-submit"(click) = submit()>{{ 'BECOME_AN_ADVISOR.SUBMIT' | translate }}</button>
+    </div>
+    <div class="advisor-not" *ngIf="notAdvisor && !isClear">
+        {{ 'BECOME_AN_ADVISOR.NO_ADVISORS_FOUND' | translate }}
+    </div>
+    <div class="advisor-not" *ngIf = "isClear">
+        <img src="../../../assets/images_doxa/undraw_stand_out_1oag.png" alt="Avatar">
+    </div>
+</div>

@@ -1,0 +1,228 @@
+<div id="order-summary" fxLayout="column" *ngIf="!loading">
+
+    <div id="order-summary-wrapper" fxLayout="column">
+        <div id="link">
+            <app-title [type]="title" [message]="'ORDER_HISTORY.ORDER_DETAIL'">
+            </app-title>
+        </div>
+        <!-- <div id="pending-info">
+            <p><b>{{ 'ORDER_SUMMARY.PENDING_FOR_ORDER' | translate }}</b></p>
+        </div> -->
+        <div class="detail-payment">
+            <div class="one-product" *ngFor="let cart of carArr">
+                <!-- [productName]='cart.product_name' -->
+                <app-product 
+                    [productName]="(getTranslation(cartId, cart.id) | async) !== ('CART.' + cartId + '.CART_ITEM.' + cart.id + '.PRODUCT_TITLE') ? (getTranslation(cartId, cart.id) | async) : cart.product_name"
+                    [oldPrice]='cart.listed_price' [product]='cart' [discountPrice]='cart.internal_discount_price'
+                    [newPrice]='cart.promotional_price' [properties]='cart.properties'
+                    [advisor_name]='cart_advisor_name' [advisor_id]='cart_advisor_id' [quantity]='cart.quantity'
+                    [image]='cart.cover_photo_key' [isShow]='isShow' [currency_code]='cart.currency_code'
+                    [naep_discount_price]='cart.naep_discount_price' [redemption_price]='cart.redemption_price' [is_redemption_cart]='is_redemption_cart'>
+                </app-product>
+            </div>
+
+        </div>
+
+        <div class="delivery-address" *ngIf="cartShipping.shipping_method === 'BY_COURRIER'">
+            <app-delivery-address [first_name]='delivery_address_first_name' [last_name]='delivery_address_last_name'
+                [email]='delivery_address_email' [phone_dial_code]='delivery_address_phone_dial_code'
+                [phone]='delivery_address_phone' [address_line1]='delivery_address_line1'
+                [address_line2]='delivery_address_line2' [address_line3]='delivery_address_line3'
+                [postal_code]='delivery_address_postal_code' [state_code]='delivery_address_state_code'
+                [country_code]='delivery_address_country_code'>
+            </app-delivery-address>
+        </div>
+
+        <div class="customer-info">
+            <div class="info-detail">
+                <p><b>{{ 'ORDER_SUMMARY.CUSTOMER_INFO' | translate }}</b></p>
+                <p>{{info_customer_first_name}} {{info_customer_last_name}}</p>
+                <p id="cus">{{ 'ORDER_SUMMARY.EMAIL' | translate }}: {{info_customer_email}}</p>
+                <p id="cus">{{ 'ORDER_SUMMARY.PHONE' | translate }}: (+{{info_customer_phone_dial_code}})
+                    {{info_customer_phone_number}}</p>
+            </div>
+        </div>
+                
+        <div class="advisor-info" *ngIf="is_need_advisor">
+            <div class="advisor-detail" *ngIf="!isShow">
+                <div id="info-ad">
+                    <p><b>{{ 'ORDER_SUMMARY.ADVISOR' | translate }}</b></p>
+                    <p>{{cart_advisor_name}} (ID: {{cart_advisor_id}})</p>
+                </div>
+                <div id="img-advisor">
+                    <img src="{{profile_photo_key}}" alt="">
+                </div>
+            </div>
+
+            <div class="advisor-detail" *ngIf="isShow && isCheckNaep == false && !is_redemption_cart">
+                <div id="info-ad">
+                    <p><b>{{ 'ORDER_SUMMARY.ADVISOR' | translate }}</b></p> 
+                    <form class="advisor-info-form" [formGroup]="registerForm" (ngSubmit)="submitRemark()">
+                        <p>{{ 'ORDER_SUMMARY.ADVISOR_TEXT' | translate }} </p>
+                        <p>{{ 'ORDER_SUMMARY.ADVISOR_NAME' | translate }}: </p>
+                        <div *ngIf="!isSearchAvisor">
+                            <input
+                                class="no_advisor"
+                                style="height:36px;border: 0.5px solid #ccc; border-radius: 6px;line-height:2.15;width: 100%;"
+                                type="text" formControlName="advisor_name" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.advisor_name.errors }"
+                                placeholder="{{'ORDER_SUMMARY.ENTER' | translate }}" 
+                                [(ngModel)]="advisorName"/>
+                            <div *ngIf="submitted && f.advisor_name.errors" class="invalid-feedback">
+                                <div class="error-mess" *ngIf="submitted && f.advisor_name.errors.required && isDisplayError"> {{'ORDER_SUMMARY.NAME_REQUIRE'| translate }}
+                                    <!-- <p *ngIf="isDisplayError" class="error-mess" > {{'ORDER_SUMMARY.NAME_REQUIRE'| translate }} </p> -->
+                                </div>
+                            </div>
+                            <!-- <img class="img" src="{{advisorImg}}"> -->
+                        </div>
+                        <div *ngIf="isSearchAvisor" class="image-advisor">
+                            <input
+                                style="height:36px;border: 0.5px solid #ccc; border-radius: 6px;line-height:2.15;width: 100%; margin-right: 10px;"
+                                type="text" formControlName="advisor_name" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.advisor_name.errors }"
+                                placeholder="{{'ORDER_SUMMARY.ENTER' | translate }}" 
+                                [(ngModel)]="advisorName"/>
+                            <div *ngIf="submitted && f.advisor_name.errors" class="invalid-feedback">
+                                <div class="error-mess" *ngIf="submitted && f.advisor_name.errors.required && isDisplayError"> {{'ORDER_SUMMARY.NAME_REQUIRE'| translate }}
+                                    <!-- <p *ngIf="isDisplayError" class="error-mess" > {{'ORDER_SUMMARY.NAME_REQUIRE'| translate }} </p> -->
+                                </div>
+                            </div>
+                            <img class="img" src="{{advisorImg}}">
+                        </div>
+
+                        <p>{{ 'ORDER_SUMMARY.PHONE_NUM' | translate }}: </p>
+                        <input
+                            style="height:36px;border: 0.5px solid #ccc; border-radius: 6px;line-height:2.15;width: 100%;"
+                            type="text" formControlName="remark_phone" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted }"
+                            placeholder="{{'ORDER_SUMMARY.ENTER' | translate }}" 
+                            [(ngModel)]="phoneNumberFull"/>
+                        <!-- <div *ngIf="submitted && f.remark_phone.errors" class="invalid-feedback">
+                            <div class="error-mess" *ngIf="submitted && f.remark_phone.errors?.pattern"> {{'ORDER_SUMMARY.PHONE_REQUIRE'| translate }}
+                            </div>
+                        </div> -->
+                        <!-- <p *ngIf="isDisplayError" class="error-mess" > {{'ORDER_SUMMARY.PHONE_REQUIRE'| translate }} </p> -->
+                        <!-- <div class="error-mess" *ngIf="f.advisor_name.errors.required">Advisor name is required</div> -->
+                        <p>{{ 'ORDER_SUMMARY.ADVISOR_ID' | translate }}:</p>
+                        <input formControlName="advisor_id" type="text"
+                            style="height:36px;border: 0.5px solid #ccc; border-radius: 6px;line-height:2.15;width: 100%"
+                            class="form-control input-custom" placeholder="{{ 'ORDER_SUMMARY.ENTER' | translate }}"
+                            (ngModelChange)="searchAdvisorId($event)">
+                        <div *ngIf="submitted && f.advisor_id.errors" class="invalid-feedback">
+                             <div class="error-mess" *ngIf="f.advisor_id.errors.required"> {{'ORDER_SUMMARY.ID_REQUIRE'| translate }}
+                            </div>
+                            <div class="error-mess" *ngIf="f.advisor_id.errors?.pattern"> {{'ORDER_SUMMARY.ID_NUMBER'| translate }}
+                            </div>
+                           
+                        </div>
+
+                        <div class="example-button-row"  >
+
+                            <button  mat-button class="btn-color-custom"  *ngIf="!isShowBtnSubmit" >
+                                {{ 'ORDER_SUMMARY.SUBMIT' | translate }}</button> 
+                                    <div class="error-mess" > 
+                                        <p *ngIf="isDisplayConfirmtext" style="text-align: center; color:var(--primary-color)"> {{'ORDER_SUMMARY.CONFIRM_TEXT' | translate}} </p>
+                                        <p *ngIf="isSubmitSuccessfull" style="text-align: center; color:red"> {{'ORDER_SUMMARY.ERROR_TEXT' | translate}} </p>
+                                    </div>  
+                            <!-- <p style="margin: 0px 65px;color:red"> erroe message </p> -->
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="shipping-infos1">
+            <div class="shipping-detail1" *ngIf="cartShipping">
+                <p><b>{{ 'ORDER_SUMMARY.SHIPPING_INFO' | translate }}</b></p>
+                <div *ngIf="cartShipping.shipping_method === 'SELF_COLLECT'" id="self-collect">
+                    <div id="method">{{ 'ORDER_SUMMARY.DELIVERED_BY' | translate }}</div>
+                    <!-- <div id="footer">Collection Date:
+                        {{cartShipping.customer_selected_shipping_date | date :'dd/MM/yyyy'}}</div> -->
+                    <div id="footer" *ngIf="cartShipping.customer_notes">Note: {{cartShipping.customer_notes}}</div>
+                </div>
+                <div *ngIf="cartShipping.shipping_method === 'BY_COURRIER'" id="by-courier">
+                    <div id="method">To be delivered by courier</div>
+                    <!-- <div id="info">Pending selection of shipping agent.</div> -->
+                    <div id="footer" *ngIf="cartShipping.customer_notes">Note: {{cartShipping.customer_notes}}</div>
+                </div>
+                <!-- <p id="shipping-method">{{shipping_method}}</p>
+                <p *ngIf="isShowShipping" id="time">Note: {{note_shipping}}</p>
+                <p *ngIf="!isShowShipping" id="time">{{shipping_date | date:"dd/MM/yyyy"}}</p> -->
+            </div>
+        </div>
+
+        <div class="order-amount">
+            <div class="order-detail">
+                <p><b>{{ 'ORDER_SUMMARY.ORDER_AMOUNT' | translate }}</b></p>
+            </div>
+            <div class="full-payment-detail">
+                <div class="AAA">
+                    <p id="left">{{ 'ORDER_SUMMARY.SHIPPING' | translate }}:</p>
+                    <p id="right" *ngIf="!isCheckNaep">{{shipping | currency:' '}}</p>
+                    <p id="right" *ngIf="isCheckNaep">{{naepShipping | currency:' '}}</p>
+                </div>
+                <div class="BBB">
+                    <p id="left">{{ 'ORDER_SUMMARY.SUBTOTAL' | translate }}:</p>
+                    <p id="right" *ngIf="!isCheckNaep">{{subTotal | currency: currency+' '}}</p>
+                    <p id="right" *ngIf="isCheckNaep">{{naepSubTotal | currency: currency+' '}}</p>
+                </div>
+                <div class="CCC">
+                    <p id="left"><b>{{ 'ORDER_SUMMARY.TOTAL' | translate }}:</b></p>
+                    <p id="right" *ngIf="!isCheckNaep"><b>{{Total | currency:currency+' '}}</b></p>
+                    <p id="right" *ngIf="isCheckNaep"><b>{{naepTotal | currency:currency+' '}}</b></p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Footer -->
+    <div class="FormFooter">
+        <div class="inForm">
+            <div class="order">
+                <!-- <p class="order">Order amount:</p> -->
+                <div class="grid2" fxLayout="row">
+                    <div class="amount" fxLayout="column">
+                        <div class="table">
+                            <div class="col-left">
+                                <div>{{ 'ORDER_SUMMARY.SHIPPING' | translate }}:</div>
+                                <div>{{ 'ORDER_SUMMARY.SUBTOTAL' | translate }}:</div>
+
+                            </div>
+                            <div class="col-right">
+                                <div *ngIf="!isCheckNaep">{{shipping | currency:' '}}</div>
+                                <div *ngIf="isCheckNaep">{{naepShipping | currency:' '}}</div>
+
+                                <div *ngIf="!isCheckNaep">{{subTotal | currency:' '}}</div>
+                                <div *ngIf="isCheckNaep">{{naepSubTotal | currency:' '}}</div>
+                            </div>
+                        </div>
+                        <p class="total" *ngIf="!isCheckNaep">{{ 'ORDER_SUMMARY.TOTAL' | translate }}: <span
+                                style="padding-left: 10px;">{{Total | currency:currency+' '}}</span></p>
+
+                        <p class="total" *ngIf="isCheckNaep">{{ 'ORDER_SUMMARY.TOTAL' | translate }}: <span
+                            style="padding-left: 10px;">{{naepTotal | currency:currency+' '}}</span></p>
+                    </div>
+                    <div class="button-pay">
+                        <!-- <button (click)="createOrder()" mat-raised-button color="primary" class="PAY-button"
+                            aria-label="View">
+                            PAY
+                        </button> -->
+                        <!-- <app-button-loading [buttonName]="buttonName"
+                            [buttonText]="(getStaticTranslation('CART.PAY') | async)" disabledBtn="true"
+                            [active]="active" (click)="createOrder()">
+                        </app-button-loading> -->
+                        <app-button-loading [buttonName]="buttonName"
+                        [buttonText]="buttonName" disabledBtn="true"
+                        [active]="active" (click)="createOrder()">
+                    </app-button-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-placeholder-loading *ngIf="loading" component="orderSummary"></app-placeholder-loading>

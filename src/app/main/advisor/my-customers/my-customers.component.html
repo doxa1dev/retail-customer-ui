@@ -1,0 +1,38 @@
+<div style="width: 100%;">
+    <div class = "my-customers">
+        <div class = "header-my-customers">
+            <app-title [type]="title" [message]="'MY_CUSTOMERS.MY_CUSTOMERS'"></app-title>
+        </div>
+    
+        <div class="body-my-customers" *ngIf="!(totalSize === 0)">
+            <p>{{'MY_CUSTOMERS.LIST_OF_CUSTOMERS'| translate}}</p>
+    
+            <mat-card *ngFor="let customer of obs | async; index as i" (click)="onViewCustomer(customer.uuid)">
+                <div style="display: flex;">
+                    <p class="name-customer">{{paginator.pageSize * paginator.pageIndex + i + 1}}. {{customer.customerName}}</p>
+                    <p class="customer-detail"> {{'MY_CUSTOMERS.DETAIL'| translate}} </p>
+                </div>
+                    
+                <div class="content-my-customers"> 
+                    <div class="left">
+                        <p>{{'MY_CUSTOMERS.EMAIL'| translate}}</p>
+                        <p>{{'MY_CUSTOMERS.PHONE'| translate}}</p>
+                    </div>
+        
+                    <div class="right">
+                        <p>{{customer.email}}</p>
+                        <p>{{customer.phoneNumber}}</p>
+                    </div>
+                </div>
+            </mat-card>
+    
+            <mat-paginator #paginator  [showFirstLastButtons]="true" [length]="totalSize" [pageSizeOptions]="[5,10]"></mat-paginator>
+        </div>
+    
+        <div *ngIf="totalSize === 0" style="text-align: center;">
+            <p>No Customers.</p>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

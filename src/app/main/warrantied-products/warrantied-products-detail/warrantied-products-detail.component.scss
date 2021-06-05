@@ -1,0 +1,101 @@
+@import "src/@fuse/scss/fuse";
+// @import "../../../@fuse/scss/partials/background";
+
+.warrantied-detail {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: solid 20px var(--fuse-background) !important;
+  color: var(--text-color) !important;
+
+  @include media-breakpoint("xs") {
+    padding-bottom: 20px;
+
+    border-left: solid 15px var(--fuse-background) !important;
+    border-right: solid 15px var(--fuse-background) !important;
+    border-top: solid 8px var(--fuse-background) !important;
+    // border-bottom: solid 8px var(--fuse-background) !important;
+    border-bottom: solid 70px var(--fuse-background) !important;
+  }
+
+  .form-warrantied-detail {
+    padding-left: 5px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    @include media-breakpoint("xs") {
+      padding-right: 10px;
+    }
+    @include media-breakpoint("sm") {
+      padding-right: 42px;
+    }
+
+    .text-warrantied-detail {
+      margin-left: -8px;
+      font-size: var(--web-primary-text);
+      color: var(--text-color);
+      text-decoration: underline;
+      @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text);
+      }
+    }
+  }
+
+  .body {
+    margin: 0px 20px 0px 20px;
+    .line-body {
+      margin-top: 10px;
+      height: 0.5px;
+      background-color: rgb(157, 157, 157);
+    }
+  }
+
+  .warranty-history {
+    font-size: var(--web-primary-text);
+    @include media-breakpoint("xs") {
+      font-size: var(--mobi-primary-text);
+    }
+
+    .title-warranty-history {
+      margin: 10px 0px 10px 0px;
+      padding-left: 20px;
+      font-weight: 600;
+    }
+
+    .table-container {
+        
+      .table-warranty {
+        border: 0.5px solid var(--border-color);
+        margin: 10px 20px 0px 20px;
+
+        .table-header {
+            min-height: 32px !important;
+            background-color: var(--placeholder-color);
+        }
+
+        .table-row {
+            min-height: 32px !important;
+        }
+      }
+      
+      .noComment {
+        border-bottom: 0.5px solid var(--border-color);
+        border-left: 0.5px solid var(--border-color);
+        border-right: 0.5px solid var(--border-color);
+        font-weight: 600;
+        padding-top: 10px;
+        text-align: center;
+        margin: 0px 20px 0px 20px;
+        height: 50px;
+      }
+    }
+
+  }
+}
+
+app-bottom-navigation {
+  display: none;
+
+  @include media-breakpoint("xs") {
+      display: unset;
+  }
+}

@@ -1,0 +1,75 @@
+<div class="pay-at-office" *ngIf="!loading">
+    <div class="content">
+        <div class="header">
+            <app-title [type]="title" [message]="'PAYMENT.FULL_PAYMENT'">
+            </app-title>
+        </div>
+
+        <div class="info">
+            <p class="text-01">{{'PAY_AT_OFFICE.YOUR_ORDER_PEDING' | translate}}</p>
+            <p class="text-02">{{'PAY_AT_OFFICE.PLEASE_VISIT_OUR_OFFICE' | translate}}</p>
+            <p class="text-03">{{'PAY_AT_OFFICE.ORDER_REFERENCE' | translate}}<span>{{order_id_tmm}}</span></p>
+            <p class="text-04">{{'PAY_AT_OFFICE.OFFICE_ADDRESS' | translate}}</p>
+        </div>
+
+        <div class="info-map">
+            <div class="info-adress-sg" *ngIf="companyName === 'SG'">
+                <img src="../../../../assets/icons/ICON/Places.svg">
+                <span>{{companyAddr}}</span>
+            </div>
+
+            <div class="info-adress-my" *ngIf="companyName === 'MY'">
+                <img src="../../../../assets/icons/ICON/Places.svg">
+                <span>{{companyAddr}}</span>
+            </div>
+
+            <div class="link-map">
+                <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7521982469975!2d103.89061101409175!3d1.3245678620267416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da11a64252c17d%3A0x9ba3a1fb5e6281c2!2sOfficial%20Thermomix%20Singapore!5e0!3m2!1svi!2s!4v1585391086868!5m2!1svi!2s" 
+                width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+                </iframe> -->
+
+                <iframe *ngIf="companyName === 'SG'" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7977.504386391628!2d103.892781!3d1.324571!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9ba3a1fb5e6281c2!2sOfficial%20Thermomix%20Singapore!5e0!3m2!1sen!2s!4v1592822564660!5m2!1sen!2s" 
+                width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" >
+                </iframe>
+
+                <iframe *ngIf="companyName === 'MY'" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.7353708459677!2d101.5971355147574!3d3.1642687976960127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4f3b7b1ba7b7%3A0x6c0d26ed0bffc9b1!2sThermomix%C2%AE%20Malaysia%20HQ!5e0!3m2!1sms!2s!4v1597638757943!5m2!1sms!2s" 
+                width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+                </iframe>
+
+            </div>
+        </div>
+
+        <!-- <button [disabled]="disabled" (click)="createPayment()" class="btn-payment">I've made payment</button> -->
+        <!-- <app-button-loading 
+            [buttonText] = "'PAY_AT_OFFICE.COMPLETE_PAYMENT' | translate"
+            [buttonName] = 'buttonName'  
+            disabledBtn="true" 
+            [active] = "active" 
+            (click) = "createPayment()" >
+        </app-button-loading> -->
+    </div>
+    <div style="display: grid;"> 
+    <app-button-loading 
+    [buttonText] = "'PAY_AT_OFFICE.COMPLETE_PAYMENT' | translate"
+    [buttonName] = 'buttonName'  
+    disabledBtn="true" 
+    [active] = "active" 
+    (click) = "createPayment()" >
+    </app-button-loading>
+    <app-footer-payment 
+        [verified]='verified' 
+        [pending_verified]='pendingVerified' 
+        [remaining]='remaining' 
+        [shipping]='shipping' 
+        [toPay]='toPay' 
+        [subtotal]='subTotal' 
+        [total]='toTal' 
+        [currency]='currency'
+        [paymentContinue]="paymentOption=='DEP' ? true : false"
+        >
+    </app-footer-payment>
+    </div>
+    
+</div>
+
+<app-placeholder-loading *ngIf="loading" component="payAtOffice"></app-placeholder-loading>

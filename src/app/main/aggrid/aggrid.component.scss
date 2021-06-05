@@ -1,0 +1,22 @@
+.rowTitle
+{
+    margin: 20px;
+    width: 100%;
+    line-height: 1.2rem;
+    display: block;
+    // background-color: white;
+    p{
+        color: black;
+        display: inline-block;
+        font-weight: 600;
+    };
+    button
+    {
+        display: block;
+        float: right;
+        font-weight: 600;
+        background-color: #7DA863;
+        color: white;
+    }
+
+}

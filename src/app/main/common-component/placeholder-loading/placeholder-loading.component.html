@@ -1,0 +1,177 @@
+<div id="placeholder-container">
+	<div id="placeholder-background">
+    <!-- <div class="placeholder-item placeholder-item-top xaxis-left"></div>
+    <div class="placeholder-item placeholder-item-top xaxis-top"></div>
+    <div class="placeholder-item placeholder-item-top xaxis-right"></div>
+    <div class="placeholder-item placeholder-item-top first-gutter"></div>
+    <div class="placeholder-item placeholder-item-top second-gutter"></div>
+    <div class="placeholder-item placeholder-item-top third-gutter"></div>
+    <div class="placeholder-item placeholder-item-top forth-gutter"></div>
+    <div class="placeholder-item placeholder-item-top fifth-gutter"></div>
+    <div class="placeholder-item placeholder-item-top sixth-gutter"></div>
+
+    <div class="placeholder-item placeholder-item-bar first-bar-top"></div>
+    <div class="placeholder-item placeholder-item-bar second-bar-top"></div>
+    <div class="placeholder-item placeholder-item-bar third-bar-top"></div>
+    <div class="placeholder-item placeholder-item-bar forth-bar-top"></div>
+    <div class="placeholder-item placeholder-item-bar fifth-bar-top"></div>
+    <div class="placeholder-item placeholder-item-bar sixth-bar-top"></div>
+    <div class="placeholder-item placeholder-item-bar seventh-bar-top"></div> -->
+
+    <!-- <div class="placeholder-item placeholder-item-axis"></div>
+    <div class="placeholder-item placeholder-item-axis-top"></div> -->
+
+
+    <div class="ph-item" *ngIf="component==='orderDetail' || component==='customerOrderDetail'">
+
+        <div class="ph-col-12">
+          <div class="ph-picture"></div>
+          <div class="ph-row">
+            <div class="ph-col-4 big"></div>
+            <div class="ph-col-4 empty big"></div>
+            <div class="ph-col-2 empty big"></div>
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="ph-item" *ngIf="component==='shoppingBag'">
+
+        <div class="ph-col-12">
+          <div class="ph-row">
+            <div class="ph-col-4 big"></div>
+            <div class="ph-col-2 empty big"></div>
+            <div class="ph-col-6 empty big"></div>
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="ph-item" *ngIf="component==='paymentOption' || component==='paymentOptionsFull' ">
+
+        <div class="ph-col-12">
+          <div class="ph-row">
+            <div class="ph-col-2 big empty"></div>
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-2 big empty"></div>
+
+            <div class="ph-col-2 big empty"></div>
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-2 big empty"></div>
+
+            <div class="ph-col-2 big empty"></div>
+            <div class="ph-col-8 big"></div>
+            <div class="ph-col-2 big empty"></div>
+
+            <div class="ph-col-12 empty bigbox"></div>
+            <div class="ph-col-12 empty bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- checkout -->
+
+          <div class="ph-item" *ngIf="component==='checkOut'">
+
+        <div class="ph-col-12">
+          <div class="ph-header"></div>
+          <div class="ph-row">
+            <div class="ph-col-12 big"></div>
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+      
+      <!-- order-summary -->
+
+      <div class="ph-item" *ngIf="component==='orderSummary'">
+
+        <div class="ph-col-12">
+          <div class="ph-row">
+            <div class="ph-col-4 big"></div>
+            <div class="ph-col-4 big empty"></div>
+            <div class="ph-col-4 big empty"></div>
+
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+            <div class="ph-col-12 bigbox"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+        <!-- select payment -->
+
+        <div class="ph-item" *ngIf="component==='selectPayment'">
+
+          <div class="ph-col-12">
+            <div class="ph-row">
+        
+              <div class="ph-col-10 big"></div>
+              <div class="ph-col-2 big empty"></div>
+  
+              <div class="ph-col-10 big"></div>
+              <div class="ph-col-2 big empty"></div>
+  
+              <div class="ph-col-10 big"></div>
+              <div class="ph-col-2 big empty"></div>
+
+              <div class="ph-col-10 big"></div>
+              <div class="ph-col-2 big empty"></div>
+  
+  
+              <div class="ph-col-12 empty bigbox"></div>
+              <div class="ph-col-12 empty bigbox"></div>
+              <div class="ph-col-12 bigbox"></div>
+            
+            </div>
+          </div>
+  
+        </div>
+  
+
+           <!-- pay at office -->
+
+           <div class="ph-item" *ngIf="component==='payAtOffice'">
+
+            <div class="ph-col-12">
+              <div class="ph-row">
+          
+                <div class="ph-col-8 big"></div>
+                <div class="ph-col-4 big empty"></div>
+    
+                <div class="ph-col-4 "></div>
+                <div class="ph-col-8  empty"></div>
+
+                <div class="ph-col-4 "></div>
+                <div class="ph-col-8  empty"></div>
+    
+                <div class="ph-col-12 big"></div>
+    
+                <div class="ph-col-12 bigbox"></div>
+                <div class="ph-col-12 bigbox"></div>
+              
+              </div>
+            </div>
+    
+          </div>
+
+
+	</div>
+</div>

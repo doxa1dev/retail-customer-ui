@@ -1,0 +1,218 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../@fuse/scss/partials/background";
+
+:host {
+  ::ng-deep .ui-dropdown {
+    border: 0.5px solid var(--border-color);
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  ::ng-deep .ui-dropdown .ui-dropdown-label {
+    font-family: Arial, sans-serif !important; 
+    font-size: var(--mobi-primary-text);
+    margin-top: 6px;
+    color: var(--text-color) !important;
+    padding-left: 15px;
+    margin-left: 1px;
+  }
+
+  ::ng-deep .ui-dropdown .ui-dropdown-trigger {
+    margin-right: 5px;
+  }
+
+  ::ng-deep .ui-multiselect {
+    width: 100%;
+    height: 40px;
+    display: block;
+    border: 1px solid #707070;
+    border-radius: 6px;
+  }
+  ::ng-deep .ui-multiselect-label {
+    font-family: Arial, sans-serif !important; 
+    vertical-align: middle;
+    height: 36px;
+    width: 95%;
+    margin: 0 auto !important;
+    font-size: var(--mobi-primary-text);
+    margin: 0px;
+    line-height: 28px;
+    color: #788190 !important;
+  }
+  ::ng-deep .ui-multiselect-trigger {
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 1.5em;
+    height: 90%;
+    position: absolute;
+    right: 2%;
+    top: 5%;
+  }
+
+  p-calendar {
+    ::ng-deep .ui-calendar {
+      display: flex !important;
+      padding: 6px;
+      border-radius: 8px !important;
+      border: solid 1px #707070;
+      border-radius: 6px;
+      height: 40px;
+      width: 79%;
+      margin-left: 45px;
+      float: right;
+
+      input {
+        font-family: Arial, sans-serif !important; 
+        width: 100%;
+        font-size: var(--mobi-primary-text);
+        border: none !important;
+        border-right: none !important;
+        flex-grow: 1 !important;
+        transition: none;
+        box-shadow: none;
+        // border: 1px solid var(--border-color) !important;
+        border-radius: 6px !important;
+        &:enabled:focus:not(.ui-state-error) {
+          box-shadow: none;
+          border-color: var(--border-color);
+        }
+      }
+      button {
+        background-color: #fff;
+        border: none !important;
+        .ui-button-icon-left {
+          color: #269a3e;
+          height: 1.2rem;
+        }
+        .ui-button-text {
+          margin-right: 2.5px;
+          margin-bottom: 0.5px;
+          &:enabled:active,
+          &:enabled:hover {
+            color: #ffffff;
+          }
+        }
+        &:enabled:focus:not(.ui-state-error) {
+          box-shadow: none;
+          border-color: var(--border-color);
+        }
+      }
+      .ui-datepicker {
+        .ui-state-active {
+          background-color: #269a3e;
+          border: 0.5px solid var(--border-color);
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: solid 20px var(--fuse-background) !important;
+  color: var(--text-color) !important;
+
+  @include media-breakpoint("xs") {
+    padding-bottom: 20px;
+    border-left: solid 15px var(--fuse-background) !important;
+    border-right: solid 15px var(--fuse-background) !important;
+    border-top: solid 8px var(--fuse-background) !important;
+    // border-bottom: solid 8px var(--fuse-background) !important;
+    border-bottom: solid 70px var(--fuse-background) !important;
+  }
+
+  .header-store {
+    // padding-left: px;
+    padding-top: 10px;
+    padding-bottom: 22px;
+    padding-right: 86px;
+    width: 100%;
+    @include media-breakpoint("xs") {
+      padding-right: 10px;
+    }
+    @include media-breakpoint("sm") {
+      padding-right: 42px;
+    }
+  }
+
+  .body-report {
+    padding: 0px 40px 0px 40px;
+    font-size: var(--mobi-primary-text);
+
+    .report-type {
+      .title {
+        font-weight: 600;
+        text-decoration: underline;
+        margin-top: 0px;
+      }
+    }
+
+    .date-range {
+      .title {
+        font-weight: 600;
+        text-decoration: underline;
+      }
+
+      .from-day {
+        padding: 5px 0px 16px 16px;
+        display: flex;
+
+        .text-from {
+          width: 20px;
+        }
+      }
+
+      .to-day {
+        display: flex;
+        padding-left: 16px;
+
+        .text-to {
+          width: 20px;
+        }
+      }
+    }
+
+    .filter {
+      .title {
+        font-weight: 600;
+        text-decoration: underline;
+      }
+
+      .select-filter {
+        p {
+          margin-bottom: 3px;
+        }
+      }
+    }
+  }
+
+  .footer-btn {
+    margin: 20px 20px 0px 20px;
+
+    .btn-back {
+      cursor: pointer;
+      width: 42%;
+      height: 40px;
+      color: var(--primary-color);
+      font-size: var(--mobi-large-button-text);
+      border: 1px solid var(--primary-color);
+      background-color: #ffffff;
+      border-radius: 6px;
+      float: left;
+    }
+  }
+}
+
+app-bottom-navigation {
+  display: none;
+
+  @include media-breakpoint("xs") {
+      display: unset;
+  }
+}

@@ -1,0 +1,53 @@
+<div>
+    <h1 matDialogTitle class="title">{{ 'CONFIRM.SELECT_OPTIONS' | translate }}</h1>
+    <hr>
+
+    <div mat-dialog-content class="content-dialog">
+        <img src="{{storeUrl + product.productPhotoKey}}"> 
+
+        <div style="display: block; margin: auto; text-align: center;">
+            <p class="text-name" [innerHTML]="product.productName | titletranformPipe ">{{product.productName}}</p>
+            <!-- <p class="text-price">{{price | currency: currency + ' '}}</p> -->
+            <div *ngIf="checkiIsHaveInternalDiscount(product) === true" style="display: flex;">
+                <p class="price-product"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+                <p class="new-price-product"> {{ product.internal_discount_price | currency: product.currencyCode + ' ': 'symbol':''}}
+                </p>
+            </div>
+            <div *ngIf="checkiIsHaveInternalDiscount(product) === false && checkHasPromotionPrice(product.promotionalPrice) === true" style="display: flex;">
+                <p class="price-product"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+                <p class="new-price-product"> {{ product.promotionalPrice | currency: product.currencyCode + ' ': 'symbol':''}}</p>
+            </div>
+            <div
+                *ngIf="checkiIsHaveInternalDiscount(product) === false && checkHasPromotionPrice(product.promotionalPrice) === false">
+                <p class="pricelisted"> {{ product.listedPrice | currency: product.currencyCode + ' ':'symbol':''}}</p>
+            </div>
+
+            <div class="language" *ngFor="let p of product.propertiesv2, let i = index">
+                <div class="languageText">
+                    <p >{{p.name}}</p>
+                </div>
+        
+                <div id="selectLanguage">
+                    <p-dropdown appendTo="body" id="languages" [options]="p.value" placeholder="--  Select {{p.name}}  --" 
+                    [(ngModel)]="modelGroups[i]" [ngModelOptions]="{standalone: true}" (onChange)="changeProperties()">
+                        <ng-template let-item pTemplate="selectedItem" > 
+                            <span style="vertical-align:middle">{{item.label}}</span>
+                        </ng-template>
+                        <ng-template let-language pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                <div>{{language.label}}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p *ngIf="isCheck" style="color: var(--red-color);">Please select properties</p>
+
+    <div mat-dialog-actions class="pt-24-approved">
+        <button class="ok-button" mat-raised-button (click)="confirm()">{{ 'CONFIRM.OK' | translate }}</button>  
+        <button class="cancel-button-1" mat-button (click)="cancel()">{{ 'CONFIRM.CANCEL' | translate }}</button>
+    </div>
+</div>

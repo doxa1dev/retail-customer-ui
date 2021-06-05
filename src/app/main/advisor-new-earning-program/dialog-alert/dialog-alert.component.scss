@@ -1,0 +1,87 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+.title{
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: -10px;
+    color: #5A616F !important;
+    // margin-top: 10px;
+    margin-bottom: 30px;
+    // padding: 20px 0px;
+}
+
+hr{
+    margin-top: -20px;
+    background-color: #5A616F !important;
+}
+
+.message{
+    font-size: 16px;
+    font-weight: normal ;
+    color: #5A616F !important;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.pt-24-rejected{
+    padding-bottom: 30px;
+    width: 100%;
+
+    @media screen and (min-width : 750px){
+      width: 60% !important;
+      margin: 0 auto;
+    }
+
+    .cancel-button{
+        background-color: var(--red-color) !important;
+        color: white !important;
+        border: 1px solid var(--red-color);
+        height: 40px;
+        width: 45%;
+        display: block;
+        margin-left: auto;
+        font-size: 13px;
+        padding: 0;
+    }
+
+    .ok-button{
+        background-color: #fffff0 !important;
+        color: var(--primary-color) !important;
+        border: 1px solid var(--primary-color);
+        height: 40px;
+        width: 45%;
+        display: block;
+        margin-right: auto;
+        font-size: 13px;
+    }
+}
+
+.pt-24-approved {
+    padding-bottom: 30px;
+    width: 100%;
+
+    @media screen and (min-width : 750px){
+        width: 60% !important;
+        margin: 0 auto;
+    }
+
+    .ok-button{
+        background-color: var(--primary-color) !important;
+        color: white !important;
+        border: 1px solid var(--primary-color);       
+        height: 40px;
+        width: 45%;
+        display: block;
+        margin-left: auto;
+    }
+    .cancel-button-1{
+        background-color: #fffff0 !important;
+        color: var(--primary-color) !important;
+        border: 1px solid var(--primary-color);
+        height: 40px;
+        width: 45%;
+        display: block;
+        margin-right: auto;
+    }
+}

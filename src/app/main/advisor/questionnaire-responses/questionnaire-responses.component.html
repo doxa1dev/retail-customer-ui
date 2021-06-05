@@ -1,0 +1,47 @@
+<div style="width: 100%;">
+    <div class="content-question-report">
+        <div class="header-content-question-report">
+            <app-title [type]="title" [message]="'QUESTIONNAIRE_RESPONSES.QUESTIONNAIRE_RESPONSES_TITLE'"></app-title>
+        </div>
+    
+        <div class="body-question-report">
+            <p class="title-filter">{{'QUESTIONNAIRE_RESPONSES.GUEST_QUESTIONNAIRE'| translate}}</p>
+            <table>
+                <tr>
+                    <td >{{'QUESTIONNAIRE_RESPONSES.PRE_DEMO'| translate}}: </td>
+                    <td  ><a style="color: var(--link-color); cursor: pointer;" (click)="shareQuestionnaire('pre')"> {{'QUESTIONNAIRE_RESPONSES.SHARE_WHATSAPP'| translate}}</a></td>
+                    <td >| <a style="color: var(--link-color); cursor: pointer; "  (click)="copyLink('pre')">{{'QUESTIONNAIRE_RESPONSES.COPY_LINK'| translate}}</a></td>
+                </tr>
+                <tr>
+                    <td >{{'QUESTIONNAIRE_RESPONSES.POST_DEMO'| translate}}:</td>
+                    <td><a style="color: var(--link-color); cursor: pointer; " (click)="shareQuestionnaire('post')"> {{'QUESTIONNAIRE_RESPONSES.SHARE_WHATSAPP'| translate}}</a></td>
+                    <td>| <a style="color: var(--link-color); cursor: pointer;  "  (click)="copyLink('post')">{{'QUESTIONNAIRE_RESPONSES.COPY_LINK'| translate}}</a></td>
+                </tr>
+            </table>
+            
+            <p class="title-filter">{{'QUESTIONNAIRE_RESPONSES.FILTER'| translate}}</p>
+            <p>{{'QUESTIONNAIRE_RESPONSES.RESPONDENTS'| translate}}</p>
+    
+            <p-dropdown
+            [options]="listSelect" 
+            placeholder=" {{'QUESTIONNAIRE_RESPONSES.SELECT_FROM_LIST' | translate}} "
+            (onChange)="SelectedFromList($event)"
+            optionLabel="label"></p-dropdown>
+        </div>
+    
+        <mat-error class="error-message" style="padding: 0px 40px 0px 40px; display: block;" *ngIf="isShow">
+        {{ 'QUESTIONNAIRE_RESPONSES.FILTER_REQUIRED' | translate }}
+        </mat-error>
+    
+        <div class="footer-btn">
+            <button class="btn-back" (click)="back()">{{ 'REPORTS.CANCEL' | translate }}</button>
+            <app-button-loading 
+                (click)="exports()" 
+                [buttonName]="buttonName"
+                [active]='active'>
+            </app-button-loading>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

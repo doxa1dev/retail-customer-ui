@@ -1,0 +1,89 @@
+<div style="width: 100%;">
+    <div class="activity_infomation" fxLayout="column">
+        <div class="header">
+            <span class="back" *ngIf="class === 'completed'">
+                <app-title [type]="title" [message]="'UPCOMMING_ACTIVITIES.MY_COMPLETED_CLASSES'">
+                </app-title>
+            </span>
+    
+            <span class="back" *ngIf="class === 'upcoming'">
+                <app-title [type]="title" [message]="'UPCOMMING_ACTIVITIES.MY_UPCOMING_CLASSES'">
+                </app-title>
+            </span>
+    
+            <span class="back" *ngIf="class !== 'upcoming' && class !== 'completed'">
+                <app-title [type]="title" [message]="'UPCOMMING_ACTIVITIES.CLASS_INFORMATION'">
+                </app-title>
+            </span>
+        </div>
+    
+        <div class="activity-image">
+            <img *ngIf="activity" src="{{storageUrl}}{{activity.uri}}" alt="">
+            <div id="scan-share">
+                <div id="share" (click)="invite()" *ngIf="class !== 'completed'">
+                    <div class="image-sc">
+                        <img src="assets/icons/ICON/Exclusion.svg" alt="">
+                    </div>
+                    <p>{{ 'CLASS_INFORMATION.SHARE' | translate }}</p>
+                </div>        
+            
+            </div>
+        </div>
+    
+        <div id="activity-content" *ngIf="activity">
+           <div id="content-information">
+            <div id="content-information-text">
+                <p  id="title">{{activity.title}}</p>
+                <p>{{activity.activity_date | date : "EEE, dd/MM/yyyy"}}</p>
+                <p><span>{{activity.start_time}}</span>-<span>{{activity.end_time}}</span></p>
+                <p>{{activity.created_by}}</p>
+    
+            </div>
+            <div id="content-information-btn" *ngIf="!class">
+                <div class="btn" >
+                    <button id="btn-edit" (click)="navigateToDone(id)" mat-button>{{ 'CLASS_INFORMATION.RESERVE' | translate }}</button>
+                </div>
+            </div>
+           </div>
+           <mat-divider></mat-divider>
+    
+           <div id="location">
+               <div id="location-text">
+                <p *ngIf="class !== 'completed'">{{activity.address_unit}}</p>
+                <p *ngIf="class === 'completed'">{{ 'ACTIVITY_INFORMATION.HOST_ADDRESS' | translate }}</p>
+               </div>
+               <div *ngIf="class !== 'completed'" id="location-icon"  (click)="goMap(activity.address_city, activity.address_unit)">
+                    <img src="assets/icons/ICON/ic_local_library_24px.svg" alt="">
+               </div>
+           </div>
+        <mat-divider></mat-divider>
+    
+        <div id="description">
+            <div id="description-head">
+                <span class="bold-text">{{ 'CLASS_INFORMATION.DESCRIPTION' | translate }}</span>
+            </div>
+            
+            <div id="description-text">
+                <p>{{activity.description}}</p>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    
+    
+        <div id="notes">
+            <div id="notes_head">
+                <span class="bold-text">{{ 'CLASS_INFORMATION.NOTES' | translate }}</span>
+            </div>
+            
+            <div id="notes-text">
+                <p>{{activity.notes}}</p>
+            </div>
+        </div>
+        </div>
+        
+    
+    
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

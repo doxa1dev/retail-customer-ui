@@ -1,0 +1,82 @@
+<div style="width: 100%;">
+    <div class="buy-naep-improve-wapper">
+
+        <div class="buy-naep-improve-content">
+            <div class="list-naep">
+                <div class="buy-naep-improve-body">
+                    <p class="title-buy-naep-improve">{{'BUY_NAEP_DISCOUNT.TITLE' | translate}}</p>
+                    
+                    <div *ngIf="listNaepPackage.length != 0">
+                        <swiper [config]='swiperOptions'>
+                            <ng-container *ngFor="let package of listNaepPackage">
+                                <ng-template swiperSlide>
+                                    <div [ngClass]="package.uuid == naepPackageDetail.uuid ? 'slide-package-active' : 'slide-package'" 
+                                     (click)='onShowNaepPackage(package.uuid)'>
+                                        <img *ngIf="package.packageImage === null" class="img-naep" src='assets/images_doxa/package-none.jpg'>
+                                        <img *ngIf="package.packageImage != null" class="img-naep" [src]='storeUrl + package.packageImage'>
+                                        <p class="name-naep ">{{package.packageName}}</p>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </swiper>
+                        
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="package-naep-detail">
+                <div class="package-naep-detail-content">
+                    <div class="package-info">
+                        <div class="image-package">
+                            <img *ngIf="naepPackageDetail.packageImage === null" src="assets/images_doxa/package-none.jpg">
+                            <img *ngIf="naepPackageDetail.packageImage != null" src="{{storeUrl + naepPackageDetail.packageImage}}">
+                        </div>
+
+                        <div class="package-name">
+                            <p class="name">{{naepPackageDetail.packageName}}</p>
+                            <p class="price">{{ pricePackage | currency: naepPackageDetail.currencyFee + ' ':'symbol':''}}</p>
+                            <app-button-loading [buttonName]='buttonName' [active]='active' (click)='buyNaepPackage()'></app-button-loading>
+                        </div>
+                    </div>
+
+                    <!-- <p class="note-login">To purchase NAEP package, your email and phone number have to be verified first. Click <a>here</a> to conduct verification.</p> -->
+                    <p class="title-composition">COMPOSITION</p>
+
+                    <div class="composition" *ngFor="let deposit of naepPackageDetail.naepItem">
+                        <div class="image-composition">
+                            <img src="{{storeUrl + deposit.product.attachments[0].storage_key}}">
+                        </div>
+
+                        <div class="composition-name">
+                            <p class="name">{{deposit.product.product_name}}</p>
+                            
+                            <p>Price: {{ deposit.product.listed_price | currency: naepPackageDetail.currencyFee + ' ':'symbol':''}}</p>
+                            <p>Deposit: {{ deposit.product.naep_discount_price | currency: naepPackageDetail.currencyFee + ' ':'symbol':''}}</p>
+                        </div>
+                    </div>
+
+                    <div class="composition" *ngIf="naepPackageDetail.naepPackageKit != undefined">
+                        <div class="image-composition">
+                            <img src="{{storeUrl + naepPackageDetail.imgFee}}">
+                        </div>
+
+                        <div class="composition-name">
+                            <p class="name">{{naepPackageDetail.naepPackageKit.naepAdvisorKit.name}}</p>
+                            
+                            <p *ngIf="naepPackageDetail.promotionalPriceFee == null">Price: {{ naepPackageDetail.listedPriceFee | currency: naepPackageDetail.currencyFee + ' ':'symbol':''}}</p>
+                            <p *ngIf="!(naepPackageDetail.promotionalPriceFee == null)">Price: {{ naepPackageDetail.promotionalPriceFee | currency: naepPackageDetail.currencyFee + ' ':'symbol':''}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="des-package">
+                        <p>{{naepPackageDetail.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

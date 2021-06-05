@@ -1,0 +1,104 @@
+@import "../../../../../@fuse/scss/fuse";
+
+.mat-card {
+    padding: unset;
+}
+
+.order-list-product {
+    margin-top: 10px;
+    width: 100%;
+    display: grid;
+    box-shadow: none;
+    border: 0.2px solid var(--border-color);
+
+    .ad-pay-by-cus {
+        width: 100%;
+        background-color: var(--link-color);
+        border-radius: 2px;
+        margin-bottom: 5px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--web-primary-text) !important;
+
+        @include media-breakpoint("xs") {
+            font-size: var(--mobi-primary-text) !important;
+            height: 35px;
+        }
+
+        p {
+            color: #fff;
+        }
+    }
+
+    .ad-pay-by-ad {
+        width: 100%;
+        background-color: var(--link-color);
+        border-radius: 2px;
+        margin-bottom: 5px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--web-primary-text) !important;
+
+        @include media-breakpoint("xs") {
+            font-size: var(--mobi-primary-text) !important;
+            height: 35px;
+        }
+
+        p {
+            color: #fff;
+        }
+    }
+
+    .status-order {
+        color: var(--primary-color);
+        margin-left: 10px;
+        margin-top: 10px;
+        font-weight: 600;
+        font-size: var(--web-primary-text) !important;
+
+        @include media-breakpoint("xs") {
+            font-size: var(--mobi-primary-text) !important;
+        }
+    }
+
+    .order-product {
+        padding: 10px;
+        border-bottom: 0.5px solid var(--border-color);
+    }
+}
+.order-summary {
+    background: var(--form-background) 0% 0% no-repeat padding-box;
+    height: 45px;
+    font-size: 13px;
+    width: 100%;
+    font-size: var(--web-primary-text) !important;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+
+    @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text) !important;
+        padding: 0 5px;
+        height: 35px;
+    }
+
+    .order-id {
+        color: var(--text-color);
+        opacity: 1;
+    }
+    .order-total{
+        color: var(--text-color);
+
+        .summary{
+            color: var(--red-color);
+        }
+    }
+    
+}

@@ -1,0 +1,220 @@
+<div style="width: 100%; height: 100%;">
+    <div class="container" >
+        <div class="customer-header">
+            <app-title [type]="title" [message]="'NAEP.TITLE'"></app-title>
+            <div *ngIf="dataReturn">
+                <!-- *ngIf="dataReturn.status === 'COMPLETED'" -->
+                <div style="margin-bottom: 10px;" *ngIf="dataReturn.status != 'SUBMIT'">
+                    <div class="btn-buy">
+                        <button (click)='goToNaepForm()' style="width: 100%;height: 48px; background-color: var(--primary-color); border: none; border-radius: 6px; color: white; font-size: 14px;cursor: pointer;">{{buttonNameNAEP}}</button>
+                        <!-- <app-button-loading [buttonName]='buttonNameNAEP' disabledBtn="true" 
+                            [active]="active" (click)='goToNaepForm()'></app-button-loading> -->
+                    </div>
+                    <mat-card id="mat-card-sale">
+                        <div class="title">
+                            <div class="left">{{ 'NAEP.SALE' | translate}}</div>
+                            <div class="right-pending" *ngIf="dataReturn.sale_starus === sale_in_process">
+                                {{'NAEP.STATUS_PENDING' | translate}}</div>
+                            <div class="right-approved" *ngIf="dataReturn.sale_starus === sale_completed">
+                                {{'NAEP.STATUS_APPROVED' | translate}}</div>
+                            <div class="right-rejected" *ngIf="dataReturn.sale_starus === sale_failed">
+                                {{'NAEP.STATUS_REJECTED' | translate}}</div>
+                        </div>
+        
+                        <div class="list" *ngFor="let sale of dataReturn.Sales">
+                            <div class="list-content">
+                                <div class="list-content-left">
+                                    <div class="v2"></div>
+                                    <img *ngIf="sale.date !== null" src="assets/icons/ICON/Group_success.svg" alt="">
+                                    <img *ngIf="sale.date === null" src="assets/icons/ICON/Group_empty.svg" alt="">
+        
+                                    <div class="vl"></div>
+                                </div>
+                                <div class="list-content-right">
+                                    <p>{{sale.title}}</p>
+                                    <p *ngIf="sale.date !== null"  class="list-content-right-shadow">{{'NAEP.AT' | translate}}
+                                        {{sale.date | date : "dd/MM/yyyy"}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- show message -->
+                        <div *ngIf="dataReturn.is_old_naep == false" >
+                            <p *ngIf="dataReturn.Sales[1].date === null && dataReturn.sale_starus === 'IN PROCESS'" class="mess-naep">{{'NAEP.MESSAGE_BUY_NAEP' | translate}}</p>
+                        
+                            <div *ngIf="!dataReturn.is_deposit_packet">
+                                <p class="mess-naep" *ngIf="dataReturn.sale_starus === 'IN PROCESS' && !(dataReturn.Sales[1].date === null)">
+                                    {{'NAEP.MESSAGE_WITHOUT_DEPOSIT_IN_PROCESS_1' | translate}} {{dataReturn.product_sell_number}}
+                                    {{dataReturn.product_not_sell_number}} {{'NAEP.MESSAGE_WITHOUT_DEPOSIT_IN_PROCESS_2' | translate}}</p>
+        
+                                <div *ngIf="dataReturn.sale_starus === 'COMPLETED'">
+                                    <p class="mess-naep" *ngIf="!(dataReturn.product_not_sell_number <= 0)">
+                                        {{'NAEP.MESSAGE_WITHOUT_DEPOSIT_IN_PROCESS_1' | translate}} {{dataReturn.product_sell_number}}
+                                        {{'NAEP.MESSAGE_WITHOUT_DEPOSIT_COMPLETED_1' | translate}} {{dataReturn.priceRefund | currency: dataReturn.currency + ' '}}. {{'NAEP.CLICK_BELOW' | translate}}</p>
+                                        
+                                    <p class="mess-naep" *ngIf="dataReturn.product_not_sell_number <= 0">{{'NAEP.MESSAGE_WITHOUT_DEPOSIT_COMPLETED_2' | translate}}</p>
+                                 
+                                   
+                                    <p *ngIf="dataReturn.refund_status === 'PENDING' || dataReturn.is_refund || dataReturn.is_buy_discount">{{'NAEP.PURCHASE_STATUS' | translate}}: 
+                                        <span class="mess-naep">{{'NAEP.PURCHASE_TEXT' | translate}}</span></p>
+    
+                                    
+                                    <app-button-loading *ngIf="dataReturn.refund_status != 'PENDING' && !dataReturn.is_refund && !dataReturn.is_buy_discount" (click)="purchase()" [buttonName]="buttonPurchase" [active]='activePurchase'></app-button-loading>
+                                </div> 
+                            </div>
+        
+                            <div *ngIf="dataReturn.is_deposit_packet">
+                                <p class="mess-naep" *ngIf="dataReturn.sale_starus === 'IN PROCESS' && !(dataReturn.Sales[1].date === null)">
+                                    {{'NAEP.MESSAGE_WITH_DEPOSIT_IN_PROCESS_1' | translate}} {{dataReturn.product_sell_number}}
+                                    {{dataReturn.product_not_sell_number}} {{'NAEP.MESSAGE_WITH_DEPOSIT_IN_PROCESS_2' | translate}}</p>
+                            
+                                <div *ngIf="dataReturn.sale_starus === 'COMPLETED'">
+                                    <p class="mess-naep" *ngIf="dataReturn.priceRefund > 0">
+                                        {{'NAEP.MESSAGE_WITH_DEPOSIT_COMPLETED_1' | translate}} {{dataReturn.product_sell_number}} 
+                                        {{'NAEP.MESSAGE_WITH_DEPOSIT_COMPLETED_2' | translate}} {{dataReturn.priceRefund | currency: dataReturn.currency + ' '}} 
+                                        {{'NAEP.MESSAGE_WITH_DEPOSIT_COMPLETED_3' | translate}}
+                                    </p>
+        
+                                    <p class="mess-naep" *ngIf="dataReturn.priceRefund < 0">
+                                        {{'NAEP.MESSAGE_WITH_DEPOSIT_COMPLETED_1' | translate}} {{dataReturn.product_sell_number}} 
+                                        {{'NAEP.MESSAGE_WITH_DEPOSIT_REFUND_1' | translate}} {{dataReturn.priceRefund + (-dataReturn.priceRefund*2) | currency: dataReturn.currency + ' '}} 
+                                        {{'NAEP.MESSAGE_WITH_DEPOSIT_REFUND_2' | translate}}
+                                    </p>
+        
+                                    <div *ngIf="dataReturn.priceRefund > 0">
+                                        <p *ngIf="dataReturn.is_refund">{{'NAEP.PAYMENT_STATUS' | translate}} 
+                                            <span class="mess-naep">{{'NAEP.VERIFIED' | translate}}</span></p>
+        
+                                        <p *ngIf="!dataReturn.is_refund && dataReturn.refund_status != 'NO'">{{'NAEP.PAYMENT_STATUS' | translate}} 
+                                            <span class="mess-naep">{{'NAEP.PENDING_VERIFICATION' | translate}}</span></p>
+        
+                                        <app-button-loading *ngIf="!dataReturn.is_refund && dataReturn.refund_status === 'NO'"
+                                        (click)="makePayment()" [buttonName]="buttonMakePayment" [active]='activeMakePayment'></app-button-loading>
+                                    </div>
+        
+                                    <div *ngIf="dataReturn.priceRefund < 0">
+                                        <p *ngIf="!dataReturn.is_refund">{{'NAEP.REFUND_STATUS' | translate}} 
+                                            <span class="mess-naep">{{'NAEP.IN_PROGRESS' | translate}}</span></p>
+        
+                                        <p *ngIf="dataReturn.is_refund">{{'NAEP.REFUND_STATUS' | translate}} 
+                                            <span class="mess-naep">{{'NAEP.PAID' | translate}}</span></p>
+                                    </div>
+        
+                                    <p class="mess-naep" *ngIf="dataReturn.priceRefund > 0">
+                                        {{'NAEP.MESSAGE_WITH_DEPOSIT_COMPLETED' | translate}}<a style="color: var(--link-color);" (click)="viewTermsConditions()"
+                                        >{{'NAEP.TERM_CONDITIONS' | translate}}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <mat-divider> </mat-divider>
+                        <br>
+                        <table>
+                            <tr>
+                                <td class="start-end">{{'NAEP.START_NAEP' | translate}} :</td>
+                                <td >{{dataReturn.start_time | date : "dd/MM/yyyy"}}</td>
+                            </tr>
+    
+                            <ng-container *ngIf="!checkNaepType">
+                                <ng-container *ngFor="let naepType of dataNaepTypeSort">
+    
+                                    <tr style="margin-bottom: 0px;">
+                                        <td colspan="2">
+                                            <p style="font-weight: normal; margin-bottom: -5px;">
+                                                <span style="color: #DE3535; font-weight: 600;">{{naepType.daysLeft < 0 ? 0 : naepType.daysLeft}}</span> days left till</p>
+                                        </td>
+                                    </tr>
+    
+                                    <tr>
+                                        <td class="start-end">{{naepType.name}} :</td>
+                                        <td>{{naepType.dateNaep | date : "dd/MM/yyyy"}}</td>
+                                    </tr>
+                                </ng-container>
+                            </ng-container>
+    
+                            <tr>
+                                <td colspan="2">
+                                    <p style="font-weight: normal; margin-bottom: -5px;">
+                                        <span style="color: #DE3535; font-weight: 600;">{{daysLeftEndDay < 0 ? 0 : daysLeftEndDay}}</span>  days left till</p>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="start-end">{{'NAEP.END_NAEP' | translate}} :</td>
+                                <td>{{dataReturn.end_time | date : "dd/MM/yyyy"}}</td>
+                            </tr>
+                            <!-- *ngFor="let naepType of dataReturn.naepType; let i = index" -->
+                            <tr *ngIf="dataReturn.sale_starus === 'COMPLETED'">
+                                <td colspan="2">
+                                    <div  class="get-reward">
+                                        <div *ngIf="dataReturn.gift && dataReturn.gift.isCompleted && dataReturn.gift.checkGift && !dataReturn.gift.isGetGift && !dataReturn.gift.isGetGiftBuy">
+                                            <p class="mess-reward">{{'NAEP.MESSAGE_NAEP_TYPE_1' | translate}}{{dataReturn.gift.name}} {{'NAEP.MESSAGE_NAEP_TYPE_2' | translate}}</p>
+                                            
+                                            <button class="btn-reward" (click)="getGift(dataReturn.gift)">{{'NAEP.GET_REWARD' | translate}}</button>
+                                            <!-- <app-button-loading (click)="getGift(naepType)" [buttonName]="buttonGetReward" [active]='activeGetReward'></app-button-loading> -->
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </mat-card>
+                    
+                
+                </div >
+    
+                <div  *ngIf="dataReturn.status != 'SUBMIT'">
+                    <mat-card class="mat-card-recruit" >
+                        <div class="title">
+                            <div class="left">{{ 'NAEP.QUALIFIERS' | translate}}</div>
+                            <!-- <div class="right-pending" *ngIf="dataReturn.status === recruit_status_pending">{{'NAEP.STATUS_PENDING' | translate}}</div>
+                            <div class="right-approved" *ngIf="dataReturn.status === recruit_status_approved">{{'NAEP.STATUS_APPROVED' | translate}}</div>
+                            <div class="right-rejected" *ngIf="dataReturn.status === recruit_status_rejected">{{'NAEP.STATUS_REJECTED' | translate}}</div> -->
+                        </div>
+                        <div class="list-key-product" *ngIf="dataReturn.list_key_product">
+                            <div *ngFor="let item of dataReturn.list_key_product" class="each-key">
+                                <div (click)="gotoProductdetail(item[0].product_public_id)">
+                                    <img src="{{storageUrl + item[0].attachments_storage_key}}" alt="">
+                                    <p>{{item[0].product_product_name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                    
+                </div>
+    
+                <div>
+                    <mat-card class="mat-card-recruit" *ngIf="dataReturn.is_select_advisor">
+                        <div class="title">
+                            <div class="left">{{ 'NAEP.HEADER' | translate}}</div>
+                            <!-- <div class="right-pending" *ngIf="dataReturn.status === recruit_status_pending">{{'NAEP.STATUS_PENDING' | translate}}</div>
+                            <div class="right-approved" *ngIf="dataReturn.status === recruit_status_approved">{{'NAEP.STATUS_APPROVED' | translate}}</div>
+                            <div class="right-rejected" *ngIf="dataReturn.status === recruit_status_rejected">{{'NAEP.STATUS_REJECTED' | translate}}</div> -->
+                        </div>
+                        <div class="list">
+                            <div class="list-content">
+                                <div class="list-content-left">
+                                    <div class="v2"></div>
+                                    <img src="assets/icons/ICON/Group_success.svg" alt="">
+                                    <div class="vl"></div>
+                                </div>
+                                <div class="list-content-right">
+                                    <p>{{'NAEP.ADVISOR' | translate}}</p>
+                                    <p>{{dataReturn.advisor_info.name_id }}</p>
+                                    <p class="list-content-right-shadow">{{'NAEP.ON' | translate}} {{dataReturn.advisor_info.time | date : "dd/MM/yyyy"}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <!-- <div class="btn-buy" *ngIf="total==0">
+                        <app-button-loading [buttonName]='buttonName' disabledBtn="true" 
+                            [active]="active" (click)='goToApplyForm()'></app-button-loading>
+                    </div> -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

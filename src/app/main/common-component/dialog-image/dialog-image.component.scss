@@ -1,0 +1,46 @@
+@import "src/@fuse/scss/fuse";
+
+.dialog-container {
+    margin: -10px -5px -5px -5px;
+    color: var(--text-color);
+    font-size: var(--web-button-text);
+
+    @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text);
+    }
+
+    .btn-close {
+        cursor: pointer;
+        margin-left: auto;
+        display: block;
+        border: 0px;
+        background-color: white;
+        font-size: var(--web-primary-text);
+        padding: 0px;
+        padding-bottom: 10px;
+    }
+
+    .dialog-content {
+        border: 2px solid var(--border-color);
+        padding: 15px;
+
+        .title {
+            text-align: center;
+            font-size: var(--web-primary-text);
+            margin: 0px;
+            padding-top: 10px;
+
+            @include media-breakpoint("xs") {
+                font-size: var(--mobi-medium-button-tex);
+                padding-top: 0px;
+            }
+        }
+
+        img {
+            display: block;
+            margin: auto;
+            width: 70%;
+            object-fit: contain;
+        }
+    }
+}

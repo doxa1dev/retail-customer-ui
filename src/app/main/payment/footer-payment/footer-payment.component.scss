@@ -1,0 +1,399 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+
+.FormFooter {
+    color: var(--text-color);
+    font-weight: 600;
+    background-color: var(--yellow-background);
+    width: 100%;
+    height: auto;
+    margin-top: 0px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    position: sticky;
+    bottom: 0;
+    font-size: var(--mobi-primary-text);
+    padding-bottom: 10px;
+
+    .inForm {
+        width: 80%;
+        display: block;
+        margin: 0px auto;
+        padding: auto;
+
+        @media only screen and (min-width : 750px) {
+            font-size: 18px !important;
+            width: 35% !important;
+            margin-left: 200px;
+        }
+
+        .payment-info {
+            padding-top: 10px;
+            display: block;
+
+            p {
+                margin-bottom: 14px;
+                margin-top: 0px;
+                // font-size: 11pt;
+
+                // @media only screen and (max-width : 350px) {
+                //     font-size: 10pt !important;
+                // }
+
+                @media only screen and (min-width : 750px) {
+                    font-size: 18px !important;
+                }
+            }
+
+            .verified {
+                // background-color: red;
+                width: 100%;
+                display: block;
+                margin-top: -10px;
+             
+                
+                .table {
+                    width: 70%;
+                    display: flex;
+                    // float: right;
+                    // background-color: darkred;
+                    margin-left: auto;
+
+                    @media only screen and (min-width : 750px) {
+                        width: 100% !important;
+                    }
+
+                    .col-left{
+                        width: 50%;
+                        text-align: right;
+                        // background-color: red;
+                        margin-left: auto;
+                        b{float: right;}
+                    }
+                    .col-right{
+                        width: 50%;
+                        text-align: right;
+                        margin-left: auto;
+                        
+                        b{
+                            height: auto;
+                            word-wrap: break-word !important;
+                            word-break: keep-all !important;
+                            float: right;
+                        }
+                    }
+                }
+
+                // .remaining {
+                //     // background-color: blue;
+                //     // font-size: 12pt;
+                //     color: var(--red-color);
+                //     width: 100%;
+                //     margin-left: auto;
+                //     margin-top: -1px;
+                //     text-align: right;
+                //     #remaining-in{
+                //         margin-right: 20px !important;
+                //         font-size: var(--mobi-large-button-text) !important;
+                //     }
+                //     @media only screen and (max-width : 350px) {
+                //         width: 80% !important;
+                //     }
+
+                //     @media only screen and (min-width : 750px) {
+                //         font-size: 18px !important;
+                //         #remaining-in{
+                //             margin-right: 68px !important;
+                //             font-size: 18px !important;
+                //         }
+                //     }
+                // }
+            }
+
+          
+
+        }
+
+        hr {
+            margin-top: 5px;
+        }
+
+        .order-amount {
+            display: block;
+            // background-color: darkorange;
+            margin-top: -12px;
+
+            p {
+
+                @media only screen and (min-width : 750px) {
+                    font-size: 18px !important;
+                }
+            }
+
+            .grid2 {
+                height: 95px;
+                padding-top: 15px;
+                @include media-breakpoint("xs") {
+                    height: 80px;
+                }
+        
+
+
+                .amount1 {
+                    // background-color: red;
+                    width: 100%;
+                    display: block;
+                    margin-top: -10px;
+                
+                    @include media-breakpoint("md") {
+                           
+                        margin-top: -30px;
+                        position: relative;
+                        right: 150px;
+                        top: 25px;
+                    }
+
+                    @include media-breakpoint("xs") {
+                           
+                        margin-top: -30px;
+                        position: relative;
+                        right: 117px;
+                        top: 25px;
+                    }
+            
+                    @media only screen and (max-width : 350px) {
+                        
+                        margin-top: -30px;
+                        position: relative;
+                        right: 110px;
+                        top: 28px;
+                     }
+                  
+
+                    .table2 {
+                        width: 70%;
+                        display: flex;
+                        // float: right;
+                        // background-color: darkred;
+                        margin-left: auto;
+
+                        @media only screen and (min-width : 750px) {
+                            width: 100% !important;
+                        }
+                        .col-left{
+                            width: 50%;
+                            text-align: right;
+                            // background-color: red;
+                            margin-left: auto;
+                            b{float: right;}
+                        }
+                        .col-right{
+                            width: 50%;
+                            text-align: right;
+                            margin-left: auto;
+                            
+                            b{
+                                height: auto;
+                                word-wrap: break-word !important;
+                                word-break: keep-all !important;
+                                float: right;
+                            }
+                        }
+                    }
+
+                    .total {
+                        // background-color: blue;
+                        // font-size: 12pt;
+                        margin-bottom: 0px;
+                        padding-bottom: 10px;
+                        color: var(--red-color);
+                        width: 70%;
+                        margin-left: auto;
+                        margin-top: -1px;
+                        text-align: right;
+                        font-size: var(--mobi-large-button-text) !important;
+
+                        @media only screen and (max-width : 350px) {
+                            width: 80% !important;
+                            // font-size: 10pt !important;
+                        }
+
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                            #total-in{
+                                margin-right: 68px !important;
+                            }
+                        }
+                    }
+                }
+
+                .amount2 {
+                    // background-color: red;
+                    width: 100%;
+                    display: block;
+                    margin-top: -10px;
+                    //margin-left: 112px;
+                    @include media-breakpoint("md") {
+                      margin-left: 112px;
+                           
+                        margin-top: -30px;
+                        position: relative;
+                        right: 150px;
+                        top: 25px;
+                    }
+
+                    @include media-breakpoint("xs") {
+                    margin-left: 112px;
+                           
+                        margin-top: -30px;
+                        position: relative;
+                        right: 117px;
+                        top: 25px;
+                    }
+            
+                    @media only screen and (max-width : 350px) {
+                    margin-left: 112px;
+                        
+                        margin-top: -30px;
+                        position: relative;
+                        right: 110px;
+                        top: 28px;
+                     }
+                  
+
+                    .table2 {
+                        width: 70%;
+                        display: flex;
+                        // float: right;
+                        // background-color: darkred;
+                        margin-left: auto;
+
+                        @media only screen and (min-width : 750px) {
+                            width: 100% !important;
+                        }
+                        .col-left{
+                            width: 50%;
+                            text-align: right;
+                            // background-color: red;
+                            margin-left: auto;
+                            b{float: right;}
+                        }
+                        .col-right{
+                            width: 50%;
+                            text-align: right;
+                            margin-left: auto;
+                            
+                            b{
+                                height: auto;
+                                word-wrap: break-word !important;
+                                word-break: keep-all !important;
+                                float: right;
+                            }
+                        }
+                    }
+
+                    .total {
+                        // background-color: blue;
+                        // font-size: 12pt;
+                        margin-bottom: 0px;
+                        padding-bottom: 10px;
+                        color: var(--red-color);
+                        width: 70%;
+                        margin-left: auto;
+                        margin-top: -1px;
+                        text-align: right;
+                        font-size: var(--mobi-large-button-text) !important;
+
+                        @media only screen and (max-width : 350px) {
+                            width: 80% !important;
+                            // font-size: 10pt !important;
+                        }
+
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                            #total-in{
+                                margin-right: 68px !important;
+                            }
+                        }
+                    }
+                }
+
+                .button-share {
+                    margin-bottom: -12px;
+                    width: 75%;
+                    font-size: 12px;
+                    display: block;
+                    height: 0px;
+                    //max-width: 350px;
+                    .share-button {
+                        margin-left: auto;
+                        top: -65px;
+                        left: 170%;
+                        // position: absolute;
+                        transform: translate(-50%, -50%);
+                        display: block;
+                        background-color: var(--primary-color);
+                        color: white;
+                        height: 40px;
+                        width: auto;
+
+                        @include media-breakpoint("xs") {
+                            width: 90%;
+                            font-size: 12px;
+                            font-size: 9px !important;
+                            width: auto;
+                            margin-left: auto;
+                            top: -24px;
+                            left: 72%;
+                            height: 32px;
+
+                        }
+
+                        @media only screen and (max-width : 350px) {
+                            font-size: 9px !important;
+                            width: auto;
+                            // margin-left: auto;
+                            // top: 20%;
+                            left: 78%;
+                        }
+                    }
+
+                    .share-wahtapp-button {
+                        margin-left: auto;
+                        top: -55px;
+                        left: 164%;
+                        // position: absolute;
+                        transform: translate(-50%, -50%);
+                        display: block;
+                        background-color: var(--primary-color);
+                        color: white;
+                        height: 38px;
+                        width: auto;
+
+                        @include media-breakpoint("xs") {
+                            width: 90%;
+                            font-size: 12px;
+                            font-size: 9px !important;
+                            width: auto;
+                            margin-left: auto;
+                            top: -12px;
+                            left: 68%;
+                            height: 32px;
+
+                        }
+
+                        @media only screen and (max-width : 350px) {
+                            font-size: 9px !important;
+                            width: auto;
+                            // margin-left: auto;
+                            // top: 20%;
+                            left: 74%;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

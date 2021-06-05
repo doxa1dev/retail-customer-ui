@@ -1,0 +1,83 @@
+<div style="width: 100%; background-color: var(--fuse-background);">
+    <div class="container">
+        <div class="branch-manager-top" *ngIf="activity">
+                <app-title [type]="title" [message]="'ROOM_BOOKING_DETAIL.ROOM_BOOKING_DETAIL'">
+                </app-title>
+        </div>
+        <!-- <div *ngIf="activity" class="img-cover" style="display: block; width:60%;margin: auto">
+            <img src="{{storageUrl}}{{activity.uri}}" alt="">
+        </div> -->
+        <div class="branch-manager-bottom" *ngIf="activity">
+            <div class="contentBranch">
+                <p class="titleText">{{activity.title}} - {{ 'ROOM_BOOKING_DETAIL.TYPE' | translate }}: {{activity.type}}</p>
+                <table>
+                    <tr>
+                        <td>{{ 'ROOM_BOOKING_DETAIL.DATE' | translate }}: </td>
+                        <td class="righcolumn">{{activity.activity_date | date : 'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>{{ 'ROOM_BOOKING_DETAIL.ROOM' | translate }}:</td>
+                        <td class="righcolumn">{{activity.room_name}}</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            {{ 'ROOM_BOOKING_DETAIL.TIME_SLOT' | translate }}:
+                            <br>
+                            (0{{activity.offices.length}} {{ 'ROOM_BOOKING_DETAIL.SLOT' | translate }} )
+                        </td>
+                        <td class="righcolumn">
+                            <tr *ngFor="let item of activity.offices">
+                                <td>{{item.officeRoomSlot.slotDescription}}</td>
+                            </tr>
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>{{ 'ROOM_BOOKING_DETAIL.ADVISOR' | translate }}:</td>
+                        <td class="righcolumn">{{activity.created_by}}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>{{ 'ROOM_BOOKING_DETAIL.PRIVACY' | translate }}:</td>
+                        <td class="righcolumn">    {{activity.privacy === "BRANCH" ? ['ROOM_BOOKING_DETAIL.VISIBLE_BRANCH' | translate] : 
+                            activity.privacy === "TEAM" ? ['ROOM_BOOKING_DETAIL.VISIBLE_TEAM' | translate] : activity.privacy | titlecase }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'ROOM_BOOKING_DETAIL.CAPACITY' | translate }}:</td>
+                        <td class="righcolumn">{{activity.capacity}}</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td style="vertical-align: top;">{{ 'ROOM_BOOKING_DETAIL.DESCRIPTION' | translate }}:</td>
+                        <td class="righcolumn">{{activity.description}}</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">{{ 'ROOM_BOOKING_DETAIL.NOTE' | translate }}:</td>
+                        <td class="righcolumn">{{activity.notes}}</td>
+                    </tr>
+                   
+    
+                </table>
+                <br>
+                <mat-divider>
+                </mat-divider>
+                <br>
+                <a  id="check-room-text" (click)="goRoomStatus()">{{ 'ROOM_BOOKING_DETAIL.CHECK_ROOM_STATUS' | translate }}</a>
+                
+    
+                <div class="check-room">
+                    <p>{{ 'ROOM_BOOKING_DETAIL.COMMENT' | translate }}</p>
+                    <input  placeholder="{{ 'ROOM_BOOKING_DETAIL.COMMENT_PLACEHODER' | translate }}" placeholder="Comment" (keyup)="onKey($event)" [(ngModel)]="inputComment">
+                    <p class="error-input" *ngIf="showErrorMessage">{{ 'ROOM_BOOKING_DETAIL.ERROR' | translate }}</p>
+                </div>
+                <div class="btn-branch">
+                    <button  id="btn-reject"  button mat-raised-button  (click)="rejectActivity(activity.id)">{{ 'ROOM_BOOKING_DETAIL.REJECT' | translate }}</button>
+                    <button mat-raised-button id="btn-approve" (click)="approveActivity(activity.id)">{{ 'ROOM_BOOKING_DETAIL.APPROVE' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

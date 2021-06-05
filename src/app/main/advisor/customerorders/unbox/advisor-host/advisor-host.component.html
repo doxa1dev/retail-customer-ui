@@ -1,0 +1,32 @@
+<div class="qr-code">
+    <div class="order-qr" fxLayout="column" fxLayoutAlign="">
+
+        <div class="qr-header">
+            <!-- <button mat-icon-button  routerLinkActive="/order-history"
+                style="text-decoration: none;">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <a class="back-button" routerLinkActive="/order-history">{{ 'ADVISOR_HOST.HOST' | translate }}</a> -->
+            <app-title [type]="title" [message]="'ADVISOR_HOST.HOST'">
+            </app-title>
+        </div>
+
+        <div>
+            <mat-card id="qr-code">
+                <p>{{ 'ADVISOR_HOST.SCANNING_QR' | translate }}</p>
+                <div class="scan">
+                    <zxing-scanner [torch]="torchEnabled" [(device)]="currentDevice"
+                        (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled" [tryHarder]="tryHarder"
+                        (permissionResponse)="onHasPermission($event)" (camerasFound)="onCamerasFound($event)"
+                        (torchCompatible)="onTorchCompatible($event)">
+                    </zxing-scanner>
+                </div>
+            </mat-card>
+            <div class="advisor-add-image">
+                <button (change) = "onSelectFileUploadImage($event)"  (click)="fileDropRef.click()" > Upload Image
+                    <input #fileDropRef type="file" accept='image/*' style="display: none;"  />
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

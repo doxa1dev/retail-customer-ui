@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+
+        <title>Thermomix</title>
+        <base href="/">
+
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="keywords" content="HTML,CSS,AngularJS,Angular,Angular 2,Angular 4,Angular 5,Angular 6,Angular 7,Material,Material 2">
+        <meta name="author" content="Withinpixels">
+        <link rel="manifest" href="manifest.json">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="theme-color" content="white">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+        <link rel="icon" type="image/png" href="icons/favicon-32x32.png">
+        <link href="assets/icons/meteocons/style.css" rel="stylesheet">
+        <link href="assets/icons/material-icons/outline/style.css" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet"> -->
+
+        <!-- iOS meta Tags for PWA -->
+        <meta name="apple-mobile-web-app-title" content="Thermomix">
+        <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" sizes="180x180">
+        <!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
+        <!-- <meta name="apple-mobile-web-app-status-bar-style" content="white-translucent"> -->
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+        </script>
+
+        <!-- FUSE Splash Screen CSS -->
+        <style type="text/css">
+            /* loading-payment */
+            .loading-payment {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: white;
+                z-index: 99999;
+                /* pointer-events: none; */
+            }
+
+            .loading-payment .center {
+                display: block;
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .loading-payment .text-process {
+                text-align: center;
+            }
+
+            .loading-payment .text-process p {
+                font-size: 22px;
+                color: gray;
+                font-weight: 600;
+                margin-top: 0px;
+                margin-bottom: 6px;
+            }
+
+            @media only screen and (max-width: 600px) {
+                .loading-payment .text-process p {
+                    font-size: 16px;
+                }
+            }
+
+            .loading-payment .spinner-wrapper {
+                display: block;
+                position: relative;
+                width: 100%;
+                min-height: 100px;
+                height: 100px;
+            }
+
+            .loading-payment .spinner-wrapper .spinner {
+                position: absolute;
+                overflow: hidden;
+                left: 50%;
+                margin-left: -50px;
+                animation: outer-rotate 2.91667s linear infinite;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner {
+                width: 100px;
+                height: 100px;
+                position: relative;
+                animation: sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner .gap {
+                position: absolute;
+                left: 49px;
+                right: 49px;
+                top: 0;
+                bottom: 0;
+                border-top: 10px solid;
+                box-sizing: border-box;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner .left,
+            .loading-payment .spinner-wrapper .spinner .inner .right {
+                position: absolute;
+                top: 0;
+                height: 100px;
+                width: 50px;
+                overflow: hidden;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner .left .half-circle,
+            .loading-payment .spinner-wrapper .spinner .inner .right .half-circle {
+                position: absolute;
+                top: 0;
+                width: 100px;
+                height: 100px;
+                box-sizing: border-box;
+                border: 10px solid #4285F4;
+                border-bottom-color: transparent;
+                border-radius: 50%;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner .left {
+                left: 0;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner .left .half-circle {
+                left: 0;
+                border-right-color: transparent;
+                animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+                -webkit-animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner .right {
+                right: 0;
+            }
+
+            .loading-payment .spinner-wrapper .spinner .inner .right .half-circle {
+                right: 0;
+                border-left-color: transparent;
+                animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+                -webkit-animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+            } 
+
+            #fuse-splash-screen {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: white;
+                /* background-color: #2D323D; */
+                z-index: 99999;
+                pointer-events: none;
+            }
+
+            #fuse-splash-screen .center {
+                display: block;
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            #fuse-splash-screen .logo {
+                width: 256px;
+                margin: 0 auto;
+            }
+
+            #fuse-splash-screen .logo img {
+                filter: drop-shadow(0px 10px 6px rgba(0, 0, 0, 0.2))
+            }
+
+            #fuse-splash-screen .spinner-wrapper {
+                display: block;
+                position: relative;
+                width: 100%;
+                min-height: 100px;
+                height: 100px;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner {
+                position: absolute;
+                overflow: hidden;
+                left: 50%;
+                margin-left: -50px;
+                animation: outer-rotate 2.91667s linear infinite;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner {
+                width: 100px;
+                height: 100px;
+                position: relative;
+                animation: sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .gap {
+                position: absolute;
+                left: 49px;
+                right: 49px;
+                top: 0;
+                bottom: 0;
+                border-top: 10px solid;
+                box-sizing: border-box;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .left,
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .right {
+                position: absolute;
+                top: 0;
+                height: 100px;
+                width: 50px;
+                overflow: hidden;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .left .half-circle,
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
+                position: absolute;
+                top: 0;
+                width: 100px;
+                height: 100px;
+                box-sizing: border-box;
+                border: 10px solid #4285F4;
+                border-bottom-color: transparent;
+                border-radius: 50%;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .left {
+                left: 0;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .left .half-circle {
+                left: 0;
+                border-right-color: transparent;
+                animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+                -webkit-animation: left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .right {
+                right: 0;
+            }
+
+            #fuse-splash-screen .spinner-wrapper .spinner .inner .right .half-circle {
+                right: 0;
+                border-left-color: transparent;
+                animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+                -webkit-animation: right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+            }
+
+            @keyframes outer-rotate {
+                0% {
+                    transform: rotate(0deg) scale(0.5);
+                }
+                100% {
+                    transform: rotate(360deg) scale(0.5);
+                }
+            }
+
+            @keyframes left-wobble {
+                0%, 100% {
+                    transform: rotate(130deg);
+                }
+                50% {
+                    transform: rotate(-5deg);
+                }
+            }
+
+            @keyframes right-wobble {
+                0%, 100% {
+                    transform: rotate(-130deg);
+                }
+                50% {
+                    transform: rotate(5deg);
+                }
+            }
+
+            @keyframes sporadic-rotate {
+                12.5% {
+                    transform: rotate(135deg);
+                }
+                25% {
+                    transform: rotate(270deg);
+                }
+                37.5% {
+                    transform: rotate(405deg);
+                }
+                50% {
+                    transform: rotate(540deg);
+                }
+                62.5% {
+                    transform: rotate(675deg);
+                }
+                75% {
+                    transform: rotate(810deg);
+                }
+                87.5% {
+                    transform: rotate(945deg);
+                }
+                100% {
+                    transform: rotate(1080deg);
+                }
+            }
+        </style>
+        <!-- / FUSE Splash Screen CSS -->
+      <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+</head>
+
+    <body>
+
+        <!-- FUSE Splash Screen -->
+        <fuse-splash-screen id="fuse-splash-screen">
+
+            <div class="center">
+
+                <div class="logo">
+                    <img width="256px" src="assets/images_doxa/thermomix-logo.png">
+                </div>
+
+                <!-- Material Design Spinner -->
+                <div class="spinner-wrapper">
+                    <div class="spinner">
+                        <div class="inner">
+                            <div class="gap"></div>
+                            <div class="left">
+                                <div class="half-circle"></div>
+                            </div>
+                            <div class="right">
+                                <div class="half-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Material Design Spinner -->
+
+            </div>
+
+        </fuse-splash-screen>
+        <!-- / FUSE Splash Screen -->
+
+        <div class="loading-payment">
+        
+            <div class="center">
+                <!-- Material Design Spinner -->
+                <div class="spinner-wrapper">
+                    <div class="spinner">
+                        <div class="inner">
+                            <div class="gap"></div>
+                            <div class="left">
+                                <div class="half-circle"></div>
+                            </div>
+                            <div class="right">
+                                <div class="half-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Material Design Spinner -->   
+
+                <div class="text-process">
+                    <p>Please wait a while...</p>
+                    <p>We are directing to payment gateway</p>
+                </div>
+            </div>
+        </div>
+
+        <app></app>
+
+      <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+
+</html>

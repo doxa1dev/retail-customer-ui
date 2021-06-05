@@ -1,0 +1,33 @@
+<div class="FormFooter">
+    <div class="inForm">
+        <div class="order">
+            <!-- <p class="order">Order amount:</p> -->
+            <div class="grid2" fxLayout="row">
+                <div class="amount" fxLayout="column">
+                    <div class="table">
+                        <div class="col-left">
+                            <div>Shipping:</div>
+                            <div>Subtotal:</div>
+
+                        </div>
+                        <div class="col-right">
+                            <div>{{shipping}}.00</div>
+                            <div>{{subTotal | currency:'SGD '}}</div>
+                        </div>
+                    </div>
+                    <p class="total">Total: {{sumTotal | currency:'SGD '}}</p>
+                </div>
+                <div class="button-pay" *ngIf='!showbtnCheckOut' (click)='movedOnCheckOut()'>
+                    <button mat-raised-button color="primary" class="PAY-button" aria-label="View">
+                        {{showButton}}
+                    </button>
+                </div>
+                <div class="button-pay" *ngIf='!showbtnViewSummary' (click)='movedOnOrderSummary()'>
+                    <button mat-raised-button color="primary" class="PAY-button" aria-label="View">
+                        {{showButton}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

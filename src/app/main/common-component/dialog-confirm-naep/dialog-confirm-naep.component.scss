@@ -1,0 +1,70 @@
+@import "src/@fuse/scss/fuse";
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: -10px;
+    color: var(--text-color) !important;
+    margin-bottom: 20px;
+}
+
+hr {
+    margin-top: -20px;
+    background-color: #5A616F !important;
+}
+
+.message {
+    font-size: 16px;
+    font-weight: normal ;
+    color: #5A616F !important;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.message-none {
+    margin-bottom: 10px !important;
+
+    @include media-breakpoint("xs") {
+        margin-bottom: 0px !important;
+    }
+}
+
+.btn-gr {
+    width: 100%;
+    padding-bottom: 20px;
+
+    .btn-left {
+        border: 0px;
+        background-color: var(--link-color);
+        color: white;
+        width: 30%;
+        height: 40px;
+        margin-left: 10%;
+        margin-right: auto;
+
+        @include media-breakpoint("xs") {
+            width: 48%;
+            margin-left: 0px;
+            padding: 0px;
+            font-size: 12px;
+        }
+    }
+
+    .btn-right {
+        border: 0px;
+        background-color: var(--primary-color);
+        color: white;
+        width: 30%;
+        height: 40px;
+        margin-right: 10%;
+        margin-left: auto;
+
+        @include media-breakpoint("xs") {
+            width: 45%;
+            margin-right: 0px;
+            padding: 0px;
+            font-size: 12px;
+        }
+    }
+}
+

@@ -1,0 +1,201 @@
+<div style="width: 100%;">
+    <div class="naep-form-view" *ngIf="!loading">
+        <div class="header"> 
+            <app-title [type]="title" [message]="'NAEP.VIEW_NAEP_FORM'"></app-title>
+        </div> 
+        <div class="naep-form-view-body"> 
+            <div class="title">{{'NAEP.NAEP_INDUCTION_FORM' | translate}}</div> 
+            <div class="partner-info" >
+                <table style="width: 100%;"> 
+                    <tr>
+                        <td style="width: 50%;">{{'NAEP.NEW_PARTNER_NAME' | translate}}:</td>
+                        <td style="width: 50%;">{{ dataNaepForm.customerName}}</td>
+                    </tr>
+                    <tr>
+                        <td >{{'NAEP.CONTACT_NO' | translate}}:</td>
+                        <td >{{dataNaepForm.phoneNumerCustomer}}</td>
+                    </tr>
+                    <tr>
+                        <td >{{'NAEP.RECRUITED_BY' | translate}}:</td>
+                        <td >{{  dataNaepForm.recruiterName}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{{  dataNaepForm.recruiterId}}</td>
+                    </tr>
+                    <tr>
+                        <td >{{'NAEP.TEAM_MANAGER' | translate}}:</td>
+                        <td >{{ dataNaepForm.teamManagerName}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{{ isEmpty === true ? ' ' : dataNaepForm.teamManagerId}}</td>
+                    </tr>
+                </table>
+            </div>
+          
+            <div class="new-partner-infor-detail">
+                <p class="title-new-partner">{{'NAEP.NEW_PARTNER_INFOR_TITLE' | translate}} </p>
+                <div class="detail">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 50%; color: #269A3E;">1. {{'NAEP.FAMILY_MEMBER' | translate}}:</td>
+                            <td style="width: 50%;">{{ isEmpty === true ?
+                                 ' ' : dataNaepForm.questionnaireNaepApprove.answer_group1.q1a}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; color: #269A3E; padding-left: 15px;">  {{'NAEP.CHILDREN' | translate}}:</td>
+                            <td  style="width: 50%;">{{ isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group1.q1b}} </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; color: #269A3E; padding-left: 15px;">  {{'NAEP.AGES' | translate}}:</td>
+                            <td style="width: 50%;">{{ isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group1.q1c}}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; color: #269A3E;padding-left: 15px;">  {{'NAEP.SPOUSE_CAREER' | translate}}:</td>
+                            <td style="width: 50%;">{{ isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group1.q1d}}</td>
+                        </tr>
+                    </table>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.WORKING_EXPERIENCE' | translate}}</p>
+                        <p class="answer">{{ isEmpty === true ?
+                            ' ' : dataNaepForm.questionnaireNaepApprove.answer_group1.q2}}<p>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.CURRENLY_WORKING' | translate}}</p>
+    
+                        <div style="display: flex;">
+                            <span class="answer" >
+                                {{ isEmpty === true ? ' ' :
+                                     q3data[dataNaepForm.questionnaireNaepApprove.answer_group1.q3 - 1].text}}</span>
+                            <span style="margin-left: 15px;">{{
+                                isEmpty === true ? ' ' :
+                                dataNaepForm.questionnaireNaepApprove.answer_group1.q3 == 4 
+                                ? dataNaepForm.questionnaireNaepApprove.answer_group1.q3_text : " "}}</span>
+                        </div>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.JOIN_THERMOMIX' | translate}}</p>
+                        <p class="answer">{{ isEmpty === true ? ' ' :
+                            q4data[dataNaepForm.questionnaireNaepApprove.answer_group1.q4 - 1].text}}</p>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.HOW_MUCH_INCOME' | translate}}</p>
+    
+                        <div style ="display: flex;">
+                            <span class="answer"  >
+                                {{ isEmpty === true ? ' ' :
+                                    q4adata[dataNaepForm.questionnaireNaepApprove.answer_group1.q4a - 1].text}}</span>
+                            <span style="margin-left: 15px;">{{  isEmpty === true ? ' ' :
+                                 dataNaepForm.questionnaireNaepApprove.answer_group1.q4a == 6 
+                                ? dataNaepForm.questionnaireNaepApprove.answer_group1.q4a_text : " "}}</span>
+                        </div>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.HOW_MANY_DAY' | translate}}</p>
+                        <p class="answer">{{ isEmpty === true ? ' ' :
+                            q5data[dataNaepForm.questionnaireNaepApprove.answer_group1.q5 - 1].text}}</p>
+                    </div>
+    
+                </div>
+            </div>
+    
+    
+            <div class="new-partner-infor-detail">
+                <p class="title-new-partner">{{'NAEP.CHECK_LIST' | translate}} </p>
+                <div class="detail">
+                    <div class="question">
+                        <p class="content">{{'NAEP.CONTENTS_OF_ADVISOR_KIT' | translate}}</p>
+                        <!-- <p class="answer">None</p> -->
+                        <div class="textbox">
+                            <p> {{'NAEP.CHECKLIST_1B' | translate}}</p>
+                            <p> {{'NAEP.CHECKLIST_1A' | translate}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.TIME_PLANNING' | translate}}</p>
+                        <!-- <p class="answer">None</p> -->
+                        <div class="textbox">
+                            <p> {{'NAEP.CHECKLIST_2A' | translate}}</p>
+                            <p> {{'NAEP.CHECKLIST_2B' | translate}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.REVIEW_90_DAYS' | translate}}</p>
+                        <!-- <p class="answer">None</p> -->
+                        <div class="textbox">
+                            <p> {{'NAEP.CHECKLIST_3A' | translate}}</p>
+                            <p> {{'NAEP.CHECKLIST_3B' | translate}}</p>
+                            <p> {{'NAEP.CHECKLIST_3C' | translate}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.IMPORTANT_DATES' | translate}}</p>
+                        <!-- <p class="answer">None</p> -->
+                        <div class="date-time">
+                            <label for="date1">{{'NAEP.CHECKLIST_4A' | translate}}</label>
+                            <p class="date-time-text1">{{'NAEP.DATE' | translate}}: {{ isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group2.q4_date1}}</p>
+                            <p class="date-time-text">{{'NAEP.TIME' | translate}}: {{ isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group2.q4_time1}}</p>
+                        </div>
+    
+                        <div class="date-time">
+                            <label for="date1">{{'NAEP.CHECKLIST_4B' | translate}}</label>
+                            <p class="date-time-text1">{{'NAEP.DATE' | translate}}: {{isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group2.q4_date2}}</p>
+                            <p class="date-time-text">{{'NAEP.TIME' | translate}}: {{ isEmpty === true ?
+                                ' ': dataNaepForm.questionnaireNaepApprove.answer_group2.q4_time2}}</p>
+                        </div>
+    
+                        <div class="date-time">
+                            <label for="date1">{{'NAEP.CHECKLIST_4C' | translate}}</label>
+                            <p class="date-time-text1">{{'NAEP.DATE' | translate}}: {{ isEmpty === true ?
+                                ' ': dataNaepForm.questionnaireNaepApprove.answer_group2.q4_date3}}</p>
+                            <p class="date-time-text">{{'NAEP.TIME' | translate}}: {{ isEmpty === true ?
+                                ' ': dataNaepForm.questionnaireNaepApprove.answer_group2.q4_time3}}</p>
+                        </div>
+    
+                        <div class="date-time">
+                            <label for="date1">{{'NAEP.CHECKLIST_4D' | translate}}</label>
+                            <p class="date-time-text1">{{'NAEP.DATE' | translate}}: {{ isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group2.q4_date4}}</p>
+                            <p class="date-time-text">{{'NAEP.TIME' | translate}}: {{ isEmpty === true ?
+                                ' ' : dataNaepForm.questionnaireNaepApprove.answer_group2.q4_time4}}</p>
+                        </div>
+                    </div>
+    
+                    <div class="question">
+                        <p class="content">{{'NAEP.USE_ONLINE_REPORTING_SYSTEM' | translate}}</p>
+                        <!-- <p class="answer">None</p> -->
+                    </div>
+    
+                </div>
+            </div>
+    
+            <div class="new-partner-infor-detail">
+                <p class="title-new-partner">{{'NAEP.ACKNOWLEDGEMENT' | translate}} </p>
+                <div class="detail">
+                    <p class="acknowledment">{{'NAEP.ACKNOWLEDGEMENT_DETAIL' | translate}}</p>
+                    <p>{{'NAEP.DATE' | translate}}: {{ isEmpty === true ?
+                        ' ': dataNaepForm.questionnaireNaepApprove.answer_group3.q6_date | date: "dd/MM/yyyy"}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+    <app-placeholder-loading *ngIf="loading" component="checkOut"></app-placeholder-loading>
+</div>
+

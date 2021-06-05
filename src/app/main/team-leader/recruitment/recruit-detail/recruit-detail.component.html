@@ -1,0 +1,89 @@
+
+<div class="container" *ngIf="dataReturn">
+    <div class="customer-header" >
+        <app-title [type]="title" [message]="'TEAM_LEADER.TITLE_DETAIL'">
+        </app-title>
+        <div>
+            <mat-card>
+                <p class="title">{{'TEAM_LEADER.TITLE_DETAIL_HEADER'| translate}}</p>
+                <br>
+                <div>
+                    <table >
+                        <tr >
+                            <td class="col-left">{{ 'TEAM_LEADER.NAME' | translate }}: </td>
+                            <td class="col-right">{{dataReturn.name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.EMAIL' | translate }}:</td>
+                            <td class="col-right">{{dataReturn.email}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.PHONE' | translate }}:</td>
+                            <td class="col-right">{{dataReturn.phone_number}}</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div class="img-avatar">
+                        <img *ngIf="is_have_avatar === true" src="{{storage_url}}{{dataReturn.photo_key}}" alt="">
+                        <img *ngIf="is_have_avatar === false" src="assets/icons/ICON/UserMenu.svg" alt="">
+                    </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <table>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.ADVISOR_NAME' | translate }}: </td>
+                            <td class="col-right">{{dataReturn.advisor_name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.ADVISOR_ID' | translate }}:</td>
+                            <td class="col-right">{{dataReturn.advisor_id}}</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <table>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.BANK_CODE' | translate }}: </td>
+                            <td class="col-right">{{dataReturn.bank_code}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.BANK_ACCOUNT' | translate }}:</td>
+                            <td class="col-right">{{dataReturn.bank_account}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.BANK_HOLDER' | translate }}: </td>
+                            <td class="col-right">{{dataReturn.bank_holder}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-left">{{ 'TEAM_LEADER.BANK_HOLDER_IC' | translate }}:</td>
+                            <td class="col-right">{{dataReturn.bank_holder_ic}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div >
+                    <div class="rejected-recruit" *ngIf="dataReturn.status === status_reject">
+                        <p class="status">{{'TEAM_LEADER.REJECTED' | translate}}</p>
+                        <p>{{'TEAM_LEADER.COMMENT' | translate}}: {{dataReturn.comment}}</p>
+                    </div>
+                    
+                    <div class="approved-recruit" *ngIf="dataReturn.status === status_approve">
+                        <p class="status">{{'TEAM_LEADER.APPROVED' | translate}}</p>
+                    </div>
+                </div>
+            </mat-card>
+            <div class="option-area">
+               
+                <div class="btn-branch" *ngIf="dataReturn.status === status_pending">
+                    <p>{{'TEAM_LEADER.REASON' | translate}}</p>
+                    <input [(ngModel)]="inputComment">
+                    <p *ngIf="showError"> {{ 'TEAM_LEADER.REJECT_REASON_ERROR' | translate }}</p>
+                    <button mat-raised-button  id="btn-reject" (click)="rejectRecruit()">{{ 'TEAM_LEADER.BTN_REJECT' | translate }}</button>
+                    <button mat-raised-button id="btn-approve" (click)="approveRecruit()">{{ 'TEAM_LEADER.BTN_APPROVE' | translate }}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

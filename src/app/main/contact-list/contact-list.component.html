@@ -1,0 +1,70 @@
+<div style="width: 100%;">
+  <div class="container">
+    <div class="contact">
+      <app-title [type]="title" [message]="'MENU.CONTACT_LIST'">
+      </app-title>
+    </div>
+  
+    <form class="search-contacts">
+   
+      <input class="input-search"   #searchBox (keyup)= "searchContacts(searchBox.value)"  type="text"
+        placeholder="{{ 'CONTACT_LIST.SEARCH' | translate }}">
+      <img class="icon-search" src="../../../../assets/icons/material-icons/Search.png" />
+      
+    </form>
+    <div class="list-contacts">
+      <p class="list-text" style="margin-bottom: 20px;">{{ 'CONTACT_LIST.LIST_TEXT' | translate }}</p>
+      <mat-card style="width: 90%;" *ngFor="let contacts of obs | async ; index as i" (click)="onViewDetail(contacts.uuid)"> 
+        <div style="display: flex; margin-top: 20px;">  
+          <p class="name-customer" >{{paginator.pageSize * paginator.pageIndex + i + 1}}. {{contacts.first_name}} </p>
+          <p class="detail" > {{ 'CONTACT_LIST.VIEW_DETAIL' | translate }} </p>
+        </div>
+        <mat-card-content>
+          <table>
+            <tr>
+              <td style="vertical-align: top;">
+                {{ 'CONTACT_LIST.EMAIL' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" style="vertical-align: top; margin-left: 45px;"> {{contacts.email}}</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                {{ 'CONTACT_LIST.PHONE' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" style="vertical-align: top;">(+{{contacts.phone_dial_code}}) {{contacts.phone_number}}</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                {{ 'CONTACT_LIST.ROLE' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" style="vertical-align: top;">{{contacts.advisor_role}}</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;" >
+                {{ 'CONTACT_LIST.ADVISOR_ID' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" *ngIf="contacts.advisor_id_number != null" style="vertical-align: top;">{{contacts.advisor_id_number}}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+  
+      </mat-card>
+  
+        <div *ngIf="totalSize === 0" style="text-align: center;font-size: 12px;">
+          <p>No Contact</p>
+       </div>
+  
+      <mat-paginator showFirstLastuttons [pageSizeOptions]="[3,6,10,20]"></mat-paginator>
+    </div>
+  
+   
+  
+  
+  </div>
+
+  <app-bottom-navigation></app-bottom-navigation>
+</div>

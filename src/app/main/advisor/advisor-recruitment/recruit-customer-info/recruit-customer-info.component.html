@@ -1,0 +1,110 @@
+<div style="width: 100%;">
+    <div class="container" *ngIf="dataReturn">
+        <div class="customer-header">
+            <app-title [type]="title" [message]="'NAEP.PROGRESS'"></app-title>
+    
+            <div class="btn-buy">
+                <button (click)='goToNaepForm(uuid)' style="margin-top: -15px;margin-bottom: 10px;width: 100%;height: 48px; background-color: var(--primary-color); border: none; border-radius: 6px; color: white; font-size: 14px;cursor: pointer;">{{buttonNameNAEP}}</button>
+            </div>
+    
+            <div style="margin-bottom: 10px;" *ngIf="dataReturn.status != 'SUBMIT' && dataReturn.isSelected">
+                <mat-card id="mat-card-sale">
+                    <div class="title">
+                        <div class="left">{{ 'NAEP.SALE' | translate}}</div>
+                        <div class="right-pending" *ngIf="dataReturn.statusNaepSalesCustomerProcess === sale_in_process">
+                            {{'NAEP.STATUS_PENDING' | translate}}</div>
+                        <div class="right-approved" *ngIf="dataReturn.statusNaepSalesCustomerProcess === sale_completed">
+                            {{'NAEP.STATUS_APPROVED' | translate}}</div>
+                        <div class="right-rejected" *ngIf="dataReturn.statusNaepSalesCustomerProcess === sale_failed">
+                            {{'NAEP.STATUS_REJECTED' | translate}}</div>
+                    </div>
+    
+                    <div class="list" *ngFor="let sale of dataReturn.listProductSales">
+                        <div class="list-content">
+                            <div class="list-content-left">
+                                <div class="v2"></div>
+                                <img *ngIf="sale.updateAt !== null" src="assets/icons/ICON/Group_success.svg" alt="">
+                                <img *ngIf="sale.updateAt === null" src="assets/icons/ICON/Group_empty.svg" alt="">
+    
+                                <div class="vl"></div>
+                            </div>
+                            <div class="list-content-right">
+                                <p>{{sale.productName}}</p>
+                                <p *ngIf="sale.updateAt !== null"  class="list-content-right-shadow">{{'NAEP.AT' | translate}}
+                                    {{sale.updateAt | date : "dd/MM/yyyy"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <mat-divider> </mat-divider>
+                    <br>
+                    <table>
+                        <tr>
+                            <td class="start-end">{{'NAEP.START_NAEP' | translate}} :</td>
+                            <td >{{dataReturn.startTime | date : "dd/MM/yyyy"}}</td>
+                        </tr>
+    
+                        <ng-container *ngIf="!checkNaepType">
+                            <ng-container *ngFor="let naepType of dataNaepTypeSort">
+    
+                                <tr style="margin-bottom: 0px;">
+                                    <td colspan="2">
+                                        <p style="font-weight: normal; margin-bottom: -5px;">
+                                            <span style="color: #DE3535; font-weight: 600;">{{naepType.daysLeft < 0 ? 0 : naepType.daysLeft}}</span> days left till</p>
+                                    </td>
+                                </tr>
+    
+                                <tr>
+                                    <td class="start-end">{{naepType.name}} :</td>
+                                    <td>{{naepType.dateNaep | date : "dd/MM/yyyy"}}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+    
+                        <tr>
+                            <td colspan="2">
+                                <p style="font-weight: normal; margin-bottom: -5px;">
+                                    <span style="color: #DE3535; font-weight: 600;">{{daysLeftEndDay < 0 ? 0 : daysLeftEndDay}}</span>  days left till</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="start-end">{{'NAEP.END_NAEP' | translate}} :</td>
+                            <td>{{dataReturn.endTime | date : "dd/MM/yyyy"}}</td>
+                        </tr>
+                    </table>
+                </mat-card>
+            </div>
+            
+            <div>
+                <mat-card id="mat-card-recruit">
+                    <div class="title">
+                        <div class="left">{{ 'NAEP.HEADER' | translate}}</div>
+                    </div>
+                    <div class="list">
+                        <div class="list-content">
+                            <div class="list-content-left">
+                                <div class="v2"></div>
+                                <img src="assets/icons/ICON/Group_success.svg" alt="">
+                                <div class="vl"></div>
+                            </div>
+                            <div class="list-content-right" *ngIf="dataReturn.status === 'SUBMIT'">
+                                <p>{{'NAEP.YOU' | translate}}{{dataReturn.advisorName}} (ID:{{dataReturn.advisorId}})</p>
+                                <p class="list-content-right-shadow">{{'NAEP.ON' | translate}} {{dataReturn.dateApplyAdvisor | date : "dd/MM/yyyy"}}</p>
+                            </div>
+                            <div class="list-content-right" *ngIf="dataReturn.status != 'SUBMIT'">
+                                <p *ngIf="!dataReturn.isSelected">{{'NAEP.CUSTOMER_BECOME_ADVISOR' | translate}}</p>
+                                <p *ngIf="!dataReturn.isSelected">({{dataReturn.advisorName}} / ID: {{dataReturn.advisorId}})</p>
+    
+                                <p *ngIf="dataReturn.isSelected">{{'NAEP.YOU' | translate}} {{dataReturn.advisorName}} (ID:{{dataReturn.advisorId}})</p>
+                                <p class="list-content-right-shadow">{{'NAEP.ON' | translate}} {{dataReturn.dateApplyAdvisor | date : "dd/MM/yyyy"}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

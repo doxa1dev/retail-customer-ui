@@ -1,0 +1,77 @@
+<div style="width: 100%;" *ngIf="eventDetail">
+    <div class="container">
+      <div class="redeem-order">
+        <app-title 
+            [type]="title" [message]="'JUST_HOST_GIFT.YOUR_JUST_HOST'" 
+            [link]="'/advisor/just-host'">
+        </app-title>
+      </div>
+      <div class="title">
+        <p>{{ 'JUST_HOST_GIFT.JUST_HOST' | translate }}</p>
+      </div>
+
+      <div class="detail-infor">
+        <p>{{ 'JUST_HOST_GIFT.HOST_INFOR' | translate }}</p>
+        <table>
+            <tr>
+                <td style="vertical-align: top;">
+                  {{ 'JUST_HOST_GIFT.HOST_NAME' | translate }}:
+                  <br>
+                </td>
+                <td class="righcolumn" style="vertical-align: top; margin-left: 45px;"> {{eventDetail.host_name}}</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;">
+                {{ 'JUST_HOST_GIFT.CONTACT_NUMBER' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" style="vertical-align: top; margin-left: 45px;"> {{eventDetail.host_contact_number}}</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;">
+                {{ 'JUST_HOST_GIFT.DEMO_DATE' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" style="vertical-align: top; margin-left: 45px;"> {{eventDetail.demo_date}}</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;">
+                {{ 'JUST_HOST_GIFT.DEMO_LOCATION_DETAIL' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" style="vertical-align: top; margin-left: 45px;"> {{eventDetail.address}}</td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;">
+                {{ 'MY_PROFILE.POSTAL_CODE' | translate }}:
+                <br>
+              </td>
+              <td class="righcolumn" style="vertical-align: top; margin-left: 45px;"> {{eventDetail.postal_code}}</td>
+            </tr>
+            <tr>
+            <td style="vertical-align: top;" colspan="2">
+                {{ 'JUST_HOST_GIFT.GUEST' | translate }}
+                <br>
+              </td>
+            </tr>
+        </table>
+        <div *ngFor="let event of eventDetail.guest" class="guest" >
+            <input type="text" value="{{event.guest_name}}" readonly>
+            <input type="text" style="margin-left: 5%;" value="{{event.guest_contact_number}}" readonly >
+        </div>
+      </div>
+
+      <div class="image">
+        <img class="image-select"   [src]="imgUrl" *ngIf="imgUrl">
+      </div>
+
+      <div class="detail-infor">
+        <div style="font-weight: 600;">{{ 'JUST_HOST_GIFT.COMMENTS' | translate }}:</div>
+        <div>{{eventDetail.comment}}</div>
+      </div>
+
+      <div class="btn">
+        <button mat-button class="btn-back" (click)="goBack()">{{ 'DIALOG_LOGIN.GO_BACK' | translate }}</button>
+      </div>
+    </div>
+  </div>

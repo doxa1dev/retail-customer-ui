@@ -1,0 +1,127 @@
+<div style="width: 100%;">
+    <div class="activity_infomation" fxLayout="column">
+        <div class="header" >
+            <app-title [type]="title" *ngIf="page === 'pending'"  [link]="'/advisor/activities/upcoming-activities'" [param]="{page : 'pending'}" [message]="'ACTIVITY_INFORMATION.ACTIVITY_INFORMATION'">
+            </app-title>
+            <app-title [type]="title" *ngIf="page === 'upcoming'"  [link]="'/advisor/activities/upcoming-activities'" [param]="{page : 'upcoming'}" [message]="'ACTIVITY_INFORMATION.ACTIVITY_INFORMATION'">
+            </app-title>
+    
+            <app-title [type]="title" *ngIf="page === 'completed' || page ==='rejected'"  [link]="'/advisor/activities/upcoming-activities'" [param]="{page : 'completed'}" [message]="'ACTIVITY_INFORMATION.ACTIVITY_INFORMATION'">
+            </app-title>
+        </div>
+        
+        <div class="activity-image" *ngIf="activity">
+            <img  src="{{storageUrl}}{{activity.uri}}" alt="">
+            <div id="scan-share" *ngIf="page !=='completed'&& page !=='pending' && page !=='rejected'">
+                <div id="share" (click)="invite()">
+                    <div class="image-sc">
+                        <img src="assets/icons/ICON/Exclusion.svg" alt="">
+                    </div>
+                    <p>{{ 'ACTIVITY_INFORMATION.SHARE' | translate }}</p>
+                </div>
+                <div id="scan"  [routerLink]="['/advisor/activities/scan-attendee']" [queryParams]="{id : activity.id}" routerLinkActive="router-link-active" >
+                    <div class="image-sc">
+                        <img src="assets/icons/ICON/ic_center_focus_weak_24px.svg" alt="">
+                    </div>
+                    <p>{{ 'ACTIVITY_INFORMATION.SCAN' | translate }}</p>
+                </div>
+                
+            
+            </div>
+        </div>
+    
+        <div id="activity-content" *ngIf="activity">
+           <div id="content-information">
+            <div id="content-information-text">
+                <p  id="title">{{activity.title}}</p>
+    
+                <div class="content-information">
+                    <!-- <div class="left">
+                        <p>{{ 'ACTIVITY_INFORMATION.DATE' | translate }}</p>
+                        <p>{{ 'ACTIVITY_INFORMATION.TIME' | translate }}</p>
+                        <p>{{ 'ACTIVITY_INFORMATION.CREATED' | translate }}</p>
+                        <p>{{ 'ACTIVITY_INFORMATION.TYPE' | translate }}</p>
+                        <p>{{ 'ACTIVITY_INFORMATION.CAPACITY' | translate }}</p>
+                    </div> -->
+    
+                    <div class="right">
+                        <p>{{activity.activity_date | date : "EEE, dd/MM/yyyy"}}</p>
+                        <p><span>{{activity.start_time}} </span>-<span> {{activity.end_time}}</span></p>
+                        <p>{{activity.created_by}}</p>
+                        <p>{{ 'ACTIVITY_INFORMATION.TYPE' | translate }}{{activity.type}}</p>
+                        <!-- <p style="text-transform:capitalize">{{ 'ACTIVITY_INFORMATION.PRIVACY' | translate }} {{activity.privacy.toLocaleLowerCase()}} </p> -->
+                        <p  >{{ 'ACTIVITY_INFORMATION.PRIVACY' | translate }} <span  class="capitalize"> {{activity.privacy === "BRANCH" ? ['ACTIVITY_INFORMATION.VISIBLE_BRANCH' | translate] : 
+                            activity.privacy === "TEAM" ? ['ACTIVITY_INFORMATION.VISIBLE_TEAM' | translate] : activity.privacy | titlecase }} </span></p>
+                      
+                        <p>{{ 'ACTIVITY_INFORMATION.CAPACITY' | translate }}{{activity.capacity}}</p>
+                    </div>
+                </div>
+               
+            </div>
+            <div id="content-information-btn" *ngIf="page ==='completed'">
+                <div class="btn" >
+                    <button id="btn-edit" mat-button (click)= "remakeActivity()">{{ 'ACTIVITY_INFORMATION.REMAKE' | translate }}</button>
+                </div>
+            </div>
+            <div id="content-information-btn" *ngIf="page !=='completed' && page !=='rejected'">
+                <div class="btn" >
+                    <button id="btn-edit" mat-button (click)= "editActivity()">{{ 'ACTIVITY_INFORMATION.EDIT' | translate }}</button>
+                    <button id="btn-cancel" mat-button (click)="cancleInfo()">{{ 'ACTIVITY_INFORMATION.CANCEL' | translate }}</button>
+                </div>
+            </div>
+           </div>
+           <mat-divider></mat-divider>
+    
+           <div id="location">
+               <div id="location-text">
+                <p>{{activity.address_unit}}</p>
+               </div>
+               <div id="location-icon" (click)="goMap(activity.address_city, activity.address_unit)">
+                    <img src="assets/icons/ICON/ic_local_library_24px.svg" alt="">
+               </div >
+           </div>
+        <mat-divider></mat-divider>
+    
+    
+        <div id="attendee">
+            <div id="attendee-head">
+                <span class="bold-text">{{ 'ACTIVITY_INFORMATION.ATTENDEES' | translate }}({{activity.attendees.length}}/{{activity.capacity}})</span>
+                <a class="edit-link" *ngIf="page !=='completed' && page !=='pending' && page !=='rejected'" [routerLink]="['/advisor/activities/activity-attendee']" [queryParams]="{ id: activity.id, capacity:activity.capacity,page: page }">{{ 'ACTIVITY_INFORMATION.INVITE/REMOVE' | translate }}</a>
+                <a class="edit-link" *ngIf="page ==='completed'" [routerLink]="['/advisor/activities/activity-attendee']"
+                    [queryParams]="{ id: activity.id, capacity:activity.capacity,page: page }">{{ 'ACTIVITY_INFORMATION.VIEW' | translate }}</a>
+            </div>
+            
+            <div id="list-attendees" *ngFor="let attendee of activity.attendees">
+                <p>{{attendee.STT}}. {{attendee.name}}</p>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    
+        <div id="description">
+            <div id="description-head">
+                <span class="bold-text">{{ 'ACTIVITY_INFORMATION.DESCRIPTION' | translate }}</span>
+                <!-- <a class="edit-link"  *ngIf="page !=='completed'">Edit</a> -->
+            </div>
+            
+            <div id="description-text">
+                <p>{{activity.description}}</p>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    
+    
+        <div id="notes">
+            <div id="notes_head">
+                <span class="bold-text">{{ 'ACTIVITY_INFORMATION.NOTES' | translate }}</span>
+                <!-- <a class="edit-link"  *ngIf="page !=='completed'">Edit</a> -->
+            </div>
+            
+            <div id="notes-text">
+                <p>{{activity.notes}}</p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

@@ -1,0 +1,66 @@
+<div class="FormFooter" style="height: auto;">
+    <div class="inForm" *ngIf="currency != undefined">
+        <div class="payment-info" *ngIf="paymentContinue">
+              
+            <p>{{'PAYMENT.PAYMENT_INFORMATION' | translate}}:</p>
+            <div class="grid1" fxLayout="row">
+                <div class="verified" fxLayout="column">
+                    <div class="table">
+                        <div class="col-left">
+                            <div>{{'PAYMENT.TO_PAY' | translate}}:</div>
+                            <div>{{'PAYMENT.PENDING_VERIFIED' | translate}}:</div>
+                            <div>{{'PAYMENT.VERIFIED' | translate}}:</div>
+                            <div style=" color: var(--red-color);">{{'PAYMENT.REMAINING' | translate}}:</div>
+                        </div>
+                        <div class="col-right">
+                            <div>{{toPay | currency:' '}}</div>
+                            <div>{{pending_verified | currency:' '}}</div>
+                            <div>{{verified | currency:' '}}</div>
+                            <div style=" color: var(--red-color);">{{remaining | currency:currency+' '}}</div>
+                        </div>
+                    </div>
+               
+                </div>
+              
+            </div>
+        </div>
+
+        <hr *ngIf="paymentContinue">
+        <!-- [ngStyle]="{'margin-left': (!linkShare && selectPayment) ? '0px' : '112px'}"  -->
+        <div class="order-amount">
+            <p style="padding-top: 15px" class="order" *ngIf="paymentContinue">{{'PAYMENT.ORDER_AMOUNT' | translate}}:</p>
+            <p style="padding-top: 15px" class="order" *ngIf="!paymentContinue"></p>
+
+            <div class="grid2" fxLayout="row"  >
+           
+                <div  fxLayout="column" [ngClass]="(!linkShare && selectPayment && is_buy_for_customer) ? 'amount1' : 'amount2' " >
+                    <div class="table2">
+                        <div class="col-left">
+                            <div>{{'PAYMENT.SHIPPING' | translate}}:</div>
+                            <div>{{'PAYMENT.SUBTOTAL' | translate}}:</div>
+                            <div style=" color: var(--red-color);">{{'PAYMENT.TOTAL' | translate}}:</div>
+                        </div>
+                        <div class="col-right">
+                            <div>{{shipping | currency:' '}}</div>
+                            <div>{{subtotal | currency:' '}}</div>
+                            <div style=" color: var(--red-color);">{{total | currency:currency+' '}}</div>
+                        </div>
+                    </div>
+                    <!-- <p class="total"><span id="total-in" style="padding-right: 10px;">Total:</span>{{total | currency:currency+' '}}</p> -->
+                </div>
+
+                <div class="button-share">
+                    <button mat-raised-button color="primary" (click)="copyLink()" *ngIf = "!linkShare && selectPayment && is_buy_for_customer"
+                    class="share-button" aria-label="View">
+                    {{ 'PAYMENT.SHARE_PAYMENT' | translate }}
+                    </button>
+                    <button mat-raised-button color="primary" (click)="shareWhatApp()" *ngIf = "!linkShare && selectPayment && is_buy_for_customer"
+                    class="share-wahtapp-button" aria-label="View">
+                    {{ 'PAYMENT.SHARE_WHAT_APP' | translate }}
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

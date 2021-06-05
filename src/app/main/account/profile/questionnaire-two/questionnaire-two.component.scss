@@ -1,0 +1,236 @@
+@import "src/@fuse/scss/fuse";
+.questione-two-content {
+    background-color: white;
+    border: solid 20px var(--fuse-background) !important;
+    height:100%;
+    width:100%;
+    
+    @include media-breakpoint("xs") {
+        // border-bottom: solid 25px #F5F5F5F5 !important;
+        border-bottom: solid 70px #F5F5F5F5 !important;
+        border-left: solid 15px #F5F5F5F5 !important;
+        border-right: solid 15px #F5F5F5F5 !important;
+        border-top: solid 8px #F5F5F5F5 !important;
+    }
+
+    .heading-query-form {
+        // padding-bottom: 22px;
+        padding-left: 22px;
+        padding-right: 86px;
+        padding-top: 22px;
+
+        @include media-breakpoint("xs") {
+            padding-left: 5px;
+            padding-top: 0px;
+        }
+
+        @include media-breakpoint("sm") {
+            padding-right: 42px;
+        }
+
+        .dot {
+            color: var(--text-color);
+            font-size: 18px;
+            padding-right: 5px;
+
+            @include media-breakpoint("xs") {
+                font-size: 15px;
+            }
+
+            @include media-breakpoint("sm") {
+                margin-left: 12px;
+            }
+        }
+
+        .text-query-form {
+            color: var(--text-color);
+            font-size: 18px;
+            text-decoration: underline;
+
+            @include media-breakpoint("xs") {
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+#query {
+  width: 100%;
+
+  #query-form-wrapper {
+    flex: 1 0 auto;
+    padding: 0px 32px 32px 32px;
+
+    @include media-breakpoint("xs") {
+      padding: 0px 16px 16px 16px;
+    }
+
+    #query-form {
+      background-color: white;
+      color: var(--text-color) ;
+      max-width: 100%;
+      opacity: 1;
+      padding: 32px;
+      text-align: center;
+      width: 100%;
+
+      @include mat-elevation(0);
+
+      @include media-breakpoint("xs") {
+        padding: 0px 24px;
+        width: 100%;
+      }
+
+      .title {
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.19px;
+        margin: 16px 0 32px 0;
+
+        @include media-breakpoint("xs") {
+          font-size: 16px;
+        }
+      }
+
+      form {
+        text-align: left;
+        width: 100%;
+
+        .mat-radio-button ~ .mat-radio-button {
+          margin-left: 16px;
+
+          @include media-breakpoint("xs") {
+            margin-left: 0px;
+            margin-top: 16px;
+            display: block;
+          }
+        }
+
+        mat-form-field {
+            border: none;
+            width: 100%;
+        }
+
+        mat-label{
+          font-size: 18px;
+
+          @include media-breakpoint("xs") {
+            font-size: 12px;
+          }
+        }
+
+        input,
+        mat-select{
+            -moz-box-shadow:  0px 3px 16px #00000029 !important;
+            -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+            border-radius: 8px;
+            box-shadow: 0px 3px 16px #00000029 !important;
+            color: var(--input-color) !important;
+            font-size: 18px;
+            height: 48px;
+            line-height: 48px;
+            outline: none;
+            padding-left: 8px;
+            width: 100%;
+
+            @include media-breakpoint("xs") {
+            font-size: 12px;
+          }
+        }
+
+        mat-select{
+          margin-top: 5px;
+        }
+
+        mat-option{
+          color: var(--border-color) !important;
+        }
+
+        mat-checkbox {
+          color: var(--border-color) !important;
+          margin: 0;
+        }
+
+        .mat-checkbox .mat-checkbox-frame {
+          @include media-breakpoint("xs") {
+            transform: scale(1.5);
+          }
+        }
+
+        .mat-checkbox-checked .mat-checkbox-background {
+          @include media-breakpoint("xs") {
+            transform: scale(1.5);
+          }
+        }
+
+        .options-container {
+          padding-bottom: 10px;
+          padding-top: 10px;
+        }
+
+        .checkbox-padding-5px {
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+
+        .footer-btn-two {
+          display: flex;
+
+          .query-form-btn {
+            border-radius: 8px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            height: 48px;
+            // margin: 16px auto;
+            width: 30%;
+  
+            @include media-breakpoint('xs') {
+              width: 45%;
+            }    
+          }
+  
+          .green-right-btn {
+            margin: 16px 0 16px auto;
+            background-color: var(--primary-color);
+            float: right;
+  
+            @include media-breakpoint('xs') {
+              float: none;
+            }
+          }
+  
+          .back-cancel-btn {
+            margin: 16px auto 16px 0;
+            border: 2px solid var(--primary-color) !important;
+            color: var(--primary-color);
+            float: left;
+  
+            @include media-breakpoint('xs') {
+              float: none;
+            }
+          }
+        }
+
+        .green-label {
+          color: var(--primary-color);
+          display: block;
+          text-align: justify;
+        }
+
+        .black-label {
+          color: var(--text-color);
+        }   
+      }
+    }
+  }
+}
+
+app-bottom-navigation {
+  display: none;
+
+  @include media-breakpoint("xs") {
+      display: unset;
+  }
+}

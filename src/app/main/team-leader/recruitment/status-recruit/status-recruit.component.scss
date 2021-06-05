@@ -1,0 +1,43 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../../@fuse/scss/partials/background";
+
+.reject{
+    font-size: var(--mobi-primary-text);
+    color: var(--red-color);
+    cursor: pointer;
+    p{
+    margin-top: 2px;
+
+    }
+}
+.approve{
+    font-size: var(--mobi-primary-text);
+    color: var(--primary-color);
+    cursor: pointer;
+    p{
+    margin-top: 2px;
+
+    }
+}
+.pending{
+    font-size: var(--mobi-primary-text);
+    color: var(--text-color);
+    p{
+        margin-top: 2px;
+        white-space: normal;
+        line-height: 15px;
+    }
+    button{
+        color: white ;
+        background-color: var(--primary-color);
+        text-align: center;
+        border: none;
+        border-radius: 6px;
+        width: 50%;
+        @include media-breakpoint("xs") {
+            width: 100%;
+        }
+        height: 36px;
+        cursor: pointer;
+    }
+}

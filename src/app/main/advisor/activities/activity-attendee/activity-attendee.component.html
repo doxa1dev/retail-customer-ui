@@ -1,0 +1,228 @@
+<div style="width: 100%;">
+    <div class="activity_infomation" fxLayout="column">
+        <div class="header" *ngIf="attendees">
+            <div class="header-title">
+              <app-title [type]="title" [message]="'ACTIVITY_ATTENDEE.ATTENDEES'" ></app-title>
+            </div>
+    
+            <p class="number-capacity">({{attendees.length}}/{{this.capacity}})</p>
+    
+            <div id="btn" >
+    
+                <div class="btn-share">
+                    
+                    <button id="btn-add" *ngIf="page == 'upcoming'" mat-button (click)="shareWhatsapp()">{{ 'ACTIVITY_ATTENDEE.SHARE_WHATAPP' | translate }}</button>
+                    <button id="btn-add" *ngIf="page == 'upcoming'" mat-button (click)="copyLink()">{{ 'ACTIVITY_ATTENDEE.COPY_LINK' | translate }}</button>
+    
+                    <!-- <button id="btn-add" *ngIf="page == 'upcoming'" mat-button (click)="addAttendee()">{{ 'ACTIVITY_ATTENDEE.ADD_ATTENDEE' | translate }}</button>
+                    <button id="btn-add" *ngIf="page == 'upcoming'" mat-button (click)="addFromContacts()">{{ 'ACTIVITY_ATTENDEE.CONTACTS' | translate }}</button> -->
+                </div>
+                <div class="btn-share" style="margin-top: 0px;">
+                    <button id="btn-add" *ngIf="page == 'upcoming'" mat-button (click)="addAttendee()">{{ 'ACTIVITY_ATTENDEE.ADD_ATTENDEE' | translate }}</button>
+                    <button id="btn-add" *ngIf="page == 'upcoming'" mat-button (click)="addFromContacts()">{{ 'ACTIVITY_ATTENDEE.CONTACTS' | translate }}</button>
+                </div>
+            </div>
+    
+            <div *ngIf="!isShow" class="attendee-form">
+                <form name="addAttendeeForm" [formGroup]="addAttendeeForm" novalidate (ngSubmit)="onSubmit()">
+                    <div class="form-text">
+                        <p id="form-title">{{ 'ACTIVITY_ATTENDEE.NEW_ATTENDEE' | translate }}</p>
+                        <div class="input">
+                            <p class="input-title">{{ 'ACTIVITY_ATTENDEE.NAME_AS_IN_IC' | translate }}</p>
+                            <input matInput placeholder="Tran" formControlName="fname" class="input-custom">
+                            <mat-error class="error-message" 
+                                *ngIf = "addAttendeeForm.get('fname').hasError('required') && isSubmited">
+                                {{ 'ACTIVITY_ATTENDEE.FIRST_NAME' | translate }}
+                            </mat-error>
+                        </div>
+    <!-- 
+                        <div class="input">
+                            <p class="input-title">{{ 'ACTIVITY_ATTENDEE.NICK_NAME' | translate }}</p>
+                            <input matInput placeholder="Nathalie" formControlName="preferredname" class="input-custom">
+                        </div> -->
+    
+                        <div class="input">
+                            <p class="input-title">{{ 'ACTIVITY_ATTENDEE.EMAIL' | translate }}</p>
+                            <input matInput formControlName="email"  placeholder="Nathalie.tran@gmail.com" class="input-custom">
+                            <mat-error class="error-message" 
+                                *ngIf = "addAttendeeForm.get('email').hasError('required') && isSubmited">
+                                {{ 'ACTIVITY_ATTENDEE.EMAIL_REQUIRED' | translate }}
+                            </mat-error>
+                        </div>
+    
+                        <div class="input-phone">
+                            <div id="phoneNumber">
+                                <div id="phoneCode">
+                                    <p>{{ 'ACTIVITY_ATTENDEE.DIAL_CODE' | translate }}</p>
+                                    <app-dialCode SelectedDial={{defaultDialCode}}></app-dialCode>
+                                </div>
+                                <div id="phoneNum">
+                                    <p >{{ 'ACTIVITY_ATTENDEE.PHONE_NUMBER' | translate }}</p>
+                                    <input matInput placeholder="0123456789 " formControlName="phoneNum">
+                                    <mat-error class="error-message" 
+                                        *ngIf = "addAttendeeForm.get('phoneNum').hasError('required') &&  isSubmited">
+                                        {{ 'ACTIVITY_ATTENDEE.PHONE_NUMBER_REQUIRED' | translate }}
+                                    </mat-error>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="input">
+                            <p class="input-title">{{ 'ACTIVITY_ATTENDEE.NOTES' | translate }}</p>
+                            <input matInput placeholder="{{ 'ACTIVITY_ATTENDEE.COOKING' | translate }}" formControlName="notes" class="input-custom">
+                        </div>
+                        
+                    </div>
+    
+                    <div class="form-btn">
+                        <button mat-button class="btn-cancel" (click)="cancel()">{{ 'ACTIVITY_ATTENDEE.CANCEL' | translate }}</button>
+                        <app-button-loading type="submit" class="btn" [buttonName] = 'butonNameAddAttendee' [active] = "activeAddAttendee"    [ngClass] = "addAttendeeForm.valid ? '' : 'btn-create-disabled' "></app-button-loading>
+                    </div>
+                </form>
+                
+            </div>
+    
+                <!-- my contacts -->
+            <div class="my-contacts">
+                <!-- <div id="btn">
+                    <button id="btn-contact" *ngIf="page == 'upcoming'" mat-button (click)="addFromContacts()">{{ 'ACTIVITY_ATTENDEE.CONTACTS' | translate }}</button>
+    
+                </div> -->
+                <div *ngIf="!isShowContact" class="attendee-cart">
+                    <p >{{ 'ACTIVITY_ATTENDEE.CHOOSE_CONTACT' | translate }}</p>
+                    <div class="search-contact">
+                        <p-dropdown [options]="contact_list" (onChange)="getValueContact($event)"  filter="true"  class="area-dropdown" [style]="{'width':'100%'}" 
+                         optionLabel="first_name" placeholder="Search by Name as in IC"></p-dropdown>
+                         <div *ngIf="customerContacts != null" style="margin-top: 10px;">
+                            <p>{{ 'ACTIVITY_ATTENDEE.NAME' | translate }}: {{customerContacts.first_name}}</p>
+                            <p>{{ 'ACTIVITY_ATTENDEE.EMAIL' | translate }}: {{customerContacts.email}}</p>
+                            <p>{{ 'ACTIVITY_ATTENDEE.PHONE_NUMBER' | translate }}: (+{{customerContacts.phone_dial_code}}) {{customerContacts.phone_number}} </p>
+                        </div>
+                    </div>
+    
+                    <div class="form-btn" style="margin-top: 15px;">
+                        <button mat-button class="btn-cancel" (click)="cancelContact()">{{ 'ACTIVITY_ATTENDEE.CANCEL' | translate }}</button>
+                        <button mat-button class="btn-addnew" (click)="addNewContact()">{{ 'ACTIVITY_ATTENDEE.ADD_NEW' | translate }}</button>
+                        <!-- <app-button-loading type="submit" class="btn" [buttonName] = 'butonNameAddAttendee' [active] = "activeAddAttendee"    [ngClass] = "addAttendeeForm.valid ? '' : 'btn-create-disabled' "></app-button-loading> -->
+                    </div>
+                </div>
+            </div>
+    
+    
+            <div class="info" *ngFor="let attendee of attendees, let i = index">
+                <div class="attendee-cart"  >
+                    <div class="attendee-cart-head" >
+                        <span class="bold-text">{{i+1}}. {{attendee.name}}</span>
+                        <a *ngIf="attendee.showView && page != 'completed'" class="edit-link-remove" (click)="Remove(attendee.email)">{{ 'ACTIVITY_ATTENDEE.REMOVE' | translate }}</a>
+                        <a class="edit-link-view" *ngIf="attendee.showView" (click)="attendee.showView = !attendee.showView;getAttendeeInformation(attendee)" >{{ 'ACTIVITY_ATTENDEE.VIEW' | translate }} <span *ngIf="attendee.showView && page != 'completed'" style="color:black"> |</span> </a> 
+                        <a class="edit-link-view" *ngIf="!attendee.showView" (click)="attendee.showView = !attendee.showView"
+                        [ngStyle]="{'padding-right': '8px'}"
+                        >{{ 'MY_PROFILE.CLOSE' | translate }}</a> 
+                    </div>
+                    <div class="attendee-info" *ngIf="attendee.showView">
+                        <table>
+                            <tr>
+                                <td>{{ 'ACTIVITY_ATTENDEE.EMAIL' | translate }}:</td>
+                                <td style="width: 70%;">{{attendee.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'ACTIVITY_ATTENDEE.PHONE' | translate }}:</td>
+                                <td>{{attendee.phone_number}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'ACTIVITY_ATTENDEE.ATTENDANCE' | translate }}:</td>
+                                <td class="attendance"><span [ngClass]="attendee.attendance == 'No' ? 'red_color' : 'blue_color' ">{{attendee.attendance}}</span> 
+                                    <span *ngIf="checkMarkAsAttended(attendee)" (click)="updateAttendance(attendee.id , attendee)" style="color: var(--link-color); cursor: pointer;">
+                                        {{ 'ACTIVITY_ATTENDEE.MARK_AS_ATTENDED' | translate }}</span></td>
+                                <!-- <td class="attendance" *ngIf="attendee.attendance === 'Yes'" style="color:#269A3E">{{attendee.attendance}}</td> -->
+                                <!-- <td class="edit"></td> -->
+                            </tr>
+                            <tr>
+                                <td>{{ 'ACTIVITY_ATTENDEE.NOTES' | translate }}:</td>
+                                <td>{{attendee.notes}}</td>
+                            </tr>
+                        </table>
+        
+                        <div class="divider">
+                            <mat-divider></mat-divider>
+                        </div>
+        
+                        <div class="questionnaire">
+                            <p *ngIf="attendee.questionnaire1 === 'Completed'" >{{ 'ACTIVITY_ATTENDEE.QUESTIONNAIRE_1' | translate }}: <span style="color: #269A3E;">{{attendee.questionnaire1}}</span></p>
+                            <p *ngIf="attendee.questionnaire1 === 'Not completed'" >{{ 'ACTIVITY_ATTENDEE.QUESTIONNAIRE_1' | translate }}: <span style="color: #DE3535;">{{attendee.questionnaire1}}</span></p>
+                            <p *ngIf="attendee.questionnaire2 !=='Not completed'">{{ 'ACTIVITY_ATTENDEE.QUESTIONNAIRE_2' | translate }}: <span style="color: #259A3E;">{{attendee.questionnaire2}}</span></p>
+                            <p *ngIf="attendee.questionnaire2 ==='Not completed'">{{ 'ACTIVITY_ATTENDEE.QUESTIONNAIRE_2' | translate }}: <span style="color: #DE3535;">{{attendee.questionnaire2}}</span></p>
+                        </div>
+                    </div>
+    
+                    <div class="attendee-form" *ngIf="!attendee.showView">
+                        <form name="attendee" [formGroup]="updateAttendeeForm" novalidate (ngSubmit)="onUpdateAttendee(); attendee.showView=!attendee.showView">
+                            <div class="form-text">
+                                <p id="form-title">{{ 'ACTIVITY_ATTENDEE.ATTENDEE_INFO' | translate }}</p>
+                                <div class="input">
+                                    <p class="input-title">{{ 'ACTIVITY_ATTENDEE.NAME_AS_IN_IC' | translate }}</p>
+                                    <input matInput  class="input-custom" formControlName="firstName">
+                                    <mat-error class="error-message" 
+                                        *ngIf = "updateAttendeeForm.get('firstName').hasError('required') ">
+                                        {{ 'ACTIVITY_ATTENDEE.FIRST_NAME' | translate }}
+                                    </mat-error>
+                                </div>
+            
+                                <!-- <div class="input">
+                                    <p class="input-title">{{ 'ACTIVITY_ATTENDEE.NICK_NAME' | translate }}</p>
+                                    <input matInput   class="input-custom" formControlName="preferredName">
+                                </div> -->
+            
+                                <div class="input">
+                                    <p class="input-title">{{ 'ACTIVITY_ATTENDEE.EMAIL' | translate }}</p>
+                                    <input matInput  class="input-custom" style="background-color: #dfdfdf; border: none" formControlName="email">
+                                </div>
+                                
+                                <div class="input-phone">
+                                    <div id="phoneNumber">
+                                        <div id="phoneCode">
+                                            <p>{{ 'ACTIVITY_ATTENDEE.DIAL_CODE' | translate }}</p>
+                                            <app-dialCode  SelectedDial={{attendee_dial_code}}></app-dialCode>
+                                        </div>
+                                        <div id="phoneNum">
+                                            <p>{{ 'ACTIVITY_ATTENDEE.PHONE_NUMBER' | translate }}</p>
+                                            <input matInput  formControlName="phone">
+                                            <mat-error class="error-message" 
+                                                *ngIf = "updateAttendeeForm.get('phone').hasError('required') ">
+                                                {{ 'ACTIVITY_ATTENDEE.PHONE_NUMBER_REQUIRED' | translate }}
+                                            </mat-error>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="input">
+                                    <p class="input-title">{{ 'ACTIVITY_ATTENDEE.NOTES' | translate }}</p>
+                                    <input matInput  class="input-custom" formControlName="notes">
+                                </div>
+                                
+                                
+                            </div>
+            
+                            <div class="btn-save-change">
+                                <app-button-loading class="btn-save" [buttonName] = 'buttonName' [disabledBtn] = "!updateAttendeeForm.valid" [active] = "active"   [ngClass] = "updateAttendeeForm.valid ? '' : 'btn-create-disabled' "></app-button-loading>
+                            </div>
+                            
+                                <!-- <button mat-button class="btn-save" [ngClass] = "!updateAttendeeForm.valid ? 'btn-add-disabled':''" >Save change</button> -->
+                        </form>
+                        
+                    </div>
+    
+                </div>
+    
+                
+            </div>
+            
+    
+        </div>
+    
+       
+    
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

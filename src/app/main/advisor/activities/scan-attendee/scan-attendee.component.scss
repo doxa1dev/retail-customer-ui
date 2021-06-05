@@ -1,0 +1,131 @@
+
+@import "../../../../../@fuse/scss/fuse.scss";
+@import "../../../../../@fuse/scss/partials/background";
+
+.qr-code {
+    @include background();
+    .order-qr {
+        @include backgroundPage();
+        height: 95%;
+        @include media-breakpoint("xs") {
+            height: 91%;
+            padding: 5px 0px !important;
+        }
+        .qr-header {
+            .back-button {
+                color: var(--text-color) !important;
+                text-decoration: underline !important;
+            }
+            cursor: pointer;
+        }
+        #qr-code {
+            width: 40%;
+            // max-width: 294px;
+            display: table;
+            margin: 0px auto;
+            margin-top: 20px;
+            padding-bottom: 30px;
+            box-shadow: 0px 2px 8px #00000029;
+            @include media-breakpoint("xs") {
+                width: 90%;
+            }
+            p{
+                font-size: 18px;
+                text-align: center;
+                margin-top: 5px;
+                @include media-breakpoint("xs") {
+                    font-size: 12px;
+                }
+            }
+            .scan{
+                display: block;
+                width: 90%;
+                margin: 0px auto;  
+                margin-top :20px;
+            }
+            .result-success,
+            .result-fail {
+                position: sticky;
+                bottom: 0;
+                width: 80%;
+                padding: 15px;
+                
+                color: #fff;
+                display: flex;
+                align-items: center;
+                margin: 0px auto;
+                justify-content: space-between;
+                button {
+                    background: none;
+                    border: none;
+                    line-height: 1;
+                    font-weight: bolder;
+                    font-size: 120%;
+                    float: right;
+                    color: #fff;
+                    $mg: 8px;
+                    margin: (-$mg) (-$mg) (-$mg) $mg;
+                }
+            }
+            .result-success{
+                background: var(--primary-color) !important;
+            }
+            .result-fail{
+                background-color: orangered !important;
+            }
+        }
+        .btn-mark-no{
+            display:block;
+            width: 30%;
+            padding: 15px;
+            margin: 30px auto;
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            @include media-breakpoint("xs") {
+                width: 80%;
+            }
+        }
+        .advisor-scan-attendee{
+            width: 30%;
+            display: table;
+            margin: 0px auto;
+            margin-top: 20px;
+            padding-bottom: 30px;
+            @include media-breakpoint("xs") {
+                width: 90%;
+            }
+            button{
+                width: 100%;
+                background-color:var(--primary-color);
+                margin-top: 2px;
+                height: 40px;
+                text-align: center;
+                vertical-align: middle;
+                border : none;
+                border-radius:6px;
+                color : white;
+                span{
+                    color: white !important;
+                    font-size: var(--web-button-text);
+                    font-weight: normal;
+                    @include media-breakpoint("xs")
+                    {
+                        font-size: var(--mobi-medium-button-text);
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+}

@@ -1,0 +1,518 @@
+@import "src/@fuse/scss/fuse";
+@import "src/@fuse/scss/partials/background";
+
+
+:host {
+    ::ng-deep .ui-dropdown{
+      width: 100%;
+      height: 36px;      
+      margin-bottom: 5px;
+      height: 40px !important;
+      border-radius: 5px;
+      border: none;
+      
+      border: 1pt solid var(--border-color);
+    }
+    ::ng-deep .ui-dropdown-label{
+      vertical-align: middle;
+      padding: 0px 10px;
+      height: 36px;
+      margin: 0px;
+      line-height: 36px;
+      color: var(--text-color) !important;
+    }
+}
+.activity_infomation {
+  height: 100%;
+  @include background();
+  color: var(--text-color);
+
+  @include media-breakpoint('xs') {
+    padding-bottom: 60px !important;
+  }
+
+  .header {
+    padding: 5px 10px 20px 10px;
+    margin: 10px 15px ;
+    background-color: white;
+    height: 100%;
+    min-height: 90%;
+    
+    .header-title{
+      margin: -5px -10px -20px -10px;
+    }
+    .number-capacity
+    {
+      position: absolute;
+      top: 10px;
+      left:115px;
+      font-size: 12px;
+      
+    }
+    #btn{
+      width: 95%;
+      margin: 0 auto;
+      
+      .btn-share {
+        //width: 100%; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+         margin-top: 25px;
+         margin-right: 400px;
+
+         @include media-breakpoint("lt-sm") {
+          font-size: 12px;
+          margin-right: 0px;
+        }
+        @include media-breakpoint("lt-md") {
+          font-size: 12px;
+          margin-right: 0px;
+        }
+      }
+      #btn-add{
+          width: 35%;
+          margin: 15px;
+          display: block;
+          background-color: var(--link-color);
+          color: white;
+          height: 40px;
+          border-radius: 5px;
+          text-align: center;
+          @include media-breakpoint("lt-sm") {
+            font-size: 12px;
+            width: 48%;
+          }
+          @include media-breakpoint("lt-md") {
+            font-size: 12px;
+            width: 48%;
+            display: block;
+          }
+          padding: 0px !important;
+          font-weight: normal;
+      }
+    }
+
+    .my-contacts{
+      #btn{
+        width: 95%;
+        margin: 0 auto;
+      }
+      #btn-contact{
+
+        width: 48%;
+        margin: 25px 15px 22px 15px ;
+        display: block;
+        background-color: var(--link-color);
+        color: white;
+        height: 40px;
+        border-radius: 5px;
+        text-align: center;
+        @include media-breakpoint("sm") {
+          font-size: 12px;
+        }
+        padding: 0px !important;
+        font-weight: normal;
+
+      }
+
+      .attendee-cart{
+        width: 95%;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 20px;
+        -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+        -moz-box-shadow: 0px 3px 16px #00000029 !important;
+        box-shadow: 0px 3px 16px #00000029 !important;
+        opacity: 1;
+        border-radius: 8px;
+        // position: relative;
+        position: relative;
+        z-index: 1000;
+        padding: 10px;
+        padding-bottom: 20px;
+        .search-contact{
+          display: inline-block;
+          width: 100%;
+          line-height: 60px;
+      
+          border-radius: 5px;
+          @include media-breakpoint("xs") {
+              line-height: 32px;
+          }
+          .activity-type-drow{
+              width: 100%;
+              height: 100%;
+          }
+          p{
+            margin: -20px 10px;
+            @include media-breakpoint("xs") {
+              margin: 0px 10px;
+            }
+            @include media-breakpoint("lt-sm") {
+            
+              margin: 0px 10px;
+    
+            }
+          }
+        }
+        .form-btn{
+      
+          display: flex;
+          align-items: center;
+          justify-content: center;
+           margin-top: 25px;
+          width: 100%;
+          @include media-breakpoint("xs") {
+            font-size: 12px;
+          }
+          .btn-cancel{
+
+            height: 40px;
+            margin-left: 1%;
+            width: 50%;
+            margin-right: 1%;
+            border: solid 1px var(--primary-color);
+            border-radius: 8px;
+          }
+          .btn-addnew{
+            width: 50%;
+            color: white;
+            height: 40px;
+            margin-left: 1%;
+            margin-right: 1%;
+            border: solid 1px #269a3e;
+            background-color: #269a3e;
+            border-radius: 8px;
+          }
+        }
+
+        
+      }
+    }
+
+
+
+    .attendee-form{
+      color: var(--text-color);
+      width: 95%;
+      height: auto;
+      margin: 0 auto;
+      margin-top: 20px;
+      padding : 0px 0px 20px !important;
+      border-radius: 8px;
+      position: relative;
+      border: 1px solid var(--border-color);
+      background-color:var(--descrp-background);
+      .form-text{
+        margin: 10px 20px;
+        #form-title{
+          font-weight: bolder;
+        }
+        .input{
+          margin: 10px 0px;
+          .input-title{
+            @include media-breakpoint("xs") {
+              font-size: 12px;
+            }
+            color: var(--text-color);
+            margin-bottom: 5px;
+          }
+          .input-custom{
+            width: 100%;
+            background-color: white ;
+            border:solid 1px var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            padding: 10px;
+            height: 40px;
+            &::placeholder {
+                color: #c8cbd1;
+            }
+          }
+        }
+        .input-phone{
+          #phoneNumber{
+            width: 100%;
+            display: flex;
+            margin-bottom: 10px;
+            margin-top: 0px;
+            #phoneCode{
+              margin-top: 0px;
+              p{
+                margin-bottom: 5px;
+                @include media-breakpoint("xs") {
+                  font-size: 12px;
+                }
+              }
+              margin-top: -5px;
+              width: 40%;
+              display: inline-block;
+              margin-right: 5%;
+              vertical-align: middle;
+            }
+            #phoneNum{
+              p{
+                margin-bottom: 5px;
+                @include media-breakpoint("xs") {
+                  font-size: 12px;
+                }
+              }
+              margin-top: -5px;
+              width: 55%;
+              display: inline-block;
+              input{
+                height: 40px;
+                border:solid 1px var(--border-color);
+              }
+            }
+            input{
+              width: 100%;
+              font-size: 12px;
+              background-color: white !important;
+              border:solid 1px #e1e1e1;
+              border-radius: 8px;
+              color: var(--text-color);
+              padding: 10px;
+              &::placeholder {
+                  color: #c8cbd1;
+              }
+            }
+          }
+        }
+      }
+
+      .form-btn{
+        margin: 20px 10px 0px 10px;
+        display: flex;
+        @include media-breakpoint("xs") {
+          font-size: 12px;
+        }
+        .btn-cancel,.btn-add{
+          width: 48%;
+          height: 40px;
+          margin-left: 1%;
+          margin-right: 1%;
+          border: solid 1px var(--primary-color);
+          border-radius: 8px;
+        }
+        .btn-cancel{
+          background-color: white;
+          color: var(--primary-color);
+        }
+        .btn{
+          width: 48% !important;
+
+        }
+        // .btn-save{
+        //   background-color: #269A3E;
+        //   color: white;
+        //   margin-left: auto;  
+        //   margin-right: 20px;
+        // }
+        .btn-add-disabled{
+          background: grey !important;
+          pointer-events: none;
+        }
+      }
+    }
+    .info{
+      .attendee-cart{
+        width: 95%;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 20px;
+        -webkit-box-shadow: 0px 3px 16px #00000029 !important;
+        -moz-box-shadow: 0px 3px 16px #00000029 !important;
+        box-shadow: 0px 3px 16px #00000029 !important;
+        opacity: 0.8;
+        border-radius: 8px;
+        position: relative;
+        padding: 10px;
+        .attendee-cart-head{
+                margin-bottom: 10px;
+                .bold-text {
+                margin-bottom: 10px;
+                // color: #5A616F;
+                
+            }
+            .edit-link-view {
+                float: right;
+                margin-right: 5px;
+                padding-top: 0px;
+                padding-right: 0px;
+                color: var(--link-color);
+                cursor: pointer;
+                text-decoration: none;
+                 @include media-breakpoint("xs") {
+                        font-size: 12px;
+                        
+                    }
+            }
+            .edit-link-remove {
+                float: right;
+                // margin-top: 12px;
+                padding-top: 0px;
+                padding-right: 0px;
+                color: var(--red-color);
+                cursor: pointer;
+                text-decoration: none;
+                 @include media-breakpoint("xs") {
+                        font-size: 12px;
+                        
+                    }
+            }
+        }
+        .attendee-info{
+          table{
+            border: none;
+            margin-bottom: 10px;
+            tr,td{
+              @include media-breakpoint("xs") {
+                font-size: 12px;
+              }
+            }
+            .attendance{
+              color: var(--primary-color);
+              .red_color{
+                color:#DE3535;
+                padding-right:5%;
+              }
+              .blue_color{
+                color:#269A3E;
+                padding-right:5%;
+              }
+            }
+            .edit{
+              color: var(--link-color);
+              cursor: pointer;
+            }
+          }
+          .divider{
+            width: 70%;
+            display: block;
+            margin: 0px auto;
+            margin-bottom: 10px;
+          }
+          .questionnaire{
+            @include media-breakpoint("xs") {
+                font-size: 12px;
+              }
+          }
+        }
+        .attendee-form{
+          color: var(--text-color);
+          width: 98%;
+          height: auto;
+          margin: 0 auto;
+          margin-top: 5px;
+          padding : 0px 0px 20px !important;
+          border-radius: 8px;
+          position: relative;
+          border: 1px solid var(--border-color);
+          background-color:var(--descrp-background);
+          .form-text{
+            margin: 10px 20px;
+            #form-title{
+              font-weight: bolder;
+            }
+            .input{
+              margin: 10px 0px;
+              .input-title{
+                @include media-breakpoint("xs") {
+                  font-size: 12px;
+                }
+                color: var(--text-color);
+                margin-bottom: 5px;
+              }
+              .input-custom{
+                width: 100%;
+                background-color: white ;
+                border:solid 1px var(--border-color);
+                border-radius: 8px;
+                color: var(--text-color);
+                padding: 10px;
+                height: 40px;
+                &::placeholder {
+                    color: #c8cbd1;
+                }
+              }
+            }
+            .input-phone{
+              #phoneNumber{
+                width: 100%;
+                display: flex;
+                margin-bottom: 10px;
+                margin-top: 0px;
+                #phoneCode{
+                  margin-top: 0px;
+                  p{
+                    margin-bottom: 5px;
+                    @include media-breakpoint("xs") {
+                      font-size: 12px;
+                    }
+                  }
+                  margin-top: -5px;
+                  width: 40%;
+                  display: inline-block;
+                  margin-right: 5%;
+                  vertical-align: middle;
+                }
+                #phoneNum{
+                  p{
+                    margin-bottom: 5px;
+                    @include media-breakpoint("xs") {
+                      font-size: 12px;
+                    }
+                  }
+                  margin-top: -5px;
+                  width: 55%;
+                  display: inline-block;
+                  input{
+                    height: 40px;
+                    border:solid 1px var(--border-color);
+                  }
+                }
+                input{
+                  width: 100%;
+                  font-size: 12px;
+                  background-color: white !important;
+                  border:solid 1px #e1e1e1;
+                  border-radius: 8px;
+                  color: var(--text-color);
+                  padding: 10px;
+                  &::placeholder {
+                      color: #c8cbd1;
+                  }
+                }
+              }
+            }
+        }
+        .btn-save-change{
+          display: flex;
+          width: 100%;
+          margin: 0 auto;
+          .btn-save{
+            margin-left: auto;
+            margin-right: 20px;
+          }
+        }
+        
+        
+        }
+            
+      }
+    }
+
+
+  }
+
+}
+
+app-bottom-navigation {
+  display: none;
+
+  @include media-breakpoint("xs") {
+      display: unset;
+  }
+}

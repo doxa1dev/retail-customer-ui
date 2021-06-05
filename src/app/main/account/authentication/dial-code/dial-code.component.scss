@@ -1,0 +1,40 @@
+@import "src/@fuse/scss/fuse";
+@import "src/@fuse/scss/partials/background";
+:host {
+    ::ng-deep .ui-dropdown{
+        min-width: 50px !important;
+    }
+    ::ng-deep .ui-dropdown-panel{
+        width: 100% !important;
+        min-width: 300px !important;
+    }
+    ::ng-deep .ui-dropdown-item	{
+        
+        vertical-align: middle !important;
+        margin: 1px 0px;
+        font-size: 14px;
+        @include media-breakpoint("xs") {
+            font-size: 12px;
+        } 
+    }
+    ::ng-deep .ui-inputtext{
+        font-size: 14px;
+        @include media-breakpoint("xs") {
+            font-size: 12px;
+        } 
+    }
+}    
+// .ui-dropdown	{
+//   background-color:black;
+// }
+// .ui-dropdown-label	{
+//   color:white;
+// }
+
+// .ui-dropdown-label:hover{
+//   color:red
+// }
+// .ui-dropdown-item	{
+//   color:white;
+//   background-color:black; 
+// }

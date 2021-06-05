@@ -1,0 +1,24 @@
+<div class="payment-done">
+    <div class="content">
+        <div class="header">
+            <!-- <img (click)="backToOrderDetail()" style="cursor: pointer;" class="icon-back" src="../../../../assets/icons/material-icons/Chevron Left.png">
+            <span class="text-payment" style="text-decoration: underline;">Payment</span> -->
+            <app-title [type]="title" [message]="'PAYMENT.PAYMENT'" [link]="'/order-detail/'" [param]="{ uuid: orderUuid}"></app-title>
+        </div>
+
+        <div class="complete-payment">
+            <img src="../../../../assets/images/payment/undraw_celebration_0jvk.png">
+            <span class="text1-complete-payment">{{'PAYMENT_DONE.THANK_YOU' | translate}}<br>{{'PAYMENT_DONE.NOTIFICATION' | translate}}</span>
+            
+            <!-- <a routerLink="/store" routerLinkActive="store" style="text-decoration: none">
+                <button>{{'PAYMENT_DONE.BACK_TO_STORE' | translate}}</button>
+            </a> -->
+
+            <!-- <button (click)="gotoStore()">{{'PAYMENT_DONE.BACK_TO_STORE' | translate}}</button> -->
+        </div>
+    </div>
+    <div style="display: grid;">
+        <button class="pay-done" (click)="gotoStore()">{{'PAYMENT_DONE.BACK_TO_STORE' | translate}}</button>
+        <app-footer-payment [verified]='verified' [pending_verified]='pendingVerified' [remaining]='remaining' [shipping]='shipping' [toPay]='toPay' [subtotal]='subTotal' [total]='total' [currency]='currency'></app-footer-payment>
+    </div>
+</div>

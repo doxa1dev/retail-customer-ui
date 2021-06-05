@@ -1,0 +1,41 @@
+ <div class="product" *ngIf="!checkProduct">
+
+    <div id="img-product">
+        <img id="" src="{{image}}">
+    </div>
+
+    <div id="detail-product">
+        <div id="name-product">
+            <p id="nameProd">{{product.product_name}}</p>
+
+            <div *ngIf="!is_redemption_cart">
+                <div *ngIf="checkiIsHaveInternalDiscount(product) === 1 ">
+                    <p style="text-decoration: none; font-weight: 700; margin: 0px 0px 5px 0px;">{{'PRODUCT.PRICE' | translate}} {{ oldPrice | currency: currency_code + ' ':'symbol':''}}</p>
+                    <p style="text-decoration: none; font-weight: 700; margin: 0px 0px 5px 0px;">{{'PRODUCT.DEPOSIT' | translate}} {{ naep_discount_price | currency: currency_code + ' ':'symbol':''}}</p>
+                </div>
+    
+                <div *ngIf="checkiIsHaveInternalDiscount(product) === 2 ">
+                    <div *ngIf="oldPrice" id="oldPrice">{{oldPrice | currency: currency_code + ' ':'symbol':''}}</div>
+                    <div id="newPrice"><b>{{discountPrice | currency: currency_code + ' ':'symbol':''}}</b></div>
+                </div>
+                <div *ngIf="checkiIsHaveInternalDiscount(product) === 3  && checkHasPromotionPrice(newPrice) === true">
+                    <div *ngIf="oldPrice" id="oldPrice">{{oldPrice | currency: currency_code + ' ':'symbol':''}}</div>
+                    <div id="newPrice"><b>{{newPrice | currency: currency_code + ' ':'symbol':''}}</b></div>
+                </div>
+                <div *ngIf="checkiIsHaveInternalDiscount(product) === 3  &&  checkHasPromotionPrice(newPrice) === false">
+                    <div *ngIf="oldPrice" ><p style="font-weight : 700;">{{oldPrice | currency: currency_code + ' ':'symbol':''}}</p></div>
+                </div>
+            </div>
+
+            <div *ngIf="is_redemption_cart">
+                <div id="newPrice"><b>{{redemption_price | currency: currency_code + ' ':'symbol':''}}</b></div>
+            </div>
+        </div>
+        <div id="another-detail">
+            <p *ngFor="let item of properties"><span style="text-transform: capitalize;">{{item.name}}: </span> {{item.value}}</p>
+            <p><b>x{{quantity}}</b></p>
+        </div>
+    </div>
+</div>
+
+<div id="clear"></div>

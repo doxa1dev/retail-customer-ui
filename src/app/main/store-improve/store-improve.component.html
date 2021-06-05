@@ -1,0 +1,77 @@
+<div style="width: 100%;">
+    <div class = "store-improve-wapper">
+        <div class="banners">
+            <mat-carousel class="imgBanner"
+                timings="250ms ease-in"
+                [autoplay]="true"
+                interval="5000"
+                color="accent"
+                maxWidth="auto"
+                [maintainAspectRatio]="true"
+                slides="3"
+                [loop]="true"
+                [hideArrows]="true"
+                [hideIndicators]="false"
+                [useKeyboard]="true"
+                [useMouseWheel]="false"
+                orientation="ltr"
+            >
+            <mat-carousel-slide class="img"
+                  #matCarouselSlide
+                  *ngFor="let slide of this.imageArray; let i = index"
+                  [image]="slide"
+        
+            ></mat-carousel-slide>
+            </mat-carousel>
+        </div>
+
+        <div class = "store-improve-content">
+            <div class="list-category">
+                <div class = "form-store-improve">
+                    <!-- <app-title [type]="title" [message]="'HOME.STORE'">
+                    </app-title> -->
+                    <form class="form-search">
+                        <input class="input-search" #searchBox (keyup)="searchProduct(searchBox.value)" placeholder="{{ 'HOME.SEARCH' | translate }}">
+                        <img class="icon-search-product" src="../../../../assets/icons/ICON/search_product.svg"/>
+                    </form>
+                </div>
+            
+                <div class="store-improve-body">
+                    <p class="title-store-improve">{{'HOME.CATEGORY' | translate}}</p>
+                    
+                    <div *ngIf="productsInit.length != 0">
+                        <swiper [config]='swiperOptions'>
+                            <ng-container *ngFor="let product of productsInit">
+                                <ng-template swiperSlide>
+                                    <div [ngClass]="isCheckSearch ? 'slide-product' : (product.id == productActive.id ? 'slide-product-active' : 'slide-product')" 
+                                    (click)='onShowProduct(product)'>
+                                        <img class="img-product" [src]='product.categoryPhotoKey'>
+                                        <p class="name-product " [innerHTML]="product.categoryName | titletranformPipe ">{{product.categoryName}}</p>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </swiper>
+                        
+                        <div [ngClass]="imageArrayTest.length != 0 ? 'swiper-button-prev-banner' : 'swiper-button-prev'"></div>
+                        <div [ngClass]="imageArrayTest.length != 0 ? 'swiper-button-next-banner' : 'swiper-button-next'"></div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="list-product" *ngIf="productsInit.length != 0">
+                <div class="store-list-product">
+                    <p class="title-product-improve" [innerHTML]="productActive.categoryName | titletranformPipe ">{{isCheckSearch ? ['PRODUCT.SEARCH_RESULT' | translate] : productActive.categoryName}}</p>
+        
+                    <div class="content-product" fxLayout='row wrap' *ngIf="!(isCheckSearch && listProduct.length === 0)">
+                        <app-product-improve *ngFor="let product of listProduct" [product]='product' 
+                        fxFlex.lt-sm='50%' fxFlex.gt-xs='33%'></app-product-improve>
+                    </div>
+        
+                    <p *ngIf="isCheckSearch && listProduct.length === 0" style="text-align: center; color: var(--text-color);">{{'PRODUCT.SEARCH_NOT_RESULT' | translate}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

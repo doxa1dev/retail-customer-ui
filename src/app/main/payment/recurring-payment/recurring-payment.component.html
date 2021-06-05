@@ -1,0 +1,164 @@
+<div id="epp" fxLayout="column">
+    <div id="epp-wrapper" fxLayout="column">
+      <div id="link">
+        <!-- <div class="link-icons">
+          <mat-icon
+            routerLink="../payment-options-full"
+            style="cursor: pointer;"
+            (click)="backToPaymentOption()"
+            >chevron_left</mat-icon
+          >
+          <a href="javascript:void(0)">{{ "RECURRING.DEPOSIT_INSTALMENT" | translate }}</a>
+        </div> -->
+        <app-title [type]="title" [message]="'RECURRING.DEPOSIT_INSTALMENT'">
+        </app-title>
+      </div>
+  
+      <!-- show options -->
+      <div id="FormField">
+        <div id="block">
+          <form
+            class="form-gr"
+            [formGroup]="recurringForm"
+            novalidate
+            (ngSubmit)="onSubmit()"
+          >
+          <div class="part-1">
+            <div class="text">
+              <p class="text-a">{{ "RECURRING.PART_1" | translate }}</p>
+              <p class="text-b">{{ "RECURRING.WE_WILL_NEED" | translate }} {{ fixedDeposit | currency: currency+" " }}</p>
+            </div>
+
+        </div>
+
+
+        <div class="part-2">
+
+            <div class="text">
+                <p class="text-a">{{ "RECURRING.PART_2" | translate }}</p>
+                <p class="text-c">{{ "RECURRING.BALANCE_FOR_INSTALMENT" | translate }} {{ installmentAmount  | currency: currency+" " }}</p>
+              </div>
+
+
+              <div class="text">
+                <p>{{ "RECURRING.SELECT_TENURE" | translate }} </p> 
+              </div>
+
+              <div class="form-radio-group" >
+                <mat-radio-group [(ngModel)]="numberOfPaymentsChosenbyCustomer" formControlName="number_of_payments">
+                  <mat-radio-button
+                    *ngFor="let number of numberOfPayments"
+                    [value]="number" (change)="radioChange($event)"
+                  >
+                    <mat-label>{{ number }}&nbsp; &nbsp;</mat-label>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+
+              <!-- <div class="text">
+                <p>B. select recurring payment frequency type </p>
+              </div>
+
+  <div class="select-field">
+            <mat-form-field appearance="outline">
+              <mat-select
+              formControlName="frequency"
+              [(ngModel)]="frequencyChosenByCustomer"
+                placeholder="------Select Frequncy------"
+              >
+               
+                <mat-option *ngFor="let frequency of frequencyTypes" [value]="frequency">
+                  {{ frequency }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+        </div> -->
+  
+            <div class="text" *ngIf="numberOfPaymentsChosenbyCustomer">
+                <p class="text-c">{{ "RECURRING.YOU_NEED_TO_PAY" | translate }} {{ paymentAmountForEachInstallment  | currency: currency+" " }} {{ "RECURRING.EACH_MONTH" | translate }}</p>
+              </div>
+
+        </div>
+           
+            <button
+              mat-raised-button
+              color="accent"
+              class="query-form-btn green-right-btn"
+              aria-label="SUBMIT"
+              type="submit"
+              [disabled]="recurringForm.invalid"
+            >
+            {{ "RECURRING.PAY_DEPOSIT" | translate }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Footer -->
+    <!-- <div class="FormFooter">
+      <div class="inForm">
+        <div class="payment-info">
+          <p>{{ "RECURRING.PAYMENT_INFORMATION" | translate }}</p>
+          <div class="grid1" fxLayout="row">
+            <div class="verified" fxLayout="column">
+              <div class="table">
+
+                <div class="col-left">
+                  <div>{{ "RECURRING.PENDING_VERIFIED" | translate }}</div>
+                  <div>{{ "RECURRING.VERIFIED" | translate }}</div>
+                  <div style="color: var(--red-color)">{{ "RECURRING.REMAINING" | translate }}</div>
+                </div>
+
+                <div class="col-right">
+                  <div>{{ pendingVerified | currency: " " }}</div>
+                  <div>{{ verified | currency: " " }}</div>
+                  <div style="color: var(--red-color)">{{ remaining | currency: currency + " " }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <hr />
+        <div class="order-amount">
+
+          <p class="order">{{ "RECURRING.ORDER_AMOUNT" | translate }}</p>
+
+          <div class="grid2" fxLayout="row">
+            <div class="amount" fxLayout="column">
+              <div class="table2">
+
+                <div class="col-left">
+                  <div>{{ "RECURRING.SHIPPING" | translate }}</div>
+                  <div>{{ "RECURRING.SUBTOTAL" | translate }}</div>
+                  <div style="color: var(--red-color)">{{ "RECURRING.TOTAL" | translate }}</div>
+                </div>
+
+                <div class="col-right">
+                  <div>{{ shipping | currency: " " }}</div>
+                  <div>{{ subTotal | currency: " " }}</div>
+                  <div style="color: var(--red-color)">{{ total | currency: currency + " " }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+    <app-footer-payment [verified]='verified' 
+    [pending_verified]='pendingVerified' 
+    [remaining]='remaining' 
+    [uuid]="orderUuid"
+    [shipping]='shipping' 
+    [subtotal]='subTotal' 
+    [total]='total' [currency]='currency' 
+    [linkShare] = "checkLinkShare"
+    [selectPayment]='false'
+    >
+    </app-footer-payment>
+  </div>
+  

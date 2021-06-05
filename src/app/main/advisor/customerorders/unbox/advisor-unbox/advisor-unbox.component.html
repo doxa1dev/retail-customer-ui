@@ -1,0 +1,28 @@
+<div class="qr-code">
+    <div class="order-qr" fxLayout="column" fxLayoutAlign="">
+
+        <div class="qr-header">
+            <app-title [type]="title" [message]="'ADVISOR_UNBOX.UNBOX'">
+            </app-title>
+        </div>
+        <div>
+            <mat-card id="qr-code">
+                <p>{{ 'ADVISOR_UNBOX.SCANNING_QR' | translate }}</p>
+                <div class="scan">
+                    <zxing-scanner  [torch]="torchEnabled" [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)"
+                        [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+                        (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)" >
+                    </zxing-scanner>
+                </div>
+            </mat-card>
+            <div class="advisor-add-image">
+                <button (change) = "onSelectFileUploadImage($event)"  (click)="fileDropRef.click()" > Upload Image
+                    <input #fileDropRef type="file" accept='image/*' style="display: none;"  />
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

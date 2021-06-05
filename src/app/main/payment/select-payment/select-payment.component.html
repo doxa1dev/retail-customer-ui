@@ -1,0 +1,336 @@
+<div class="payment-method" *ngIf="!loading">
+    <div class="content">
+        <div class="header">
+            <app-title [type]="title" [message]="'PAYMENT.FULL_PAYMENT'" >
+            </app-title>
+        </div>
+
+        <div class="order-summary">
+            <mat-accordion   class="example-headers-align" >
+                <mat-expansion-panel (opened)="panelOpenStateSummary = true"
+                                    (closed)="panelOpenStateSummary = false" hideToggle="true" [expanded]="panelOpenStateSummary">
+                    <mat-expansion-panel-header [ngClass]="panelOpenStateSummary ? 'active' : 'inactive' ">
+                        <mat-panel-title [ngClass]="panelOpenStateSummary ? 'titleactive' : 'titleinactive' ">
+                            Summary
+                        </mat-panel-title>
+                        <mat-panel-description style="flex-grow: 0; margin-right: 0px;">
+                        <mat-icon *ngIf="!panelOpenStateSummary">add</mat-icon>
+                        <mat-icon *ngIf="panelOpenStateSummary">remove</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="mat-expansion-panel-body" style="padding: 0 8px 16px !important;">
+                        <div class="list-products" >
+                            <app-order-summary-detail [data]="dataOrderSummary"></app-order-summary-detail>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                
+            </mat-accordion>
+
+        </div>
+
+        <!-- </div> -->
+        <p-toast  position="top-right"  [showTransformOptions]="'translateX(-100%)'">
+            <ng-template let-message pTemplate="message">
+                <div style="text-align: center">
+                    <div style="padding:0.5em 0em">{{message.summary}}</div>
+                </div>
+            </ng-template>
+        </p-toast>  
+        
+
+
+        <!-- <p class="text-method">{{'PAYMENT.CHOOSE_PAYMENT_METHOD' | translate}}</p> -->
+        <!-- <div class="text-method"></div> -->
+
+        <div id="selectbox">
+            
+            <p>{{'PAYMENT.OPTIONS_BANK' | translate}}</p>
+
+            <mat-card [ngClass]=" hasOnlineBankingGift2? 'card-with-gift-text': 'card-without-gift-text'"
+                *ngIf="checkDisplayFPX()" (click)="payByFPX()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <!-- {{'PAYMENT.SELECT_PAYMENT_METHOD' | translate}} -->
+                    <p>{{'PAYMENT.ONLINE_BANKING_TRANSFER' | translate}}</p>
+                    <p class="promotion-text" *ngIf="hasOnlineBankingGift2 && valueRadio==='1' && false">Extra gift for selected methods while stock lasts</p>
+                </div>
+                <div class="right">
+                    <!-- <div class="img">
+                        <img class="mc" src="../../../../assets/images/payment/mc_symbol.png">
+                        <img class="visa" src="../../../../assets/images/payment/visa.png">
+                    </div> -->
+                    <mat-icon>chevron_right</mat-icon>
+                    <div hidden=true>
+                         <FORM ngNoForm method="post" name="ePayment"
+                             [action]="ipay88FpxUrl"                          id="fpx-form">
+                            <INPUT type="hidden" name="MerchantCode" [value]="fpx_merchantCode">
+                            <INPUT type="hidden" name="PaymentId" [value]="fpx_paymentId">
+                            <INPUT type="hidden" name="RefNo" [value]="refNo">
+                            <INPUT type="hidden" name="Amount" [value]="amount">
+                            <INPUT type="hidden" name="Currency" [value]="currency">
+                            <INPUT type="hidden" name="ProdDesc" [value]="prodDesc">
+                            <INPUT type="hidden" name="UserName" [value]="userName">
+                            <INPUT type="hidden" name="UserEmail" [value]="userEmail">
+                            <INPUT type="hidden" name="UserContact" [value]="userContact">
+                            <INPUT type="hidden" name="Remark" [value]="remark">
+                            <INPUT type="hidden" name="Lang" [value]="lang">
+                            <INPUT type="hidden" name="SignatureType" [value]="signatureType">
+                            <INPUT type="hidden" name="Signature" [value]="signature">
+                            <INPUT type="hidden" name="ResponseURL" [value]="responseUrl">
+                            <INPUT type="hidden" name="BackendURL" [value]="backendUrl">
+                        </FORM>
+                    </div>
+                </div>
+
+            </mat-card>
+            <!-- <a routerLink="/paym-pos" routerLinkActive="paym-pos" style="text-decoration: none;"> -->
+
+            <mat-card class="card-without-gift-text" *ngIf="checkDisplayIpay88OTP()" (click)="payByIpay88()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'SELECT_PAYMENT.ONLINE_PAYMENT_IPAY' | translate}}</p>
+                </div>
+                <div class="right">
+                    <!-- <div class="img">
+                        <img class="mc" src="../../../../assets/images/payment/mc_symbol.png">
+                        <img class="visa" src="../../../../assets/images/payment/visa.png">
+                    </div> -->
+                    <mat-icon>chevron_right</mat-icon>
+                    <div hidden=true>
+                         <FORM ngNoForm method="post" name="ePayment"
+                             [action]="ipay88OtpUrl"                        
+                             id="ipay88-form">
+                            <INPUT type="hidden" name="MerchantCode" [value]="one_time_merchantCode">
+                            <INPUT type="hidden" name="PaymentId" [value]="paymentId">
+                            <INPUT type="hidden" name="RefNo" [value]="refNo">
+                            <INPUT type="hidden" name="Amount" [value]="amount">
+                            <INPUT type="hidden" name="Currency" [value]="currency">
+                            <INPUT type="hidden" name="ProdDesc" [value]="prodDesc">
+                            <INPUT type="hidden" name="UserName" [value]="userName">
+                            <INPUT type="hidden" name="UserEmail" [value]="userEmail">
+                            <INPUT type="hidden" name="UserContact" [value]="userContact">
+                            <INPUT type="hidden" name="Remark" [value]="remark">
+                            <INPUT type="hidden" name="Lang" [value]="lang">
+                            <INPUT type="hidden" name="SignatureType" [value]="signatureType">
+                            <INPUT type="hidden" name="Signature" [value]="signature">
+                            <INPUT type="hidden" name="ResponseURL" [value]="responseUrl">
+                            <INPUT type="hidden" name="BackendURL" [value]="backendUrl">
+                        </FORM>
+                    </div>
+
+                </div>
+            </mat-card>
+
+            <!-- <mat-card class="card-without-gift-text" *ngIf="checkDisplayWireCardOTP()" (click)="payByWirecard()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'PAYMENT.ONLINE_PAYMENT_WIRECARD' | translate}}</p>
+                </div>
+                <div class="right">
+                    <mat-icon>chevron_right</mat-icon>
+                </div>
+            </mat-card> -->
+            <mat-card [ngClass]=" hasSinglePaymentGift ? 'fixcard-with-gift-text': 'fixcard-without-gift-text'"
+                *ngIf="false" (click)="nextToPayByCheque()">
+                <!-- *ngIf="checkDisplayPayOnLineTT()" -->
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'PAYMENT.PAY_BY_PAYNOW' | translate}} </p>
+                    <p class="promotion-text" *ngIf="hasSinglePaymentGift && !is_naep_order">{{'PAYMENT.FREE_GIFT_OPTIONS' | translate}}</p>
+                </div>
+                <mat-icon class="right">chevron_right</mat-icon>
+            </mat-card>
+
+            <mat-card [ngClass]=" hasSinglePaymentGift ? 'fixcard-with-gift-text': 'fixcard-without-gift-text'"
+                *ngIf="checkDisplayWireCardOTP()" (click)="payByMpgs()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'PAYMENT.ONLINE_PAYMENT_MPGS' | translate}}</p>
+                    <p class="promotion-text" *ngIf="hasSinglePaymentGift && !is_naep_order">{{'PAYMENT.FREE_GIFT_OPTIONS' | translate}}</p>
+                </div>
+
+                <div class="icon-visa">
+                    <mat-icon svgIcon="mc-symbol"></mat-icon>
+                    <mat-icon svgIcon="visa"></mat-icon>
+                </div>
+                
+                <div class="right" style="margin-left: 0px;">
+                    <mat-icon>chevron_right</mat-icon>
+                </div>
+            </mat-card>
+
+            <!-- <mat-card class="card-without-gift-text" *ngIf="checkIppSG()" (click)="nextToPayByIpp()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'PAYMENT.IPP_ONLINE' | translate}}</p>
+                </div>
+                <mat-icon class="right">chevron_right</mat-icon>
+            </mat-card> -->
+
+            <!-- <mat-card class="card-without-gift-text" *ngIf="true" (click)="sg2c2pPayNow()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'PAYMENT.2C2P_PAYNOW' | translate}}</p>
+                </div>
+                <mat-icon class="right">chevron_right</mat-icon>
+            </mat-card> -->
+
+            <mat-card class="card-without-gift-text" *ngIf="checkDisplay2c2pPayNow()" (click)="sg2c2pPayNow()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'PAYMENT.2C2P_PAYNOW' | translate}}</p>
+                    <p class="promotion-text" *ngIf="hasSinglePaymentGift && !is_naep_order">{{'PAYMENT.FREE_GIFT_OPTIONS' | translate}}</p>
+                </div>
+
+                <mat-icon class="icon-paynow" svgIcon="icon-paynow"></mat-icon>
+                <div class="right" style="margin-left: 0px;">
+                    <mat-icon>chevron_right</mat-icon>
+                    <div hidden=true>
+                         <FORM method="post" name="2c2pPayment" [action]="SG2c2pUrl"                    
+                             id="sg2c2p_paynow_form">
+                            <INPUT type="hidden" name="version"         [value]="version">
+                            <INPUT type="hidden" name="merchant_id"     [value]="merchant_id">
+                            <INPUT type="hidden" name="currency"        [value]="currency2c2p">
+                            <INPUT type="hidden" name="result_url_1"    [value]="result_url_1">
+                            <INPUT type="hidden" name="hash_value"      [value]="hash_value">
+                            <INPUT type="hidden" name="payment_option"  [value]="payment_option_2c2p">
+                            <INPUT type="hidden" name="request_3ds"         [value]="request_3ds">
+                            <INPUT type="hidden" name="qr_type"             [value]="qrType">
+                            <INPUT type="hidden" name="user_defined_1"   [value]="user_defined_1">
+                    PRODUCT INFO :  <INPUT type="text" name="payment_description" [value]="payment_description"  readonly><br/>
+                    ORDER NO :      <INPUT type="text" name="order_id" [value]="order_id_2c2p"  readonly><br/>
+                    AMOUNT:         <INPUT type="text" name="amount"    [value]="amount2c2p" readonly><br/>
+                        </FORM>
+                    </div>
+                </div>
+            </mat-card>
+            <div class="instruction-for-paynow" *ngIf="checkDisplay2c2pPayNow()">Instruction for PayNow: <a (click)="popUpImage()">Click here</a></div>
+
+            <!-- <mat-card class="card-without-gift-text" *ngIf="checkIppSG()" (click)="nextToPayBy2c2p()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text">
+                    <p>{{'PAYMENT.2C2P' | translate}}</p>
+                </div>
+                <div class="right">
+                    <mat-icon>chevron_right</mat-icon>
+                    <div hidden=true>
+                         <FORM method="post" name="2c2pPayment" [action]="SG2c2pUrl"                    
+                             id="sg2c2p_form">
+                            <INPUT type="hidden" name="version"         [value]="version">
+                            <INPUT type="hidden" name="merchant_id"     [value]="merchant_id">
+                            <INPUT type="hidden" name="currency"        [value]="currency2c2p">
+                            <INPUT type="hidden" name="result_url_1"    [value]="result_url_1">
+                            <INPUT type="hidden" name="hash_value"      [value]="hash_value">
+                            <INPUT type="hidden" name="payment_option"  [value]="payment_option_2c2p">
+                            <INPUT type="hidden" name="ipp_interest_type" [value]="ipp_2c2p">
+                            <INPUT type="hidden" name="request_3ds"     [value]="request_3ds">
+                            <INPUT type="hidden" name="user_defined_1"   [value]="user_defined_1">
+                    PRODUCT INFO :  <INPUT type="text" name="payment_description" [value]="payment_description"  readonly><br/>
+                    ORDER NO :      <INPUT type="text" name="order_id" [value]="order_id_2c2p"  readonly><br/>
+                    AMOUNT:         <INPUT type="text" name="amount"    [value]="amount2c2p" readonly><br/>
+                        </FORM>
+                    </div>
+                </div>
+            </mat-card> -->
+
+            <mat-card class="card-without-gift-text" *ngIf="checkDisplayPayAtOffice()" (click)="nextToPayOffice()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text-office">
+                    <p *ngIf="entity == 'MY'">{{'PAYMENT.PAY_AT_THERMOMIX_OFFICE' | translate}}</p>
+                    <p *ngIf="entity != 'MY'">{{'PAYMENT.PAY_AT_THERMOMIX_EPP' | translate}}</p>
+                    <p  class="promotion-text" *ngIf="hasSinglePaymentGift && !is_naep_order && entity != 'MY'">{{'PAYMENT.FREE_GIFT_OPTIONS' | translate}}</p>
+                </div>
+                <mat-icon class="right">chevron_right</mat-icon>
+            </mat-card>
+
+            <mat-card class="card-without-gift-text" *ngIf="checkPayGiftNAEP()" (click)="nextToPayOffice()">
+                <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                <div class="div-text-office">
+                    <p *ngIf="entity == 'MY'">{{'PAYMENT.PAY_AT_THERMOMIX_OFFICE' | translate}}</p>
+                    <p *ngIf="entity != 'MY'">{{'PAYMENT.PAY_AT_THERMOMIX_EPP' | translate}}</p>
+                    <p  class="promotion-text" *ngIf="hasSinglePaymentGift && !is_naep_order && entity != 'MY'">{{'PAYMENT.FREE_GIFT_OPTIONS' | translate}}</p>
+                </div>
+                <mat-icon class="right">chevron_right</mat-icon>
+            </mat-card>
+
+            <!-- EPP -->
+            <div *ngIf="checkIppSG()">
+                <p>{{'PAYMENT.OPTIONS_BANK_EPP' | translate}}</p>
+            
+                <mat-card style="position: relative" class="card-without-gift-text" style="padding: 0;" *ngIf="checkIppSG()" (click)="nextToPayByIpp()">
+                    <mat-icon  style="height: 65px"class="left left-card" svgIcon="DBS-bank-card"></mat-icon>
+                    <mat-icon style="margin-left: 10px;right: 16px;top: 20px;position: absolute; " class="right right-card">chevron_right</mat-icon>
+                </mat-card>
+    
+                <mat-card class="card-without-gift-text" *ngIf="checkIppSG()" (click)="nextToPayBy2c2p()">
+                    <mat-icon class="left left-card" svgIcon="UOB-bank-card"></mat-icon>
+    
+                    <div class="right right-card">
+                        <mat-icon  class="right right-card">chevron_right</mat-icon>
+                        <div hidden=true>
+                             <FORM method="post" name="2c2pPayment" [action]="SG2c2pUrl"                    
+                                 id="sg2c2p_form">
+                                <INPUT type="hidden" name="version"         [value]="version">
+                                <INPUT type="hidden" name="merchant_id"     [value]="merchant_id">
+                                <INPUT type="hidden" name="currency"        [value]="currency2c2p">
+                                <INPUT type="hidden" name="result_url_1"    [value]="result_url_1">
+                                <INPUT type="hidden" name="hash_value"      [value]="hash_value">
+                                <INPUT type="hidden" name="payment_option"  [value]="payment_option_2c2p">
+                                <INPUT type="hidden" name="ipp_interest_type" [value]="ipp_2c2p">
+                                <INPUT type="hidden" name="request_3ds"     [value]="request_3ds">
+                                <INPUT type="hidden" name="user_defined_1"   [value]="user_defined_1">
+                        PRODUCT INFO :  <INPUT type="text" name="payment_description" [value]="payment_description"  readonly><br/>
+                        ORDER NO :      <INPUT type="text" name="order_id" [value]="order_id_2c2p"  readonly><br/>
+                        AMOUNT:         <INPUT type="text" name="amount"    [value]="amount2c2p" readonly><br/>
+                            </FORM>
+                        </div>
+                    </div>
+                </mat-card>
+    
+                <mat-card class="card-without-gift-text" style="padding: 10px;" *ngIf="checkIppSG()" (click)="nextToPayBy2c2p()">
+                    <mat-icon class="left left-card" style="height: 42px; width: 60%;" svgIcon="OCBC-bank-card"></mat-icon>
+    
+                    <div class="right right-card">
+                        <mat-icon class="right right-card" style="margin-top: 7px !important; margin-right: 5px !important;">chevron_right</mat-icon>
+                        <div hidden=true>
+                             <FORM method="post" name="2c2pPayment" [action]="SG2c2pUrl"                    
+                                 id="sg2c2p_form">
+                                <INPUT type="hidden" name="version"         [value]="version">
+                                <INPUT type="hidden" name="merchant_id"     [value]="merchant_id">
+                                <INPUT type="hidden" name="currency"        [value]="currency2c2p">
+                                <INPUT type="hidden" name="result_url_1"    [value]="result_url_1">
+                                <INPUT type="hidden" name="hash_value"      [value]="hash_value">
+                                <INPUT type="hidden" name="payment_option"  [value]="payment_option_2c2p">
+                                <INPUT type="hidden" name="ipp_interest_type" [value]="ipp_2c2p">
+                                <INPUT type="hidden" name="request_3ds"     [value]="request_3ds">
+                                <INPUT type="hidden" name="user_defined_1"   [value]="user_defined_1">
+                        PRODUCT INFO :  <INPUT type="text" name="payment_description" [value]="payment_description"  readonly><br/>
+                        ORDER NO :      <INPUT type="text" name="order_id" [value]="order_id_2c2p"  readonly><br/>
+                        AMOUNT:         <INPUT type="text" name="amount"    [value]="amount2c2p" readonly><br/>
+                            </FORM>
+                        </div>
+                    </div>
+                </mat-card>
+    
+                <mat-card class="card-without-gift-text" *ngIf="isCheckSdOnly" (click)="nextToPayOfficeEPP()">
+                    <mat-icon class="left" svgIcon="credic-card"></mat-icon>
+                    <div class="div-text-office">
+                        <p>{{'PAYMENT.PAY_AT_THERMOMIX_EPP' | translate}}</p>
+                    </div>
+                    <mat-icon class="right">chevron_right</mat-icon>
+                </mat-card>
+            </div>
+            
+        </div>
+    </div>
+    <app-footer-payment [verified]='verified' [pending_verified]='pendingVerified' [remaining]='remaining' [uuid]="orderUuid"
+        [shipping]='shipping' [toPay]='toPay' [subtotal]='subTotal' [total]='total' [currency]='currency' 
+        [linkShare] = "checkLinkShare" [selectPayment]='(entity != "MY") ? true : false' (addMessage)="add()"
+        [is_buy_for_customer]="is_buying_for_customer"
+        >
+    
+    </app-footer-payment>
+</div>
+
+<app-placeholder-loading *ngIf="loading" component="selectPayment"></app-placeholder-loading>

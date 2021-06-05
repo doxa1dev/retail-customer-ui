@@ -1,0 +1,33 @@
+{
+    "name": "Thermomix",
+    "start_url": "/",
+    "orientation": "any",
+    "scope": "/",
+
+    "short_name": "Thermomix",
+    "theme_color": "#269A3E",
+    "background_color": "white",
+    "icons": [
+        {
+            "src": "icons/favicon-16x16.png",
+            "sizes": "16x16"
+        },
+        {
+            "src": "icons/favicon-32x32.png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "icons/apple-touch-icon.png",
+            "sizes": "180x180"
+        },
+        {
+            "src": "icons/android-chrome-192x192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "icons/android-chrome-512x512.png",
+            "sizes": "512x512"
+        }
+    ]
+}
+

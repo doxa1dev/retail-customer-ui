@@ -1,0 +1,35 @@
+<div style='width: 100%; height: 100%;'>
+    <div class="news-detail" *ngIf="newsDetail">
+        <div class="news-detail-header">
+            <!-- <button class="back-icon" mat-icon-button (click)="back()" style="text-decoration: none;">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <div class= "back-button">{{ 'NEWS_DETAIL' | translate }}</div> -->
+            <app-title [type]="title" [message]="'NEWS_DETAIL'"></app-title>
+        </div>
+    
+        <div class="content">
+            <div class="detail" fxLayout="column">
+                <div fxLayout="row" class="row-header">
+                    <p id="title" fxFlex="75">{{newsDetail.title}}</p>
+                    <p id="day" fxFlex="25">{{newsDetail.createdAt}}</p>
+                </div>
+    
+                <div class="images-slider">
+                <ng-image-slider [images]="listImageDetail" #nav
+                [infinite]="true"
+                [autoSlide]="3"
+                [imageSize]="{width: '99%', height: 200}"
+                slideImage="1">
+                </ng-image-slider>
+    
+                <p id="text-des">{{newsDetail.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <app-bottom-navigation></app-bottom-navigation>
+</div>
+
+

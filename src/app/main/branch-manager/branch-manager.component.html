@@ -1,0 +1,42 @@
+<div style="width: 100%; background-color: var(--fuse-background);">
+    <div class="container">
+        <div class="branch-manager">
+            <div>
+                <app-title [type]="title" [message]="'BRANCH_MANAGER.BRANCH_MANAGER'">
+                </app-title>
+            </div>
+    
+            <div class="cart-image" (click)="goPendingRoom()">
+                <mat-card>
+                    <div>
+                        <img src="assets/images_doxa/undraw_apartment_rent_o0ut.svg" alt="">
+                        <p>{{ 'BRANCH_MANAGER.PENDING_ROOM_BOOKINGS' | translate }}</p>
+                    </div> 
+                    
+                </mat-card>
+            </div>
+    
+            <div class="cart-image" (click)="goPastRoom()">
+                <mat-card>
+                    <div>
+                        <img src="assets/images_doxa/undraw_checking_boxes_2ibd.svg" alt="">
+                        <p style="margin-top: 40px;">{{ 'BRANCH_MANAGER.PAST_ROOM_BOOKINGS' | translate }}</p>
+                    </div>
+                </mat-card>
+                
+            </div>
+    
+            <div class="cart-image" (click)="goRoomStatus()">
+                <mat-card>
+                    <div>
+                        <img src="assets/images_doxa/undraw_server_status_5pbv.svg" alt="">
+                        <p>{{ 'BRANCH_MANAGER.ROOM_STATUS' | translate }}</p>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

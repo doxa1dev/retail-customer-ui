@@ -1,0 +1,79 @@
+<div id="naep-background">
+    <div id="naep-child">
+        <app-title [type]="title" [message]="'BUY_NAEP_DISCOUNT.TITLE'" [link]="'/advisor-earning-program'" ></app-title>
+        
+        <div class="naep-left-right" *ngIf="checkDataPackage">
+            <p>{{'BUY_NAEP_DISCOUNT.CHOOSE_PACKAGE'| translate}}</p>
+            <!-- <p style="font-style: italic; color: #7cb342;">** You can only buy Thermomix with good price if you have not owned a Thermomix yet. Please select the "NAEP Fee Only" package if you have owned a Thermomix before.</p> -->
+
+            <mat-radio-group *ngIf="listSpecialProduct">
+                <mat-card *ngFor="let product of listSpecialProduct; let i = index">
+                    <mat-card-header>
+                        <mat-card-title>{{'BUY_NAEP_DISCOUNT.PACKAGE'| translate}} {{i + 1}}: {{product.packageName}} </mat-card-title>
+                    </mat-card-header>
+
+                    <mat-radio-button (change)='radioChange($event)' [value]="product" [checked]="i === 0"></mat-radio-button>
+
+                    <mat-card-content>
+                        <p class="price-text">{{'PRODUCT.PRICE' | translate}} {{getPricePackage(product) | currency: product.currencyFee + ' '}} </p>
+
+                        <div class="product-deposit" *ngIf="product.naepItem.length != 0">
+                            <div class="list-deposit" *ngFor="let deposit of product.naepItem">
+                                <div class="deposit">
+                                    <img src="{{storeUrl + deposit.product.attachments[0].storage_key}}">
+
+                                    <div>
+                                        <p class="deposit-name">{{deposit.product.product_name}}</p>
+                                        <p class="price-naep">{{'PRODUCT.PRICE' | translate}} {{ deposit.product.listed_price | currency: deposit.product.currency_code + ' '}}</p>
+                                        <p class="price-naep">{{'PRODUCT.DEPOSIT' | translate}} {{ deposit.product.naep_discount_price | currency: deposit.product.currency_code + ' '}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-kit" *ngIf="product.isKit">
+                            <img src="{{storeUrl + product.imgFee}}">
+
+                            <div>
+                                <p class="deposit-name">{{product.naepPackageKit.naepAdvisorKit.name}}</p>
+
+                                <div *ngIf="(product.promotionalPriceFee === null || product.promotionalPriceFee === undefined)">
+                                    <p class="price-naep">{{'PRODUCT.PRICE' | translate}} {{ product.listedPriceFee | currency: product.currencyFee + ' '}}</p>
+                                </div>
+                               
+                                <div *ngIf="!(product.promotionalPriceFee === null || product.promotionalPriceFee === undefined)">
+                                    <p class="price-naep">{{'PRODUCT.PRICE' | translate}} {{product.promotionalPriceFee | currency: product.currencyFee + ' '}}</p>
+                                </div>                               
+                            </div> 
+                        </div>
+
+                        <textarea class="des-text" [disabled]="true">{{product.description}}</textarea>
+                    </mat-card-content>
+                 </mat-card>
+
+                 <!-- <div class="mat-card-line"></div> -->
+
+                 <!-- <mat-card *ngIf="listSpecialProduct.length > 1">
+                    <mat-card-header>
+                         <mat-card-title>{{'BUY_NAEP_DISCOUNT.PACKAGE2'| translate}} : {{listSpecialProduct[0].product_name}} + {{listSpecialProduct[1].product_name}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-radio-button [value]="1" (change)='radioChange($event)'></mat-radio-button>
+                    <mat-card-content>
+                        <p class="display-text"><span style="font-weight: 600;">{{listSpecialProduct[0].product_name}}:</span> {{listSpecialProduct[0].product_description}}</p>
+                        <p class="display-text"><span style="font-weight: 600;">{{listSpecialProduct[1].product_name}}:</span> {{listSpecialProduct[1].product_description}}</p>
+                        
+                    </mat-card-content>
+                 </mat-card> -->
+
+            </mat-radio-group>
+
+            <div class="footer naep-left-right">
+                <!-- <button class="btn-next" style="cursor: pointer;" (click)='buyNaepPackageClick()'>{{'BUY_NAEP_DISCOUNT.BUY_NAEP_PACKAGE_BUTTON'| translate}}</button> -->
+                <app-button-loading [buttonName] = 'buttonName'  disabledBtn="true" [active] = "active" (click)='buyNaepPackage()'></app-button-loading>
+            </div>
+            
+        </div>
+
+        <p *ngIf="!checkDataPackage" style="text-align: center;">{{'BUY_NAEP_DISCOUNT.NO_PACKAGE' | translate}}</p>
+    </div>
+</div>

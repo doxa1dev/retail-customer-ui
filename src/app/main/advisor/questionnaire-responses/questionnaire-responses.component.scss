@@ -1,0 +1,108 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+:host {
+  ::ng-deep .ui-dropdown {
+    border: 0.5px solid var(--border-color);
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  ::ng-deep .ui-dropdown .ui-dropdown-label {
+    font-family: Arial, sans-serif !important; 
+    font-size: var(--mobi-primary-text);
+    margin-top: 6px;
+    color: var(--text-color) !important;
+    padding-left: 15px;
+    margin-left: 1px;
+  }
+
+  ::ng-deep .ui-dropdown .ui-dropdown-trigger {
+    margin-right: 5px;
+  }
+}
+
+.content-question-report {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: solid 20px var(--fuse-background) !important;
+  color: var(--text-color) !important;
+
+  @include media-breakpoint("xs") {
+    border-left: solid 15px var(--fuse-background) !important;
+    border-right: solid 15px var(--fuse-background) !important;
+    border-top: solid 8px var(--fuse-background) !important;
+    // border-bottom: solid 8px var(--fuse-background) !important;
+    border-bottom: solid 70px var(--fuse-background) !important;
+  }
+
+  .header-content-question-report {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 86px;
+    width: 100%;
+
+    @include media-breakpoint("xs") {
+      padding-right: 10px;
+    }
+
+    @include media-breakpoint("sm") {
+      padding-right: 42px;
+    }
+  }
+
+  .body-question-report {
+    padding: 0px 40px 0px 40px;
+    font-size: var(--mobi-primary-text);
+    margin-bottom: -80px;
+
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        line-height: 27px;
+    }
+
+    .title-filter {
+        font-weight: 700;
+    }
+
+    .guest-questionnaire{
+      a {
+        color: #0062D2;
+      }
+    }
+    .pre-demo{
+      display: inline-block;
+    }
+    .post-demo{
+      display: inline-block;
+
+    }
+  }
+
+  .footer-btn {
+    margin: 150px 20px 0px 20px;
+
+    .btn-back {
+      cursor: pointer;
+      width: 42%;
+      height: 40px;
+      color: var(--primary-color);
+      font-size: var(--mobi-large-button-text);
+      border: 1px solid var(--primary-color);
+      background-color: #ffffff;
+      border-radius: 6px;
+      float: left;
+    }
+  }
+}
+
+app-bottom-navigation {
+  display: none;
+
+  @include media-breakpoint("xs") {
+      display: unset;
+  }
+}

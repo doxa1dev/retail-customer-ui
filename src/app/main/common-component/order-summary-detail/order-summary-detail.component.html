@@ -1,0 +1,69 @@
+<div class="content">
+    <div class="product-infor" >
+            <app-product-order [listProduct]="data.listProduct">
+            </app-product-order>
+    </div>
+<!--     
+    <app-delivery-order [data]="data.deliveryAddress" [is_delivery_address]="true">
+    </app-delivery-order> -->
+
+    <div class="customer-info" >
+        <app-customer-info [customerInformation]="data.customerInformation"></app-customer-info>
+    </div>
+
+    
+    <div >
+        <div class="shipping-detail1">
+            <p ><b>Delivery Option</b></p>
+            <div *ngIf="data.shipping.shippingMethod === 'SELF_COLLECT'" id="self-collect">
+                <p id="method">{{'ORDER_DETAIL.DELIVERED_BY_SELF_COLLECTION' | translate}}.</p>
+            </div>
+            <div *ngIf="data.shipping.shippingMethod === 'BY_COURRIER'" id="by-courier">
+                <p>{{'ORDER_DETAIL.TO_BE_DELIVERED_BY_COURIER' | translate}}.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="shipping-location" *ngIf="data.shipping.shipping_location_name != 'Singapore'">
+        <p class="choose-area-title"><b>{{ 'CHECK_OUT.CHOOSE_A' | translate }}</b></p>
+        <p class="choose-area-description">{{ 'CHECK_OUT.CHOOSE_A_TEXT' | translate }}</p>
+        <p style="margin-left: 20px;">{{data.shipping.shipping_location_name}}</p>
+        <!-- <p-dropdown [options]="shipping_location"  [disabled]="is_disaled_city" [(ngModel)]="shipping_location_selected"  class="area-dropdown" [style]="{'width':'100%'}"  optionLabel="name" placeholder="Select shipping/collection area"></p-dropdown>
+        <p style="margin-bottom: 0px;" class="error-shipping-location" *ngIf="isShowErrorShippingLocation && shipping_location_selected === null">{{'CHECK_OUT.CHOOSE_SHIPPING' | translate}}</p> -->
+    </div>
+
+    <div  class="delivery-address" *ngIf="data.shipping.shippingMethod != 'SELF_COLLECT'" >
+        <app-delivery-address [deliveryAddress]="data.deliveryAddress"></app-delivery-address>
+    </div>
+
+
+    <div *ngIf="is_need_advisor && !isRedemptionPrice">
+        <div  class="delivery-advisor" *ngIf="data.advisorCustomer">
+            <h4>Advisor</h4>
+            <p>
+                Advisor Name: {{data.advisorCustomer.firtName}}
+            </p>
+            <p>
+                Advisor ID: {{data.advisorCustomer.advisorIdNumber}}
+            </p>
+         
+        </div>
+    
+         <div  class="delivery-advisor" *ngIf="!data.advisorCustomer && is_need_advisor && !is_naep_order">
+            <h4>Advisor</h4>
+            <p>
+                Advisor ID: {{data.remark_advisor_id}}
+            </p>
+            <p>
+                Advisor Name: {{data.remark_advisor_name}}
+            </p>
+            <p>
+                Phone Number: {{data.remark_advisor_phone_number}}
+            </p>
+        </div>
+    </div>
+
+
+    
+
+</div>

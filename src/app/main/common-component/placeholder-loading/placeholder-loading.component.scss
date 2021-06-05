@@ -1,0 +1,287 @@
+
+    :host {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
+    
+    @keyframes placeHolderShimmer {
+        0%{ background-position: -468px 0; }
+        100%{ background-position: 468px 0; }
+    }
+    
+    #placeholder-container {
+        background: #fff;
+        height: 100%;
+        width: 100%;
+    }
+    
+    #placeholder-background {
+        animation-duration: 1.5s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-name: placeHolderShimmer;
+        background: #f6f7f8;
+        background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+        background-size: 800px 400px;
+        height: 100%;
+        position: relative;
+    }
+    
+    // .placeholder-item {
+    //     position: absolute;
+    //     background-color:#fff;
+    // }
+    
+    // .placeholder-item.placeholder-item-top,
+    // .placeholder-item.placeholder-item-bar {
+    //     top: 0;
+    //     width: 20px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.xaxis-left {
+    //     left: 0;
+    //     bottom: 0;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.xaxis-top {
+    //     left: 20px;
+    //     height: 20px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.xaxis-right {
+    //     left: 40px;
+    //     bottom: 60px;
+    //     width: 30px;
+    // }
+    
+    // .placeholder-item.placeholder-item-bar.first-bar-top {
+    //     left: 70px;
+    //     top: 0;
+    //     height: 155px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.first-gutter {
+    //     left: 90px;
+    //     bottom: 60px;
+    //     width: 30px;
+    // }
+    
+    // .placeholder-item.placeholder-item-bar.second-bar-top {
+    //     left: 120px;
+    //     top: 0;
+    //     height: 124px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.second-gutter {
+    //     left: 140px;
+    //     bottom: 60px;
+    //     width: 30px;
+    // }
+    
+    // .placeholder-item.placeholder-item-bar.third-bar-top {
+    //     left: 170px;
+    //     top: 0;
+    //     height: 182px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.third-gutter {
+    //     left: 190px;
+    //     bottom: 60px;
+    //     width: 30px;
+    // }
+    
+    // .placeholder-item.placeholder-item-bar.forth-bar-top {
+    //     left: 220px;
+    //     top: 0;
+    //     height: 73px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.forth-gutter {
+    //     left: 240px;
+    //     bottom: 60px;
+    //     width: 30px;
+    // }
+    
+    // .placeholder-item.placeholder-item-bar.fifth-bar-top {
+    //     left: 270px;
+    //     top: 0;
+    //     height: 195px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.fifth-gutter {
+    //     left: 290px;
+    //     bottom: 60px;
+    //     width: 30px;
+    // }
+    
+    // .placeholder-item.placeholder-item-bar.sixth-bar-top {
+    //     left: 320px;
+    //     top: 0;
+    //     height: 250px;
+    // }
+    
+    // .placeholder-item.placeholder-item-top.sixth-gutter {
+    //     left: 340px;
+    //     bottom: 60px;
+    //     width: 60px;
+    // }
+    
+    // .placeholder-item-axis,
+    // .placeholder-item-axis-top {
+    //     bottom: 0;
+    //     height: 40px; 
+    // }
+    
+    // .placeholder-item.placeholder-item-axis {
+    //     right: 0;
+    //     left: 0; 
+    // }
+    
+    // .placeholder-item.placeholder-item-axis-top {
+    //     right: 0;
+    //     width: 20px;
+    //     bottom: 40px;
+    // }
+
+    
+    $ph-bg:                #fff ;
+    $ph-color:                #ced4da ;
+    $ph-border-radius:        2px;
+    
+    $ph-gutter:               30px;
+    $ph-spacer:               15px;
+    
+    $ph-avatar-border-radius: 50%;
+    
+    $ph-animation-duration: .8s;
+
+ 
+
+    .ph-item {
+  &, *,
+  ::after, ::before {
+    box-sizing: border-box;
+  }
+  height: 100%!important;
+  direction: ltr;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding: $ph-gutter ($ph-gutter / 2) ($ph-gutter - $ph-spacer) ($ph-gutter / 2);
+  overflow: hidden;
+  margin-bottom: $ph-gutter;
+  background-color: $ph-bg;
+  border: 1px solid darken($ph-bg, 10%);
+  border-radius: $ph-border-radius;
+
+  &::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 1;
+    width: 500%;
+    margin-left: -250%;
+    animation: phAnimation $ph-animation-duration linear infinite;
+    background: linear-gradient(to right, rgba($ph-bg, 0) 46%, rgba($ph-bg, .35) 50%, rgba($ph-bg, 0) 54%) 50% 50%;
+  }
+
+  > * {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column;
+    padding-right: ($ph-gutter / 2);
+    padding-left: ($ph-gutter / 2);
+  }
+}
+
+
+.ph-row {
+
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: ($ph-spacer / 2);
+  margin-top: 30px;
+  height: 100%;
+
+  div {
+    height: 10px;
+    margin-bottom: ($ph-spacer / 2);
+    background-color: $ph-color;
+  }
+  .big,
+  &.big div {
+    height: 20px;
+    margin-bottom: $ph-spacer;
+  }
+
+  .bigbox{
+    height: 150px;
+    margin-bottom: $ph-spacer;
+  }
+  .empty {
+    background-color: rgba($ph-bg, 0);
+  }
+}
+
+.ph-col-2 {
+  flex: 0 0 percentage(2 / 12);
+}
+.ph-col-4 {
+  flex: 0 0 percentage(4 / 12);
+}
+.ph-col-6 {
+  flex: 0 0 percentage(6 / 12);
+}
+.ph-col-8 {
+  flex: 0 0 percentage(8 / 12);
+}
+.ph-col-10 {
+  flex: 0 0 percentage(10 / 12);
+}
+.ph-col-12 {
+  flex: 0 0 percentage(12 / 12);
+}
+
+.ph-avatar {
+  position: relative;
+  width: 100%;
+  min-width: 60px;
+  background-color: $ph-color;
+  margin-bottom: $ph-spacer;
+  border-radius: $ph-avatar-border-radius;
+  overflow: hidden;
+
+  &::before {
+    content: " ";
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.ph-picture {
+  width: 100%;
+  height: 30px;
+  background-color: $ph-color;
+  margin-bottom: $ph-spacer;
+}
+
+.ph-header {
+  width: 100%;
+  height: 50px;
+  background-color: $ph-color;
+  margin-bottom: $ph-spacer;
+}
+
+@keyframes phAnimation {
+  0% {
+    transform: translate3d(-30%, 0, 0);
+  }
+  100% {
+    transform: translate3d(30%, 0, 0);
+  }
+}

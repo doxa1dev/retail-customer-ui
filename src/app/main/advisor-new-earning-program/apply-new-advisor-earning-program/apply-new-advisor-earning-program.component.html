@@ -1,0 +1,296 @@
+<div style="width: 100%;">
+    <div class="recruit-new-advisor-detail" >
+        <form name="naepForm" [formGroup]="naepForm" novalidate >
+    
+            <div class="form-new-advisor-detail">
+                <app-title [type]="title" [message]="'RECRUIT_NEW_ADVISOR.APPLY_NEW'"></app-title>
+            </div>
+        
+            <div class="content-apply-form">
+                <div class="resident">
+                    <p>{{ 'RECRUIT_NEW_ADVISOR.RESIDENT' | translate }}</p> 
+                    
+                    <div class="detail-div">
+                        <!-- Country -->
+                        <div class="detail-div-inline">
+                            <p style="font-weight: normal;color: var(--primary-color); text-decoration: none; font-style:italic;">{{ 'RECRUIT_NEW_ADVISOR.RESIDENT_NOTE_BEFORE' | translate }} {{country}} {{ 'RECRUIT_NEW_ADVISOR.RESIDENT_NOTE_AFTER' | translate }}</p>
+                            <mat-form-field appearance="none">
+                                <mat-select [disabled]="true" formControlName="residentCountry"  [(ngModel)]="nation_code"
+                                  (selectionChange)="setFormState($event)">
+                                  <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                                    <mat-option value="{{country.key}}">{{country.value}}
+                                    </mat-option>
+                                  </div>
+                                </mat-select>
+                            </mat-form-field>
+                            
+                            <mat-error class="error-message" *ngIf="naepControl.cityState.hasError('required') && isSummit">
+                                {{'CUSTOMER_INFORMATION.COUNTRY_REQUIRE'| translate}}
+                            </mat-error>
+                            
+                        </div>                    
+                    </div>
+                    <!-- <div class="resident-dropdown" >
+                        <p style="font-weight: normal;color: var(--primary-color); text-decoration: none; font-style:italic;">{{ 'RECRUIT_NEW_ADVISOR.RESIDENT_NOTE_BEFORE' | translate }}{{ 'RECRUIT_NEW_ADVISOR.RESIDENT_NOTE_AFTER' | translate }}</p>
+                        <p-dropdown id="nationality" [options]="nationality_list" placeholder="Select country"  formControlName="residentCountry" 
+                        optionLabel="label"  filter="true" [style]="{'width':'100%','height':'40px', 'font-size': '12px'}">
+                            <ng-template let-item pTemplate="selectedItem">
+                                <span style="vertical-align:middle">{{item.label}}</span>
+                            </ng-template>
+                            <ng-template let-dis pTemplate="item">
+                                <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                                    <div style="font-size:14px;float:left;margin-top:4px">{{dis.label}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div> -->
+                    
+                </div>
+        
+                <div class="customer" >
+                    <p id="header">{{ 'RECRUIT_NEW_ADVISOR.CUSTOMER_INFOR' | translate }}</p>
+                    
+                    <div id="infor-customer" >
+                        <table>
+                            <tr>
+                                <td>{{ 'RECRUIT_NEW_ADVISOR.NAME' | translate }}:</td>
+                                <td>{{customerName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'CUSTOMER_INFORMATION.EMAIL' | translate }}:</td>
+                                <td >{{customerEmail}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ 'CUSTOMER_INFORMATION.PHONE_NUMBER' | translate }}:</td>
+                                <td>{{customerPhone}}</td>
+                            </tr>
+                        </table>
+    
+                        <!-- Nationality -->
+                        <p>{{'CUSTOMER_INFORMATION.NATIONALITY'| translate}}</p>
+                        <p-dropdown [dropdownIcon]="'fa fa-caret-down fa-lg'" id="nationality" [options]="nationality_list" placeholder="Select country" [(ngModel)]="default_nationality"  formControlName="nationalty" 
+                        optionLabel="label"  filter="true" [style]="{'width':'100%','height':'40px', 'font-size': '12px'}">
+                            <ng-template let-item pTemplate="selectedItem">
+                                <span style="vertical-align:middle">{{item.label}}</span>
+                            </ng-template>
+                            <ng-template let-dis pTemplate="item">
+                                <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                                    <div style="font-size:14px;float:left;margin-top:4px">{{dis.label}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                        <!-- <input formControlName="nationalty" type="text"  placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_NATIONALITY' | translate }}">
+                        <mat-error class="error-message" 
+                            *ngIf="naepControl.nationalty.hasError('required') && isSummit">
+                            {{'CUSTOMER_INFORMATION.NATIONALITY_IS_REQUIRED'| translate}}
+                        </mat-error> -->
+    
+    
+                        <!-- National Id -->
+                        <div>
+                            <p>{{'CUSTOMER_INFORMATION.NRIC'| translate}}</p>
+        
+                            <input formControlName="nationlId"  type="text"  placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_NATIONAL_ID' | translate }}" maxlength="19">
+                                
+                            <mat-error class="error-message" 
+                                *ngIf="naepControl.nationlId.hasError('required') && isSummit">
+                                {{'CUSTOMER_INFORMATION.NATIONAL_ID_REQUIRED'| translate}}
+                            </mat-error>
+    
+                        </div>
+                        
+    
+                        <!-- Passport -->
+                        <p>{{'CUSTOMER_INFORMATION.PASSPORT'| translate}}</p>
+        
+                        <input formControlName="passport" type="text"  placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_PASSPORT' | translate }}">
+                        <mat-error class="error-message" 
+                            *ngIf="naepControl.passport.hasError('maxlength') && isSummit">
+                            {{'CUSTOMER_INFORMATION.PASSPORT_LENGTH'| translate}}
+                        </mat-error>
+    
+                        <!-- DOB -->
+                        <p>{{'CUSTOMER_INFORMATION.DOB'| translate}}</p>
+        
+                        <mat-form-field  appearance="none">
+                            <input type="datetime"  [min]="minDate" [max]="maxDate" formControlName="dob" readonly (focus)="picker.open()"  (click)="picker.open()" matInput [matDatepicker]="picker" placeholder="{{'CUSTOMER_INFORMATION.ENTER_DOB'| translate}}" >
+                            <mat-datepicker-toggle matSuffix [for]="picker">
+                              <mat-icon style="margin-left: 17px;" matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+                        </mat-form-field>
+                        <mat-error class="error-message" 
+                            *ngIf="naepControl.dob.hasError('required') && isSummit">
+                            {{'CUSTOMER_INFORMATION.DOB_IS_REQUIRED'| translate}}
+                        </mat-error>
+        
+                        <!-- Address Line 1 -->
+                        <p>{{'MY_PROFILE.ADDRESS_LINE1'| translate}}</p>
+        
+                        <input formControlName="addressLine1" type="text"  placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_ADDRESS_LINE_1' | translate }}">
+                        <mat-error class="error-message" 
+                            *ngIf="naepControl.addressLine1.hasError('required') && isSummit ">
+                            {{'CUSTOMER_INFORMATION.ADDRESS_REQUIRED'| translate}}
+                        </mat-error>
+                        <mat-error class="error-message" 
+                        *ngIf="naepControl.addressLine1.hasError('maxlength') && isSummit ">
+                        {{'CUSTOMER_INFORMATION.ADDRESS_LINE1_LENGTH'| translate}}
+                      </mat-error>
+    
+                        <!-- Address Line 2 -->
+                        <p>{{'MY_PROFILE.ADDRESS_LINE2'| translate}}</p>
+        
+                        <input formControlName="addressLine2" type="text"  placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_ADDRESS_LINE_2' | translate }}">
+                        <mat-error class="error-message" 
+                        *ngIf="naepControl.addressLine2.hasError('maxlength') && isSummit ">
+                        {{'CUSTOMER_INFORMATION.ADDRESS_LINE2_LENGTH'| translate}}
+                      </mat-error>
+                        <!-- <mat-error class="error-message" 
+                            *ngIf="naepControl.addressLine2.hasError('required') && isSummit">
+                            {{'CUSTOMER_INFORMATION.CONDO_NAME/AREA_REQUIRED'| translate}}
+                        </mat-error> -->
+                        
+                        <!-- Address Line 3 -->
+                        <p>{{'MY_PROFILE.ADDRESS_LINE3'| translate}}</p>
+        
+                        <input formControlName="addressLine3" type="text"  placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_ADDRESS_LINE_3' | translate }}">
+                        <mat-error class="error-message" 
+                        *ngIf="naepControl.addressLine3.hasError('maxlength') && isSummit ">
+                        {{'CUSTOMER_INFORMATION.ADDRESS_LINE3_LENGTH'| translate}}
+                      </mat-error>
+                        <!-- <mat-error class="error-message" 
+                            *ngIf="naepControl.addressLine3.hasError('required') && isSummit">
+                            {{'CUSTOMER_INFORMATION.ADDRESS_LINE3_REQUIRED'| translate}}
+                        </mat-error> -->
+                    
+    
+    
+                        <!-- Postal Code -->
+                        <p>{{'CUSTOMER_INFORMATION.POSTAL_CODE'| translate}}</p>
+        
+                        <input formControlName="postalCode" type="text"  placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_POSTAL_CODE' | translate }}">
+                        
+                        <mat-error class="error-message" 
+                            *ngIf="naepControl.postalCode.hasError('required') && isSummit">
+                            {{'CUSTOMER_INFORMATION.POSTAL_REQUIRED'| translate}}
+                        </mat-error>
+    
+                        <div id="detail-div">
+    
+                            <!-- Country -->
+                            <div class="detail-div-inline">
+                                <p>{{'CUSTOMER_INFORMATION.COUNTRY'| translate}}</p>
+                            <p style="font-weight: normal;color: var(--primary-color); text-decoration: none; font-style:italic;">{{ 'RECRUIT_NEW_ADVISOR.RESIDENT_NOTE_BEFORE' | translate }} {{country}} {{ 'RECRUIT_NEW_ADVISOR.RESIDENT_NOTE_AFTER' | translate }}</p>
+    
+                                <mat-form-field appearance="none">
+                                    <mat-select  [disabled]="true" formControlName="country" [(ngModel)]="nation_code" placeholder="{{ 'CUSTOMER_INFORMATION.SELECT_COUNTRY' | translate }}" 
+                                      (selectionChange)="setFormState($event)">
+                                      <div *ngFor="let country of countryCodeToName | keyvalue:keepOriginalOrder">
+                                        <mat-option value="{{country.key}}">{{country.value}}
+                                        </mat-option>
+                                      </div>
+                                    </mat-select>
+                                </mat-form-field>
+                                
+                                <mat-error class="error-message" *ngIf="naepControl.cityState.hasError('required') && isSummit">
+                                    {{'CUSTOMER_INFORMATION.COUNTRY_REQUIRE'| translate}}
+                                </mat-error>
+                                
+                            </div>
+                            <!-- City state -->
+                            <div class="detail-div-inline">
+                                <p>{{'CUSTOMER_INFORMATION.CITY_STATE'| translate}}</p>  
+    
+                                <mat-form-field appearance="none">
+                                    <mat-select [disabled]="nation_code != 'MY'" [(ngModel)]="city_state_code" formControlName="cityState" placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_CITY_STATE' | translate }}" >
+                                      <div *ngFor="let state of stateCodeToNameFormOptions | keyvalue:keepOriginalOrder">
+                                        <mat-option value="{{state.key}}">{{state.value}}
+                                        </mat-option>
+                                      </div>
+                                    </mat-select>
+                                </mat-form-field>
+                              
+                                
+    
+                                <mat-error class="error-message" *ngIf="naepControl.country.hasError('required') && isSummit">
+                                    {{'CUSTOMER_INFORMATION.CITY_REQUIRED'| translate}}
+                                </mat-error>
+                            </div>
+    
+                            
+                        </div>
+        
+                        
+                    </div>
+                </div>
+        
+        
+                <div class="bank">
+                    <p class="bank-header">{{ 'RECRUIT_NEW_ADVISOR.BANK_INFORMATION' | translate }}</p> 
+                    <div class="bank-information">
+                        <p>{{'CUSTOMER_INFORMATION.BANK_CODE'| translate}}</p>
+                        <p-dropdown [dropdownIcon]="'fa fa-caret-down fa-1x'" formControlName="bankCode" id="nationality" [options]="banks" placeholder="Select Bank Code"
+                        optionLabel="bank_name" [style]="{'width':'100%','height':'40px'}">
+                            <ng-template let-item pTemplate="selectedItem">
+                                <span style="vertical-align:middle">{{item.label}}</span>
+                            </ng-template>
+                            <ng-template let-dis pTemplate="item">
+                                <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                                    <div style="font-size:14px;float:left;margin-top:4px">{{dis.label}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                        <mat-error class="error-message" 
+                            *ngIf="naepControl.bankCode.hasError('required') && isSummit">
+                            {{'CUSTOMER_INFORMATION.BANK_CODE_IS_REQUIRED'| translate}}
+                        </mat-error>
+                    <!-- Bank Acount Number -->
+                    <p>{{'CUSTOMER_INFORMATION.BANK_ACCOUNT_NUMBER'| translate}}</p>
+                    <input formControlName="bankAccount" type="text" placeholder="{{ 'CUSTOMER_INFORMATION.ENTER_BANK_ACCOUNT_NUMBER' | translate }}">
+                    <mat-error class="error-message" 
+                            *ngIf="naepControl.bankAccount.hasError('required') && isSummit">
+                            {{'CUSTOMER_INFORMATION.BANK_ACCOUNT_NUMBER_IS_REQUIRED'| translate}}
+                    </mat-error>
+                    <!-- <mat-error class="error-message" 
+                            *ngIf="naepControl.bankAccount.hasError('bankAccount') && isSummit">
+                            {{'CUSTOMER_INFORMATION.BANK_ACCOUNT_NUMBER_IS_NUMBER'| translate}}
+                    </mat-error> -->
+                    
+                    <!-- bank holder -->
+        
+                    <p>{{'CUSTOMER_INFORMATION.BANK_HOLDER'| translate}}</p>
+                    <input  type="text" formControlName="bankHolder" placeholder="Enter Bank Holder">
+                    <mat-error class="error-message" 
+                    *ngIf="naepControl.bankHolder.hasError('required') && isSummit">
+                    {{'CUSTOMER_INFORMATION.BANK_HOLDER_IS_REQUIRED'| translate}}
+                    </mat-error>
+    
+                    <div class="form-checkbox">
+                        <mat-checkbox formControlName="checkAgree" color="primary"></mat-checkbox>
+                        <!-- <p>I have read and agree to the New Advisor Earning Programs Terms & Conditions</p> -->
+                        <span style="padding-top: 10px;">{{ 'CUSTOMER_INFORMATION.YOU_NEED_NAEP' | translate }}
+                            <a style="cursor: pointer;" (click)="viewTermsConditions()">{{ 'CUSTOMER_INFORMATION.TERMS_CONDITIONS' | translate }}</a> 
+                        </span>
+                    </div>
+    
+                    <mat-error class="error-message" 
+                    *ngIf="naepControl.checkAgree.hasError('required') && isSummit">
+                    {{'CUSTOMER_INFORMATION.YOU_NEED_CONFIRM'| translate}}
+                    </mat-error>
+                </div>
+        
+                <div class="button-naep">
+                    <button class="btn btn-back" (click)="back()">{{ 'CUSTOMER_INFORMATION.BACK' | translate }}</button>
+                    <!-- <button class="btn btn-apply">{{ 'CUSTOMER_INFORMATION.APPLY' | translate }}</button> -->
+                    <app-button-loading (click)="onSubmit()" [buttonName] = 'buttonName'  disabledBtn="true" [active] = "active"></app-button-loading>
+                </div>
+                    
+                </div>
+            </div>
+    
+        </form>
+        
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

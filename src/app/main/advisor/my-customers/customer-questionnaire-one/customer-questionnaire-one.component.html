@@ -1,0 +1,47 @@
+<div style="width: 100%;">
+    <div class = "customer-questionnaire-one">
+        <div class = "header-questionnaire-one">
+            <app-title [type]="title" [message]="'CUSTOMER_DETAIL.CUSTOMER_QUESTIONNAIRE'"></app-title>
+        </div>
+    
+        <mat-card>
+            <p class="title-customer-questionnaire-one">{{'QUESTIONNAIRE_ONE.GUEST_QUESTIONNAIRE_1'| translate}}</p>
+    
+            <div class="content-customer-questionnaire-one">
+                <!-- 1 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.1_FOR_YOU'| translate}}</p>
+                <p class="answer">{{answerP2Q1}}</p>
+    
+                <!-- 2 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.2_HOW_DO'| translate}}</p>
+                <p class="answer">{{answerP2Q2}}{{answerP2Text != undefined ? ', ' + answerP2Text : ''}}</p>
+    
+                <!-- 3 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.3_WHAT_PRODUCTS'| translate}}</p>
+                <p class="answer">{{answerP2Q3}}</p>
+    
+                <!-- 4 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.4_HOW_OFTEN'| translate}}</p>
+                <p class="answer">{{answerP2Q4}}</p>
+    
+                <!-- 5 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.5_FOR_HOW'| translate}}</p>
+                <p class="answer">{{answerP2Q5}}</p>
+    
+                <!-- 6 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.6_WHICH_MEALS'| translate}}</p>
+                <p class="answer">{{answerP2Q6}}</p>
+    
+                <!-- 7 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.7_WHAT_DO'| translate}}</p>
+                <p class="answer">{{answerP2Q7}}</p>
+    
+                <!-- 8 -->
+                <p class="question">{{'QUESTIONNAIRE_ONE.8_DOES_ANYONE'| translate}}</p>
+                <p class="answer">{{answerP2Q8}}{{answerP8Text != undefined ? ', ' + answerP8Text : ''}}</p>
+            </div>
+        </mat-card>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

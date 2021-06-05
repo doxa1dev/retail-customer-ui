@@ -1,0 +1,61 @@
+<div>
+    <h1 matDialogTitle class="title">{{ 'CONFIRM.CONFIRM' | translate }}</h1>
+    <hr>
+
+    <div [formGroup]='specificDateTimeForm' class="specific-date-gr">
+      <!-- ONLY -->
+        <div class="content-dialog" mat-dialog-content *ngIf="type == 'SD_ONLY' || type == 'SD_ONLY_LATER'">
+            <div class="shipping-special-form">
+                <div class="content-ship-form">
+                  <p>{{ 'CHECK_OUT.SELECT_DATE' | translate }}</p>
+                  <p-calendar class="calendar-ship" [showIcon]="true" (onSelect)="onChangeDateOnly($event)" 
+                  placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}" formControlName='specificDate1' (onMonthChange)='onYearChange($event)'
+                  dateFormat="DD,dd/mm/yy" readonlyInput="true" [disabledDays]='[0,1]' [disabledDates]='publicHolidayArr' 
+                  [minDate]='minDateShip' appendTo="body" [showOtherMonths]="false" (onFocus)='onShowFocus()' [showOnFocus]='isShowFocus'></p-calendar>
+                </div>
+    
+                <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificDate1').hasError('required') && isCheckShowRequired">
+                  {{ 'CHECK_OUT.SELECT_DATE_REQUIRED' | translate }}
+                </mat-error>
+            </div>
+        </div>
+        
+        <div class="content-dialog content-dialog2" mat-dialog-content *ngIf="type == 'SD_BEFORE' || type == 'SD_AFTER'">
+            <div class="shipping-special-form">
+                <div class="content-ship-form" style="margin-bottom: 10px;">
+                  <p>{{ 'CHECK_OUT.SELECT_DATE' | translate }}</p>
+                  <!-- BEFORE -->
+                  <p-calendar *ngIf="type == 'SD_BEFORE'"  class="calendar-ship" [showIcon]="true" (onSelect)="onChangeDateBefore($event)" 
+                  placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}" formControlName='specificDate2' (onMonthChange)='onYearChange($event)'
+                  dateFormat="DD,dd/mm/yy" readonlyInput="true" [disabledDays]='[0,6]' [disabledDates]='publicHolidayArr' 
+                  [minDate]='minDateShip' [maxDate]='maxDateShip' appendTo="body" [showOtherMonths]="false" (onFocus)='onShowFocus()' [showOnFocus]='isShowFocus'></p-calendar>
+
+                  <!-- AFTER -->
+                  <p-calendar *ngIf="type == 'SD_AFTER'" class="calendar-ship" [showIcon]="true" (onSelect)="onChangeDateAfter($event)" 
+                  placeholder="{{ 'REPORTS.SELECT_DATE' | translate }}" formControlName='specificDate2' (onMonthChange)='onYearChange($event)'
+                  dateFormat="DD,dd/mm/yy" readonlyInput="true" [disabledDays]='[0]' [disabledDates]='publicHolidayArr' 
+                  [minDate]='minDateShip' [maxDate]='maxDateShip' appendTo="body" [showOtherMonths]="false" (onFocus)='onShowFocus()' [showOnFocus]='isShowFocus'></p-calendar>
+                </div>
+    
+                <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificDate2').hasError('required') && isCheckShowRequired">
+                  {{ 'CHECK_OUT.SELECT_DATE_REQUIRED' | translate }}
+                </mat-error>
+      
+                <div class="content-ship-form">
+                  <p>{{ 'CHECK_OUT.SELECT_TIME' | translate }}</p>
+                  <p-dropdown class="dropdown-ship" [options]="type == 'SD_BEFORE' ? timeOptionDateBefore : timeOptionDateAfter" formControlName='specificTime2'
+                  (onChange)="onChangeTime($event)" optionLabel="{{type == 'SD_BEFORE' ? 'DEL_TIME_SLOT' : 'time_slot'}}" placeholder="All day" appendTo="body"></p-dropdown>
+                </div>
+    
+                <mat-error class="error-message" *ngIf="specificDateTimeForm.get('specificTime2').hasError('required') && isCheckShowRequired">
+                  {{ 'CHECK_OUT.SELECT_TIME_REQUIRED' | translate }}
+                </mat-error>
+              </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="pt-24-approved">
+        <button class="cancel-button-1" mat-button (click)="cancel()">{{ 'CONFIRM.CANCEL' | translate }}</button>
+        <button class="ok-button" mat-raised-button (click)="confirm()">{{ 'CONFIRM.OK' | translate }}</button>     
+    </div>
+</div>

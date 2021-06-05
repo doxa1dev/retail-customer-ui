@@ -1,0 +1,13 @@
+<div class="dialog-login">
+
+    <h1 matDialogTitle class="title">{{ 'CONFIRM.ALERT' | translate }}</h1>
+    <hr>
+
+    <div mat-dialog-content class="message">{{ 'CONFIRM.REGISTER_LOGIN' | translate}}</div>
+
+    <div mat-dialog-actions class="pt-24-approved">
+        <button class="btn-cancel" mat-button (click)="dialogRef.close('cancel')">{{ 'CONFIRM.CANCEL' | translate }}</button>
+        <button class="btn-sign-up btn-login" mat-raised-button (click)="dialogRef.close('signup')">{{ 'CONFIRM.SIGN_UP' | translate }}</button>
+        <button class="btn-sign-in btn-login" mat-raised-button (click)="dialogRef.close('signin')">{{ buttonRightText }}</button>
+    </div>
+</div>

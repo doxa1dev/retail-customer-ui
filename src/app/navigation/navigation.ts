@@ -1,0 +1,258 @@
+import { FuseNavigation } from '@fuse/types';
+import { environment } from 'environments/environment';
+
+let entity = environment.entity;
+
+export const navigation: FuseNavigation[] = [
+            {
+                id       : 'store',
+                title    : 'Store',
+                translate: 'HOME.STORE',
+                type     : 'item',
+                svgIcon     : 'store',
+                url      : '/store',
+            },
+            {
+                id       : 'news',
+                title    : 'News',
+                translate: 'MENU.NEWS',
+                type     : 'item',
+                svgIcon     : 'news',
+                url      : '/news',
+            },
+            {
+                id       : 'advisor-recruitment',
+                title    : 'New Advisor Earning Program',
+                translate: 'MENU.NEW_ADVISOR',
+                type     : 'item',
+                svgIcon     : 'adviserplus', 
+                url: '/advisor-earning-program',
+            },
+            {
+                id       : 'advisor',
+                title    : 'Advisor',
+                translate: 'MENU.ADVISOR',
+                type     : 'collapsable',
+                svgIcon     : 'adviser',
+                //url      : '/advisor',
+                children: [
+                    {
+                        id       : 'activities',
+                        title    : 'Activities',
+                        translate: 'MENU.MENU_ADVISOR.ACTIVITIES',
+                        type     : 'item',
+                        url      : '/advisor/activities',
+                    },
+                    {
+                        id       : 'recruitment',
+                        title    : 'Recruitment',
+                        translate: 'MENU.MENU_ADVISOR.RECRUITMENT',
+                        type     : 'item',
+                        url      : '/advisor/recruitment',
+                    },
+                    {
+                        id: 'customers',
+                        title: 'My Customers',
+                        translate: 'MENU.MY_CUSTOMERS',
+                        type: 'item',
+                        url: '/advisor/my-customers',
+                    },
+                    {
+                        id       : 'customer_orders',
+                        title    : 'Customer Orders',
+                        translate: 'MENU.MENU_ADVISOR.CUSTOMER_ORDERS',
+                        type     : 'item',
+                        url      : '/advisor/customerorders',
+                    },
+                    {
+                        id       : 'host_gift',
+                        title    : 'Host Gift Management',
+                        translate: 'MENU.MENU_ADVISOR.HOST_GIFT',
+                        type     : 'item',
+                        url      : '/advisor/host-gift',
+                    },
+                    {
+                        id       : 'just_host',
+                        title    : 'Just Host',
+                        translate: 'MENU.MENU_ADVISOR.JUST_HOST',
+                        type     : 'item',
+                        url      : '/advisor/just-host',   
+                    },
+                    // {
+                    //     id       : 'my_sales',
+                    //     title    : 'My Sales',
+                    //     translate: 'MENU.MENU_ADVISOR.MY_SALES',
+                    //     type     : 'item',
+                    //     url      : '/advisor/mysales',
+                    // },
+                    {
+                        id       : 'questionnaire_responses',
+                        title    : 'Questionnaire Responses',
+                        translate: 'MENU.MENU_ADVISOR.QUESTIONNAIRE_RESPONSES',
+                        type     : 'item',
+                        url      : '/advisor/questionnaire-responses',
+                    },
+                ]
+            },
+            {
+                id: 'branch_manager',
+                title: 'Branch Manager',
+                translate: 'MENU.BRANCH_MANAGER',
+                type: 'item',
+                svgIcon: 'branch-manager',
+                url: '/branch-manager',
+            },
+            {
+                id       : 'contacts_list',
+                title    : 'My Contacts',
+                translate: 'MENU.CONTACT_LIST',
+                type     : 'item',
+                svgIcon     : 'phone',
+                url      : '/contact-list',
+            },
+            {
+                id       : 'activity_overview',
+                title    : 'Activity Overview',
+                translate: 'MENU.ACTIVITY_OVERVIEW',
+                type     : 'item',
+                svgIcon     : 'order',
+                url: '/activity-overview',
+            },
+            {
+                id       : 'commissions_awards',
+                title    : 'Commissions and Points Awards',
+                translate: 'MENU.COMMISSION_AWARDS',
+                type     : 'item',
+                svgIcon     : 'conmisson',
+                url      : entity === "SG" ? 'https://www.thermomix.com.sg/sys_sg/a_load.php' : 'http://www.truemix.com.my/sys/a_load.php',
+                exactMatch: true,
+                externalUrl: true,
+                openInNewTab: true
+            },
+            {
+                id: 'reports',
+                title: 'Reports',
+                translate: 'MENU.REPORTS',
+                type: 'item',
+                svgIcon: 'report',
+                url: '/reports',
+            },
+            {
+                id       : 'order_history',
+                title    : 'My Order',
+                translate: 'MENU.ORDER_HISTORY',
+                type     : 'item',
+                svgIcon     : 'history',
+                url      : '/order-history',
+            },
+            {
+                id       : 'cookidoo_recipes',
+                title    : 'Cookidoo® recipes',
+                translate: 'MENU.COOKIDOO_RECIPE',
+                type     : 'item',
+                svgIcon     : 'cookido',
+                url      : 'https://cookidoo.international',
+                exactMatch: true,
+                externalUrl: true,
+                openInNewTab: true
+            },
+            {
+                id       : 'terms_and_conditions',
+                title    : 'Terms & Conditions',
+                translate: 'MENU.TERMS_AND_CONDITIONS',
+                type     : 'collapsable',
+                svgIcon  : 'term_and_coditions',
+                children: [
+                    {
+                        id       : 'privacy_policy',
+                        title    : 'Privacy Policy',
+                        translate: 'TOOLBAR.PRIVACY_POLICY',
+                        type     : 'item',
+                        url      : '/privacy-policy',
+                    },
+                    {
+                        id       : 'refund_policy',
+                        title    : 'Refund Policy',
+                        translate: 'TOOLBAR.REFUND_POLICY',
+                        type     : 'item',
+                        url      : '/refund-policy',
+                    },
+                    {
+                        id       : 'shipping_policy',
+                        title    : 'Delivery Policy',
+                        translate: 'TOOLBAR.SHIPPING_POLICY',
+                        type     : 'item',
+                        url      : '/shipping-policy',
+                    },
+                    {
+                        id       : 'term_and_condition_policy',
+                        title    : 'Thermomix® Terms & Conditions',
+                        translate: 'TOOLBAR.TERMS_AND_CONDITIONS',
+                        type     : 'item',
+                        url      : '/term-and-condition-policy',
+                    },
+                    {
+                        id       : 'naep_terms_conditions',
+                        title    : 'NAEP Terms & Conditions',
+                        translate: 'TOOLBAR.NAEP_TERMS_CONDITIONS',
+                        type     : 'item',
+                        url      : entity === "SG" ? '/naep-terms-conditions-sg' : '/naep-terms-conditions-my',
+                    },
+                    {
+                        id       : 'purchase_term_condition',
+                        title    : 'Purchase Terms & Conditions',
+                        translate: 'TOOLBAR.PURCHASE_PRIVACY_POLICY',
+                        type     : 'item',
+                        url      : '/purchase-term-condition',
+                    },
+                    {
+                        id       : 'event_term_condition',
+                        title    : 'Thermomix® Events Terms & Conditions',
+                        translate: 'TOOLBAR.EVENT_PRIVACY_POLICY',
+                        type     : 'item',
+                        url      : '/event-term-condition',
+                    },
+                ]
+            }
+            // {
+            //     id       : 'warrantied_products',
+            //     title    : 'Warranty Products',
+            //     translate: 'MENU.WARRANTIED_PRODUCTS',
+            //     type     : 'item',
+            //     svgIcon     : 'widgets',
+            //     url      : '/warrantied-products',
+            // },
+            // {
+            //     id       : 'become_an_advisor',
+            //     title    : 'Become An Advisor',
+            //     translate: 'MENU.BECOME_AN_ADVISOR',
+            //     type     : 'item',
+            //     svgIcon     : 'adviserplus',
+            //     url      : '/become-an-advisor',
+            // },
+
+            // {
+            //     id       : 'team_leader',
+            //     title    : 'Team Leader',
+            //     translate: 'MENU.TEAM_LEADER',
+            //     type     : 'collapsable',
+            //     svgIcon     : 'supervisoraccount',
+            //     // url      : '/teamleader',
+            //     children: [
+            //         // {
+            //         //     id       : 'my_advisor',
+            //         //     title    : 'My Advisor',
+            //         //     translate: 'MENU.MY_ADVISOR',
+            //         //     type     : 'item',
+            //         //     url      : '/teamleader/my-advisor',
+            //         // },
+            //         {
+            //             id: 'recruitment',
+            //             title: 'Recruitment',
+            //             translate: 'MENU.MENU_TEAM_LEADER.RECRUITMENT',
+            //             type: 'item',
+            //             url: '/teamleader/recruitment',
+            //         }
+            //     ]
+            // },
+        ];

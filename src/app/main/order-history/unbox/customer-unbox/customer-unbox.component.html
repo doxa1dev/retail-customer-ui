@@ -1,0 +1,15 @@
+<div class="qr-code">
+    <div class="order-qr" fxLayout="column" fxLayoutAlign="">
+            <app-title [type]="title" [message]="'ORDER_DETAIL.UNBOX'">
+            </app-title>
+        <div *ngIf="qrvalue">
+            <mat-card id="qr-code">
+                <p>Please show the QR code for your advisor to scan for unbox.</p>
+                <qrcode cssClass="qr-code-qr-code" [qrdata]="qrvalue" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+            </mat-card>
+        </div>
+        
+    </div>
+
+</div>
+

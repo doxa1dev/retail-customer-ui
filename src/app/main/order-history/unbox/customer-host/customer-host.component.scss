@@ -1,0 +1,43 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../../@fuse/scss/partials/background";
+
+.qr-code {
+    @include background();
+    .order-qr {
+        @include backgroundPage();
+        height: 95%;
+        @include media-breakpoint("xs") {
+            padding: 0px 0px 15px 0px!important;
+        }
+        .qr-header {
+            .back-button {
+                color: var(--text-color) !important;
+                text-decoration: underline !important;
+            }
+        }
+        #qr-code {
+            width: 30%;
+            max-width: 294px;
+            display: table;
+            margin: 0px auto;
+            margin-top: 20px;
+            @include media-breakpoint("xs") {
+                width: 70%;
+            }
+            p{
+                font-size: 18px;
+                text-align: center;
+                @include media-breakpoint("xs") {
+                    font-size: 16px;
+                }
+            }
+            .qr-code-qr-code{
+                background-color: red !important;
+                canvas{
+                    display: block !important;
+                    margin: 0px auto !important;
+                }
+            }
+        }
+    }
+}

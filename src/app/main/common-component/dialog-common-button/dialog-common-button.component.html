@@ -1,0 +1,16 @@
+<div style="display: flex;">
+    <h1 matDialogTitle class="title">{{title}}</h1>
+    <button class="btn-close" (click)='dialogRef.close()'>X</button>
+</div>
+
+<hr>
+<div mat-dialog-content *ngIf="message" [ngClass]="message === undefined ? 'message-none' : 'message'">{{message}} <br> {{message2}}</div>
+<!-- show Terms and Conditions. -->
+<div mat-dialog-content *ngIf="messageTermsConditions" class="message">By clicking YES, I acknowledge that I have read and agreed to the 
+    <a style="cursor: pointer;">Business Conduct & Policy</a> and <a style="cursor: pointer;" (click)='viewTermsConditions()'>NAEP Terms and Conditions</a>.</div>
+
+<div mat-dialog-actions class="btn-ok">
+    <button [ngClass]="buttonColor ? 'btn-green' : 'btn-red'" mat-raised-button (click)="dialogRef.close(true)">
+        {{buttonText}}
+    </button>
+</div>

@@ -1,0 +1,34 @@
+@import "src/@fuse/scss/fuse";
+
+.terms-and-conditions {
+    width:100%;
+    height:100%;
+    background-color: white;
+    color: var(--text-color);
+    font-size: var(--web-primary-text);
+    border: solid 20px var(--fuse-background) !important;
+    padding-bottom: 20px;
+
+    @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text);
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 25px var(--fuse-background) !important;
+    }
+
+    .body-terms-and-conditions-policy {
+        padding: 0px 15px 0px 15px;
+        p{
+            text-align: justify;
+        }
+        #header-shipping {
+            font-weight: 600;
+        }
+        .term{
+            font-style: italic;
+            font-weight: 550;
+        }
+
+    }
+}

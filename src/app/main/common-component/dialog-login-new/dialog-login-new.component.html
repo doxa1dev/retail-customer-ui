@@ -1,0 +1,21 @@
+<div class="dialog-login" style="overflow: hidden !important;">
+
+  <h1 matDialogTitle class="title">{{ 'DIALOG_LOGIN.SELECT_BELOW' | translate }}</h1>
+  <hr>
+  <p style="color: #5A616F;"><b>{{ 'DIALOG_LOGIN.FOR_CUS' | translate}}</b></p>
+  <!-- <div mat-dialog-content class="message">{{ 'DIALOG_LOGIN.TEXT' | translate}}</div> -->
+
+  <div mat-dialog-actions class="pt-24-approved" style="margin: 0px auto; padding: 0px;">
+    <button style="margin-right: auto;" class="btn-sign-in btn-guest" mat-raised-button (click)="dialogRef.close('guest')">{{ 'DIALOG_LOGIN.GUEST' | translate }}</button>
+      <button style="margin-left: auto;" class="btn-sign-up btn-create" mat-raised-button (click)="dialogRef.close('create')">{{ 'DIALOG_LOGIN.CREATE' | translate }}</button>
+  </div>
+  <p style="color: #5A616F;"><b>{{ 'DIALOG_LOGIN.CLUB' | translate}}</b></p>
+  <div class="btn-group pt-24-approved" style="display: grid;padding-bottom: 10px">
+
+      <button class="btn-sign-in btn-signin" mat-raised-button (click)="dialogRef.close('signin')">{{ 'DIALOG_LOGIN.SIGNIN' | translate }}</button>
+   
+
+      <button class="btn-cancel" mat-button (click)="dialogRef.close('back')">{{ 'DIALOG_LOGIN.GO_BACK' | translate }}</button>
+  
+</div>
+</div>

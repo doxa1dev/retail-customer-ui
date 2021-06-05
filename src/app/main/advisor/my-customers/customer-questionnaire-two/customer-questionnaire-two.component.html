@@ -1,0 +1,35 @@
+<div style="width: 100%;">
+    <div class = "customer-questionnaire-two">
+        <div class = "header-questionnaire-two">
+            <app-title [type]="title" [message]="'CUSTOMER_DETAIL.CUSTOMER_QUESTIONNAIRE'"></app-title>
+        </div>
+    
+        <mat-card>
+            <p class="title-customer-questionnaire-one">{{'QUESTIONNAIRE_2.GUEST_QUESTIONNAIRE_2'| translate}}</p>
+    
+            <div class="content-customer-questionnaire-one">
+                <!-- 1 -->
+                <p class="question">{{'QUESTIONNAIRE_2.QUESTIONS_1'| translate}}</p>
+                <p class="answer">{{answerQ1}}</p>
+    
+                <!-- 2 -->
+                <p class="question">{{'QUESTIONNAIRE_2.QUESTIONS_2'| translate}}</p>
+                <p class="answer">{{answerQ2}}</p>
+    
+                <!-- 3 -->
+                <p class="question">{{'QUESTIONNAIRE_2.QUESTIONS_3'| translate}}</p>
+                <p class="answer">{{answerQ3}}</p>
+    
+                <!-- 4 -->
+                <p class="question">{{'QUESTIONNAIRE_2.QUESTIONS_4'| translate}}</p>
+                <p class="answer">{{answerQ4}}</p>
+    
+                <!-- 5 -->
+                <p class="question">{{'QUESTIONNAIRE_2.QUESTIONS_5'| translate}}</p>
+                <p class="answer">{{answerQ5}}</p>
+            </div>
+        </mat-card>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

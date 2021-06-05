@@ -1,0 +1,47 @@
+<div class="list-products" style="height: 100% !important;">
+    <div class="product_list" fxLayout="column" fxLayoutAlign="">
+        <div class="header-list-product">
+            <app-title [type]="title" [message]="'LIST_PRODUCT.TITLE'"></app-title>
+            <form class="form-search">
+                <input class="input-search" #searchBox (keyup) = "search(searchBox.value)" placeholder="{{ 'HOME.SEARCH' | translate }}">
+                <img class="icon-search-product" src="../../../../assets/icons/material-icons/Search.png"/>
+            </form>
+        </div>
+        <!-- List Products -->
+        <div style="margin-top: 15px ; text-align: center; font-size: 14px; " *ngIf="checkLength">
+            {{'LIST_PRODUCT.THERE_IS_NO_PRODUCT_HERE' | translate}}</div>
+
+        <mat-card class="list-product" >
+            <!-- Product1 -->
+            <div  class="product" *ngFor="let item of listProduct">  
+                
+                <div class="image-product" routerLink="/product-detail" 
+                    [queryParams]="{ id: item.publicId }">
+                    <div class="image-special"  >
+                        <!-- <div *ngIf="!item.special_is_deleted">
+                            <img class="image-key" *ngIf="item.is_key_product"  src="assets/icons/ICON/greenstar.svg" alt="">     
+                            <img class="image-naep" *ngIf="item.is_naep_product" src="assets/icons/ICON/NAEP.svg" alt="">
+                        </div> -->
+                        
+                        <img class="img-product" src="{{storageUrl + item.productPhotoKey}}">
+                    </div> 
+                    
+                    <!-- <p class="name-product" >{{item.productName}}</p> -->
+                    <p class="name-product"  [innerHTML]="((getTranslation(item.id) | async) !== ('PRODUCT.TITLE.' + item.id) ? (getTranslation(item.id) | async) : item.productName) | titletranformPipe "></p>
+                    <div *ngIf="checkiIsHaveInternalDiscount(item) === true">
+                        <p class="price-product">  {{ item.listedPrice | currency: item.currencyCode + ' ':'symbol':''}}</p>
+                        <p class="new-price-product"> {{ item.internal_discount_price | currency: item.currencyCode + ' ': 'symbol':''}}</p>
+                    </div>
+                    <div *ngIf="checkiIsHaveInternalDiscount(item) === false && checkHasPromotionPrice(item.promotionalPrice) === true">
+                        <p class="price-product">  {{ item.listedPrice | currency: item.currencyCode + ' ':'symbol':''}}</p>
+                        <p class="new-price-product"> {{ item.promotionalPrice | currency: item.currencyCode + ' ': 'symbol':''}}</p>
+                    </div>
+                    <div *ngIf="checkiIsHaveInternalDiscount(item) === false && checkHasPromotionPrice(item.promotionalPrice) === false">
+                        <p class="pricelisted">  {{ item.listedPrice | currency: item.currencyCode + ' ':'symbol':''}}</p>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+</div>

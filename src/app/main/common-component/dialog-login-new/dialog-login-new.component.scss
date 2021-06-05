@@ -1,0 +1,140 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+.dialog-login {
+
+    @include media-breakpoint("xs") {
+        margin: -10px;
+    }
+
+    .title{
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: -3px;
+        color: #5A616F !important;
+        margin-bottom: 30px;
+        
+    }
+
+    hr{
+        margin-top: -20px;
+        background-color: #5A616F !important;
+    }
+
+    .message{
+        font-size: 16px;
+      
+        color: #5A616F !important;
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        @include media-breakpoint("xs") {
+            font-size: 14px;
+        }
+    }
+    
+    .pt-24-approved {
+        padding-bottom: 15px;
+        width: 100% !important;
+        
+        @media screen and (min-width : 750px){
+            // width: 100% !important;
+            margin: 0 auto;
+        }
+    
+        .btn-create {
+            border-radius: 7px;
+            align-content: space-between;
+            font-size: smaller;
+            text-align: center;
+            color: white !important;
+            background-color: var(--primary-color) !important;
+            font-weight: normal;
+            border: 1px solid var(--primary-color); 
+            height: 36px;
+            width: 42%;
+            margin: 0px;
+            padding: 0px;
+    
+            @include media-breakpoint("xs") {
+                font-size: 11px;
+                width: 42%;
+            }
+        }
+
+        .btn-guest {
+            border-radius: 7px;
+            margin-right: auto;
+             align-content: space-between;
+            font-size: smaller;
+            text-align: center;
+            background-color: var(--link-color) !important;
+            color: white !important;
+            font-weight: normal;
+            border: 1px solid var(--link-color); 
+            height: 36px;
+            width: 42%;
+            margin: 0px;
+            padding: 0px;
+    
+            @include media-breakpoint("xs") {
+                font-size: 11px;
+                width: 42%;
+            }
+        }
+    
+        .btn-cancel {
+            font-size: smaller;
+
+            border-radius: 7px;
+            text-align: center;
+            background-color: #fffff0 !important;
+            color: rgb(201, 0, 0) !important;
+            font-weight: normal;
+            border: 1px solid rgb(201, 0, 0);
+            height: 36px;
+            margin-top: 15px !important;
+            width: 20%;
+            margin: 0px;
+            margin-right: auto;
+            padding: 0px;
+            margin: 0 auto;
+            @include media-breakpoint("xs") {
+                font-size: 12px;
+                width: 20%;
+            }
+        }
+    
+        .btn-sign-in {
+       
+        //    margin: 0 auto;
+        }
+    
+        .btn-signin {
+            text-align: center;
+            font-size: smaller;
+            background-color: var(--primary-color) !important;
+            color: white !important;
+            font-weight: normal;
+            border: 1px solid  var(--primary-color);
+            height: 36px;
+            width: 35%;
+            margin: 0px;
+            margin-right: auto;
+            padding: 0px;
+            margin: 0 auto;
+            border-radius: 7px;
+            @include media-breakpoint("xs") {
+                font-size: 12px;
+                width: 35%;
+            }
+            
+        }
+        .btn-sign-up {
+            display: block;
+          //  margin: auto;
+            // background-color: var(--link-color) !important;
+            // border: 1px solid var(--link-color);
+        }
+    }
+}

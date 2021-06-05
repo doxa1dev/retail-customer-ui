@@ -1,0 +1,21 @@
+<div class="select-advisor">
+    <div class="header-select-advisor">
+        <app-title [type]="title" [message]="'NAEP.SELECT_ADVISOR'">
+        </app-title>
+    </div>
+
+    <div class="content-select-advisor">
+        <p>Select Advisor: </p>
+
+        <mat-radio-group>
+            <div class="form-radio" *ngFor="let advisor of dataNaep; let i = index">
+                <mat-radio-button [value]="advisor.recruiterCustomer.id" 
+                [checked]="i === 0" (change)='changeAdvisor($event)'></mat-radio-button>
+                <p>{{advisor.recruiterCustomer.preferred_name}}</p>
+            </div>
+        </mat-radio-group>
+
+        <button class="btn-apply" (click)="goToApplyForm()">Apply</button>
+    </div>
+
+</div>

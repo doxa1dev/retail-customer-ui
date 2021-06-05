@@ -1,0 +1,10 @@
+<h1 matDialogTitle class="title">{{ title }}</h1>
+<hr>
+<div mat-dialog-content [ngClass]="confirmMessage === undefined ? 'message-none' : 'message'">{{confirmMessage === undefined ? '' : confirmMessage}}</div>
+<!-- show Terms and Conditions. -->
+<div mat-dialog-content *ngIf="messageTermsConditions" class="message">I have read and understood the <a style="cursor: pointer;" (click)='viewTermsConditions()'>Terms and Conditions</a>.</div>
+
+<div mat-dialog-actions class="btn-gr">
+    <button class="btn-left" mat-button (click)="dialogRef.close('left')">{{ buttonLeftText }}</button>
+    <button class="btn-right" mat-raised-button (click)="dialogRef.close('right')">{{ buttonRightText }}</button>
+</div>

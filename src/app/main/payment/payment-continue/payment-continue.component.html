@@ -1,0 +1,48 @@
+<div class="payment-continue">
+    <div class="content">
+        <div class="header">
+            <!-- <img (click)="backToOrderDetail()" style="cursor: pointer;" class="icon-back" src="../../../../assets/icons/material-icons/Chevron Left.png">
+            <span class="text-payment" style="text-decoration: underline;">Payment</span> -->
+            <app-title [type]="title" [message]="'PAYMENT.PAYMENT'" [link]="'/order-detail/'" [param]="{ uuid: orderUuid}"></app-title>
+        </div>
+
+        <div class="complete-payment">
+            <img src="../../../../assets/images/payment/undraw_moving_forward_lhhd.png">
+            <span *ngIf="paymentOption==='FUL'" class="text1-complete-payment">{{'PAYMENT_CONTINUE.TRANSACTION_COMPLETE' | translate}}<br>{{'PAYMENT_CONTINUE.COMPLETE_PAYMENT_SOON' | translate}}</span>
+            <span *ngIf="paymentOption==='DEP'" class="text1-complete-payment">{{'PAYMENT_CONTINUE.THANK_YOU' | translate}}<br>{{'PAYMENT_CONTINUE.NOTIFICATION' | translate}}</span>
+
+<!-- 
+            <a *ngIf="paymentOption==='FUL'"   (click) = 'nextToPaymentOption()' style="text-decoration: none">
+                <button>{{'PAYMENT_CONTINUE.CONTINUE_PAYMENT' | translate}}</button>
+            </a>
+
+            <a *ngIf="paymentOption==='DEP'"   (click) = 'nextToConfirm()' style="text-decoration: none">
+                <button>{{'PAYMENT_CONTINUE.PAY_INSTALLMENT' | translate}}</button>
+            </a> -->
+
+            <br>
+
+        </div>
+    </div>
+ <div style="display: grid;">
+
+    <a *ngIf="paymentOption==='FUL'"   (click) = 'nextToPaymentOption()' style="text-decoration: none">
+        <button class="pay-continue">{{'PAYMENT_CONTINUE.CONTINUE_PAYMENT' | translate}}</button>
+    </a>
+    <a *ngIf="paymentOption==='DEP'"   (click) = 'nextToConfirm()' style="text-decoration: none">
+        <button class="pay-installment">{{'PAYMENT_CONTINUE.PAY_INSTALLMENT' | translate}}</button>
+    </a>
+     <app-footer-payment 
+     [verified]='verified' 
+     [pending_verified]='pendingVerified' 
+     [remaining]='remaining' 
+     [shipping]='shipping' 
+     [toPay]='toPay' 
+     [subtotal]='subTotal' 
+     [total]='total' 
+     [currency]='currency'
+     [paymentContinue] = "true"
+     >
+    </app-footer-payment>
+</div>
+</div>

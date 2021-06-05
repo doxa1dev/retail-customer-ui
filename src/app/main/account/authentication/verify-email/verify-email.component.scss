@@ -1,0 +1,117 @@
+@import "src/@fuse/scss/fuse";
+
+#verify-email
+{
+    width: 100%;
+    background: url('assets/images_doxa/background.jpg') no-repeat;
+    background-size: cover;
+    
+    #verify-wrapper{
+        flex: 1 0 auto;
+        padding: 32px;
+
+        @include media-breakpoint('xs') {
+            padding: 16px;
+        }
+        #verify-content {
+            background-color: white;
+            opacity: 1;
+            width: 384px;
+            max-width: 384px;
+            padding: 24px;
+            text-align: center;
+            height: 95%;
+
+            @include mat-elevation(16);
+
+            @include media-breakpoint('xs') {
+                padding: 24px;
+                width: 100%;
+            }
+
+            #FormTitle{
+                display: block;
+                position: relative;
+                padding: 0px;
+                min-height: 40px;
+
+                .formLogo {
+                    width: 144px;
+                    margin: 0px auto;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                .fromLanguage{
+                    color: green;
+                    display: block;
+                    position: absolute;
+                    top: -5px;
+                    right:-10px;
+                }
+                margin-bottom: 20px;
+            }
+            
+        .imgVerify{
+            display: block;
+            width: 240px;
+            height: 150px;
+            margin: 75px auto;
+            padding-bottom: 20px;
+        }
+        }
+          
+        #confirmEmail{
+            margin-bottom: 50px;
+            p{
+                font-size: 14px !important;
+                color:var(--text-color) !important;
+            }
+            .main-text{
+                font-weight: bold;
+                font-size: var(--web-primary-text) !important; 
+            }
+            .text-expired {
+                padding: 0px 20px 0px 20px;
+            }
+            img{
+                margin: 10px 0px;
+            }
+            #btnConfirmEmail{
+                display:block;
+                margin: 0px auto;
+                width: 40%;
+                height: 48px;
+                color: var(--primary-color) !important;
+                border: 1px solid var(--primary-color);
+                margin-top: 30px;
+                text-align: center;
+                letter-spacing: 0.17px;
+                border-radius: 8px;
+            }
+            #btnResentEmail{
+                display:block;
+                margin: 0px auto;
+                width: 100%;
+                height: 48px;
+                color:white !important;
+                border: none;
+                margin-top: 30px;
+                text-align: center;
+                letter-spacing: 0.17px;
+                border-radius: 8px;
+                background-color: var(--primary-color);
+            }
+        }
+            
+            
+        .FormFooter{
+            color: white;
+            font-size: 16px;
+            @include media-breakpoint('xs') {
+                font-size: 11px;
+            }
+            margin-bottom: 0px;
+        }
+    }
+}

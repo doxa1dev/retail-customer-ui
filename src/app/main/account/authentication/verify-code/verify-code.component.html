@@ -1,0 +1,78 @@
+<div  id="verify" fxLayout="column">
+
+    <div id="verify-form-wrapper"  fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="verify-form"  [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div id="FormTitle">
+                <div class="formLogo">
+                    <img src="assets/images_doxa/thermomix-logo.png">
+                </div>
+                <div class="fromLanguage">
+                    <button mat-icon-button [matMenuTriggerFor]="languagues">
+                        <mat-icon>language</mat-icon>
+                        <p style="margin: 0px; font-size: var(--mobi-label);">{{showLanguage}}</p>
+                    </button>
+                </div>
+                <mat-menu  #languagues="matMenu" [overlapTrigger]="false">
+                    <button mat-menu-item (click)="getLanguge('en')">English</button>
+                    <button mat-menu-item (click)="getLanguge('en')">Chinese</button>
+                </mat-menu>
+            </div>
+            <div id="notConfirmVerify" *ngIf="isShow">
+                <div id="VerifyTitle">
+                    <button mat-icon-button (click)="back()">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
+                    <p class="verifyText">{{ 'VERIFY_CODE.VERIFICATION_CODE' | translate }}</p>
+                </div>
+                <p class="verify-text">{{ 'VERIFY_CODE.OTP_HAS_BEEN' | translate }}</p>
+                
+                <div class="CODE">
+                    <form name="otpForm" [formGroup]="otpForm" novalidate>
+                        <input #input1 formControlName="input1" type="text" numbersOnly placeholder="0" maxlength="1" (input)="onInputEntry($event, input2)">
+                        <input #input2 formControlName="input2" type="text" numbersOnly placeholder="0" maxlength="1" (input)="onInputEntry($event, input3)">
+                        <input #input3 formControlName="input3" type="text" numbersOnly placeholder="0" maxlength="1" (input)="onInputEntry($event, input4)">
+                        <input #input4 formControlName="input4" type="text" numbersOnly placeholder="0" maxlength="1" (input)="onInputEntry($event, input5)">
+                        <input #input5 formControlName="input5" type="text" numbersOnly placeholder="0" maxlength="1" (input)="onInputEntry($event, input6)">
+                        <input #input6 formControlName="input6" type="text" numbersOnly placeholder="0" maxlength="1" >
+                    </form>
+                </div>
+                
+                <p class="verify-text" *ngIf="count !== 0">{{ 'VERIFY_CODE.SMS_SENT' | translate }}<countdown [config]="{leftTime: 300}"   (event)="onTimerFinished($event)"></countdown>{{ 'VERIFY_CODE.SECOND' | translate }}</p>
+                <p class="verify-text-link" *ngIf="count === 0" (click)="ReSentOTP()"><a>{{ 'VERIFY_CODE.RESEND_OTP' | translate }}</a> </p>
+                <button mat-button class="btnVerify" (click)="Verify()">{{ 'VERIFY_CODE.VERIFY' | translate }}</button>
+                <div *ngIf="ShowMessage == true">
+                    <p style="color: red; font-weight: bolder;"> {{message}}</p>
+                </div>
+                
+                <div class="imgVerify">
+                    <img src="assets/images_doxa/undraw_two_factor_authentication_namy.svg" alt="">
+                </div>
+            </div>
+            
+
+            <div id="confirmVerify"   fxLayout="column" *ngIf="!isShow">
+            
+                <div  fxLayout="column" fxLayoutAlign="center center">
+            
+                    <div  [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                        <p class="confirmVerify-bold" *ngIf="!checkChangeEmail">{{ 'VERIFY_CODE.SIGN_UP_SUCCESS' | translate }}</p>
+                        <p  class="confirmVerify-light" *ngIf="!checkChangeEmail">{{ 'VERIFY_CODE.CHECK_YOUR_MAIL' | translate }}</p>
+
+                        <p class="confirmVerify-bold" *ngIf="checkChangeEmail">{{ 'VERIFY_CODE.CHANGE_EMAIL_SUCCESS' | translate }}</p>
+                        <p  class="confirmVerify-light" *ngIf="checkChangeEmail">{{ 'VERIFY_CODE.CHANGE_EMAIL_TEXT' | translate }}</p>
+
+                        <img src="assets/images_doxa/undraw_done.svg" alt="">
+                        <button id="btnConfirmVerify" mat-button (click)="backToLogin()">{{ 'VERIFY_CODE.BACK' | translate }}</button>
+                    </div>
+            
+                </div>
+            
+            </div>
+        </div>
+        
+        <h2 class="FormFooter">{{ 'VERIFY_CODE.POWERED_BY_DOXA' | translate }}</h2>
+    </div>
+
+</div>

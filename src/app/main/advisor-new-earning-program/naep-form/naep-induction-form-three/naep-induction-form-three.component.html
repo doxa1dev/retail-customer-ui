@@ -1,0 +1,236 @@
+<div style="width: 100%;">
+  <div class="naep-form-three">
+    <div class="header">
+      <app-title [type]="title" [message]="'NAEP.FILL_NAEP_FORM'" [link]="'/advisor-earning-program'" ></app-title>
+    </div>
+    <div class="form-body">
+      <div class="title"> {{'NAEP.NAEP_INDUCTION_FORM' | translate}}
+      </div>
+      <div class="title-bar">
+        <p>{{'NAEP.CHECK_LIST' | translate}}</p>
+      </div>
+      <form action="" [formGroup]="formCheckList">
+        <div class="check-list">
+  
+          <div class="custom-control custom-checkbox">
+            <div class="title-list">
+              <mat-checkbox style="margin-left: 20px; " formControlName="checkbox1"></mat-checkbox>
+              <!-- <input type="checkbox" class="custom-control-input" > -->
+              <label class="custom-control-label"> {{'NAEP.CHECK_LIST_1' | translate}}</label>
+            </div>
+  
+            <div class="textbox">
+              <p> {{'NAEP.CHECKLIST_1B' | translate}}</p>
+              <p> {{'NAEP.CHECKLIST_1A' | translate}}</p>
+            </div>
+          </div>
+          <mat-error class="error-message" style="padding-left: 10px; padding-left: 20px;" 
+          *ngIf="formCheckList.get('checkbox1').hasError('required') && isCheck">
+          {{ 'NAEP.FORM_REQUIRE' | translate }}
+          </mat-error>
+  
+          <div class="custom-control custom-checkbox">
+            <div class="title-list">
+              <mat-checkbox style="margin-left: 20px; " formControlName="checkbox2"></mat-checkbox>
+              <!-- <input type="checkbox" class="custom-control-input" > -->
+              <label class="custom-control-label"> {{'NAEP.CHECK_LIST_2' | translate}}</label>
+            </div>
+  
+            <div class="textbox">
+              <p> {{'NAEP.CHECKLIST_2A' | translate}}</p>
+              <p> {{'NAEP.CHECKLIST_2B' | translate}}</p>
+            </div>
+          </div>
+          <mat-error class="error-message" style="padding-left: 10px; padding-left: 20px;"  
+          *ngIf="formCheckList.get('checkbox2').hasError('required') && isCheck">
+          {{ 'NAEP.FORM_REQUIRE' | translate }}
+          </mat-error>
+  
+          <div class="custom-control custom-checkbox">
+            <div class="title-list">
+              <!-- <input type="checkbox" class="custom-control-input"  > -->
+              <mat-checkbox style="margin-left: 20px; " formControlName="checkbox3"></mat-checkbox>
+              <label class="custom-control-label"> {{'NAEP.CHECK_LIST_3' | translate}}</label>
+            </div>
+  
+            <div class="textbox">
+              <p> {{'NAEP.CHECKLIST_3A' | translate}}</p>
+              <p> {{'NAEP.CHECKLIST_3B' | translate}}</p>
+            </div>
+          </div>
+          <mat-error class="error-message" style="padding-left: 10px; padding-left: 20px;"  
+          *ngIf="formCheckList.get('checkbox3').hasError('required') && isCheck">
+          {{ 'NAEP.FORM_REQUIRE' | translate }}
+          </mat-error>
+  
+          <div class="custom-control custom-checkbox">
+            <div class="title-list">
+              <!-- <input type="checkbox" class="custom-control-input" > -->
+              <mat-checkbox style="margin-left: 20px; " formControlName="checkbox4"></mat-checkbox>
+              <label class="custom-control-label"> {{'NAEP.CHECK_LIST_4' | translate}}</label>
+            </div>
+  
+            <div class="textbox">
+              <p style="margin-bottom: 15px;"> {{'NAEP.CHECKLIST_4A' | translate}}</p>
+            </div>
+  
+            <div class="date-time">
+              <label for="date1">{{'NAEP.DATE' | translate}}</label>
+              <input type="date" placeholder="{{'NAEP.DD/MM/YY' | translate}}" class="form-control" id="date1"  
+              aria-label="24hr format" formControlName="dateCheckbox1">
+            </div>
+            <!-- check error -->
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('dateCheckbox1').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>          
+  
+            <div class="date-time">
+              <label for="time1" class="col-sm-2 col-form-label">{{'NAEP.TIME' | translate}}</label>
+              <input type="text" placeholder="{{'NAEP.TIME_PLACEHOLDER' | translate}}" class="form-control" id="time1" 
+              formControlName="timeCheckbox1"
+              [ngxTimepicker]="demo1" [format]="12"  readonly>
+              <ngx-material-timepicker [theme]="darkTheme" #demo1 ></ngx-material-timepicker>
+            </div>
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('timeCheckbox1').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>
+  
+            <div class="textbox">
+              <p style="margin-bottom: 15px;"> {{'NAEP.CHECKLIST_4B' | translate}}</p>
+            </div>
+  
+            <div class="date-time">
+              <label for="date2">{{'NAEP.DATE' | translate}}</label>
+              <input type="date" placeholder="{{'NAEP.DD/MM/YY' | translate}}" class="form-control" id="date2"
+               formControlName="dateCheckbox2">
+            </div>
+            <!-- check error -->
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('dateCheckbox2').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>          
+  
+            <div class="date-time">
+              <label for="time2" class="col-sm-2 col-form-label">{{'NAEP.TIME' | translate}}</label>
+              <input type="text" placeholder="{{'NAEP.TIME_PLACEHOLDER' | translate}}" class="form-control" 
+              id="time2" formControlName="timeCheckbox2"
+              [ngxTimepicker]="demo2" [format]="12" readonly>
+              <ngx-material-timepicker [theme]="darkTheme" #demo2 ></ngx-material-timepicker>
+            </div>
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('timeCheckbox2').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>          
+  
+            <div class="textbox">
+              <p style="margin-bottom: 15px;"> {{'NAEP.CHECKLIST_4C' | translate}}</p>
+            </div>
+  
+            <div class="date-time">
+              <label for="date3">{{'NAEP.DATE' | translate}}</label>
+              <input type="date" placeholder="{{'NAEP.DD/MM/YY' | translate}}" class="form-control" 
+              id="date3" formControlName="dateCheckbox3">
+            </div>
+            <!-- check error -->
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('dateCheckbox3').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>
+  
+            <div class="date-time">
+              <label for="time3" class="col-sm-2 col-form-label">{{'NAEP.TIME' | translate}}</label>
+              <input type="text" placeholder="{{'NAEP.TIME_PLACEHOLDER' | translate}}" class="form-control" 
+              id="time3" formControlName="timeCheckbox3"
+              [ngxTimepicker]="demo3" [format]="12" readonly>
+              <ngx-material-timepicker [theme]="darkTheme" #demo3></ngx-material-timepicker>
+            </div>
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('timeCheckbox3').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>          
+  
+            <div class="textbox">
+              <p style="margin-bottom: 15px;"> {{'NAEP.CHECKLIST_4D' | translate}}</p>
+            </div>
+  
+            <div class="date-time">
+              <label for="date4">{{'NAEP.DATE' | translate}}</label>
+              <input type="date" placeholder="{{'NAEP.DD/MM/YY' | translate}}" class="form-control" 
+              id="date4"  formControlName="dateCheckbox4">
+            </div>
+            <!-- check error -->
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('dateCheckbox4').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>
+  
+            <div class="date-time">
+              <label for="time4" class="col-sm-2 col-form-label">{{'NAEP.TIME' | translate}}</label>
+              <input type="text" placeholder="{{'NAEP.TIME_PLACEHOLDER' | translate}}" class="form-control"
+               id="time4" formControlName="timeCheckbox4"
+              [ngxTimepicker]="demo4" [format]="12" readonly>
+              <ngx-material-timepicker [theme]="darkTheme" #demo4></ngx-material-timepicker>
+            </div>
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 50px;"  
+            *ngIf="formCheckList.get('timeCheckbox4').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>           
+  
+            <div class="title-list">
+              <mat-checkbox style="margin-left: 20px; " formControlName="checkbox5"></mat-checkbox>
+              <label class="custom-control-label"> {{'NAEP.CHECK_LIST_5' | translate}}</label>
+            </div>
+            <mat-error class="error-message" style="padding-left: 10px; padding-left: 20px;"  
+            *ngIf="formCheckList.get('checkbox5').hasError('required') && isCheck">
+            {{ 'NAEP.FORM_REQUIRE' | translate }}
+            </mat-error>  
+          </div>
+        </div>
+        <!---check list 4 -->
+  
+        <div class="title-bar">
+          <p>{{'NAEP.ACKNOWLEDGEMENT' | translate}}</p>
+        </div>
+  
+        <div class="new-partner">
+  
+          <div class="title-list">
+            <mat-checkbox style="margin-left: 20px; " formControlName="checkbox6"></mat-checkbox>
+            <label class="custom-control-label"> {{'NAEP.ACKNOWLEDGEMENT_DETAIL' | translate}}</label>
+          </div>
+  
+          <div class="date-time-2">
+            <label for="date5">{{'NAEP.DATE' | translate}}</label>
+            <input type="date" placeholder="{{'NAEP.DD/MM/YY' | translate}}" class="form-control" 
+            formControlName="dateCheckbox6" id="date5">
+          </div>
+          <mat-error class="error-message" style="padding-left: 10px; padding-left: 20px;"  
+          *ngIf="formCheckList.get('dateCheckbox6').hasError('required') && isCheck">
+          {{ 'NAEP.FORM_REQUIRE' | translate }}
+          </mat-error>
+        </div> 
+        <!-- check error -->
+        <mat-error class="error-message" style="padding-left: 10px; padding-left: 20px;"  
+        *ngIf="formCheckList.get('checkbox6').hasError('required') && isCheck">
+        {{ 'NAEP.FORM_REQUIRE' | translate }}
+        </mat-error>       
+       
+  
+        <div class="btn-group">
+  
+          <div class="btn-back">
+            <button (click)="backStep()">{{'NAEP.BTN_BACK' | translate}}</button>
+          </div>
+          <div class="btn-next">
+            <button  (click)="nextStep()">{{'NAEP.BTN_FINISH' | translate}}</button>
+          </div>
+        </div>
+  
+      </form>
+    </div>
+  </div>
+
+  <app-bottom-navigation></app-bottom-navigation>
+</div>

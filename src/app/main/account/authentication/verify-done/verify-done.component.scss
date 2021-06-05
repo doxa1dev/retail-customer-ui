@@ -1,0 +1,179 @@
+@import "src/@fuse/scss/fuse";
+#verify
+{
+    width: 100%;
+    background: url('assets/images_doxa/background.jpg') no-repeat;
+    background-size: cover;
+    
+    #verify-form-wrapper{
+        flex: 1 0 auto;
+        @include media-breakpoint('xs') {
+            padding: 16px;
+        }
+        #verify-form {
+            background-color: white;
+            opacity: 1;
+            width: 384px;
+            max-width: 384px;
+            padding: 24px;
+            text-align: center;
+            // min-height: 90vh;
+            @include mat-elevation(16);
+
+            @include media-breakpoint('xs') {
+                padding: 24px;
+                width: 100%;
+            }
+            #FormTitle{
+                display: block;
+                position: relative;
+                padding: 0px;
+                min-height: 40px;
+                .formLogo {
+                width: 144px;
+                margin: 0px auto;
+                display: inline-block;
+                vertical-align: middle;
+                }
+                .fromLanguage{
+                    color: green;
+                    display: block;
+                    position: absolute;
+                    top: -5px;
+                    right:-10px;
+                }
+                margin-bottom: 20px;
+            }
+            #notConfirmVerify{
+                #VerifyTitle{
+                padding: 0px;
+                display: inline-block;
+                justify-content: center;
+                position: relative;
+                width: 100%;
+                button {
+                    position: absolute;
+                    top: 50%;
+                    left: 0%;
+                    transform: translate(-50%, -50%);
+                }
+                .verifyText{
+                    display: inline;
+                    text-align: center;
+                    font-size: 24px;
+                    @include media-breakpoint("xs") {
+                        font-size: 16px;
+                    }
+                    color: var(--primary-color);
+                    font-weight: 550;
+                    letter-spacing: 0.08px;
+                    opacity: 1;
+                }
+            }
+            .verify-text,.verify-text-link{
+                width: 100%;
+                text-align: center;
+                font-size: 16px;
+                padding: 0px ;
+                @include media-breakpoint('xs') {
+                    font-size: 11px ;
+                }
+                a{
+                    text-decoration: none !important;
+                    color: var(--link-color) !important;
+                }
+            }
+            .verify-text-link{
+                cursor: pointer;
+            }
+            .CODE{
+                text-align: center;
+                form{
+                    input{
+                        padding: 15px 0px;
+                        font-size: 20px;
+                        font-weight: 400;
+                        width: 30px;
+                        margin: 5px;
+                        color: var(--text-color) !important;
+                        border-bottom: solid 2px black;
+                        text-align: center;
+                    }
+                    ::placeholder{
+                        color: var(--placeholder-color) !important;
+                    }
+                }
+            }
+            p{
+                margin-top: 40px;
+                padding: 0px 24px;
+                font-size: 12px;
+                color: var(--text-color);
+            }
+            }
+            
+            
+        .btnVerify{
+            display:block;
+            margin: 0px auto;
+            width: 90%;
+            height: 48px;
+            background-color: var(--primary-color) ;
+            color: white;
+            margin-top: 50px;
+            text-align: center;
+            letter-spacing: 0.17px;
+            border-radius: 12px;
+        }
+        .imgVerify{
+            display: block;
+            width: 240px;
+            height: 150px;
+            margin: 75px auto;
+            padding-bottom: 20px;
+        }
+        }
+          
+        #confirmVerify{
+            margin-bottom: 50px;
+            color: var(--border-color) !important;
+            .confirmVerify-bold{
+                font-size: 18px !important;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+            .confirmVerify-light{
+                font-size: 14px !important;
+            }
+            img{
+                margin: 10px 0px;
+            }
+            #btnConfirmVerify{
+                display:block;
+                margin: 0px auto;
+                margin-bottom: 150px;
+                width: 30%;
+                height: 48px;
+                color: var(--primary-color) !important;
+                border: 1px solid var(--primary-color);
+                margin-top: 30px;
+                text-align: center;
+                letter-spacing: 0.17px;
+                border-radius: 8px;
+                @include media-breakpoint('xs') {
+                    width: 60%;
+                }
+            }
+        }
+            
+            
+        .FormFooter{
+            color: white;
+            font-size: 16px;
+            @include media-breakpoint('xs') {
+                font-size: 11px;
+            }
+            margin-bottom: 0px;
+        }
+    }
+}

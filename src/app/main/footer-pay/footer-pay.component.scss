@@ -1,0 +1,122 @@
+.FormFooter {
+    background-color: var(--yellow-background);
+    width: 100%;
+    height: auto;
+    margin-top: 0px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    display: flex;
+    position: sticky !important;
+    bottom: 0;
+    
+    .inForm {
+        width: 80%;
+        display: block;
+        // background-color: cornflowerblue;
+        margin: 0px auto;
+        padding: auto;
+        height: auto;
+
+        @media only screen and (min-width : 750px) {
+            font-size: 18px !important;
+            width: 70% !important;
+        }
+
+
+        .order {
+            display: block;
+
+            // background-color: darkorange;
+            margin-top: 12px;
+            
+            p {
+                font-size: 10pt;
+                padding-bottom: 5px;
+                @media only screen and (max-width : 350px) {
+                    font-size: 10px !important;
+                }
+
+                @media only screen and (min-width : 750px) {
+                    font-size: 18px !important;
+                }
+            }
+
+            .grid2 {
+                .amount {
+                    // background-color: darkorange;
+                    width: 60%;
+                    display: block;
+                    // margin-top: -10px;
+
+                    .table {
+                        width: 100%;
+                        display: flex;
+                        
+                        .col-left{
+                            font-weight: bold;
+                            margin-left: auto;
+                        }
+                        .col-right{
+                            font-weight: bold;
+                            text-align: right;
+                            margin-left: auto;
+                            
+                            p{
+                                height: auto;
+                                word-wrap: break-word !important;
+                                word-break: keep-all !important;
+                                float: right;
+                            }
+                        }
+                    }
+
+                    .total {
+                        // background-color: blue;
+                        font-weight: bold;
+                        font-size: 12px;
+                        color: var(--red-color);
+                        width: 100%;
+                        margin-right: auto;
+                        margin-top: 7px;
+                        text-align: right;
+
+                        @media only screen and (max-width : 350px) {
+                            // width: 80% !important;
+                            font-size: 11px !important;
+                        }
+
+                        @media only screen and (min-width : 750px) {
+                            font-size: 18px !important;
+                        }
+                    }
+                }
+
+                .button-pay {
+                    // background-color: yellow;
+                    width: 50%;
+                    font-size: 12px;
+                    display: block;
+                    // position: relative;
+                    max-width: 350px;
+                    .PAY-button {
+                        // font-size: 12pt;
+                        margin-left: auto;
+                        top: 50%;
+                        left: 50%;
+                        // position: absolute;
+                        transform: translate(-50%, -50%);
+                        display: block;
+                        background-color: var(--primary-color);
+                        color: white;
+                        height: 40px;
+                        width: 80%;
+
+                        @media only screen and (max-width : 350px) {
+                            font-size: 9px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

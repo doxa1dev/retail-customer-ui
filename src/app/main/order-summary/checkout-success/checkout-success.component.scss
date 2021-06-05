@@ -1,0 +1,52 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+
+.checkout-success{
+  @include background();
+
+  .content{
+
+    background-color: white;
+    border: solid 20px var(--fuse-background) !important;
+    
+    @include media-breakpoint("xs") {
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 8px var(--fuse-background) !important;
+        font-size: 13px;
+    }
+  
+    height: 80%;
+     display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    color: var(--text-color);
+    text-align: center;
+    .success{
+      margin-top: 50px;
+      margin-bottom: 15px;
+    }
+    .congrat{
+      margin-top: 15px;
+      text-transform: uppercase;
+    }
+    & img {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    .text-success {
+      font-size: 14px;
+      padding-top: 32px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+  }
+}

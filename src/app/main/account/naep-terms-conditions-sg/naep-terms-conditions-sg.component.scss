@@ -1,0 +1,123 @@
+@import "src/@fuse/scss/fuse";
+
+.terms-conditions-sg {
+    width:100%;
+    height:100%;
+    background-color: white;
+    color: var(--text-color);
+    // color: black;
+    font-size: var(--web-primary-text);
+    border: solid 20px var(--fuse-background) !important;
+    padding-bottom: 20px;
+
+    @include media-breakpoint("xs") {
+        font-size: var(--mobi-primary-text);
+        border-left: solid 15px var(--fuse-background) !important;
+        border-right: solid 15px var(--fuse-background) !important;
+        border-top: solid 8px var(--fuse-background) !important;
+        // border-bottom: solid 8px var(--fuse-background) !important;
+        border-bottom: solid 70px var(--fuse-background) !important;
+    }
+
+    .header-terms-conditions-sg {
+        padding: 35px 35px 15px 35px;
+
+        .header-top {
+            display: flex;
+            padding-bottom: 20px;
+
+            img {
+                width: 50%;
+                object-fit: contain;
+            }
+
+            .title-right {
+                width: 100%;
+                padding-left: 10%;
+
+                p {
+                    font-weight: 600;
+                    font-size: 25px !important;
+                    text-align: left;
+                    color: var(--text-color);
+                    // color: black;
+                    margin: 0px;
+        
+                    @include media-breakpoint("xs") {
+                        font-size: var(--mobi-title-text) !important;
+                    }
+                }
+            }   
+        }
+
+        .line {
+            width: 100%;
+            height: 5px;
+            background-color: rgb(29, 29, 27);
+            margin-bottom: 5px;
+        }
+
+        .header-bottom {
+
+            table {
+                width: 100%;
+                border: 0.5px solid rgb(188, 188, 188);
+
+                tr {
+                    th {
+                        height: 15px;
+                        background-color: rgb(29, 29, 27);
+                    }
+
+                    td {
+                        border: 0.5px solid rgb(188, 188, 188);
+                        text-align: center;
+                        padding: 5px;
+                    }
+                }
+
+                .hd-table {
+                    td {
+                        background-color: rgb(157, 157, 156);
+                    }
+                }
+
+                .td-color {
+                    td {
+                        background-color: rgb(212, 212, 212);
+                    }
+                }
+            }
+        }
+    }
+
+    .content-terms-conditions-sg {
+        padding: 0px 35px 35px 35px;
+
+        .title-term-conditions {
+            font-weight: bold;
+        }
+
+        p {
+            // font-weight: 600;
+            font-size: var(--web-primary-text) !important;
+            text-align: left;
+            color: var(--text-color);
+            // color: black;
+            margin: 5px 0px;
+            line-height: 1.5;
+
+            @include media-breakpoint("xs") {
+                font-size: var(--mobi-title-text) !important;
+            }
+        }
+    }
+}
+
+app-bottom-navigation {
+    display: none;
+  
+    @include media-breakpoint("xs") {
+        display: unset;
+    }
+  }

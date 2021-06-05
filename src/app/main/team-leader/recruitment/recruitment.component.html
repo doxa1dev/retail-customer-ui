@@ -1,0 +1,15 @@
+<div class="content">
+    <app-title [type]="title" [message]="'TEAM_LEADER.TITLE'">
+    </app-title>
+    <div class="body-advisor-recruitment">
+        <span class="text-submission_history">{{ 'TEAM_LEADER.HEADER' | translate }}</span>
+
+        <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-balham advisor-all"
+            [rowData]="listRecruitArray" [columnDefs]="columnAdvisor" floatingFilter=true rowSelection="multiple"
+            [gridOptions]="gridOptions"
+            [singleClickEdit]=true [defaultColDef]="defaultColDef" (gridReady)="onGridReady($event)"
+            (gridSizeChanged)="onGridSizeChanged($event)">
+        </ag-grid-angular>
+    </div>
+
+</div>

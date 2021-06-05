@@ -1,0 +1,89 @@
+@import "src/@fuse/scss/fuse";
+@import "../../../../@fuse/scss/partials/background";
+
+.payment-continue {
+    @include background();
+
+    .content {
+        @include backgroundPage();
+        height: 80%;
+        @include media-breakpoint("xs") {
+            padding-top: 13px !important;
+        }
+
+        .header {
+            padding-bottom: 54px;
+            .icon-back {
+                padding-right: 7px;
+                padding-top: 1px;
+            }
+        }
+
+        .complete-payment {
+            width: 100%;
+            height: 100%;
+            color: var(--text-color);
+
+            & img {
+              margin-left: auto;
+              margin-right: auto;
+              display: block;
+            }
+            .text1-complete-payment {
+              font-size: 14px;
+              padding-top: 32px;
+              display: block;
+              text-align: center;
+              padding-bottom: 40px;
+            }
+            & button {
+              cursor: pointer;
+              width: 100%;
+              height: 48px;
+              border: 0px solid;
+              background-color: var(--primary-color);
+              color: #ffffff;
+              font-size: 14px;
+              border-radius: 8px;
+              display: block;
+              text-align: center;
+              margin: 0px auto;
+            }
+          }
+    }
+    .pay-continue {
+      cursor: pointer;
+      text-align: center;
+      // margin-top: 8px;
+      // margin-bottom: 4px;
+      border: solid 0px;
+      border-radius: 8px;
+      color: white;
+      font-size: var(--web-primary-text);
+      width: 100%;
+      height: 45px;
+      background-color: var(--primary-color);
+      @include media-breakpoint("xs") {
+          font-size: var(--mobi-primary-text);
+      }
+    }
+
+    .pay-installment {
+      cursor: pointer;
+      text-align: center;
+      // margin-top: 8px;
+      // margin-bottom: 4px;
+      border: solid 0px;
+      border-radius: 8px;
+      color: white;
+      font-size: var(--web-primary-text);
+      width: 100%;
+      height: 45px;
+      background-color: var(--primary-color);
+
+      @include media-breakpoint("xs") {
+          font-size: var(--mobi-primary-text);
+      }
+    }
+
+}

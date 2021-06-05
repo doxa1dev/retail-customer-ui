@@ -1,0 +1,40 @@
+<div style="width: 100%;">
+    <div class="container">
+        <div class="branch-manager">
+            <div class="link">
+                <app-title [type]="title" [message]="'ROOM_STATUS.ROOM_STATUS'">
+                </app-title>
+            </div>
+            <div class="content">
+                <div id="select-date">
+                    <p>{{ 'ROOM_STATUS.SELECT_DATE' | translate }}</p>
+                    <div id="calender">
+                        <p-calendar #day (onSelect)="onChangeDate($event)" dateFormat="DD, dd/mm/yy"  [showIcon]="true" [(ngModel)]="todayDate"></p-calendar>
+                    </div>
+                </div>
+                <div  id="table-content">
+    
+                </div>
+                <div *ngFor="let room of allRoom, let i = index">
+                    <h2 class="a1">{{i+1}}. {{room.room_name}}</h2>
+                    <div class="table" >
+                        <mat-card *ngFor="let item of room.slots, " id="card{{item.id}}">
+                            <mat-card-header>
+                                <mat-card-title>{{item.slot_description}}</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content >
+                                <p id="s{{item.id}}">&nbsp;</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div id="room{{i}}">
+    
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

@@ -1,0 +1,17 @@
+@mixin background {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: var(--fuse-background);
+}
+
+@mixin backgroundPage {
+    font-size: 18px;
+    padding: 22px;
+    margin: 20px;
+    background-color: white;
+    @include media-breakpoint("xs") {
+        padding-top: 10px;
+        font-size: 12px;
+        margin: 8px 15px 8px 15px;
+    }
+}

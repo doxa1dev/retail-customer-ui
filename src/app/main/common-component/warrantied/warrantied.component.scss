@@ -1,0 +1,95 @@
+.warrantied-product {
+  font-size: var(--mobi-small-button-text);
+  padding-left: 16px;
+  color: var(--text-color);
+  .content {
+    max-height: 230px;
+    padding-bottom: 11px;
+    .product-img {
+      object-fit: contain;
+      // max-height: 200px;
+      flex: none !important;
+    }
+
+    .product-info {
+      padding-left: 15px;
+
+      .product-name {
+        margin: 0px;
+        color: var(--primary-color);
+      }
+
+      .product-price {
+        font-weight: 600;
+        margin-top: 0px;
+        margin-bottom: 9px;
+        color: var(--red-color);
+      }
+
+      .product-date {
+        padding-left: 5px;
+      }
+
+      .line {
+        margin-right: 16px;
+        margin-top: 16px;
+        height: 0.5px;
+        background-color: rgb(157, 157, 157);
+      }
+    }
+  }
+
+  .body {
+    .body-name {
+      .name-info {
+        p {
+          margin: 0px;
+        }
+
+        .serial-number {
+          padding-top: 10px;
+        }
+
+      }
+    }
+
+    .status {
+      height: 30px;
+      .warranty {
+        margin: 10px 0px 0px 0px;
+        font-size: var(--mobi-medium-button-text);
+        font-weight: 600;
+        font-style: italic;
+      }
+
+      .warranty-data {
+        padding-left: 15px;
+        margin: 10px 0px 0px 0px;
+        padding-top: 4px;
+      }
+    }
+
+    .name-data {
+      padding-left: 15px;
+
+      p {
+        margin: 0px;
+      }
+
+      .advisor-name {
+        word-break: break-all;
+        width: 155px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+
+      .serial-number-data {
+        padding-top: 10px;
+      }
+
+    }
+  }
+}

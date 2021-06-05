@@ -1,0 +1,47 @@
+<div style="width: 100%;">
+    <div class="container">
+        <div class="content">
+            <div class="activities">
+                <app-title [type]="title" [message]="'ACTIVITIES.ADVISOR'">
+                </app-title>
+            </div>
+            <div class="thermomix">
+                <div id="top">
+                    <p>{{ 'ACTIVITIES.THERMOMIX_LIVE' | translate }}</p>
+                </div>
+    
+                <div id="center">
+                    <p (click)="navigateToPending()">{{pending}}{{ 'ACTIVITIES.PEDING' | translate }}</p>
+                </div>
+            
+                <div id="bottom">
+                    <div id="left">
+                        <p (click)="navigateToUpcoming()">{{upcoming}}{{ 'ACTIVITIES.UPCOMING' | translate }}</p>
+                    </div>
+            
+                    <div id="right">
+                        <p (click)="navigateToCompleted()">{{completed}}{{ 'ACTIVITIES.COMPLETED' | translate }}</p>
+                    </div>
+                </div>
+    
+                <div id="reject">
+                    <p (click)="navigateToReject()">{{rejected}} {{ 'ACTIVITIES.REJECTED' | translate }}</p>
+                </div>
+            </div>
+            
+            <div class="img">
+                <img id="logo" src="assets/images_doxa/undraw_teaching_f1cm.png" alt="">
+            </div>
+            
+            <div class="button">
+                <button (click)="navigateToCreateActivity()" mat-raised-button color="primary" class="create-button"
+                    aria-label="View">
+                    {{ 'ACTIVITIES.CREATE_ACTIVITY' | translate }}
+                </button>
+            </div>
+        </div>
+        
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>

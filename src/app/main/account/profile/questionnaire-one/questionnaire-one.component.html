@@ -1,0 +1,334 @@
+<div style="width: 100%;">
+    <div class="questione-one-content">
+        <div class="heading-query-form">
+            <!-- <span class="dot">●</span>
+            <span class="text-query-form">{{ 'QUESTIONNAIRE_ONE.QUERY_FORM' | translate }}</span> -->
+    
+            <app-title [type]="title" [message]="'QUESTIONNAIRE_ONE.GUEST_QUESTION'"></app-title>
+        </div>
+    
+    
+        <div id="query" fxLayout="column">
+            <div id="query-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+                <div id="query-form">
+                    <div class="title">{{ 'QUESTIONNAIRE_ONE.GUEST_QUESTIONNAIRE_1' | translate }}</div>
+    
+                    <form name="queryForm" [formGroup]="queryForm" novalidate (ngSubmit)="onSubmit()">
+                        <div *ngIf="false">
+                            <div>
+                                <mat-radio-group formControlName="userType">
+                                    <mat-radio-button *ngFor="let userType of userTypes" [value]="userType.id">
+                                        <mat-label>{{userType.text}}</mat-label>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <p></p>
+    
+                            <mat-label class="secondary-text">{{ 'QUESTIONNAIRE_ONE.NAME' | translate }}</mat-label>
+                            <mat-form-field appearance="none">
+                                <input matInput formControlName="name">
+                                <div *ngIf="queryForm.get('name').hasError('required')
+                                        && (queryForm.get('name').dirty || queryForm.get('name').touched)">
+                                    <app-alert>
+                                        <p>{{ 'QUESTIONNAIRE_ONE.NAME_REQUIRED' | translate }}</p>
+                                    </app-alert>
+                                </div>
+                            </mat-form-field>
+    
+                            <mat-label class="secondary-text">{{ 'QUESTIONNAIRE_ONE.EMAIL' | translate }}</mat-label>
+                            <mat-form-field appearance="none">
+                                <input matInput formControlName="email">
+                                <div *ngIf="queryForm.get('email').hasError('required')
+                                        && (queryForm.get('email').dirty || queryForm.get('email').touched)">
+                                    <app-alert>
+                                        <p>{{ 'QUESTIONNAIRE_ONE.EMAIL_REQUIRED' | translate }}</p>
+                                    </app-alert>
+                                </div>
+                            </mat-form-field>
+    
+                            <mat-label class="secondary-text">{{ 'QUESTIONNAIRE_ONE.ADDRESS' | translate }}</mat-label>
+                            <mat-form-field appearance="none">
+                                <input matInput formControlName="address">
+                                <div *ngIf="queryForm.get('address').hasError('required')
+                                        && (queryForm.get('address').dirty || queryForm.get('address').touched)">
+                                    <app-alert>
+                                        <p>{{ 'QUESTIONNAIRE_ONE.ADDRESS_REQUIRED' | translate }}</p>
+                                    </app-alert>
+                                </div>
+                            </mat-form-field>
+    
+                            <mat-label class="secondary-text">{{ 'QUESTIONNAIRE_ONE.POSTAL_CODE' | translate }}</mat-label>
+                            <mat-form-field appearance="none">
+                                <input matInput formControlName="postalCode">
+                                <div *ngIf="queryForm.get('postalCode').hasError('required')
+                                        && (queryForm.get('postalCode').dirty || queryForm.get('postalCode').touched)">
+                                    <app-alert>
+                                        <p>{{ 'QUESTIONNAIRE_ONE.POSTAL_CODE_REQUIRED' | translate }}</p>
+                                    </app-alert>
+                                </div>
+                            </mat-form-field>
+    
+                            <mat-label class="secondary-text">{{ 'QUESTIONNAIRE_ONE.PHONE_NUMBER' | translate }}</mat-label>
+                            <div id="phoneNumber">
+                                <div id="phoneCode">
+                                    <app-dialCode [SelectedDial]="selectedDialCode"></app-dialCode>
+                                </div>
+                                <mat-form-field appearance="none" id="phoneNum">
+                                    <input matInput formControlName="phoneNum">
+                                </mat-form-field>
+                                <div id="alertPhoneNumber">
+                                    <div *ngIf="queryForm.get('phoneNum').hasError('required')
+                                            && (queryForm.get('phoneNum').dirty || queryForm.get('phoneNum').touched)">
+                                        <app-alert>
+                                            <p>{{ 'QUESTIONNAIRE_ONE.PHONE_NUMBER_REQUIRED' | translate }}</p>
+                                        </app-alert>
+                                    </div>
+                                    <div *ngIf="!queryForm.get('phoneNum').hasError('required')
+                                            && queryForm.get('phoneNum').hasError('phoneNum')
+                                            && (queryForm.get('phoneNum').dirty || queryForm.get('phoneNum').touched)">
+                                        <app-alert>
+                                            <p>{{ 'QUESTIONNAIRE_ONE.PHONE_NUMBER_MUST_BE_A_NUMBER' | translate }}</p>
+                                        </app-alert>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="footer-btn">
+                                <button mat-raised-button class="query-form-btn back-cancel-btn" aria-label="CANCEL"
+                                [routerLink]="['/my-profile']" type="button">
+                                {{ 'QUESTIONNAIRE_ONE.CANCEL' | translate }}
+                                </button>
+                                <button mat-raised-button color="accent" class="query-form-btn green-right-btn"
+                                aria-label="NEXT" (click)="onNextPage()" type="button">
+                                {{ 'QUESTIONNAIRE_ONE.NEXT' | translate }}
+                                </button>
+                            </div>
+                        </div>
+    
+                        <div *ngIf="true">
+                            <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_ONE.1_FOR_YOU' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <div formArrayName="p2q1"
+                                    *ngFor="let p2q1Control of queryForm['controls'].p2q1['controls']; let i = index"
+                                    class="checkbox-padding-5px">
+                                    <mat-checkbox [formControlName]="i">
+                                        <mat-label>{{p2q1data[i].text}}</mat-label>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <div *ngIf="queryForm.get('p2q1').hasError('required')
+                                    && (queryForm.get('p2q1').dirty || queryForm.get('p2q1').touched)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.SELECTION_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+    
+                            <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_ONE.2_HOW_DO' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <div formArrayName="p2q2"
+                                    *ngFor="let p2q2Control of queryForm['controls'].p2q2['controls']; let i = index"
+                                    [ngClass]="{'checkbox-padding-5px' : true, 'checkbox-inline-block' : i == queryForm['controls'].p2q2['controls'].length - 1}">
+                                    <mat-checkbox [formControlName]="i" [id]="'p2q2-'+i">
+                                        <mat-label>{{p2q2data[i].text}}</mat-label>
+                                    </mat-checkbox>
+                                </div>
+                                <div class="others-text-field">
+                                    <mat-form-field appearance="none">
+                                        <input matInput formControlName="p2q2Text"
+                                            placeholder="{{ 'QUESTIONNAIRE_ONE.TELL_US_MORE' | translate }}">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div *ngIf="queryForm.get('p2q2').hasError('required')
+                                    && (queryForm.get('p2q2').dirty || queryForm.get('p2q2').touched)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.SELECTION_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+                            <div
+                                *ngIf="queryForm.get('p2q2Text').hasError('required')
+                                    && (queryForm.get('p2q2Text').dirty || queryForm.get('p2q2Text').touched
+                                    || queryForm['controls'].p2q2['controls'][queryForm['controls'].p2q2['controls'].length - 1].value === true)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.REASON_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+    
+                            <mat-label class="secondary-text green-label">
+                                {{ 'QUESTIONNAIRE_ONE.3_WHAT_PRODUCTS' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <div formArrayName="p2q3"
+                                    *ngFor="let p2q3Control of queryForm['controls'].p2q3['controls']; let i = index"
+                                    class="checkbox-padding-5px">
+                                    <mat-checkbox [formControlName]="i">
+                                        <mat-label>{{p2q3data[i].text}}</mat-label>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <div *ngIf="queryForm.get('p2q3').hasError('required')
+                                    && (queryForm.get('p2q3').dirty || queryForm.get('p2q3').touched)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.SELECTION_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+    
+                            <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_ONE.4_HOW_OFTEN' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <mat-radio-group formControlName="p2q4">
+                                    <mat-radio-button *ngFor="let option of p2q4data" [value]="option.id">
+                                        <mat-label class="black-label">{{option.text}}</mat-label>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+    
+                            <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_ONE.5_FOR_HOW' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <mat-radio-group formControlName="p2q5">
+                                    <mat-radio-button *ngFor="let option of p2q5data" [value]="option.id">
+                                        <mat-label class="black-label">{{option.text}}</mat-label>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+    
+                            <mat-label class="secondary-text green-label">
+                                {{ 'QUESTIONNAIRE_ONE.6_WHICH_MEALS' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <div formArrayName="p2q6"
+                                    *ngFor="let p2q6Control of queryForm['controls'].p2q6['controls']; let i = index"
+                                    class="checkbox-padding-5px">
+                                    <mat-checkbox [formControlName]="i">
+                                        <mat-label>{{p2q6data[i].text}}</mat-label>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <div *ngIf="queryForm.get('p2q6').hasError('required')
+                                    && (queryForm.get('p2q6').dirty || queryForm.get('p2q6').touched)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.SELECTION_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+    
+                            <mat-label class="secondary-text green-label">
+                                {{ 'QUESTIONNAIRE_ONE.7_WHAT_DO' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <div formArrayName="p2q7"
+                                    *ngFor="let p2q7Control of queryForm['controls'].p2q7['controls']; let i = index"
+                                    class="checkbox-padding-5px">
+                                    <mat-checkbox [formControlName]="i">
+                                        <mat-label>{{p2q7data[i].text}}</mat-label>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <div *ngIf="queryForm.get('p2q7').hasError('required')
+                            && (queryForm.get('p2q7').dirty || queryForm.get('p2q7').touched)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.SELECTION_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+                            <!-- <mat-form-field appearance="none">
+                                <input matInput formControlName="p2q7"
+                                    placeholder="{{ 'QUESTIONNAIRE_ONE.TELL_US_MORE' | translate }}">
+                                <div *ngIf="queryForm.get('p2q7').hasError('required')
+                                        && (queryForm.get('p2q7').dirty || queryForm.get('p2q7').touched)">
+                                    <app-alert>
+                                        <p>{{ 'QUESTIONNAIRE_ONE.ENTRY_REQUIRED' | translate }}</p>
+                                    </app-alert>
+                                </div>
+                            </mat-form-field> -->
+    
+                            <mat-label class="secondary-text green-label">
+                                {{ 'QUESTIONNAIRE_ONE.8_DOES_ANYONE' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <div formArrayName="p2q8"
+                                    *ngFor="let p2q8Control of queryForm['controls'].p2q8['controls']; let i = index"
+                                    [ngClass]="{'checkbox-padding-5px' : true, 'checkbox-inline-block' : i == queryForm['controls'].p2q8['controls'].length - 1}">
+                                    <mat-checkbox [formControlName]="i" [id]="'p2q8-'+i">
+                                        <mat-label>{{p2q8data[i].text}}</mat-label>
+                                    </mat-checkbox>
+                                </div>
+                                <div class="others-text-field">
+                                    <mat-form-field appearance="none">
+                                        <input matInput formControlName="p2q8Text"
+                                            placeholder="{{ 'QUESTIONNAIRE_ONE.TELL_US_MORE' | translate }}">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div *ngIf="queryForm.get('p2q8').hasError('required')
+                                    && (queryForm.get('p2q8').dirty || queryForm.get('p2q8').touched)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.SELECTION_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+                            <div
+                                *ngIf="queryForm.get('p2q8Text').hasError('required')
+                                    && (queryForm.get('p2q8Text').dirty || queryForm.get('p2q8Text').touched
+                                    || queryForm['controls'].p2q8['controls'][queryForm['controls'].p2q8['controls'].length - 1].value === true)">
+                                <app-alert>
+                                    <p>{{ 'QUESTIONNAIRE_ONE.REASON_REQUIRED' | translate }}</p>
+                                </app-alert>
+                            </div>
+    
+                            <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_ONE.9_DO_YOU' | translate }}
+                            </mat-label>
+                            <div class="options-container">
+                                <mat-radio-group formControlName="p2q9">
+                                    <mat-radio-button *ngFor="let option of p2q9data" [value]="option.id" (change)="radioChange($event)">
+                                        <mat-label class="black-label">{{option.text}}</mat-label>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+    
+    
+                            <div *ngIf="is_show_model">
+                                <mat-label class="secondary-text green-label">{{ 'QUESTIONNAIRE_ONE.MODEL' | translate }}
+                                </mat-label>
+                                <div class="options-container">
+                                    <mat-radio-group formControlName="p2q9Model">
+                                        <mat-radio-button *ngFor="let option of p2q9dataModel" [value]="option.id">
+                                            <mat-label class="black-label">{{option.text}}</mat-label>
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            
+    
+                            
+    
+                            <div class="footer-btn">
+                                <!-- <button mat-raised-button class="query-form-btn back-cancel-btn" aria-label="BACk"
+                                (click)="onPrevPage()" *ngIf="!isPersonalInfoFilled" type="button">
+                                {{ 'QUESTIONNAIRE_ONE.BACK' | translate }}
+                                </button> -->
+    
+                                <!-- <button mat-raised-button class="query-form-btn back-cancel-btn" aria-label="CANCEL"
+                                [routerLink]="['/my-profile']" *ngIf="isPersonalInfoFilled" type="button">
+                                {{ 'QUESTIONNAIRE_ONE.CANCEL' | translate }}
+                                </button> -->
+    
+                                <button mat-raised-button class="query-form-btn back-cancel-btn" aria-label="CANCEL"
+                                [routerLink]="['/my-profile']" type="button">
+                                {{ 'QUESTIONNAIRE_ONE.CANCEL' | translate }}
+                                </button>
+    
+                                <button mat-raised-button color="accent" class="query-form-btn green-right-btn"
+                                aria-label="SUBMIT" type="submit" >
+                                {{ 'QUESTIONNAIRE_ONE.FINISH' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-bottom-navigation></app-bottom-navigation>
+</div>
