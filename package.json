@@ -7,6 +7,7 @@
         "start": "ng serve --open",
         "start-hmr": "ng serve --configuration hmr --source-map=false --hmr-warning=false",
         "start-hmr-sourcemaps": "ng serve --configuration hmr --source-map=true --hmr-warning=false",
+        "fix-memory-limit": "cross-env LIMIT=2048 increase-memory-limit",
         "build": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --dev",
         "build-stats": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --dev --stats-json",
         "build-prod": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --prod",
@@ -121,6 +122,8 @@
         "ts-node": "8.3.0",
         "tslint": "5.18.0",
         "typescript": "3.7.5",
-        "webpack-bundle-analyzer": "^3.6.1"
+        "webpack-bundle-analyzer": "^3.6.1",
+        "increase-memory-limit": "^1.0.3",
+        "cross-env": "^5.0.5"
     }
 }
